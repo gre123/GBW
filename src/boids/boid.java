@@ -39,7 +39,7 @@ public class boid {
     vector2d pos=new vector2d(0,0);
     int k=0;
     double sDist;
-     if (type==0 ||boids.isEmpty()){return value;}
+     if (type==2 || type==0 ||boids.isEmpty()){return value;}
     for(int i=0;i<boids.size();i++){//poprawic getdistance do innej klasy ma byc
         sDist=this.position.getSDistance(boids.get(i));
        if (sDist<minimalDistance*minimalDistance){
@@ -61,7 +61,7 @@ public class boid {
     vector2d value=new vector2d(0,0);
     
     vector2d pos=new vector2d(0,0);
-     if (boids.size()==0 || type==0){return value;}
+     if (type==2 || boids.size()==0 || type==0){return value;}
     for(int i=0;i<boids.size();i++){
            pos.add(boids.get(i).velocity);
     }
@@ -77,7 +77,7 @@ public class boid {
     double ratioDistance=0;
    // ArrayList<boid> leaders= new ArrayList<boid>();
    
-    if (type==0 ||boids.isEmpty()){
+    if (type==2 || type==0 ||boids.isEmpty()){
         return value;}
      boid leader=null;
     int k=0;double dist=1;
@@ -101,10 +101,26 @@ public class boid {
     }else{return value;}
 
    }
+    
+    //--------------------------------------------
+    /**
+     * Udaje zachowanie wobec drapieżnika
+     * 
+     * @param boids
+     * @return 
+     */
+    public vector2d predator(ArrayList<boid> boids){
+        vector2d wynik;
+        wynik=PBehaviour.escapeP(this, boids);
+        return wynik;
+    }
+    
+    //--------------------------------------------
+    
     public vector2d cohesion(ArrayList<boid> boids){
     vector2d value=new vector2d(0,0);
     vector2d pos=new vector2d(0,0);
-    if (type==0 ||boids.size()==0){return value;}
+    if (type==2 || type==0 ||boids.size()==0){return value;}
     for(int i=0;i<boids.size();i++){
         pos.add(boids.get(i).position);
     }

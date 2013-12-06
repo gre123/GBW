@@ -24,7 +24,7 @@ public class boidsFabric {
         maxAccel=_maxAccel;
     }
     
-    public ArrayList<boid> createBoids(int n){
+    public ArrayList<boid> createBoids(int n,int np){
         Random randGen = new Random();
         for(int i=0;i<n;i++){
             boids.add(new boid(randGen.nextInt(1095),randGen.nextInt(680)));
@@ -36,6 +36,15 @@ public class boidsFabric {
             boids.get(i).maxForce=maxAccel; 
             }
         }
+        //--------------------------------------
+        //Jeden drapieżnik na razie 
+       for(int j=0;j<np;j++)
+       {
+         boids.get(j).type=2;
+         boids.get(j).radius=15;
+         boids.get(j).velocity=new vector2d(randGen.nextInt(9)-6,randGen.nextInt(9)-6);
+       }
+        //---------------------------------------
         return boids;
     }
     

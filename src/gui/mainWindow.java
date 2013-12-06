@@ -62,6 +62,11 @@ public boidsFabric fabric=null;
         sldMaxAccel = new javax.swing.JSlider();
         lblMaxSpeed = new javax.swing.JLabel();
         lblMaxAccel = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        sldPredCof = new javax.swing.JSlider();
+        lblPred = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        textNumPred = new javax.swing.JSpinner();
         jLabel8 = new javax.swing.JLabel();
         sldAnimSpeed = new javax.swing.JSlider();
         jLabel9 = new javax.swing.JLabel();
@@ -226,6 +231,21 @@ public boidsFabric fabric=null;
 
         lblMaxAccel.setText("0");
 
+        jLabel15.setText("Escape predator");
+
+        sldPredCof.setMaximum(3000);
+        sldPredCof.setValue(500);
+        sldPredCof.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sldPredCofStateChanged(evt);
+            }
+        });
+
+        lblPred.setText("jLabel16");
+        lblPred.setText(Double.toString(sldPredCof.getValue()/(double)100));
+
+        jLabel16.setText("Ilość drapieżników:");
+
         javax.swing.GroupLayout setPanelLayout = new javax.swing.GroupLayout(setPanel);
         setPanel.setLayout(setPanelLayout);
         setPanelLayout.setHorizontalGroup(
@@ -243,6 +263,7 @@ public boidsFabric fabric=null;
                     .addComponent(jSeparator1)
                     .addComponent(sldMaxSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(sldMaxAccel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(sldPredCof, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(setPanelLayout.createSequentialGroup()
                         .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(startButton, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
@@ -277,21 +298,29 @@ public boidsFabric fabric=null;
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblRand))
                             .addGroup(setPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(46, 46, 46)
-                                .addComponent(txtNumSwarm))
-                            .addGroup(setPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(setPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblMaxSpeed))
                             .addGroup(setPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblMaxAccel)))
-                        .addContainerGap())))
+                                .addComponent(lblMaxAccel))
+                            .addGroup(setPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblPred))
+                            .addGroup(setPanelLayout.createSequentialGroup()
+                                .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel16))
+                                .addGap(10, 10, 10)
+                                .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(textNumPred)
+                                    .addComponent(txtNumSwarm))))
+                        .addContainerGap())
+                    .addGroup(setPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         setPanelLayout.setVerticalGroup(
             setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -342,9 +371,19 @@ public boidsFabric fabric=null;
                 .addComponent(sldRandCof, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(lblPred))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sldPredCof, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(textNumPred, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
                 .addGroup(setPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtNumSwarm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -404,12 +443,11 @@ public boidsFabric fabric=null;
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(setPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(setPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(sldAnimSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8)
@@ -443,7 +481,7 @@ public boidsFabric fabric=null;
             
             this.startButton.setText("Zatrzymaj symulację");
             mainBoids.simul= new symulacja(mainBoids.boids);
-            mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000);
+            mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
             mainBoids.simul.setNeightParametrs(sldAngle.getValue()/(double)1000,sldNeigh.getValue()/(double)10);
             mainBoids.simul.setAnimSpeed(sldAnimSpeed.getValue());
             mainBoids.simul.setRandCof(sldRandCof.getValue()/(double)1000);
@@ -466,7 +504,7 @@ public boidsFabric fabric=null;
     private void btnGenStadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenStadoActionPerformed
        fabric= new boidsFabric();
        fabric.setBoidsParametrs(sldMaxSpeed.getValue()/100d,sldMaxAccel.getValue()/10d);
-       mainBoids.boids=fabric.createBoids(Integer.parseInt(this.txtNumSwarm.getText()));
+       mainBoids.boids=fabric.createBoids(Integer.parseInt(this.txtNumSwarm.getText()),(int)this.textNumPred.getValue());
        ptr=new panel(mainBoids.boids);
        this.add(ptr);  
        ptr.repaint();
@@ -479,28 +517,28 @@ public boidsFabric fabric=null;
     private void sldAliCofStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldAliCofStateChanged
         lblAli.setText(Double.toString(sldAliCof.getValue()/(double)1000));
         if (mainBoids.simul!=null){
-         mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000);
+         mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
        }
     }//GEN-LAST:event_sldAliCofStateChanged
 
     private void sldSepCofStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldSepCofStateChanged
        lblSep.setText(Double.toString(sldSepCof.getValue()/(double)1000));
         if (mainBoids.simul!=null){
-         mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000);
+         mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
        }
     }//GEN-LAST:event_sldSepCofStateChanged
 
     private void sldCohCofStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldCohCofStateChanged
        lblCoh.setText(Double.toString(sldCohCof.getValue()/(double)1000));
         if (mainBoids.simul!=null){
-        mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000);
+        mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
        }
     }//GEN-LAST:event_sldCohCofStateChanged
 
     private void sldLeadCofStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldLeadCofStateChanged
      lblLead.setText(Double.toString(sldLeadCof.getValue()/(double)1000));
         if (mainBoids.simul!=null){
-        mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000);
+        mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
        }
     }//GEN-LAST:event_sldLeadCofStateChanged
 
@@ -532,6 +570,17 @@ public boidsFabric fabric=null;
     private void sldMaxAccelStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldMaxAccelStateChanged
        lblMaxAccel.setText(Double.toString(sldMaxAccel.getValue()/(double)10));
     }//GEN-LAST:event_sldMaxAccelStateChanged
+
+    private void sldPredCofStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldPredCofStateChanged
+      //------------------------------------------------------------------------
+      //Uaktualnianie wartości z suwaczka odnosnie ucieczki
+        lblPred.setText(Double.toString(sldPredCof.getValue()/(double)100));
+        if (mainBoids.simul!=null){
+        mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
+       }
+      //--------------------------------------------------------------------------
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sldPredCofStateChanged
 
     /**
      * @param args the command line arguments
@@ -579,6 +628,8 @@ public boidsFabric fabric=null;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -595,6 +646,7 @@ public boidsFabric fabric=null;
     private javax.swing.JLabel lblMaxAccel;
     private javax.swing.JLabel lblMaxSpeed;
     private javax.swing.JLabel lblNeigh;
+    private javax.swing.JLabel lblPred;
     private javax.swing.JLabel lblRand;
     private javax.swing.JLabel lblSep;
     private javax.swing.JPanel setPanel;
@@ -606,9 +658,11 @@ public boidsFabric fabric=null;
     private javax.swing.JSlider sldMaxAccel;
     private javax.swing.JSlider sldMaxSpeed;
     private javax.swing.JSlider sldNeigh;
+    private javax.swing.JSlider sldPredCof;
     private javax.swing.JSlider sldRandCof;
     private javax.swing.JSlider sldSepCof;
     private javax.swing.JButton startButton;
+    private javax.swing.JSpinner textNumPred;
     private javax.swing.JLabel txtFPS;
     private javax.swing.JFormattedTextField txtNumSwarm;
     // End of variables declaration//GEN-END:variables

@@ -13,7 +13,7 @@ import math.vector2d;
 public class symulacja {
   ArrayList<boid> boids;
   public boolean continueSimulation;
-  double cofSep,cofAli,cofCoh,leadCof,randCof;
+  double cofSep,cofAli,cofCoh,leadCof,randCof,cofPred;
   double timeStep;
   int animSpeed;
   public double katWidzenia;
@@ -56,8 +56,8 @@ public class symulacja {
   }
   return neigh;//to tylko pogladowo narazie
   }
-  public void setParametrs(double aCof,double sCof,double cCof,double lCof){
-      cofSep=sCof;cofAli=aCof;cofCoh=cCof;leadCof=lCof;
+  public void setParametrs(double aCof,double sCof,double cCof,double lCof,double pCof){
+      cofSep=sCof;cofAli=aCof;cofCoh=cCof;leadCof=lCof;cofPred=pCof;
   }
   public void setRandCof(double rCof){
       randCof=rCof;
@@ -76,7 +76,7 @@ public class symulacja {
       long start=System.currentTimeMillis();
       long end;
       long time;
-      vector2d sep,ali,coh,lead,rand;
+      vector2d sep,ali,coh,lead,rand,pred;
       ArrayList<boid> tempBoids;
       while(continueSimulation){
       end=start;
@@ -100,12 +100,15 @@ public class symulacja {
           coh= boids.get(i).cohesion(tempBoids);
           lead= boids.get(i).followLeader(tempBoids);
           rand=new vector2d(randGen.nextDouble()*2-1,randGen.nextDouble()*2-1);
+          pred=boids.get(i).predator(tempBoids);
           sep.multi(cofSep);
           ali.multi(cofAli);
           coh.multi(cofCoh);
           lead.multi(leadCof);
           rand.multi(randCof);
-          boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand));
+          pred.multi(cofPred);
+          
+          boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred));
        }
        for(int i=0;i<boids.size();i++){
          boids.get(i).applyForce(timeStep);
