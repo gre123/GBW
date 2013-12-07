@@ -17,7 +17,7 @@ public class boid {
     double radius;
     double maxSpeed;
     double maxForce;
-    int type;
+    int type,eats;
     double katWidzenia;
     double minimalDistance;
     public boid(double  x,double y){
@@ -31,6 +31,7 @@ public class boid {
        // angle=randGen.nextDouble()*360;
         minimalDistance=15;
         type=1;
+        eats=-1;
         katWidzenia=0.5;
         
     }
@@ -39,7 +40,7 @@ public class boid {
     vector2d pos=new vector2d(0,0);
     int k=0;
     double sDist;
-     if (type==2 || type==0 ||boids.isEmpty()){return value;}
+     if (type==3 || type==2 || type==0 ||boids.isEmpty()){return value;}
     for(int i=0;i<boids.size();i++){//poprawic getdistance do innej klasy ma byc
         sDist=this.position.getSDistance(boids.get(i));
        if (sDist<minimalDistance*minimalDistance){
@@ -61,7 +62,7 @@ public class boid {
     vector2d value=new vector2d(0,0);
     
     vector2d pos=new vector2d(0,0);
-     if (type==2 || boids.size()==0 || type==0){return value;}
+     if (type==3 || type==2 || boids.size()==0 || type==0){return value;}
     for(int i=0;i<boids.size();i++){
            pos.add(boids.get(i).velocity);
     }
@@ -77,7 +78,7 @@ public class boid {
     double ratioDistance=0;
    // ArrayList<boid> leaders= new ArrayList<boid>();
    
-    if (type==2 || type==0 ||boids.isEmpty()){
+    if (type==3 || type==2 || type==0 || boids.isEmpty()){
         return value;}
      boid leader=null;
     int k=0;double dist=1;
@@ -112,15 +113,20 @@ public class boid {
     public vector2d predator(ArrayList<boid> boids){
         vector2d wynik;
         wynik=PBehaviour.escapeP(this, boids);
+      
         return wynik;
     }
-    
+     public vector2d predHunt(ArrayList<boid> pred,ArrayList<boid> boids,ArrayList<boid> wszystkie){
+         vector2d wynik;
+         wynik=PBehaviour.huntP(this, boids,pred,wszystkie);
+         return wynik;
+     }
     //--------------------------------------------
     
     public vector2d cohesion(ArrayList<boid> boids){
     vector2d value=new vector2d(0,0);
     vector2d pos=new vector2d(0,0);
-    if (type==2 || type==0 ||boids.size()==0){return value;}
+    if (type==3 || type==2 || type==0 ||boids.size()==0){return value;}
     for(int i=0;i<boids.size();i++){
         pos.add(boids.get(i).position);
     }

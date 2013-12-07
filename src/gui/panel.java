@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
  
 public class panel extends JPanel {
-    public ArrayList<boid> boids;
-    public panel(ArrayList<boid> _boids) {
+    public ArrayList<boid> boids,prey;
+    public panel(ArrayList<boid> _boids, ArrayList<boid> _prey) {
         setPreferredSize(new Dimension(1100, 685));
         boids=_boids;
+        prey=_prey;
         setSize(1100, 685);
         setBackground(Color.getHSBColor(0.5f, 0.14f, 1));
         setLocation(11, 11);
@@ -39,13 +40,29 @@ public class panel extends JPanel {
                     g2d.setColor(Color.red);
                 }
                 
+                
                 Ellipse2D circle = new Ellipse2D.Double(x, y, r,r);
                 g2d.fill(circle);
                 g2d.draw(circle);
             } 
             
         }
+        if (boids!=null || !prey.isEmpty()){
+            for(int i=0;i<prey.size();i++){
+               double x=prey.get(i).getX();
+               double y=prey.get(i).getY();
+               double r=prey.get(i).getR();
+               g2d.setColor(Color.gray); 
+               
+               Ellipse2D circle = new Ellipse2D.Double(x, y, r,r);
+               g2d.fill(circle);
+               g2d.draw(circle);
+                
+            }
+        }
+        
+        }
+        
 }  
     
     
-}

@@ -12,6 +12,7 @@ public class mainBoids {
     
     public static mainWindow mainWin=null;
     public static ArrayList<boid> boids;
+    public static ArrayList<boid> prey;
     public static symulacja simul=null;
     public static void main(String[] args){
        

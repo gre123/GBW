@@ -3,9 +3,10 @@
 
 package gui;
 
+import boids.boid;
 import boids.boidsFabric;
 import boids.mainBoids;
-import static boids.mainBoids.boids;
+import java.util.ArrayList;
 import simulation.symulacja;
 import simulation.threadSym;
 
@@ -480,7 +481,7 @@ public boidsFabric fabric=null;
         if(mainBoids.simul==null || mainBoids.simul.continueSimulation==false){
             
             this.startButton.setText("Zatrzymaj symulację");
-            mainBoids.simul= new symulacja(mainBoids.boids);
+            mainBoids.simul= new symulacja(mainBoids.boids,mainBoids.prey);
             mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
             mainBoids.simul.setNeightParametrs(sldAngle.getValue()/(double)1000,sldNeigh.getValue()/(double)10);
             mainBoids.simul.setAnimSpeed(sldAnimSpeed.getValue());
@@ -505,7 +506,8 @@ public boidsFabric fabric=null;
        fabric= new boidsFabric();
        fabric.setBoidsParametrs(sldMaxSpeed.getValue()/100d,sldMaxAccel.getValue()/10d);
        mainBoids.boids=fabric.createBoids(Integer.parseInt(this.txtNumSwarm.getText()),(int)this.textNumPred.getValue());
-       ptr=new panel(mainBoids.boids);
+       mainBoids.prey=new ArrayList<boid>();
+       ptr=new panel(mainBoids.boids,mainBoids.prey);
        this.add(ptr);  
        ptr.repaint();
     }//GEN-LAST:event_btnGenStadoActionPerformed

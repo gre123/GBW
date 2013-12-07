@@ -11,7 +11,7 @@ import math.vector2d;
  * @author Tomek
  */
 public class symulacja {
-  ArrayList<boid> boids;
+  ArrayList<boid> boids,prey;
   public boolean continueSimulation;
   double cofSep,cofAli,cofCoh,leadCof,randCof,cofPred;
   double timeStep;
@@ -24,11 +24,12 @@ public class symulacja {
    timeStep=1;//pozniej zmienic
    animSpeed=10;
   }
-  public symulacja(ArrayList<boid> _boids){
+  public symulacja(ArrayList<boid> _boids, ArrayList<boid> _prey ){
       cofSep=1;cofAli=1;cofCoh=1;randCof=1;
    continueSimulation=false;
     timeStep=1;//pozniej zmienic
   boids=_boids;
+  prey=_prey;
   animSpeed=10;
   }
   public void addBoid(boid agt){
@@ -76,7 +77,7 @@ public class symulacja {
       long start=System.currentTimeMillis();
       long end;
       long time;
-      vector2d sep,ali,coh,lead,rand,pred;
+      vector2d sep,ali,coh,lead,rand,pred,predH;
       ArrayList<boid> tempBoids;
       while(continueSimulation){
       end=start;
@@ -94,6 +95,7 @@ public class symulacja {
       timeStep=((double)time)/(55-animSpeed);
        
        for(int i=0;i<boids.size();i++){
+           
           tempBoids=getNeighbourhood(boids.get(i));
           sep= boids.get(i).spearate(tempBoids);
           ali= boids.get(i).alignment(tempBoids);
@@ -101,6 +103,7 @@ public class symulacja {
           lead= boids.get(i).followLeader(tempBoids);
           rand=new vector2d(randGen.nextDouble()*2-1,randGen.nextDouble()*2-1);
           pred=boids.get(i).predator(tempBoids);
+          predH=boids.get(i).predHunt(prey,tempBoids,boids);
           sep.multi(cofSep);
           ali.multi(cofAli);
           coh.multi(cofCoh);
@@ -108,11 +111,14 @@ public class symulacja {
           rand.multi(randCof);
           pred.multi(cofPred);
           
-          boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred));
+          if(boids.get(i).getType()==2) rand=new vector2d(0,0);
+          
+            boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred).add(predH));
        }
+       
        for(int i=0;i<boids.size();i++){
-         boids.get(i).applyForce(timeStep);
-         boids.get(i).move(timeStep);
+            boids.get(i).applyForce(timeStep);
+            boids.get(i).move(timeStep);
        }
        double fps=0;
        if (time!=0){
@@ -120,6 +126,7 @@ public class symulacja {
        }
        mainBoids.mainWin.setFPS((int)fps);
        mainBoids.mainWin.ptr.repaint( );
+     //  System.out.println(prey.size());
       }
   }
 }
