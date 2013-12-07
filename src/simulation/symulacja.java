@@ -44,6 +44,9 @@ public class symulacja {
       double mian;
       double k2;
   for(int i=0;i<boids.size();i++){
+      if  (osobnik.getPosition().getSDistance(boids.get(i))<(10*10) &&osobnik!=boids.get(i) ){
+       neigh.add(boids.get(i));continue;//jezeli jest bardzo blisko to widzi go nawet za plecami
+      }
       if ( osobnik.getPosition().getSDistance(boids.get(i))<(radiusNeigh*radiusNeigh) &&osobnik!=boids.get(i) ){
           if (osobnik.getVelocity().getLength()<osobnik.getMaxSpeed()/10){//jesli osobnik sie prawie nie porusza to ma oczy dookola glowy
               neigh.add(boids.get(i));
@@ -100,6 +103,7 @@ public class symulacja {
           sep= boids.get(i).spearate(tempBoids);
           ali= boids.get(i).alignment(tempBoids);
           coh= boids.get(i).cohesion(tempBoids);
+          //lead= boids.get(i).followLeader(boids);//to ladnie wyglada ale chyba nie jest poprawne
           lead= boids.get(i).followLeader(tempBoids);
           rand=new vector2d(randGen.nextDouble()*2-1,randGen.nextDouble()*2-1);
           pred=boids.get(i).predator(tempBoids);
@@ -110,7 +114,9 @@ public class symulacja {
           lead.multi(leadCof);
           rand.multi(randCof);
           pred.multi(cofPred);
-          
+//          if (lead.getLength()>0){
+//          System.out.println("s"+sep.getLength()+"c"+coh.getLength()+"l"+lead.getLength()+"a"+ali.getLength());
+//          }
           if(boids.get(i).getType()==2) rand=new vector2d(0,0);
           
             boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred).add(predH));

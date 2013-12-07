@@ -95,9 +95,12 @@ public class boid {
     }
     if (leader!=null){
     pos=leader.getPosition().getVec();
+  //  pos.minus(leader.getVelocity().getVec().normalize().multi(50));
     value=pos.minus(this.position);
-    if (dist>10){return value.div(dist);}
-    else return value;
+   
+    if (dist>20){return value.div(dist).normalize();}
+  //  else if (dist<20){return new vector2d(0,0);}
+    else return value.normalize();
     
     }else{return value;}
 
