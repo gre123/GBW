@@ -1,7 +1,6 @@
 package boids;
 
 import static java.lang.StrictMath.abs;
-import static java.lang.StrictMath.sqrt;
 import java.util.ArrayList;
 import java.util.Random;
 import math.vector2d;
@@ -13,6 +12,8 @@ public class boid {
     vector2d position;
     vector2d velocity;
     vector2d acceleration;//to moze niepotrzebne
+    int koszX;
+    int koszY;
     double angle;
     double radius;
     double maxSpeed;
@@ -29,7 +30,7 @@ public class boid {
         maxSpeed=1;
         maxForce=0.5;
        // angle=randGen.nextDouble()*360;
-        minimalDistance=15;
+        minimalDistance=13;
         type=1;
         eats=-1;
         katWidzenia=0.5;
@@ -73,20 +74,19 @@ public class boid {
     } 
     public vector2d followLeader(ArrayList<boid> boids){
     vector2d value=new vector2d(0,0);
-    
     vector2d pos=new vector2d(0,0);
-    double ratioDistance=0;
+    boid leader=null;
    // ArrayList<boid> leaders= new ArrayList<boid>();
    
     if (type==3 || type==2 || type==0 || boids.isEmpty()){
         return value;}
-     boid leader=null;
-    int k=0;double dist=1;
-    double minDist=100000;
+     
+    double dist=1;
+    double minDist=100000000;
     for(int i=0;i<boids.size();i++){
        if (boids.get(i).type==0){
            //pos.add(boids.get(i).getPosition());
-           dist=this.getPosition().getDistance(boids.get(i));
+           dist=this.getPosition().getSDistance(boids.get(i));
            if(dist<minDist){
            leader=boids.get(i);
            minDist=dist;
@@ -94,13 +94,36 @@ public class boid {
        }
     }
     if (leader!=null){
+    ////  
+//      double alfa=leader.calcAngle();
+//      double mian;
+//      double k2;
+// 
+//      if ( leader.getPosition().getSDistance(this)<(40*40)){//zmienic wartosci
+//
+//             mian=(this.getX()-leader.getX());
+//          if (mian==0){mian=0.0000000001;}
+//              k2=Math.atan((this.getY()-leader.getY())/mian);
+//          if(abs(alfa-k2)<1){
+//              
+//              vector2d a =leader.getPosition().getVec().minus(this.position);
+//              vector2d b =leader.getVelocity().getVec().normalize().multi(10);
+//              value=a.add(b);
+//             
+//             // pos=leader.getPosition().getVec();value=pos.minus(this.position);
+//             //value.multi(-1);
+//              return value.normalize();
+//          }
+// 
+//      }
+//  
+    ////    
     pos=leader.getPosition().getVec();
-  //  pos.minus(leader.getVelocity().getVec().normalize().multi(50));
+   // pos.minus(leader.getVelocity().getVec().normalize().multi(15));
     value=pos.minus(this.position);
    
-    if (dist>20){return value.div(dist).normalize();}
-  //  else if (dist<20){return new vector2d(0,0);}
-    else return value.normalize();
+    if (dist>15){return value.div(dist);}
+    else return value.normalize().multi(dist/15);
     
     }else{return value;}
 
@@ -162,7 +185,7 @@ public class boid {
         if (position.getX()>maxX){position.setX(0+position.getX()-maxX);}
         if (position.getY()<0){position.setY(maxY+position.getY());}
         if (position.getY()>maxY){position.setY(0+position.getY()-maxY);}
-       
+        
     }
     public double calcAngle(){
         double k1=0;
@@ -204,5 +227,21 @@ public class boid {
     }
     public int getType(){
     return type;
+    }
+    public boolean setBucket(int _x,int _y){
+        if (koszX==_x && koszY==_y){return false;}
+    koszX=_x;
+    koszY=_y;
+    return true;
+    }
+    public boolean checkBucketXY(int _x,int _y){
+        if (koszX==_x && koszY==_y){return false;}
+        return true;
+    }
+    public int getBucketX(){
+        return koszX;
+    }
+    public int getBucketY(){
+        return koszY;
     }
 }

@@ -45,7 +45,7 @@
               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtFPS" min="-2" pref="60" max="-2" attributes="0"/>
-              <EmptySpace type="separate" pref="609" max="32767" attributes="0"/>
+              <EmptySpace type="separate" pref="600" max="32767" attributes="0"/>
               <Component id="setPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
           </Group>
@@ -348,7 +348,7 @@
           <Properties>
             <Property name="maximum" type="int" value="3000"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
-            <Property name="value" type="int" value="1000"/>
+            <Property name="value" type="int" value="800"/>
           </Properties>
           <Events>
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sldAliCofStateChanged"/>
@@ -358,7 +358,7 @@
           <Properties>
             <Property name="maximum" type="int" value="3000"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
-            <Property name="value" type="int" value="1000"/>
+            <Property name="value" type="int" value="1200"/>
           </Properties>
           <Events>
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sldSepCofStateChanged"/>
@@ -368,7 +368,7 @@
           <Properties>
             <Property name="maximum" type="int" value="3000"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
-            <Property name="value" type="int" value="1000"/>
+            <Property name="value" type="int" value="500"/>
           </Properties>
           <Events>
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sldCohCofStateChanged"/>

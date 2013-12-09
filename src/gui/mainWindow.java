@@ -16,6 +16,8 @@ import simulation.threadSym;
 public class mainWindow extends javax.swing.JFrame {
 public panel ptr=null;
 public boidsFabric fabric=null;
+double[] tabFPS = new double[10];
+      int tabIter=0;
     public mainWindow() {
         initComponents(); 
         setAllLbl();
@@ -124,7 +126,7 @@ public boidsFabric fabric=null;
 
         sldAliCof.setMaximum(3000);
         sldAliCof.setToolTipText("");
-        sldAliCof.setValue(1000);
+        sldAliCof.setValue(800);
         sldAliCof.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sldAliCofStateChanged(evt);
@@ -133,7 +135,7 @@ public boidsFabric fabric=null;
 
         sldSepCof.setMaximum(3000);
         sldSepCof.setToolTipText("");
-        sldSepCof.setValue(1000);
+        sldSepCof.setValue(1200);
         sldSepCof.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sldSepCofStateChanged(evt);
@@ -142,7 +144,7 @@ public boidsFabric fabric=null;
 
         sldCohCof.setMaximum(3000);
         sldCohCof.setToolTipText("");
-        sldCohCof.setValue(1000);
+        sldCohCof.setValue(500);
         sldCohCof.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sldCohCofStateChanged(evt);
@@ -437,7 +439,7 @@ public boidsFabric fabric=null;
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFPS, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 609, Short.MAX_VALUE)
+                .addGap(18, 600, Short.MAX_VALUE)
                 .addComponent(setPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5))
         );
@@ -464,6 +466,14 @@ public boidsFabric fabric=null;
     }// </editor-fold>//GEN-END:initComponents
     public void setFPS(int fps){
         double dFPS=(double)fps/100d;
+//        double suma=0;
+//        tabFPS[tabIter]=dFPS;
+//        tabIter++;
+//        if (tabIter>9){tabIter=0;}
+//        for(int i=0;i<10;i++){
+//        suma+=tabFPS[i];
+//        }
+//        suma/=10;
         txtFPS.setText(Double.toString(dFPS));
     }
     private void setAllLbl(){
