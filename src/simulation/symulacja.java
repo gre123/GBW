@@ -117,9 +117,9 @@ public class symulacja {
 //          if (lead.getLength()>0){
 //          System.out.println("s"+sep.getLength()+"c"+coh.getLength()+"l"+lead.getLength()+"a"+ali.getLength());
 //          }
-          if(boids.get(i).getType()==2) rand=new vector2d(0,0);
+           if(boids.get(i).getType()!=2) rand=new vector2d(0,0);
           
-            boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred).add(predH));
+            boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred));
        }
        
        for(int i=0;i<boids.size();i++){

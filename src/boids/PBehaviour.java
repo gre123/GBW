@@ -23,7 +23,7 @@ public class PBehaviour {
         vector2d w=new vector2d(0,0);
         double d;
         
-        if(ten.type!=1||boids.isEmpty()) return pom;
+        if(ten.type==2||boids.isEmpty()) return pom;
         for(int i=0;i<boids.size();i++)
         {
             if(boids.get(i).type==2)
@@ -47,6 +47,7 @@ public class PBehaviour {
         boid naj;
         vector2d poz,pom=new vector2d(0,0);
         Random randGen = new Random();
+        /**
         if(ten.type==2)
         {
             //System.out.println(ten.getAcceleration().getX());
@@ -66,9 +67,10 @@ public class PBehaviour {
                  ten.velocity=new vector2d(0,0);
                  return pom;
             }
+            **/
             pom=new vector2d(randGen.nextDouble()*8-1,randGen.nextDouble()*8-1);
             return pom;
-        }
-        else return pom;
+       // }
+        //else return pom;
     }
 }

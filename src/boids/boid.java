@@ -119,6 +119,13 @@ public class boid {
       
         return wynik;
     }
+    /**
+     * Udaje zachowanie drapieżnika
+     * @param pred
+     * @param boids
+     * @param wszystkie
+     * @return 
+     */
      public vector2d predHunt(ArrayList<boid> pred,ArrayList<boid> boids,ArrayList<boid> wszystkie){
          vector2d wynik;
          wynik=PBehaviour.huntP(this, boids,pred,wszystkie);
