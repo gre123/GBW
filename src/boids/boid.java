@@ -1,8 +1,8 @@
 package boids;
 
-import static java.lang.StrictMath.abs;
 import java.util.ArrayList;
 import java.util.Random;
+import math.trigonometric;
 import math.vector2d;
 
 /**
@@ -15,7 +15,7 @@ public class boid {
     int koszX;
     int koszY;
     double angle;
-    double radius;
+   public double radius;
     double maxSpeed;
     double maxForce;
     int type,eats;
@@ -78,52 +78,26 @@ public class boid {
     boid leader=null;
    // ArrayList<boid> leaders= new ArrayList<boid>();
    
-    if (type==3 || type==2 || type==0 || boids.isEmpty()){
-        return value;}
+    if (type==3 || type==2 || type==0 || boids.isEmpty()){return value;}
      
     double dist=1;
     double minDist=100000000;
     for(int i=0;i<boids.size();i++){
        if (boids.get(i).type==0){
            //pos.add(boids.get(i).getPosition());
-           dist=this.getPosition().getSDistance(boids.get(i));
+           dist=this.getPosition().getDistance(boids.get(i));
            if(dist<minDist){
            leader=boids.get(i);
            minDist=dist;
            }
        }
     }
-    if (leader!=null){
-    ////  
-//      double alfa=leader.calcAngle();
-//      double mian;
-//      double k2;
-// 
-//      if ( leader.getPosition().getSDistance(this)<(40*40)){//zmienic wartosci
-//
-//             mian=(this.getX()-leader.getX());
-//          if (mian==0){mian=0.0000000001;}
-//              k2=Math.atan((this.getY()-leader.getY())/mian);
-//          if(abs(alfa-k2)<1){
-//              
-//              vector2d a =leader.getPosition().getVec().minus(this.position);
-//              vector2d b =leader.getVelocity().getVec().normalize().multi(10);
-//              value=a.add(b);
-//             
-//             // pos=leader.getPosition().getVec();value=pos.minus(this.position);
-//             //value.multi(-1);
-//              return value.normalize();
-//          }
-// 
-//      }
-//  
-    ////    
+    if (leader!=null){  
     pos=leader.getPosition().getVec();
-   // pos.minus(leader.getVelocity().getVec().normalize().multi(15));
-    value=pos.minus(this.position);
-   
-    if (dist>15){return value.div(dist);}
-    else return value.normalize().multi(dist/15);
+    //pos.minus(leader.getVelocity().getVec().normalize().multi(15));
+    value=pos.minus(this.position);  
+    if (dist>12){return value.div(dist);}
+    else return value.normalize().multi(dist/12);
     
     }else{return value;}
 
@@ -182,16 +156,24 @@ public class boid {
         double maxY=675;
        // velocity.multi(0.1);
         if (position.getX()<0){position.setX(maxX+position.getX());}
-        if (position.getX()>maxX){position.setX(0+position.getX()-maxX);}
+        if (position.getX()>maxX){position.setX(position.getX()-maxX);}
         if (position.getY()<0){position.setY(maxY+position.getY());}
-        if (position.getY()>maxY){position.setY(0+position.getY()-maxY);}
+        if (position.getY()>maxY){position.setY(position.getY()-maxY);}
         
     }
     public double calcAngle(){
-        double k1=0;
+        double k1=0;    
         if (velocity.getX()!=0){
         k1=Math.atan(velocity.getY()/velocity.getX());
-        }else{Math.atan(velocity.getY()/0.0000000001);}
+        }else{k1=Math.atan(velocity.getY()/0.0000000001);}
+        return k1;
+    }
+    public double calcAngle(vector2d _pos){
+        vector2d pos=this.getPosition().getVec();
+        pos.minus(_pos);
+        double k1=(pos.getX()*this.velocity.getX()+pos.getY()*this.velocity.getY())/(pos.getLength()*this.velocity.getLength());
+      //  k1=Math.acos(k1)*180/3.1415;
+        k1=trigonometric.acosLUT(k1)*180/3.1415;
         return k1;
     }
     public vector2d getAcceleration(){

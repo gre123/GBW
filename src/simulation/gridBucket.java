@@ -53,15 +53,17 @@ public class gridBucket {
       ArrayList <boid> temp=new ArrayList <>();
       int dX=osobnik.getBucketX()+2;
       int dY=osobnik.getBucketY()+2;
-      
+      int k=0;
       for (int i=dX-3;i<dX;i++){
           if (i<0 || i>=x){continue;}
           for (int j=dY-3;j<dY;j++){
                if (j<0 || j>=y){continue;}
+               k++;
                temp.addAll(bucketList.get(i).get(j).koszyk);//tu moze bez kopiowania calych koszyków
           }
       }
-     
+   //  System.out.println("t"+k);
+      
       return temp;
       }
 }

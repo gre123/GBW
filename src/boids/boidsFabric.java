@@ -36,6 +36,7 @@ public class boidsFabric {
             boids.get(i).maxForce=maxAccel; 
             }
         }
+        
         //--------------------------------------
         //Jeden drapieżnik na razie 
        for(int j=0;j<np;j++)

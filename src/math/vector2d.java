@@ -31,12 +31,24 @@ public class vector2d {
     return this;
     }
     public double getDistance(boid b){
+
     return sqrt((x-b.getX())*(x-b.getX())+(y-b.getY())*(y-b.getY()));
+    }
+    
+    public double getDistance(vector2d _pos){
+
+    return sqrt((x-_pos.x)*(x-_pos.x)+(y-_pos.y)*(y-_pos.y));
     }
     public double getSDistance(boid b){
         double dX=(x-b.getX());
         double dY=(y-b.getY());
-        
+       
+    return dX*dX+dY*dY;
+    }
+    public double getSDistance(vector2d _pos){
+        double dX=(x-_pos.x);
+        double dY=(y-_pos.y);
+       
     return dX*dX+dY*dY;
     }
     public vector2d(double _x,double _y){
