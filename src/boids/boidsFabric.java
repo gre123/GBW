@@ -38,7 +38,7 @@ public class boidsFabric {
         }
         
         //--------------------------------------
-        //Jeden drapieżnik na razie 
+     
        for(int j=0;j<np;j++)
        {
          boids.get(j).type=2;

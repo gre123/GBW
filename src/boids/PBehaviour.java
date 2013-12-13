@@ -68,7 +68,7 @@ public class PBehaviour {
                  return pom;
             }
             **/
-            pom=new vector2d(randGen.nextDouble()*8-1,randGen.nextDouble()*8-1);
+           if(ten.type==2) pom=new vector2d(randGen.nextDouble()*12-5,randGen.nextDouble()*12-5);
             return pom;
        // }
         //else return pom;
