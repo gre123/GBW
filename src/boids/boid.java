@@ -10,6 +10,8 @@ import math.vector2d;
  */
 public class boid {
     vector2d position,velocity,acceleration,aim;
+    ArrayList<vector2d> aims=null;
+    int indexAims;
     int koszX,koszY;
     double angle;
     public double radius;
@@ -23,6 +25,7 @@ public class boid {
         velocity=new vector2d(0,0);
         position=new vector2d(x,y);
         radius=7;
+        indexAims=-1;
         maxSpeed=1;
         maxForce=0.5;
        // angle=randGen.nextDouble()*360;
@@ -110,15 +113,20 @@ public class boid {
    }
     public vector2d goToAim(){
     vector2d value=new vector2d(0,0);
-    if (aim==null){return value;}
-    value=aim.getVec().minus(this.position);
+    if (aims==null || indexAims==-1){return value;}
+    value=aims.get(indexAims).getVec().minus(this.position);
     double d=value.getLength();
     if (d>100){
     value.normalize();
     }else{
      value.normalize().multi(d/100);
     }
-    
+    if (d<10){
+     if (indexAims>=aims.size()-1){
+        indexAims=0;
+     }else{   
+        indexAims++;}
+    }
     return value;
     }
     //--------------------------------------------

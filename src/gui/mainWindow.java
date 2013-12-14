@@ -35,6 +35,22 @@ double[] tabFPS = new double[10];
         jLabel9 = new javax.swing.JLabel();
         txtFPS = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        editFlock = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        textNumPred = new javax.swing.JSpinner();
+        btnGenStado = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        sldMaxSpeed = new javax.swing.JSlider();
+        txtNumSwarm = new javax.swing.JFormattedTextField();
+        sldMaxAccel = new javax.swing.JSlider();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        lblMaxAccel = new javax.swing.JLabel();
+        lblMaxSpeed = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        textLeaderNum = new javax.swing.JSpinner();
+        jLabel6 = new javax.swing.JLabel();
+        cobRozklad = new javax.swing.JComboBox();
         setPanel = new javax.swing.JPanel();
         startButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -61,23 +77,9 @@ double[] tabFPS = new double[10];
         jLabel15 = new javax.swing.JLabel();
         sldPredCof = new javax.swing.JSlider();
         lblPred = new javax.swing.JLabel();
-        editFlock = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        textNumPred = new javax.swing.JSpinner();
-        btnGenStado = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        sldMaxSpeed = new javax.swing.JSlider();
-        txtNumSwarm = new javax.swing.JFormattedTextField();
-        sldMaxAccel = new javax.swing.JSlider();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        lblMaxAccel = new javax.swing.JLabel();
-        lblMaxSpeed = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        textLeaderNum = new javax.swing.JSpinner();
-        jLabel6 = new javax.swing.JLabel();
-        cobRozklad = new javax.swing.JComboBox();
-        jPanel1 = new javax.swing.JPanel();
+        sterLead = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        combLeadMove = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Symulacja stada - Bylina,Gajda,Wszołek 2013");
@@ -107,6 +109,129 @@ double[] tabFPS = new double[10];
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jTabbedPane1.setName("settings"); // NOI18N
+
+        jLabel16.setText("Ilość drapieżników:");
+
+        btnGenStado.setText("Generuj stado");
+        btnGenStado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenStadoActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Liczebność:");
+
+        sldMaxSpeed.setMaximum(3000);
+        sldMaxSpeed.setValue(500);
+        sldMaxSpeed.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sldMaxSpeedStateChanged(evt);
+            }
+        });
+
+        txtNumSwarm.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        txtNumSwarm.setText("1000");
+        txtNumSwarm.setToolTipText("");
+        txtNumSwarm.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                txtNumSwarmPropertyChange(evt);
+            }
+        });
+
+        sldMaxAccel.setMaximum(200);
+        sldMaxAccel.setToolTipText("");
+        sldMaxAccel.setValue(40);
+        sldMaxAccel.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sldMaxAccelStateChanged(evt);
+            }
+        });
+
+        jLabel10.setText("Max prędkość:");
+
+        jLabel11.setText("Max przyspiesznie:");
+
+        lblMaxAccel.setText("0");
+
+        lblMaxSpeed.setText("0");
+
+        jLabel1.setText("Ilość liderów:");
+
+        jLabel6.setText("Rozkład:");
+
+        cobRozklad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Losowy", "Równomierny" }));
+
+        javax.swing.GroupLayout editFlockLayout = new javax.swing.GroupLayout(editFlock);
+        editFlock.setLayout(editFlockLayout);
+        editFlockLayout.setHorizontalGroup(
+            editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editFlockLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cobRozklad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnGenStado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addComponent(sldMaxSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(sldMaxAccel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(editFlockLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblMaxSpeed))
+                    .addGroup(editFlockLayout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblMaxAccel))
+                    .addGroup(editFlockLayout.createSequentialGroup()
+                        .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel1))
+                        .addGap(10, 10, 10)
+                        .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textNumPred)
+                            .addComponent(txtNumSwarm)
+                            .addComponent(textLeaderNum)))
+                    .addGroup(editFlockLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        editFlockLayout.setVerticalGroup(
+            editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editFlockLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(textLeaderNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(textNumPred, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtNumSwarm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cobRozklad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(lblMaxSpeed))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sldMaxSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(lblMaxAccel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sldMaxAccel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 435, Short.MAX_VALUE)
+                .addComponent(btnGenStado, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Edycja stada", editFlock);
 
         setPanel.setToolTipText("panel ustawien symulacji");
         setPanel.setName("setPanel"); // NOI18N
@@ -335,141 +460,34 @@ double[] tabFPS = new double[10];
         jTabbedPane1.addTab("Symulacja", setPanel);
         setPanel.getAccessibleContext().setAccessibleName("");
 
-        jLabel16.setText("Ilość drapieżników:");
+        jLabel17.setText("Liderzy:");
 
-        btnGenStado.setText("Generuj stado");
-        btnGenStado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGenStadoActionPerformed(evt);
-            }
-        });
+        combLeadMove.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Koło", "Ósemka", "Kwadrat" }));
 
-        jLabel7.setText("Liczebność:");
-
-        sldMaxSpeed.setMaximum(3000);
-        sldMaxSpeed.setValue(500);
-        sldMaxSpeed.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                sldMaxSpeedStateChanged(evt);
-            }
-        });
-
-        txtNumSwarm.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        txtNumSwarm.setText("1000");
-        txtNumSwarm.setToolTipText("");
-        txtNumSwarm.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                txtNumSwarmPropertyChange(evt);
-            }
-        });
-
-        sldMaxAccel.setMaximum(200);
-        sldMaxAccel.setToolTipText("");
-        sldMaxAccel.setValue(40);
-        sldMaxAccel.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                sldMaxAccelStateChanged(evt);
-            }
-        });
-
-        jLabel10.setText("Max prędkość:");
-
-        jLabel11.setText("Max przyspiesznie:");
-
-        lblMaxAccel.setText("0");
-
-        lblMaxSpeed.setText("0");
-
-        jLabel1.setText("Ilość liderów:");
-
-        jLabel6.setText("Rozkład:");
-
-        cobRozklad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Losowy", "Równomierny" }));
-
-        javax.swing.GroupLayout editFlockLayout = new javax.swing.GroupLayout(editFlock);
-        editFlock.setLayout(editFlockLayout);
-        editFlockLayout.setHorizontalGroup(
-            editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(editFlockLayout.createSequentialGroup()
+        javax.swing.GroupLayout sterLeadLayout = new javax.swing.GroupLayout(sterLead);
+        sterLead.setLayout(sterLeadLayout);
+        sterLeadLayout.setHorizontalGroup(
+            sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sterLeadLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cobRozklad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnGenStado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                    .addComponent(sldMaxSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(sldMaxAccel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(editFlockLayout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblMaxSpeed))
-                    .addGroup(editFlockLayout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblMaxAccel))
-                    .addGroup(editFlockLayout.createSequentialGroup()
-                        .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel1))
-                        .addGap(10, 10, 10)
-                        .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textNumPred)
-                            .addComponent(txtNumSwarm)
-                            .addComponent(textLeaderNum)))
-                    .addGroup(editFlockLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sterLeadLayout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(combLeadMove, 0, 160, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        editFlockLayout.setVerticalGroup(
-            editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editFlockLayout.createSequentialGroup()
+        sterLeadLayout.setVerticalGroup(
+            sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sterLeadLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(textLeaderNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(textNumPred, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtNumSwarm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cobRozklad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(lblMaxSpeed))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sldMaxSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(lblMaxAccel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sldMaxAccel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 435, Short.MAX_VALUE)
-                .addComponent(btnGenStado, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(combLeadMove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(669, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Edycja stada", editFlock);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Sterowanie", jPanel1);
+        jTabbedPane1.addTab("Sterowanie", sterLead);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -523,6 +541,9 @@ double[] tabFPS = new double[10];
     }
     public  int getRozklad(){
      return (int)this.cobRozklad.getSelectedIndex();
+    }
+    public  int getLeaderTypeMovement(){
+     return (int)this.combLeadMove.getSelectedIndex();
     }
     private void setAllLbl(){
          lblAli.setText(Double.toString(sldAliCof.getValue()/(double)1000));
@@ -693,6 +714,7 @@ double[] tabFPS = new double[10];
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGenStado;
     private javax.swing.JComboBox cobRozklad;
+    private javax.swing.JComboBox combLeadMove;
     private javax.swing.JPanel editFlock;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -702,6 +724,7 @@ double[] tabFPS = new double[10];
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -710,7 +733,6 @@ double[] tabFPS = new double[10];
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblAli;
     private javax.swing.JLabel lblAngle;
@@ -735,6 +757,7 @@ double[] tabFPS = new double[10];
     private javax.swing.JSlider sldRandCof;
     private javax.swing.JSlider sldSepCof;
     private javax.swing.JButton startButton;
+    private javax.swing.JPanel sterLead;
     private javax.swing.JSpinner textLeaderNum;
     private javax.swing.JSpinner textNumPred;
     private javax.swing.JLabel txtFPS;

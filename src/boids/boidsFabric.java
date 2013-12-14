@@ -29,6 +29,7 @@ public class boidsFabric {
         Random randGen = new Random();
         int total=n+np+mainBoids.mainWin.getNumOfLeaders();
         int rozklad= mainBoids.mainWin.getRozklad();
+        int leadMovement=mainBoids.mainWin.getLeaderTypeMovement();
         int x=0,y=0;
         double wsp=(1080*680)/total;
         wsp=sqrt(wsp);
@@ -49,7 +50,33 @@ public class boidsFabric {
         boids.get(boids.size()-1).type=0;
        // boids.get(boids.size()-1).velocity=new vector2d(randGen.nextInt(6)-3,randGen.nextInt(6)-3);
         boids.get(boids.size()-1).radius=7;
-        boids.get(boids.size()-1).aim= new vector2d(1000,500);
+        boids.get(boids.size()-1).aims= new ArrayList<>();
+        boids.get(boids.size()-1).indexAims=0;
+     
+        if (leadMovement==0){
+            boids.get(boids.size()-1).aims.add(new vector2d(340,150));
+            boids.get(boids.size()-1).aims.add(new vector2d(270,330));
+            boids.get(boids.size()-1).aims.add(new vector2d(340,520));
+            boids.get(boids.size()-1).aims.add(new vector2d(530,590));
+            boids.get(boids.size()-1).aims.add(new vector2d(710,510));
+            boids.get(boids.size()-1).aims.add(new vector2d(780,340));
+            boids.get(boids.size()-1).aims.add(new vector2d(710,160));
+            boids.get(boids.size()-1).aims.add(new vector2d(530,80));
+        }else if (leadMovement==1){
+            boids.get(boids.size()-1).aims.add(new vector2d(280,500));
+            boids.get(boids.size()-1).aims.add(new vector2d(100,310));
+            boids.get(boids.size()-1).aims.add(new vector2d(240,120));
+            boids.get(boids.size()-1).aims.add(new vector2d(780,500));
+            boids.get(boids.size()-1).aims.add(new vector2d(920,320));
+            boids.get(boids.size()-1).aims.add(new vector2d(790,120));
+        }else if (leadMovement==2){
+         boids.get(boids.size()-1).aims.add(new vector2d(60,60));
+         boids.get(boids.size()-1).aims.add(new vector2d(1000,60));
+         boids.get(boids.size()-1).aims.add(new vector2d(1000,600));
+         boids.get(boids.size()-1).aims.add(new vector2d(60,600));
+         
+        }
+        
             if (maxSpeed!=0){boids.get(boids.size()-1).maxSpeed=maxSpeed;}
             if (maxAccel!=0){boids.get(boids.size()-1).maxForce=maxAccel;}
         }
