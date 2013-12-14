@@ -28,7 +28,7 @@ public class symulacja {
   boids=_boids;
   prey=_prey;
   animSpeed=10;
-  siatkaKoszykow =new gridBucket(23,15,80,80,1100,700);
+  siatkaKoszykow =new gridBucket(12,8,80,80,1100,700);
   }
   public void addBoid(boid agt){
       boids.add(agt);

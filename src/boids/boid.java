@@ -26,7 +26,7 @@ public class boid {
         maxSpeed=1;
         maxForce=0.5;
        // angle=randGen.nextDouble()*360;
-        minimalDistance=13;
+        minimalDistance=8;
         type=1;
         eats=-1;
         katWidzenia=0.5;

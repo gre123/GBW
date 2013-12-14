@@ -1,5 +1,6 @@
 package boids;
 
+import static java.lang.Math.sqrt;
 import java.util.ArrayList;
 import java.util.Random;
 import math.vector2d;
@@ -26,21 +27,31 @@ public class boidsFabric {
     
     public ArrayList<boid> createBoids(int n,int np){
         Random randGen = new Random();
+        int total=n+np+mainBoids.mainWin.getNumOfLeaders();
+        int rozklad= mainBoids.mainWin.getRozklad();
+        int x=0,y=0;
+        double wsp=(1080*680)/total;
+        wsp=sqrt(wsp);
         for(int i=0;i<n;i++){
-            boids.add(new boid(randGen.nextInt(1095),randGen.nextInt(680)));
-            boids.get(i).radius=6;
-            if (randGen.nextFloat()<0.007){
-                boids.get(i).type=0;
-                boids.get(i).velocity=new vector2d(randGen.nextInt(6)-3,randGen.nextInt(6)-3);
-                boids.get(i).radius=8;
-                boids.get(i).aim= new vector2d(1000,500);
+            
+            if(rozklad==0){ boids.add(new boid(randGen.nextInt(1095),randGen.nextInt(680)));
+            }else{
+            boids.add(new boid(x*wsp,y*wsp));x++;
+            if(x*wsp>1080){x=0;y++;}
             }
-            if (maxSpeed!=0){
-            boids.get(i).maxSpeed=maxSpeed;
-            }
-            if (maxAccel!=0){
-            boids.get(i).maxForce=maxAccel; 
-            }
+            boids.get(i).radius=5;
+            if (maxSpeed!=0){boids.get(i).maxSpeed=maxSpeed;}
+            if (maxAccel!=0){ boids.get(i).maxForce=maxAccel; }
+        }
+        
+        for(int i=0;i<mainBoids.mainWin.getNumOfLeaders();i++){
+        boids.add(new boid(randGen.nextInt(1095),randGen.nextInt(680)));
+        boids.get(boids.size()-1).type=0;
+       // boids.get(boids.size()-1).velocity=new vector2d(randGen.nextInt(6)-3,randGen.nextInt(6)-3);
+        boids.get(boids.size()-1).radius=7;
+        boids.get(boids.size()-1).aim= new vector2d(1000,500);
+            if (maxSpeed!=0){boids.get(boids.size()-1).maxSpeed=maxSpeed;}
+            if (maxAccel!=0){boids.get(boids.size()-1).maxForce=maxAccel;}
         }
         
         //--------------------------------------
@@ -48,7 +59,7 @@ public class boidsFabric {
        for(int j=0;j<np;j++)
        {
          boids.get(j).type=2;
-         boids.get(j).radius=15;
+         boids.get(j).radius=12;
          boids.get(j).velocity=new vector2d(randGen.nextInt(9)-6,randGen.nextInt(9)-6);
        }
         //---------------------------------------
