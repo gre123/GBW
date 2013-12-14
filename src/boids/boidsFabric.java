@@ -28,7 +28,13 @@ public class boidsFabric {
         Random randGen = new Random();
         for(int i=0;i<n;i++){
             boids.add(new boid(randGen.nextInt(1095),randGen.nextInt(680)));
-            if (randGen.nextFloat()<0.01){boids.get(i).type=0;boids.get(i).velocity=new vector2d(randGen.nextInt(6)-3,randGen.nextInt(6)-3);boids.get(i).radius=10;}
+            boids.get(i).radius=6;
+            if (randGen.nextFloat()<0.007){
+                boids.get(i).type=0;
+                boids.get(i).velocity=new vector2d(randGen.nextInt(6)-3,randGen.nextInt(6)-3);
+                boids.get(i).radius=8;
+                boids.get(i).aim= new vector2d(1000,500);
+            }
             if (maxSpeed!=0){
             boids.get(i).maxSpeed=maxSpeed;
             }

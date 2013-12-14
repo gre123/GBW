@@ -9,15 +9,11 @@ import math.vector2d;
  * @author Tomek
  */
 public class boid {
-    vector2d position;
-    vector2d velocity;
-    vector2d acceleration;//to moze niepotrzebne
-    int koszX;
-    int koszY;
+    vector2d position,velocity,acceleration,aim;
+    int koszX,koszY;
     double angle;
-   public double radius;
-    double maxSpeed;
-    double maxForce;
+    public double radius;
+    double maxSpeed,maxForce;
     int type,eats;
     double katWidzenia;
     double minimalDistance;
@@ -34,15 +30,14 @@ public class boid {
         type=1;
         eats=-1;
         katWidzenia=0.5;
-        
     }
     public vector2d spearate(ArrayList<boid> boids){
     vector2d value=new vector2d(0,0);
     vector2d pos=new vector2d(0,0);
     int k=0;
     double sDist;
-     if (type==3 || type==2 || type==0 ||boids.isEmpty()){return value;}
-    for(int i=0;i<boids.size();i++){//poprawic getdistance do innej klasy ma byc
+     if (type==3 || type==2 ||  type==0 ||boids.isEmpty()){return value;}
+    for(int i=0;i<boids.size();i++){
         sDist=this.position.getSDistance(boids.get(i));
        if (sDist<minimalDistance*minimalDistance){
            if (sDist==0){
@@ -71,7 +66,18 @@ public class boid {
     pos.div(boids.size()).minus(this.velocity);//ten minus nie wiem co robi
     return pos.normalize();
     }else{return pos.normalize();}
-    } 
+    }
+    public vector2d cohesion(ArrayList<boid> boids){
+    vector2d value=new vector2d(0,0);
+    vector2d pos=new vector2d(0,0);
+    if (type==3 || type==2 || type==0 ||boids.size()==0){return value;}
+    for(int i=0;i<boids.size();i++){
+        pos.add(boids.get(i).position);
+    }
+    pos.div(boids.size());
+    value=pos.minus(this.position);
+    return value.normalize();
+    }
     public vector2d followLeader(ArrayList<boid> boids){
     vector2d value=new vector2d(0,0);
     vector2d pos=new vector2d(0,0);
@@ -102,7 +108,19 @@ public class boid {
     }else{return value;}
 
    }
+    public vector2d goToAim(){
+    vector2d value=new vector2d(0,0);
+    if (aim==null){return value;}
+    value=aim.getVec().minus(this.position);
+    double d=value.getLength();
+    if (d>100){
+    value.normalize();
+    }else{
+     value.normalize().multi(d/100);
+    }
     
+    return value;
+    }
     //--------------------------------------------
     /**
      * Udaje zachowanie wobec drapieżnika
@@ -129,18 +147,6 @@ public class boid {
          return wynik;
      }
     //--------------------------------------------
-    
-    public vector2d cohesion(ArrayList<boid> boids){
-    vector2d value=new vector2d(0,0);
-    vector2d pos=new vector2d(0,0);
-    if (type==3 || type==2 || type==0 ||boids.size()==0){return value;}
-    for(int i=0;i<boids.size();i++){
-        pos.add(boids.get(i).position);
-    }
-    pos.div(boids.size());
-    value=pos.minus(this.position);
-    return value.normalize();
-    }
     public void applyForce(double step){    
         velocity.add(acceleration.multi(step));
         if (velocity.getLength()>maxSpeed){
@@ -152,8 +158,8 @@ public class boid {
         vector2d temp=velocity.getVec();
         position.add(temp.multi(step));
         //System.out.println(velocity.getLength());
-        double maxX=1090;
-        double maxY=675;
+        double maxX=1072;
+        double maxY=677;
        // velocity.multi(0.1);
         if (position.getX()<0){position.setX(maxX+position.getX());}
         if (position.getX()>maxX){position.setX(position.getX()-maxX);}
@@ -186,6 +192,7 @@ public class boid {
        }
     this.acceleration=_accel;
     }
+    
     public vector2d getPosition(){
     return this.position;
     }

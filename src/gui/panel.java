@@ -7,11 +7,14 @@ import javax.swing.JPanel;
  
 public class panel extends JPanel {
     public ArrayList<boid> boids,prey;
+    int x,y;
     public panel(ArrayList<boid> _boids, ArrayList<boid> _prey) {
-        setPreferredSize(new Dimension(1100, 685));
+        x=1080;
+        y=685;
+        setPreferredSize(new Dimension(x, y));
         boids=_boids;
-        prey=_prey;
-        setSize(1100, 685);
+        prey=_prey;     
+        setSize(x, y);
         setBackground(Color.getHSBColor(0.5f, 0.14f, 1));
         setLocation(11, 11);
         repaint();

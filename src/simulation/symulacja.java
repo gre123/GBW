@@ -28,7 +28,7 @@ public class symulacja {
   boids=_boids;
   prey=_prey;
   animSpeed=10;
-  siatkaKoszykow =new gridBucket(14,9,80,80,1100,700);
+  siatkaKoszykow =new gridBucket(23,15,80,80,1100,700);
   }
   public void addBoid(boid agt){
       boids.add(agt);
@@ -103,7 +103,7 @@ public class symulacja {
       double time;
       double timeMin=0;
        double fps=0;
-      vector2d sep,ali,coh,lead,rand,pred,predH;
+      vector2d sep,ali,coh,lead,rand,pred,predH,toAim;
       
       ArrayList<boid> tempBoids;
       while(continueSimulation){
@@ -127,6 +127,7 @@ public class symulacja {
           rand=new vector2d(randGen.nextDouble()*2-1,randGen.nextDouble()*2-1);
           pred=boids.get(i).predator(tempBoids);
           predH=boids.get(i).predHunt(prey,tempBoids,boids);
+          toAim=boids.get(i).goToAim();
           sep.multi(cofSep);
           ali.multi(cofAli);
           coh.multi(cofCoh);
@@ -138,7 +139,7 @@ public class symulacja {
 //          }
            if(boids.get(i).getType()==2) rand=new vector2d(0,0);
           
-            boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred));
+            boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred).add(toAim));
        }
        
        for(int i=0;i<boids.size();i++){
