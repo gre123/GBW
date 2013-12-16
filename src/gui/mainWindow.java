@@ -7,6 +7,7 @@ import boids.boid;
 import boids.boidsFabric;
 import boids.mainBoids;
 import java.util.ArrayList;
+import math.vector2d;
 import simulation.symulacja;
 import simulation.threadSym;
 
@@ -80,6 +81,8 @@ double[] tabFPS = new double[10];
         sterLead = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         combLeadMove = new javax.swing.JComboBox();
+        btnGlobAim = new javax.swing.JButton();
+        jLabel18 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Symulacja stada - Bylina,Gajda,Wszołek 2013");
@@ -464,6 +467,15 @@ double[] tabFPS = new double[10];
 
         combLeadMove.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Koło", "Ósemka", "Kwadrat" }));
 
+        btnGlobAim.setText("reset");
+        btnGlobAim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGlobAimActionPerformed(evt);
+            }
+        });
+
+        jLabel18.setText("Global aim:");
+
         javax.swing.GroupLayout sterLeadLayout = new javax.swing.GroupLayout(sterLead);
         sterLead.setLayout(sterLeadLayout);
         sterLeadLayout.setHorizontalGroup(
@@ -474,7 +486,11 @@ double[] tabFPS = new double[10];
                     .addGroup(sterLeadLayout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(combLeadMove, 0, 160, Short.MAX_VALUE))
+                    .addComponent(combLeadMove, 0, 160, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sterLeadLayout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGlobAim)))
                 .addContainerGap())
         );
         sterLeadLayout.setVerticalGroup(
@@ -484,7 +500,11 @@ double[] tabFPS = new double[10];
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(combLeadMove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(669, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGlobAim)
+                    .addComponent(jLabel18))
+                .addContainerGap(628, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Sterowanie", sterLead);
@@ -669,9 +689,17 @@ double[] tabFPS = new double[10];
         }
     }//GEN-LAST:event_startButtonActionPerformed
 
+    private void btnGlobAimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGlobAimActionPerformed
+      ptr.aimX=-1;
+      ptr.aimY=-1;
+      mainBoids.simul.globalAim=new vector2d(-1,-1);
+      
+    }//GEN-LAST:event_btnGlobAimActionPerformed
+
     private void panelMouseClicked(java.awt.event.MouseEvent evt) {                                     
-      int cordX=evt.getX();
-      int cordY=evt.getY();
+      ptr.aimX=evt.getX();
+      ptr.aimY=evt.getY();
+      mainBoids.simul.globalAim=new vector2d(evt.getX(),evt.getY());
     } 
     /**
      * @param args the command line arguments
@@ -713,6 +741,7 @@ double[] tabFPS = new double[10];
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGenStado;
+    private javax.swing.JButton btnGlobAim;
     private javax.swing.JComboBox cobRozklad;
     private javax.swing.JComboBox combLeadMove;
     private javax.swing.JPanel editFlock;
@@ -725,6 +754,7 @@ double[] tabFPS = new double[10];
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

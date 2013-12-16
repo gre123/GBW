@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 public class panel extends JPanel {
     public ArrayList<boid> boids,prey;
     int x,y;
+    int aimX=-1,aimY=-1;
     public panel(ArrayList<boid> _boids, ArrayList<boid> _prey) {
         x=1080;
         y=685;
@@ -43,10 +44,10 @@ public class panel extends JPanel {
                     g2d.setColor(Color.red);
                 }
                 
-                
                 Ellipse2D circle = new Ellipse2D.Double(x, y, r,r);
                 g2d.fill(circle);
                 g2d.draw(circle);
+                
             } 
             
         }
@@ -60,12 +61,20 @@ public class panel extends JPanel {
                Ellipse2D circle = new Ellipse2D.Double(x, y, r,r);
                g2d.fill(circle);
                g2d.draw(circle);
-                
             }
         }
-        
+        if (aimX>=0 &&aimY>=0){
+        Ellipse2D circle = new Ellipse2D.Double(aimX, aimY, 10,10);
+        g2d.setColor(Color.PINK);
+        g2d.fill(circle);
+        g2d.draw(circle);
         }
         
+        }
+    public void drawAim( Graphics2D g2d,int x,int y,int r){
+        
+        
+    }    
 }  
     
     

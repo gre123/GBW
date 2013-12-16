@@ -19,6 +19,7 @@ public class symulacja {
   int animSpeed;
   public double katWidzenia;
   public double radiusNeigh=64;
+  public vector2d globalAim=new vector2d(-1,-1);
   gridBucket siatkaKoszykow;
   
   public symulacja(ArrayList<boid> _boids, ArrayList<boid> _prey ){
@@ -127,7 +128,7 @@ public class symulacja {
           rand=new vector2d(randGen.nextDouble()*2-1,randGen.nextDouble()*2-1);
           pred=boids.get(i).predator(tempBoids);
           predH=boids.get(i).predHunt(prey,tempBoids,boids);
-          toAim=boids.get(i).goToAim();
+          toAim=boids.get(i).goToAim(globalAim);
           sep.multi(cofSep);
           ali.multi(cofAli);
           coh.multi(cofCoh);

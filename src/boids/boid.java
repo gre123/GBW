@@ -111,22 +111,34 @@ public class boid {
     }else{return value;}
 
    }
-    public vector2d goToAim(){
-    vector2d value=new vector2d(0,0);
-    if (aims==null || indexAims==-1){return value;}
-    value=aims.get(indexAims).getVec().minus(this.position);
-    double d=value.getLength();
+    public vector2d goToAim(vector2d aim){
+         vector2d value=new vector2d(0,0);
+        if (this.type!=0){return value;}
+        
+         double d;
+        if(aim.getX()<0 && aim.getY()<0){
+        if (aims==null || indexAims==-1){return value;}
+          value=aims.get(indexAims).getVec().minus(this.position);
+          d=value.getLength();
+           if (d<10){
+             if (indexAims>=aims.size()-1){
+                indexAims=0;
+             }else{   
+               indexAims++;}
+           }
+        }else{
+          value=aim.getVec().minus(this.position);
+          d=value.getLength();
+         
+        }
+
+    
     if (d>100){
     value.normalize();
     }else{
      value.normalize().multi(d/100);
     }
-    if (d<10){
-     if (indexAims>=aims.size()-1){
-        indexAims=0;
-     }else{   
-        indexAims++;}
-    }
+    
     return value;
     }
     //--------------------------------------------
