@@ -394,6 +394,12 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
+                          <Component id="sldAvoidCof" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="lblAvoid" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
@@ -416,9 +422,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="sldSepCof" min="-2" pref="14" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblCoh" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblCoh" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel4" min="-2" pref="14" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="sldCohCof" min="-2" pref="14" max="-2" attributes="0"/>
@@ -457,7 +463,14 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="sldPredCof" min="-2" pref="14" max="-2" attributes="0"/>
-                      <EmptySpace pref="352" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblAvoid" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="sldAvoidCof" min="-2" pref="14" max="-2" attributes="0"/>
+                      <EmptySpace pref="312" max="32767" attributes="0"/>
                       <Component id="startButton" min="-2" pref="32" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -636,6 +649,27 @@
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblPred.setText(Double.toString(sldPredCof.getValue()/(double)100));"/>
               </AuxValues>
+            </Component>
+            <Component class="javax.swing.JSlider" name="sldAvoidCof">
+              <Properties>
+                <Property name="maximum" type="int" value="3000"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+                <Property name="value" type="int" value="0"/>
+              </Properties>
+              <Events>
+                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sldAvoidCofStateChanged"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblAvoid">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="0"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel19">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Obstacle avoidance:"/>
+                <Property name="toolTipText" type="java.lang.String" value="D&#x105;&#x17c;enie do zachowania bezpiecznej odleg&#x142;o&#x15b;ci od siebie"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

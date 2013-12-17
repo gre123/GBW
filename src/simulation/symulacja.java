@@ -7,14 +7,16 @@ import java.util.ArrayList;
 import java.util.Random;
 import math.trigonometric;
 import math.vector2d;
+import trunk.src.boids.Obstacle;
 
 /**
  * @author Tomek
  */
 public class symulacja {
   ArrayList<boid> boids,prey;
+  ArrayList<Obstacle> obs;
   public boolean continueSimulation;
-  double cofSep,cofAli,cofCoh,leadCof,randCof,cofPred;
+  double cofSep,cofAli,cofCoh,leadCof,randCof,cofPred,cofAvoid;
   double timeStep;
   int animSpeed;
   public double katWidzenia;
@@ -28,6 +30,16 @@ public class symulacja {
     timeStep=1;//pozniej zmienic
   boids=_boids;
   prey=_prey;
+  animSpeed=10;
+  siatkaKoszykow =new gridBucket(12,8,80,80,1100,700);
+  }
+  public symulacja(ArrayList<boid> _boids, ArrayList<boid> _prey, ArrayList<Obstacle> _obs ){
+      cofSep=1;cofAli=1;cofCoh=1;randCof=1;
+   continueSimulation=false;
+    timeStep=1;//pozniej zmienic
+  boids=_boids;
+  prey=_prey;
+  obs=_obs;
   animSpeed=10;
   siatkaKoszykow =new gridBucket(12,8,80,80,1100,700);
   }
@@ -84,6 +96,9 @@ public class symulacja {
   public void setParametrs(double aCof,double sCof,double cCof,double lCof,double pCof){
       cofSep=sCof;cofAli=aCof;cofCoh=cCof;leadCof=lCof;cofPred=pCof;
   }
+  public void setParametrs(double aCof,double sCof,double cCof,double lCof,double pCof,double avCof){
+      cofSep=sCof;cofAli=aCof;cofCoh=cCof;leadCof=lCof;cofPred=pCof;cofAvoid=avCof;
+  }
   public void setRandCof(double rCof){
       randCof=rCof;
   }
@@ -104,7 +119,7 @@ public class symulacja {
       double time;
       double timeMin=0;
        double fps=0;
-      vector2d sep,ali,coh,lead,rand,pred,predH,toAim;
+      vector2d sep,ali,coh,lead,rand,pred, avoid, predH,toAim;
       
       ArrayList<boid> tempBoids;
       while(continueSimulation){
@@ -128,6 +143,7 @@ public class symulacja {
           rand=new vector2d(randGen.nextDouble()*2-1,randGen.nextDouble()*2-1);
           pred=boids.get(i).predator(tempBoids);
           predH=boids.get(i).predHunt(prey,tempBoids,boids);
+          avoid = boids.get(i).avoid(obs);
           toAim=boids.get(i).goToAim(globalAim);
           sep.multi(cofSep);
           ali.multi(cofAli);
@@ -135,12 +151,13 @@ public class symulacja {
           lead.multi(leadCof);
           rand.multi(randCof);
           pred.multi(cofPred);
+          avoid.multi(cofAvoid);
 //          if (lead.getLength()>0){
 //          System.out.println("s"+sep.getLength()+"c"+coh.getLength()+"l"+lead.getLength()+"a"+ali.getLength());
 //          }
            if(boids.get(i).getType()==2) rand=new vector2d(0,0);
           
-            boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred).add(toAim));
+            boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred).add(avoid.multi(5)).add(toAim));
        }
        
        for(int i=0;i<boids.size();i++){

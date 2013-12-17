@@ -86,5 +86,9 @@ public class vector2d {
         vector2d temp=new vector2d(this.x,this.y);
         return temp;
     }
+    public double wektorowy(vector2d a){
+        double wynik = x*a.getX()+y*a.getY();
+        return wynik;
+    }
     
 }

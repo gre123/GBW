@@ -4,9 +4,11 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import trunk.src.boids.Obstacle;
  
 public class panel extends JPanel {
     public ArrayList<boid> boids,prey;
+    public ArrayList<Obstacle> obs;
     int x,y;
     int aimX=-1,aimY=-1;
     public panel(ArrayList<boid> _boids, ArrayList<boid> _prey) {
@@ -15,6 +17,19 @@ public class panel extends JPanel {
         setPreferredSize(new Dimension(x, y));
         boids=_boids;
         prey=_prey;     
+        setSize(x, y);
+        setBackground(Color.getHSBColor(0.5f, 0.14f, 1));
+        setLocation(11, 11);
+        repaint();
+    }
+    
+    public panel(ArrayList<boid> _boids, ArrayList<boid> _prey, ArrayList<Obstacle> _obs) {
+        x=1080;
+        y=685;
+        setPreferredSize(new Dimension(x, y));
+        boids=_boids;
+        prey=_prey;
+        obs = _obs;
         setSize(x, y);
         setBackground(Color.getHSBColor(0.5f, 0.14f, 1));
         setLocation(11, 11);
@@ -63,6 +78,16 @@ public class panel extends JPanel {
                g2d.draw(circle);
             }
         }
+        
+        if (obs!=null || !obs.isEmpty()){
+            for(int i=0;i<obs.size();i++){
+               g2d.setColor(Color.PINK); 
+               Ellipse2D circle = new Ellipse2D.Double(obs.get(i).getX(), obs.get(i).getY(), obs.get(i).getR(),obs.get(i).getR());
+               g2d.fill(circle);
+               g2d.draw(circle);
+            }
+        }
+        
         if (aimX>=0 &&aimY>=0){
         Ellipse2D circle = new Ellipse2D.Double(aimX, aimY, 10,10);
         g2d.setColor(Color.PINK);
