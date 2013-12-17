@@ -168,17 +168,22 @@ public class boid {
             }
         }
         if (minn < 0 || min > 0) {
+            //System.out.println("Nie widzę, bo nie ma na lini żadnej przeszkody");
             return value; // nie ma przeszkód, nie powinno się zdarzyć przy przeglądaniu wszystkich na planszy, albo odległość jest dodatnia, czyli nie będzie zderzenia
         } else {    //czyli jest zderzenie
             //WCALE NIE wyliczam wektor linii łączącej środek boida ze środkiem przeszkody skierowany do środka przeszkody
             //tylko steruję prostopadle do kierunku poruszania się boida z dopadowaną wartością
             Obstacle najblizsza = obs.get(minn);
+            
             value.setX(position.getX() - najblizsza.getX());
             value.setY(position.getY() - najblizsza.getY());
-            if (this.velocity.wektorowy(value) > 0) {
-                //to steruj bo przeszkoda przed tobą, na razie steruj beznadziejnie bardziej zwalniając niż skręcając
-                return value;
+            if (this.velocity.skalarny(value) < 0) {
+                if (this.position.getDistance(najblizsza.getPosition())<60){return new vector2d(0, 0);} //to jesli jest za daleko, powinno być parametryzowalne
+                //to steruj bo przeszkoda przed tobą, na razie steruj źle bardziej zwalniając niż skręcając
+                //System.out.println("Dzień dobry, widzę przeszkodę");
+                return value.normalize();
             } else {
+                //System.out.println("Nie widzę, bo za mną");
                 return new vector2d(0, 0);
             }
         }

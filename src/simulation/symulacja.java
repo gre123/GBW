@@ -157,7 +157,7 @@ public class symulacja {
 //          }
            if(boids.get(i).getType()==2) rand=new vector2d(0,0);
           
-            boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred).add(avoid.multi(5)).add(toAim));
+            boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred).add(avoid).add(toAim));
        }
        
        for(int i=0;i<boids.size();i++){
