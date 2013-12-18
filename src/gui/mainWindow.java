@@ -54,6 +54,8 @@ double[] tabFPS = new double[10];
         textLeaderNum = new javax.swing.JSpinner();
         jLabel6 = new javax.swing.JLabel();
         cobRozklad = new javax.swing.JComboBox();
+        textNumObs = new javax.swing.JSpinner();
+        jLabel20 = new javax.swing.JLabel();
         setPanel = new javax.swing.JPanel();
         startButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -169,6 +171,8 @@ double[] tabFPS = new double[10];
 
         cobRozklad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Losowy", "Równomierny" }));
 
+        jLabel20.setText("Ilość przeszkód:");
+
         javax.swing.GroupLayout editFlockLayout = new javax.swing.GroupLayout(editFlock);
         editFlock.setLayout(editFlockLayout);
         editFlockLayout.setHorizontalGroup(
@@ -200,7 +204,11 @@ double[] tabFPS = new double[10];
                             .addComponent(textLeaderNum)))
                     .addGroup(editFlockLayout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(editFlockLayout.createSequentialGroup()
+                        .addComponent(jLabel20)
+                        .addGap(10, 10, 10)
+                        .addComponent(textNumObs)))
                 .addContainerGap())
         );
         editFlockLayout.setVerticalGroup(
@@ -222,7 +230,11 @@ double[] tabFPS = new double[10];
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cobRozklad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(textNumObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(lblMaxSpeed))
@@ -589,6 +601,9 @@ double[] tabFPS = new double[10];
     public  int getNumOfPredators(){
      return (int)this.textNumPred.getValue();
     }
+    public  int getNumOfObs(){
+     return (int)this.textNumObs.getValue();
+    }
     public  int getRozklad(){
      return (int)this.cobRozklad.getSelectedIndex();
     }
@@ -619,7 +634,7 @@ double[] tabFPS = new double[10];
        mainBoids.boids=fabric.createBoids(Integer.parseInt(this.txtNumSwarm.getText()),(int)this.textNumPred.getValue());
     
        obsfabric = new obstaclesFabric();
-       mainBoids.obs = obsfabric.createObs(3);// dorobić pole na ilośc przeszkód i wartość tutaj
+       mainBoids.obs = obsfabric.createObs((int)textNumObs.getValue());// dorobić pole na ilośc przeszkód i wartość tutaj
        if (ptr!=null){this.remove(ptr);}
        //ptr=new panel(mainBoids.boids,mainBoids.prey);
        ptr=new panel(mainBoids.boids,mainBoids.obs);
@@ -806,6 +821,7 @@ double[] tabFPS = new double[10];
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -841,6 +857,7 @@ double[] tabFPS = new double[10];
     private javax.swing.JButton startButton;
     private javax.swing.JPanel sterLead;
     private javax.swing.JSpinner textLeaderNum;
+    private javax.swing.JSpinner textNumObs;
     private javax.swing.JSpinner textNumPred;
     private javax.swing.JLabel txtFPS;
     private javax.swing.JFormattedTextField txtNumSwarm;

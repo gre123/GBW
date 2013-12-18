@@ -179,7 +179,7 @@ public class boid {
             value.setX(position.getX() - najblizsza.getX());
             value.setY(position.getY() - najblizsza.getY());
             if (this.velocity.skalarny(value) < 0) {
-                if (this.position.getDistance(najblizsza.getPosition())<60){return new vector2d(0, 0);} //to jesli jest za daleko, powinno być parametryzowalne
+                if (this.position.getDistance(najblizsza.getPosition())-najblizsza.getR()>50){return new vector2d(0, 0);} //to jesli jest za daleko, powinno być parametryzowalne
                 //to steruj bo przeszkoda przed tobą, na razie steruj źle bardziej zwalniając niż skręcając
                 //System.out.println("Dzień dobry, widzę przeszkodę");
                 return value.normalize();
