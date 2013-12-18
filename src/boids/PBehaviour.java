@@ -42,30 +42,63 @@ public class PBehaviour {
         }
         return w;
     }
+    public static ArrayList<boid> getCrowdedBucket(ArrayList<bucket> bucketboids)
+    {
+        int pom,a=0;
+        ArrayList<boid> w=new ArrayList<boid>();
+        for(int i=0;i<bucketboids.size();i++)
+        {
+            pom=bucketboids.get(i).count_noPred();
+            if(pom>a)
+            {
+                a=pom;
+                w=bucketboids.get(i).getKoszyk();
+            }
+        }
+        return w;
+    }
     
     public static vector2d huntP(boid ten,ArrayList<boid> boids,ArrayList<bucket> bucketboids,ArrayList<boid> wszystkie)
     {
         boid potPrey;
-        ArrayList <bucket> temp=new ArrayList <>();
+        ArrayList <boid> tmp=new ArrayList <>();
         vector2d poz,pom=new vector2d(0,0);
         Random randGen = new Random();
         
         if(ten.type==2)
         {
-            
+           /**
+            * Atakowanie najbliższej potencjalnej zdobyczy, jeśli jest w zasięgu drapieżnika
+            */ 
             if(!boids.isEmpty())
             {
-                 potPrey=NDistance.minDist(ten, boids);
+                 potPrey=NDistance.minPrey(ten, boids);
                  if(potPrey!=null && potPrey.type!=2){
                    wszystkie.remove(potPrey);
                  }
+            
+            
+            /**
+             * Strategia poruszania się
+             */
+                tmp=getCrowdedBucket(bucketboids);
+                if(tmp.isEmpty())
+                {
+                    pom=new vector2d(randGen.nextDouble()*6-2,randGen.nextDouble()*6+4);
+                }
+                else 
+                {
+                     for(int j=0;j<tmp.size();j++)
+                     {
+                         pom.add(tmp.get(j).getPosition());
+                     }
+                     pom.div(tmp.size());
+                     pom.minus(ten.getPosition());
+                }
+                return pom;
             }
-            
-            
-            pom=new vector2d(randGen.nextDouble()*12-5,randGen.nextDouble()*12-5);
-            return pom;
         }
-        else return pom;
+        return pom;
        
     }
 }

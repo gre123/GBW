@@ -14,4 +14,28 @@ public class bucket {
  public bucket(){
     koszyk=new ArrayList<>();
  }
+ 
+ //-------------------------------------------
+ /**
+  * funkcja ma liczyć wszystkich osobników w koszyku bez drapieżników
+  * @return 
+  */
+ public int count_noPred()
+ {
+     int s=0;
+     for(int i=0;i<koszyk.size();i++)
+     {
+         if(koszyk.get(i).getType()!=2) s++;
+     }
+     return s;
+ }
+ /**
+  * Funkcja zwraca koszyk
+  * @return koszyk
+  */
+ public ArrayList<boid> getKoszyk()
+ {
+     return koszyk;
+ }
+ //--------------------------------------------
 }
