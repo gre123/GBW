@@ -11,24 +11,22 @@ public class panel extends JPanel {
     public ArrayList<Obstacle> obs;
     int x,y;
     int aimX=-1,aimY=-1;
-    public panel(ArrayList<boid> _boids, ArrayList<boid> _prey) {
+    public panel(ArrayList<boid> _boids) {
         x=1080;
         y=685;
         setPreferredSize(new Dimension(x, y));
-        boids=_boids;
-        prey=_prey;     
+        boids=_boids;    
         setSize(x, y);
         setBackground(Color.getHSBColor(0.5f, 0.14f, 1));
         setLocation(11, 11);
         repaint();
     }
     
-    public panel(ArrayList<boid> _boids, ArrayList<boid> _prey, ArrayList<Obstacle> _obs) {
+    public panel(ArrayList<boid> _boids, ArrayList<Obstacle> _obs) {
         x=1080;
         y=685;
         setPreferredSize(new Dimension(x, y));
         boids=_boids;
-        prey=_prey;
         obs = _obs;
         setSize(x, y);
         setBackground(Color.getHSBColor(0.5f, 0.14f, 1));
@@ -66,18 +64,7 @@ public class panel extends JPanel {
             } 
             
         }
-        if (boids!=null || !prey.isEmpty()){
-            for(int i=0;i<prey.size();i++){
-               double x=prey.get(i).getX();
-               double y=prey.get(i).getY();
-               double r=prey.get(i).getR();
-               g2d.setColor(Color.gray); 
-               
-               Ellipse2D circle = new Ellipse2D.Double(x, y, r,r);
-               g2d.fill(circle);
-               g2d.draw(circle);
-            }
-        }
+       
         
         if (obs!=null || !obs.isEmpty()){
             for(int i=0;i<obs.size();i++){

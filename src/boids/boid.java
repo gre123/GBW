@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import math.trigonometric;
 import math.vector2d;
+import simulation.bucket;
 import trunk.src.boids.Obstacle;
 
 /**
@@ -245,9 +246,9 @@ public class boid {
      * @param wszystkie
      * @return
      */
-    public vector2d predHunt(ArrayList<boid> pred, ArrayList<boid> boids, ArrayList<boid> wszystkie) {
+    public vector2d predHunt(ArrayList<boid> boids,ArrayList<bucket> bucketboids, ArrayList<boid> wszystkie) {
         vector2d wynik;
-        wynik = PBehaviour.huntP(this, boids, pred, wszystkie);
+        wynik = PBehaviour.huntP(this, boids,bucketboids,wszystkie);
         return wynik;
     }
 

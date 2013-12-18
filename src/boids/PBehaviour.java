@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import math.NDistance;
 import math.vector2d;
+import simulation.bucket;
 
 /**
  *
@@ -42,35 +43,30 @@ public class PBehaviour {
         return w;
     }
     
-    public static vector2d huntP(boid ten,ArrayList<boid> boids,ArrayList<boid> prey,ArrayList<boid> wszystkie)
+    public static vector2d huntP(boid ten,ArrayList<boid> boids,ArrayList<bucket> bucketboids,ArrayList<boid> wszystkie)
     {
-        boid naj;
+        boid potPrey;
+        ArrayList <bucket> temp=new ArrayList <>();
         vector2d poz,pom=new vector2d(0,0);
         Random randGen = new Random();
-        /**
+        
         if(ten.type==2)
         {
-            //System.out.println(ten.getAcceleration().getX());
-            if(ten.eats!=-1 && ten.eats<10000) {
-                ten.eats++;
-                return pom;
-            }
+            
             if(!boids.isEmpty())
             {
-                 naj=NDistance.minDist(ten, boids);
-                 if(naj!=null && naj.type!=2){
-                   naj.type=3; //nie mam pojęcia czy to tak zadziała
-                   prey.add(naj);
-                   wszystkie.remove(naj);
+                 potPrey=NDistance.minDist(ten, boids);
+                 if(potPrey!=null && potPrey.type!=2){
+                   wszystkie.remove(potPrey);
                  }
-                 ten.eats=0;
-                 ten.velocity=new vector2d(0,0);
-                 return pom;
             }
-            **/
-           if(ten.type==2) pom=new vector2d(randGen.nextDouble()*12-5,randGen.nextDouble()*12-5);
+            
+            
+            pom=new vector2d(randGen.nextDouble()*12-5,randGen.nextDouble()*12-5);
             return pom;
-       // }
-        //else return pom;
+        }
+        else return pom;
+       
     }
 }
+

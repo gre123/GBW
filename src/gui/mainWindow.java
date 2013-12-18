@@ -617,12 +617,12 @@ double[] tabFPS = new double[10];
        fabric= new boidsFabric();
        fabric.setBoidsParametrs(sldMaxSpeed.getValue()/100d,sldMaxAccel.getValue()/10d);
        mainBoids.boids=fabric.createBoids(Integer.parseInt(this.txtNumSwarm.getText()),(int)this.textNumPred.getValue());
-       mainBoids.prey=new ArrayList<boid>();
+    
        obsfabric = new obstaclesFabric();
        mainBoids.obs = obsfabric.createObs(3);// dorobić pole na ilośc przeszkód i wartość tutaj
        if (ptr!=null){this.remove(ptr);}
        //ptr=new panel(mainBoids.boids,mainBoids.prey);
-       ptr=new panel(mainBoids.boids,mainBoids.prey,mainBoids.obs);
+       ptr=new panel(mainBoids.boids,mainBoids.obs);
        this.add(ptr);  
         ptr.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -714,7 +714,7 @@ double[] tabFPS = new double[10];
 
             this.startButton.setText("Zatrzymaj symulację");
             //mainBoids.simul= new symulacja(mainBoids.boids,mainBoids.prey);
-            mainBoids.simul= new symulacja(mainBoids.boids,mainBoids.prey, mainBoids.obs);
+            mainBoids.simul= new symulacja(mainBoids.boids,mainBoids.obs);
             mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000);
             //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
             mainBoids.simul.setNeightParametrs(sldAngle.getValue()/(double)1000,sldNeigh.getValue()/(double)10);

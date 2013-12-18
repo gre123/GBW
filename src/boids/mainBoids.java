@@ -14,7 +14,7 @@ public class mainBoids {
     
     public static mainWindow mainWin=null;
     public static ArrayList<boid> boids;
-    public static ArrayList<boid> prey;
+   
     public static ArrayList<Obstacle> obs;
     public static symulacja simul=null;
     public static trigonometric tryg;  

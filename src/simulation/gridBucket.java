@@ -66,4 +66,28 @@ public class gridBucket {
       
       return temp;
       }
+      
+      //-------------------------------------------
+      /**
+       * Fajnie by było żeby fkcja zwracała buckety sąsiadujące z drapieżnikiem :P
+       * Ogólnie prawie kopiuj-wklej z getArrayNeight
+       * @param osobnik
+       * @return 
+       */
+      public ArrayList <bucket> getArrayNeightB(boid osobnik){
+      ArrayList <bucket> temp=new ArrayList <>();
+      int dX=osobnik.getBucketX()+2;
+      int dY=osobnik.getBucketY()+2;
+      int k=0;
+      for (int i=dX-3;i<dX;i++){
+          if (i<0 || i>=x){continue;}
+          for (int j=dY-3;j<dY;j++){
+               if (j<0 || j>=y){continue;}
+               k++;
+               temp.add(bucketList.get(i).get(j));
+          }
+      }
+      
+      return temp;
+      }
 }

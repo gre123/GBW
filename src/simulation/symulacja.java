@@ -13,7 +13,7 @@ import trunk.src.boids.Obstacle;
  * @author Tomek
  */
 public class symulacja {
-  ArrayList<boid> boids,prey;
+  ArrayList<boid> boids;
   ArrayList<Obstacle> obs;
   public boolean continueSimulation;
   double cofSep,cofAli,cofCoh,leadCof,randCof,cofPred,cofAvoid;
@@ -24,21 +24,19 @@ public class symulacja {
   public vector2d globalAim=new vector2d(-1,-1);
   gridBucket siatkaKoszykow;
   
-  public symulacja(ArrayList<boid> _boids, ArrayList<boid> _prey ){
+  public symulacja(ArrayList<boid> _boids){
       cofSep=1;cofAli=1;cofCoh=1;randCof=1;
    continueSimulation=false;
     timeStep=1;//pozniej zmienic
   boids=_boids;
-  prey=_prey;
   animSpeed=10;
   siatkaKoszykow =new gridBucket(12,8,80,80,1100,700);
   }
-  public symulacja(ArrayList<boid> _boids, ArrayList<boid> _prey, ArrayList<Obstacle> _obs ){
+  public symulacja(ArrayList<boid> _boids, ArrayList<Obstacle> _obs ){
       cofSep=1;cofAli=1;cofCoh=1;randCof=1;
    continueSimulation=false;
     timeStep=1;//pozniej zmienic
   boids=_boids;
-  prey=_prey;
   obs=_obs;
   animSpeed=10;
   siatkaKoszykow =new gridBucket(12,8,80,80,1100,700);
@@ -142,7 +140,7 @@ public class symulacja {
           lead= boids.get(i).followLeader(tempBoids);
           rand=new vector2d(randGen.nextDouble()*2-1,randGen.nextDouble()*2-1);
           pred=boids.get(i).predator(tempBoids);
-          predH=boids.get(i).predHunt(prey,tempBoids,boids);
+          predH=boids.get(i).predHunt(tempBoids,siatkaKoszykow.getArrayNeightB(boids.get(i)),boids);
           avoid = boids.get(i).avoid(obs);
           toAim=boids.get(i).goToAim(globalAim);
           sep.multi(cofSep);
@@ -157,7 +155,7 @@ public class symulacja {
 //          }
            if(boids.get(i).getType()==2) rand=new vector2d(0,0);
           
-            boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred).add(avoid).add(toAim));
+            boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred).add(avoid).add(toAim).add(predH));
        }
        
        for(int i=0;i<boids.size();i++){
