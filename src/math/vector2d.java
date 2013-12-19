@@ -90,5 +90,15 @@ public class vector2d {
         double wynik = x*a.getX()+y*a.getY();
         return wynik;
     }
+/**
+ * 
+ * @return Zwraca wektor obrócony 90* w prawo
+ */
+    public vector2d getRight(){
+        return new vector2d(y,-x);
+    }
+    public vector2d getLeft(){
+        return new vector2d(-y,x);
+    }
     
 }

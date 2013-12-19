@@ -19,7 +19,7 @@ public class Obstacle {
 
     public Obstacle(double x, double y) {
         position = new vector2d(x, y);
-        radius = 40;
+        radius = 60;
     }
 
     public vector2d getPosition() {

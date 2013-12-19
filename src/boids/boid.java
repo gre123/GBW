@@ -156,8 +156,43 @@ public class boid {
         odl = odl - this.radius - ob.getR(); //o ile radius to rozmiar osobnika
         return odl;
     }
-
+    
     public vector2d avoid(ArrayList<Obstacle> obs) {
+        vector2d value = new vector2d(0, 0);
+        double min = Double.MAX_VALUE;
+        int minn = -1;
+        for (int i = 0; i < obs.size(); i++) {
+            double odl = this.getOdl(obs.get(i));//szukam najbliższej przeszkody
+            if (odl < min) {//jeśli jesteś najbliższą, to zapamiętaj indeks
+                min = odl;  //odległość najbliższej przeszkody
+                minn = i;   //indeks przeszkody w tablicy
+            }
+        }
+        if (minn < 0 || min > 0) {
+            //System.out.println("Nie widzę, bo nie ma na lini żadnej przeszkody");
+            return value;       // nie ma przeszkód(zwykle są), albo odległość jest dodatnia, czyli nie będzie zderzenia
+        } else {                //czyli jest przeszkoda i przecina prostą
+            Obstacle najblizsza = obs.get(minn);
+            
+            value.setX(position.getX() - najblizsza.getX());
+            value.setY(position.getY() - najblizsza.getY());
+            if (this.velocity.skalarny(value) < 0) {            //jeśli przeszkoda przede mną
+                if (this.position.getDistance(najblizsza.getPosition())-najblizsza.getR()>50){
+                    return new vector2d(0, 0);} //to sprawdź czy nie za daleko, 50 to (długość prostokąta-pomijalna wielkość osobnika)
+                //jak blisko, to sprawdź czy jest po prawej czy po lewej
+                //System.out.println("Dzień dobry, widzę przeszkodę");
+                if (this.velocity.getRight().skalarny(value)>0){        //to przeszkoda po lewej od wektora
+                    return this.velocity.getRight().normalize();
+                }
+                return this.velocity.getLeft().normalize();
+            } else {
+                //System.out.println("Nie widzę, bo za mną");
+                return new vector2d(0, 0);
+            }
+        }
+    }
+
+    public vector2d worse_avoid(ArrayList<Obstacle> obs) {
         vector2d value = new vector2d(0, 0);
         double min = Double.MAX_VALUE;
         int minn = -1;
