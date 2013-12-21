@@ -37,5 +37,19 @@ public class bucket {
  {
      return koszyk;
  }
+ /**
+  * Sprawdzanie czy drapieżnik jest w koszyku
+  * @param b drapieżnik do sprawdzania
+  * @return true : drapieznik jest w tym koszyku, false : nie ma go
+  */
+ public boolean ifPred(boid b)
+ {
+     for(int i=0;i<koszyk.size();i++)
+     {
+         if(b.equals(koszyk.get(i))) return true;
+         
+     }
+     return false;
+ }
  //--------------------------------------------
 }

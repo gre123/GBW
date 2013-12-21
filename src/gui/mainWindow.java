@@ -88,6 +88,8 @@ double[] tabFPS = new double[10];
         btnGlobAim = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
         btnSterMysza = new javax.swing.JToggleButton();
+        jLabel21 = new javax.swing.JLabel();
+        combpredMove = new javax.swing.JComboBox();
         wygladPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -514,6 +516,11 @@ double[] tabFPS = new double[10];
         jLabel17.setText("Liderzy:");
 
         combLeadMove.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Koło", "Ósemka", "Kwadrat" }));
+        combLeadMove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combLeadMoveActionPerformed(evt);
+            }
+        });
 
         btnGlobAim.setText("reset");
         btnGlobAim.addActionListener(new java.awt.event.ActionListener() {
@@ -527,6 +534,15 @@ double[] tabFPS = new double[10];
         btnSterMysza.setSelected(true);
         btnSterMysza.setText("Steruj myszą\n");
 
+        jLabel21.setText("Drapieżnik:");
+
+        combpredMove.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "gonic_koszyki" }));
+        combpredMove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combpredMoveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout sterLeadLayout = new javax.swing.GroupLayout(sterLead);
         sterLead.setLayout(sterLeadLayout);
         sterLeadLayout.setHorizontalGroup(
@@ -539,10 +555,13 @@ double[] tabFPS = new double[10];
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnGlobAim))
+                    .addComponent(btnSterMysza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(sterLeadLayout.createSequentialGroup()
-                        .addComponent(jLabel17)
+                        .addGroup(sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel21))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnSterMysza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(combpredMove, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         sterLeadLayout.setVerticalGroup(
@@ -558,7 +577,11 @@ double[] tabFPS = new double[10];
                     .addComponent(jLabel18))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSterMysza, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(585, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(combpredMove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(522, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Sterowanie", sterLead);
@@ -800,6 +823,14 @@ double[] tabFPS = new double[10];
         // TODO add your handling code here:
     }//GEN-LAST:event_formKeyTyped
 
+    private void combpredMoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combpredMoveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combpredMoveActionPerformed
+
+    private void combLeadMoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combLeadMoveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combLeadMoveActionPerformed
+
     private void panelMouseClicked(java.awt.event.MouseEvent evt) {                                     
       ptr.aimX=evt.getX();
       ptr.aimY=evt.getY();
@@ -856,6 +887,7 @@ double[] tabFPS = new double[10];
     private javax.swing.JToggleButton btnSterMysza;
     private javax.swing.JComboBox cobRozklad;
     private javax.swing.JComboBox combLeadMove;
+    private javax.swing.JComboBox combpredMove;
     private javax.swing.JPanel editFlock;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -870,6 +902,7 @@ double[] tabFPS = new double[10];
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

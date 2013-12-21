@@ -42,10 +42,11 @@ public class PBehaviour {
         }
         return w;
     }
-    public static ArrayList<boid> getCrowdedBucket(ArrayList<bucket> bucketboids)
+    public static ArrayList<boid> getCrowdedBucket(boid ten, ArrayList<bucket> bucketboids)
     {
         int pom,a=0;
         ArrayList<boid> w=new ArrayList<boid>();
+        ArrayList<boid> wynik=new ArrayList<boid>();
         for(int i=0;i<bucketboids.size();i++)
         {
             pom=bucketboids.get(i).count_noPred();
@@ -55,15 +56,50 @@ public class PBehaviour {
                 w=bucketboids.get(i).getKoszyk();
             }
         }
-        return w;
+        for(int i=0;i<w.size();i++)
+        {
+            if(w.get(i).getType()!=2) wynik.add(w.get(i));
+        }
+        return wynik;
     }
-    
+    /**
+     * Strategia oparta na gonieniu za osobnikami w najliczniejszym koszyku
+     * @param ten
+     * @param boids
+     * @param bucketboids
+     * @return 
+     */
+    public static vector2d huntStrategy1(boid ten,ArrayList<boid> boids,ArrayList<bucket> bucketboids)
+    { 
+       
+        boid minDist;
+        ArrayList <boid> tmp=new ArrayList <>();
+        vector2d mindist,pom=new vector2d(0,0);
+        Random randGen = new Random();
+        
+        minDist=NDistance.minDist(ten, boids);
+        tmp=getCrowdedBucket(ten,bucketboids);
+        
+        if(tmp.isEmpty())
+        {
+          pom=new vector2d(randGen.nextDouble()*2-2,randGen.nextDouble()*2+4);
+        }
+        else 
+        {
+           for(int j=0;j<tmp.size();j++)
+           {
+             pom.add(tmp.get(j).getPosition());
+           }
+           pom.div(tmp.size());
+           pom.minus(ten.getPosition());
+         }
+         return pom.normalize().multi(10);
+            
+    }
     public static vector2d huntP(boid ten,ArrayList<boid> boids,ArrayList<bucket> bucketboids,ArrayList<boid> wszystkie)
     {
         boid potPrey;
-        ArrayList <boid> tmp=new ArrayList <>();
-        vector2d poz,pom=new vector2d(0,0);
-        Random randGen = new Random();
+        
         
         if(ten.type==2)
         {
@@ -75,31 +111,15 @@ public class PBehaviour {
                  potPrey=NDistance.minPrey(ten, boids);
                  if(potPrey!=null && potPrey.type!=2){
                    wszystkie.remove(potPrey);
-                 }
-            
-            
+                 } 
+            } 
             /**
              * Strategia poruszania się
              */
-                tmp=getCrowdedBucket(bucketboids);
-                if(tmp.isEmpty())
-                {
-                    pom=new vector2d(randGen.nextDouble()*6-2,randGen.nextDouble()*6+4);
-                }
-                else 
-                {
-                     for(int j=0;j<tmp.size();j++)
-                     {
-                         pom.add(tmp.get(j).getPosition());
-                     }
-                     pom.div(tmp.size());
-                     pom.minus(ten.getPosition());
-                }
-                return pom;
-            }
-        }
-        return pom;
+            return huntStrategy1(ten,boids,bucketboids);
        
-    }
+        }
+        else return new vector2d(0,0);
+     }
 }
 

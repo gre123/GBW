@@ -46,7 +46,7 @@ public class boid {
         vector2d pos = new vector2d(0, 0);
         int k = 0;
         double sDist;
-        if (type == 3 || type == 2 || type == 0 || boids.isEmpty()) {
+        if (type == 3 || type == 0 || boids.isEmpty()) {
             return value;
         }
         for (int i = 0; i < boids.size(); i++) {
@@ -59,7 +59,10 @@ public class boid {
                 pos.setX(this.getX() - boids.get(i).getX());
                 pos.setY(this.getY() - boids.get(i).getY());
                 pos.div(sDist);
-                value.add(pos);
+                //-----------------------------------------
+                if(type==2 && boids.get(i).getType()!=2);
+                else value.add(pos);
+                //-----------------------------------------
             }
         }
         if (k > 0) {
@@ -67,6 +70,10 @@ public class boid {
         } else {
             return value;
         }
+        //-----------------------------
+        //Żeby zwiększyć separację dla drapieżników
+        if(type==2) return value;
+        //-----------------------------
         return value.normalize();
     }
 
