@@ -1,12 +1,9 @@
-/*
- */
+
 
 package gui;
 
-import boids.boid;
 import boids.boidsFabric;
 import boids.mainBoids;
-import java.util.ArrayList;
 import math.vector2d;
 import simulation.symulacja;
 import simulation.threadSym;
@@ -90,6 +87,8 @@ double[] tabFPS = new double[10];
         combLeadMove = new javax.swing.JComboBox();
         btnGlobAim = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
+        btnSterMysza = new javax.swing.JToggleButton();
+        wygladPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Symulacja stada - Bylina,Gajda,Wszołek 2013");
@@ -98,6 +97,11 @@ double[] tabFPS = new double[10];
         setMaximumSize(new java.awt.Dimension(1300, 760));
         setMinimumSize(new java.awt.Dimension(1140, 640));
         setName("mainWin"); // NOI18N
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                formKeyTyped(evt);
+            }
+        });
 
         jLabel8.setText("Szybkość animacji:");
 
@@ -171,6 +175,8 @@ double[] tabFPS = new double[10];
 
         cobRozklad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Losowy", "Równomierny" }));
 
+        textNumObs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         jLabel20.setText("Ilość przeszkód:");
 
         javax.swing.GroupLayout editFlockLayout = new javax.swing.GroupLayout(editFlock);
@@ -199,16 +205,16 @@ double[] tabFPS = new double[10];
                             .addComponent(jLabel1))
                         .addGap(10, 10, 10)
                         .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textNumPred)
                             .addComponent(txtNumSwarm)
-                            .addComponent(textLeaderNum)))
+                            .addComponent(textLeaderNum)
+                            .addComponent(textNumPred, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(editFlockLayout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(editFlockLayout.createSequentialGroup()
                         .addComponent(jLabel20)
-                        .addGap(10, 10, 10)
-                        .addComponent(textNumObs)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textNumObs, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         editFlockLayout.setVerticalGroup(
@@ -518,6 +524,9 @@ double[] tabFPS = new double[10];
 
         jLabel18.setText("Global aim:");
 
+        btnSterMysza.setSelected(true);
+        btnSterMysza.setText("Steruj myszą\n");
+
         javax.swing.GroupLayout sterLeadLayout = new javax.swing.GroupLayout(sterLead);
         sterLead.setLayout(sterLeadLayout);
         sterLeadLayout.setHorizontalGroup(
@@ -525,14 +534,15 @@ double[] tabFPS = new double[10];
             .addGroup(sterLeadLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(sterLeadLayout.createSequentialGroup()
-                        .addComponent(jLabel17)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(combLeadMove, 0, 160, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sterLeadLayout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGlobAim)))
+                        .addComponent(btnGlobAim))
+                    .addGroup(sterLeadLayout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnSterMysza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         sterLeadLayout.setVerticalGroup(
@@ -546,10 +556,25 @@ double[] tabFPS = new double[10];
                 .addGroup(sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGlobAim)
                     .addComponent(jLabel18))
-                .addContainerGap(628, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSterMysza, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(585, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Sterowanie", sterLead);
+
+        javax.swing.GroupLayout wygladPanelLayout = new javax.swing.GroupLayout(wygladPanel);
+        wygladPanel.setLayout(wygladPanelLayout);
+        wygladPanelLayout.setHorizontalGroup(
+            wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 180, Short.MAX_VALUE)
+        );
+        wygladPanelLayout.setVerticalGroup(
+            wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 720, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Wygląd", wygladPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -557,7 +582,7 @@ double[] tabFPS = new double[10];
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(sldAnimSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -566,8 +591,8 @@ double[] tabFPS = new double[10];
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtFPS, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 775, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -644,6 +669,17 @@ double[] tabFPS = new double[10];
                 panelMouseClicked(evt);
             }
         });
+        ptr.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                panelMouseMoved(evt);
+            }
+        });
+
+//       ptr.addKeyListener(new java.awt.event.KeyAdapter() {
+//            public void keyTyped(java.awt.event.KeyEvent evt) {
+//                panelKeyTyped(evt);
+//            }
+//        });
        ptr.repaint();
     }//GEN-LAST:event_btnGenStadoActionPerformed
 
@@ -760,10 +796,21 @@ double[] tabFPS = new double[10];
         }
     }//GEN-LAST:event_sldAvoidCofStateChanged
 
+    private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formKeyTyped
+
     private void panelMouseClicked(java.awt.event.MouseEvent evt) {                                     
       ptr.aimX=evt.getX();
       ptr.aimY=evt.getY();
       mainBoids.simul.globalAim=new vector2d(evt.getX(),evt.getY());
+    } 
+    private void panelMouseMoved(java.awt.event.MouseEvent evt) {
+        if(ptr.aimX>0 && ptr.aimY>0 && btnSterMysza.isSelected()){
+        ptr.aimX=evt.getX();
+      ptr.aimY=evt.getY();
+      mainBoids.simul.globalAim=new vector2d(evt.getX(),evt.getY());
+        }
     } 
     /**
      * @param args the command line arguments
@@ -806,6 +853,7 @@ double[] tabFPS = new double[10];
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGenStado;
     private javax.swing.JButton btnGlobAim;
+    private javax.swing.JToggleButton btnSterMysza;
     private javax.swing.JComboBox cobRozklad;
     private javax.swing.JComboBox combLeadMove;
     private javax.swing.JPanel editFlock;
@@ -861,5 +909,6 @@ double[] tabFPS = new double[10];
     private javax.swing.JSpinner textNumPred;
     private javax.swing.JLabel txtFPS;
     private javax.swing.JFormattedTextField txtNumSwarm;
+    private javax.swing.JPanel wygladPanel;
     // End of variables declaration//GEN-END:variables
 }

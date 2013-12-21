@@ -142,6 +142,8 @@ public class symulacja {
           pred=boids.get(i).predator(tempBoids);
           predH=boids.get(i).predHunt(tempBoids,siatkaKoszykow.getArrayNeightB(boids.get(i)),boids);
           avoid = boids.get(i).avoid(obs);
+         // System.out.println(avoid.getLength());
+          //if (avoid.getLength()>0){rand=lead=coh=ali=new vector2d(0,0);}
           toAim=boids.get(i).goToAim(globalAim);
           sep.multi(cofSep);
           ali.multi(cofAli);

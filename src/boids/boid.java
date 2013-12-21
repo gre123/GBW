@@ -153,7 +153,7 @@ public class boid {
         double b = (-1) * velocity.getX();
         double c = (-1) * (a * position.getX() + b * position.getY());
         double odl = abs(a * ob.getPosition().getX() + b * ob.getPosition().getY() + c) / sqrt(a * a + b * b);
-        odl = odl - this.radius - ob.getR(); //o ile radius to rozmiar osobnika
+        odl = odl - this.radius - ob.getR(); //o ile radius to rozmiar osobnika//tak radius to jego rozmiar
         return odl;
     }
     
