@@ -48,7 +48,7 @@ public class symulacja {
       animSpeed=speed;
   }
   private ArrayList<boid> getNeighbourhood(boid osobnik){
-  ArrayList<boid> neigh=new ArrayList<boid>();
+  ArrayList<boid> neigh=new ArrayList<>();
       double alfa=osobnik.calcAngle();
       double mian;
       double k2,d;
@@ -73,7 +73,8 @@ public class symulacja {
   }
   private ArrayList<boid> getNeighbourhoodOptm(boid osobnik){
   ArrayList<boid> neigh=new ArrayList<>();
-      double alfa,d;
+  neigh.ensureCapacity(1000);
+  double alfa,d;
   ArrayList<boid> gridBoids=siatkaKoszykow.getArrayNeight(osobnik);
   
   for(int i=0;i<gridBoids.size();i++){
@@ -83,7 +84,7 @@ public class symulacja {
       }
       if(osobnik.getVelocity().getLength()<osobnik.getMaxSpeed()/10 && !osobnik.equals(gridBoids.get(i))){  neigh.add(gridBoids.get(i)); continue;}
       if (d<(radiusNeigh*radiusNeigh) && !osobnik.equals(gridBoids.get(i))){ 
-         alfa=osobnik.calcAngle(gridBoids.get(i).getPosition().getVec());
+         alfa=osobnik.calcAngle(gridBoids.get(i).getPosition());
           if((180-alfa)<katWidzenia*180/3.1415){
               neigh.add(gridBoids.get(i));
             }
@@ -116,7 +117,7 @@ public class symulacja {
       long end;
       double time;
       double timeMin=0;
-       double fps=0;
+       double fps;
       vector2d sep,ali,coh,lead,rand,pred, avoid, predH,toAim;
       
       ArrayList<boid> tempBoids;

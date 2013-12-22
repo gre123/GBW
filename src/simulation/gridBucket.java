@@ -40,7 +40,7 @@ public class gridBucket {
       }
       public void updateGrid(boid osobnik){
           int posX,posY;    
-          vector2d pos=osobnik.getPosition().getVec();
+          vector2d pos=osobnik.getPosition();
           posX=(int)(pos.getX()/maxX*(x));
           posY=(int)(pos.getY()/maxY*(y));
           if (osobnik.checkBucketXY(posX,posY)==true){
@@ -51,6 +51,7 @@ public class gridBucket {
       }
       public ArrayList <boid> getArrayNeight(boid osobnik){
       ArrayList <boid> temp=new ArrayList <>();
+      temp.ensureCapacity(1000);
       int dX=osobnik.getBucketX()+2;
       int dY=osobnik.getBucketY()+2;
       int k=0;
@@ -62,8 +63,6 @@ public class gridBucket {
                temp.addAll(bucketList.get(i).get(j).koszyk);//tu moze bez kopiowania calych koszyków
           }
       }
-   //  System.out.println("t"+k);
-      
       return temp;
       }
       

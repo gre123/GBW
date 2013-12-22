@@ -15,10 +15,10 @@ public class boidsFabric {
     ArrayList<boid> boids;
     public boidsFabric(int n){
         numberOfBoids=n;
-        boids=new ArrayList<boid>(n);
+        boids=new ArrayList<>(n);
     }
     public boidsFabric(){       
-        boids=new ArrayList<boid>();
+        boids=new ArrayList<>();
     }
     public void setBoidsParametrs(double _maxSpeed,double _maxAccel){
         maxSpeed=_maxSpeed;

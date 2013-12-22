@@ -81,13 +81,13 @@ public class boid {
         vector2d value = new vector2d(0, 0);
 
         vector2d pos = new vector2d(0, 0);
-        if (type == 3 || type == 2 || boids.size() == 0 || type == 0) {
+        if (type == 3 || type == 2 || boids.isEmpty() || type == 0) {
             return value;
         }
         for (int i = 0; i < boids.size(); i++) {
             pos.add(boids.get(i).velocity);
         }
-        if (boids.size() != 0) {
+        if (!boids.isEmpty()) {
             pos.div(boids.size()).minus(this.velocity);//ten minus nie wiem co robi
             return pos.normalize();
         } else {
@@ -111,10 +111,8 @@ public class boid {
 
     public vector2d followLeader(ArrayList<boid> boids) {
         vector2d value = new vector2d(0, 0);
-        vector2d pos = new vector2d(0, 0);
+        vector2d pos;
         boid leader = null;
-   // ArrayList<boid> leaders= new ArrayList<boid>();
-
         if (type == 3 || type == 2 || type == 0 || boids.isEmpty()) {
             return value;
         }
@@ -326,7 +324,7 @@ public class boid {
     }
 
     public double calcAngle() {
-        double k1 = 0;
+        double k1;
         if (velocity.getX() != 0) {
             k1 = Math.atan(velocity.getY() / velocity.getX());
         } else {
@@ -339,7 +337,6 @@ public class boid {
         vector2d pos = this.getPosition().getVec();
         pos.minus(_pos);
         double k1 = (pos.getX() * this.velocity.getX() + pos.getY() * this.velocity.getY()) / (pos.getLength() * this.velocity.getLength());
-        //  k1=Math.acos(k1)*180/3.1415;
         k1 = trigonometric.acosLUT(k1) * 180 / 3.1415;
         return k1;
     }
@@ -389,19 +386,13 @@ public class boid {
     }
 
     public boolean setBucket(int _x, int _y) {
-        if (koszX == _x && koszY == _y) {
-            return false;
-        }
         koszX = _x;
         koszY = _y;
         return true;
     }
 
     public boolean checkBucketXY(int _x, int _y) {
-        if (koszX == _x && koszY == _y) {
-            return false;
-        }
-        return true;
+        return koszX != _x || koszY != _y;
     }
 
     public int getBucketX() {
