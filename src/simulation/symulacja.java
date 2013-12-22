@@ -78,17 +78,19 @@ public class symulacja {
   ArrayList<boid> gridBoids=siatkaKoszykow.getArrayNeight(osobnik);
   
   for(int i=0;i<gridBoids.size();i++){
-      d=osobnik.getPosition().getSDistance(gridBoids.get(i).getPosition());
-      if  (d<(18*18) && !osobnik.equals(gridBoids.get(i))){
-       neigh.add(gridBoids.get(i));continue;//jezeli jest bardzo blisko to widzi go nawet za plecami
-      }
-      if(osobnik.getVelocity().getLength()<osobnik.getMaxSpeed()/10 && !osobnik.equals(gridBoids.get(i))){  neigh.add(gridBoids.get(i)); continue;}
+      
+      d=osobnik.getPosition().getSDistance(gridBoids.get(i).getPosition());     
+      
       if (d<(radiusNeigh*radiusNeigh) && !osobnik.equals(gridBoids.get(i))){ 
          alfa=osobnik.calcAngle(gridBoids.get(i).getPosition());
           if((180-alfa)<katWidzenia*180/3.1415){
-              neigh.add(gridBoids.get(i));
+              neigh.add(gridBoids.get(i));continue;
             }
-      }         
+      }   
+      if  (d<(15*15) && !osobnik.equals(gridBoids.get(i))){
+       neigh.add(gridBoids.get(i));continue;//jezeli jest bardzo blisko to widzi go nawet za plecami
+      }
+      if(osobnik.getVelocity().getLength()<osobnik.getMaxSpeed()/10 && !osobnik.equals(gridBoids.get(i))){  neigh.add(gridBoids.get(i)); continue;}
   } 
   return neigh;
   }

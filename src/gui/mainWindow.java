@@ -91,6 +91,9 @@ double[] tabFPS = new double[10];
         jLabel21 = new javax.swing.JLabel();
         combpredMove = new javax.swing.JComboBox();
         wygladPanel = new javax.swing.JPanel();
+        btnWpływLeader = new javax.swing.JToggleButton();
+        btnVelWart = new javax.swing.JToggleButton();
+        btnAccelWart = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Symulacja stada - Bylina,Gajda,Wszołek 2013");
@@ -175,7 +178,7 @@ double[] tabFPS = new double[10];
 
         jLabel6.setText("Rozkład:");
 
-        cobRozklad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Losowy", "Równomierny" }));
+        cobRozklad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Losowy", "Równomierny", "Gaussa" }));
 
         textNumObs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -586,15 +589,34 @@ double[] tabFPS = new double[10];
 
         jTabbedPane1.addTab("Sterowanie", sterLead);
 
+        btnWpływLeader.setText("wpływ lidera");
+
+        btnVelWart.setText("wartość prędkości");
+
+        btnAccelWart.setText("wartość przyspieszenia");
+
         javax.swing.GroupLayout wygladPanelLayout = new javax.swing.GroupLayout(wygladPanel);
         wygladPanel.setLayout(wygladPanelLayout);
         wygladPanelLayout.setHorizontalGroup(
             wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
+            .addGroup(wygladPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAccelWart, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addComponent(btnVelWart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnWpływLeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         wygladPanelLayout.setVerticalGroup(
             wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
+            .addGroup(wygladPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnWpływLeader)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnVelWart)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAccelWart)
+                .addContainerGap(618, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Wygląd", wygladPanel);
@@ -654,6 +676,18 @@ double[] tabFPS = new double[10];
     }
     public  int getRozklad(){
      return (int)this.cobRozklad.getSelectedIndex();
+    }
+    public  boolean czyWplywLeader(){
+     if (this.btnWpływLeader.isSelected()){return true;}
+     return false;
+    }
+    public  boolean czyVelWart(){
+     if (this.btnVelWart.isSelected()){return true;}
+     return false;
+    }
+    public  boolean czyAccelWart(){
+     if (this.btnAccelWart.isSelected()){return true;}
+     return false;
     }
     public  int getLeaderTypeMovement(){
      return (int)this.combLeadMove.getSelectedIndex();
@@ -882,9 +916,12 @@ double[] tabFPS = new double[10];
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnAccelWart;
     private javax.swing.JButton btnGenStado;
     private javax.swing.JButton btnGlobAim;
     private javax.swing.JToggleButton btnSterMysza;
+    private javax.swing.JToggleButton btnVelWart;
+    private javax.swing.JToggleButton btnWpływLeader;
     private javax.swing.JComboBox cobRozklad;
     private javax.swing.JComboBox combLeadMove;
     private javax.swing.JComboBox combpredMove;

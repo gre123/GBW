@@ -320,9 +320,10 @@
             <Component class="javax.swing.JComboBox" name="cobRozklad">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
+                  <StringArray count="3">
                     <StringItem index="0" value="Losowy"/>
                     <StringItem index="1" value="R&#xf3;wnomierny"/>
+                    <StringItem index="2" value="Gaussa"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -826,15 +827,48 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="180" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btnAccelWart" pref="160" max="32767" attributes="0"/>
+                          <Component id="btnVelWart" max="32767" attributes="0"/>
+                          <Component id="btnWpływLeader" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="720" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnWpływLeader" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnVelWart" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnAccelWart" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="618" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JToggleButton" name="btnWp&#x142;ywLeader">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="wp&#x142;yw lidera"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JToggleButton" name="btnVelWart">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="warto&#x15b;&#x107; pr&#x119;dko&#x15b;ci"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JToggleButton" name="btnAccelWart">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="warto&#x15b;&#x107; przyspieszenia"/>
+              </Properties>
+            </Component>
+          </SubComponents>
         </Container>
       </SubComponents>
     </Container>

@@ -24,7 +24,12 @@ public class boid {
     int type, eats;
     double katWidzenia;
     double minimalDistance;
-
+    float colorLeadB;
+    float colorSeparB;
+    float colorVelB;
+    float colorAccelB;
+    
+    
     public boid(double x, double y) {
         Random randGen = new Random();
         acceleration = new vector2d(0, 0);
@@ -34,6 +39,11 @@ public class boid {
         indexAims = -1;
         maxSpeed = 1;
         maxForce = 0.5;
+        colorLeadB=0.0f;
+        colorSeparB=0.0f;
+        colorVelB=0.0f;
+        colorAccelB=0.0f;
+        
         // angle=randGen.nextDouble()*360;
         minimalDistance = 8;
         type = 1;
@@ -44,6 +54,7 @@ public class boid {
     public vector2d spearate(ArrayList<boid> boids) {
         vector2d value = new vector2d(0, 0);
         vector2d pos = new vector2d(0, 0);
+        colorSeparB=0;
         int k = 0;
         double sDist;
         if (type == 3 || type == 0 || boids.isEmpty()) {
@@ -67,6 +78,7 @@ public class boid {
         }
         if (k > 0) {
             value.div(k);
+            //colorSeparB=1-(float)(pos.getLength()/(minimalDistance * minimalDistance));
         } else {
             return value;
         }
@@ -112,6 +124,7 @@ public class boid {
     public vector2d followLeader(ArrayList<boid> boids) {
         vector2d value = new vector2d(0, 0);
         vector2d pos;
+        this.colorLeadB=0;
         boid leader = null;
         if (type == 3 || type == 2 || type == 0 || boids.isEmpty()) {
             return value;
@@ -131,6 +144,7 @@ public class boid {
         }
         if (leader != null) {
             pos = leader.getPosition().getVec();
+            this.colorLeadB=1-(float)(dist/mainBoids.simul.radiusNeigh);
             //pos.minus(leader.getVelocity().getVec().normalize().multi(15));
             value = pos.minus(this.position);
             if (dist > 12) {
@@ -298,6 +312,9 @@ public class boid {
         if (velocity.getLength() > maxSpeed) {
             velocity.normalize();
             velocity.multi(maxSpeed);
+            colorVelB=0;
+        }else{
+            colorVelB=1-(float)(velocity.getLength()/maxSpeed);
         }
     }
 
@@ -349,8 +366,10 @@ public class boid {
         if (_accel.getLength() > maxForce) {
             _accel.normalize();
             _accel.multi(maxForce);
+        colorAccelB=0;
         }
         this.acceleration = _accel;
+    colorAccelB=1-(float)(_accel.getLength()/maxForce);
     }
 
     public vector2d getPosition() {
@@ -401,5 +420,17 @@ public class boid {
 
     public int getBucketY() {
         return koszY;
+    }
+    public float getColorLeadB(){
+    return colorLeadB;
+    }
+    public float getColorSeparB(){
+    return colorSeparB;
+    }
+    public float getColorVelB(){
+    return colorVelB;
+    }
+    public float getColorAccelB(){
+    return colorAccelB;
     }
 }

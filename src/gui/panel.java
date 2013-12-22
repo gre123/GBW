@@ -1,5 +1,6 @@
 package gui;
 import boids.boid;
+import boids.mainBoids;
 import java.awt.*;
 import java.awt.geom.*;
 import java.util.ArrayList;
@@ -45,19 +46,25 @@ public class panel extends JPanel {
         Graphics2D g2d = (Graphics2D) gContext;
         if (boids!=null){
           //System.out.println(boids.size());
-            for(int i=0;i<boids.size();i++){
-                double x=boids.get(i).getX();
-                double y=boids.get(i).getY();
-                double r=boids.get(i).getR();
+            double r;
+            for(int i=0;i<boids.size();i++){ 
+                r=boids.get(i).getR();
                 if (boids.get(i).getType()==1){//zwykły
-                    g2d.setColor(Color.black);
+                    //g2d.setColor(Color.black);
+                    if (mainBoids.mainWin.czyWplywLeader()){
+                    g2d.setColor(Color.getHSBColor(0, 0, boids.get(i).getColorLeadB()));
+                    }else if(mainBoids.mainWin.czyAccelWart()){
+                    g2d.setColor(Color.getHSBColor(0, 0, boids.get(i).getColorAccelB()));
+                    }else if(mainBoids.mainWin.czyVelWart()){
+                    g2d.setColor(Color.getHSBColor(0, 0, boids.get(i).getColorVelB()));
+                    }else{ g2d.setColor(Color.black);}
                 }else if(boids.get(i).getType()==0){//leader
                     g2d.setColor(Color.blue);
                 }else if(boids.get(i).getType()==2) {//przeciwnik
                     g2d.setColor(Color.red);
                 }
                 
-                Ellipse2D circle = new Ellipse2D.Double(x, y, r,r);
+                Ellipse2D circle = new Ellipse2D.Double( boids.get(i).getX(), boids.get(i).getY(), r,r);
                 g2d.fill(circle);
                 g2d.draw(circle);
                 
