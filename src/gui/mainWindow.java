@@ -539,7 +539,7 @@ double[] tabFPS = new double[10];
 
         jLabel21.setText("Drapieżnik:");
 
-        combpredMove.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "gonic_koszyki" }));
+        combpredMove.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "gonic_koszyki", "gonic_najblizszego", "gonic_grupe" }));
         combpredMove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 combpredMoveActionPerformed(evt);
@@ -689,6 +689,12 @@ double[] tabFPS = new double[10];
      if (this.btnAccelWart.isSelected()){return true;}
      return false;
     }
+    //----------------------------------------
+    public int getHuntStrategy()
+    {
+        return combpredMove.getSelectedIndex();
+    }
+    //-----------------------------------------1
     public  int getLeaderTypeMovement(){
      return (int)this.combLeadMove.getSelectedIndex();
     }

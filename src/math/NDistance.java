@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class NDistance {
     public static boid minPrey(boid ten,ArrayList<boid> boids)
     {
-        double preyDistance=20;
+        double preyDistance=30;
         double pom=0;
         boid k=null;
         double d=999999; //to zmienić?

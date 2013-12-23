@@ -96,27 +96,60 @@ public class PBehaviour {
          return pom.normalize().multi(10);
             
     }
+    /**
+     * Biegnie za najbliższym osobnikiem jeśli takowego ma w sąsiedztwie
+     * @param ten
+     * @param boids
+     * @return 
+     */
+    public static vector2d huntStrategy2(boid ten,ArrayList<boid> boids)
+    {
+        Random randGen = new Random();
+        boid mD=null;
+        vector2d pom=new vector2d(0,0);
+        mD=NDistance.minDist(ten, boids);
+        if(mD==null)
+        {
+            pom=new vector2d(randGen.nextDouble()*2-2,randGen.nextDouble()*2+4);
+        }
+        else
+        {
+            pom.add(mD.getPosition());
+            pom.minus(ten.getPosition());  
+        }
+        return pom;
+    }
+    
     public static vector2d huntP(boid ten,ArrayList<boid> boids,ArrayList<bucket> bucketboids,ArrayList<boid> wszystkie)
     {
         boid potPrey;
-        
+        int str;
         
         if(ten.type==2)
         {
            /**
             * Atakowanie najbliższej potencjalnej zdobyczy, jeśli jest w zasięgu drapieżnika
             */ 
-            if(!boids.isEmpty())
+            
+            /**if(!boids.isEmpty())
             {
                  potPrey=NDistance.minPrey(ten, boids);
                  if(potPrey!=null && potPrey.type!=2){
                    wszystkie.remove(potPrey);
                  } 
-            } 
+            } **/
+            
             /**
              * Strategia poruszania się
              */
+            str=mainBoids.mainWin.getHuntStrategy();
+            if(str==0)
             return huntStrategy1(ten,boids,bucketboids);
+            else
+            {
+                if(str==1) return huntStrategy2(ten,boids);
+                else return new vector2d(0,0); // żeby coś bylo
+            }
        
         }
         else return new vector2d(0,0);
