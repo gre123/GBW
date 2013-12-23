@@ -63,6 +63,33 @@ public class PBehaviour {
         return wynik;
     }
     /**
+     * fkcja ma zwracać najliczniejsze sąsiedztwo znalezione wśród sąsiedztw sąsiadów drapieżnika xD
+     * @param ten
+     * @param boids
+     * @return 
+     */
+    public static ArrayList<boid> getCrowdedGroup(boid ten,ArrayList<boid> boids)
+    {
+        int ind,t,max=0;
+        ind=0;
+        ArrayList<boid> pom=new ArrayList<boid>();
+        for(int i=0;i<boids.size();i++)
+        {
+           t=mainBoids.simul.getNeighbourhoodOptm(boids.get(i)).size();
+           if(max<t)
+           {
+               max=t;
+               ind=i;
+           }
+               
+        }
+        if(max!=0)
+        {
+            return mainBoids.simul.getNeighbourhoodOptm(boids.get(ind));
+        }
+        else return pom;
+    }
+    /**
      * Strategia oparta na gonieniu za osobnikami w najliczniejszym koszyku
      * @param ten
      * @param boids
@@ -108,17 +135,72 @@ public class PBehaviour {
         boid mD=null;
         vector2d pom=new vector2d(0,0);
         mD=NDistance.minDist(ten, boids);
-        if(mD==null)
-        {
-            pom=new vector2d(randGen.nextDouble()*2-2,randGen.nextDouble()*2+4);
-        }
-        else
+        if(mD!=null)
         {
             pom.add(mD.getPosition());
             pom.minus(ten.getPosition());  
+            pom.normalize();
         }
         return pom;
     }
+    /**
+     * Biegnie za grupą wyznaczoną za pomocą sąsiedztwa jednego z sąsiadów drapieżnika
+     * @param ten
+     * @param boids
+     * @return 
+     */
+    public static vector2d huntStrategy3(boid ten,ArrayList<boid> boids)
+    {
+        Random randGen = new Random();
+        ArrayList <boid> tmp=new ArrayList <>();
+        vector2d move=new vector2d(0,0);
+        tmp=getCrowdedGroup(ten,boids);
+        if(!tmp.isEmpty())
+        {
+            for(int i=0;i<tmp.size();i++)
+            {
+                move.add(tmp.get(i).getPosition());
+            }
+            move.div(tmp.size());
+            move.minus(ten.getPosition());
+            move.normalize();
+            return move;
+        }
+        else return new vector2d(randGen.nextDouble()*2-2,randGen.nextDouble()*2+4);
+    }
+    
+    /**
+     * Połączenie : powyżej odleglosci chStrategy porusza sie wedlug strategii 3, poniżej wedlug najbliższego sąsiada
+     * @param ten
+     * @param boids
+     * @return 
+     */
+    public static vector2d huntStrategy2_3(boid ten,ArrayList<boid> boids)
+    {
+        Random randGen = new Random();
+        double chStrategy=30;
+        boid mD=null;
+        vector2d pom=new vector2d(0,0);
+        mD=NDistance.minDist(ten, boids);
+        if(mD!=null)
+        {
+            if(ten.getPosition().getDistance(mD)<chStrategy)
+            {
+                pom.add(mD.getPosition());
+                pom.minus(ten.getPosition());  
+                //pom.normalize();
+                return pom;
+            }
+            else
+            {
+                return huntStrategy3(ten,boids);
+            }
+        }
+        return new vector2d(randGen.nextDouble()*2-2,randGen.nextDouble()*2+4);  
+    }
+    
+    
+    
     
     public static vector2d huntP(boid ten,ArrayList<boid> boids,ArrayList<bucket> bucketboids,ArrayList<boid> wszystkie)
     {
@@ -131,13 +213,13 @@ public class PBehaviour {
             * Atakowanie najbliższej potencjalnej zdobyczy, jeśli jest w zasięgu drapieżnika
             */ 
             
-            /**if(!boids.isEmpty())
+            if(!boids.isEmpty())
             {
                  potPrey=NDistance.minPrey(ten, boids);
                  if(potPrey!=null && potPrey.type!=2){
                    wszystkie.remove(potPrey);
                  } 
-            } **/
+            } 
             
             /**
              * Strategia poruszania się
@@ -148,7 +230,15 @@ public class PBehaviour {
             else
             {
                 if(str==1) return huntStrategy2(ten,boids);
-                else return new vector2d(0,0); // żeby coś bylo
+                else 
+                {
+                    if(str==2) return huntStrategy3(ten,boids);
+                    else 
+                    {
+                        if(str==3) return huntStrategy2_3(ten,boids);
+                        else return new vector2d(0,0);
+                    } // żeby coś bylo
+                }
             }
        
         }

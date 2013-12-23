@@ -71,7 +71,8 @@ public class symulacja {
   }
   return neigh;//to tylko pogladowo narazie
   }
-  private ArrayList<boid> getNeighbourhoodOptm(boid osobnik){
+ 
+  public ArrayList<boid> getNeighbourhoodOptm(boid osobnik){ // zmieniłem na public - Grzesiek
   ArrayList<boid> neigh=new ArrayList<>();
   neigh.ensureCapacity(1000);
   double alfa,d;

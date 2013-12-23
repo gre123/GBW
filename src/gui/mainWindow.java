@@ -539,7 +539,7 @@ double[] tabFPS = new double[10];
 
         jLabel21.setText("Drapieżnik:");
 
-        combpredMove.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "gonic_koszyki", "gonic_najblizszego", "gonic_grupe" }));
+        combpredMove.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "gonic_koszyki", "gonic_najblizszego", "gonic_grupe", "mix_grupa_najblizszy" }));
         combpredMove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 combpredMoveActionPerformed(evt);
