@@ -18,11 +18,19 @@ import simulation.bucket;
  * Nieskończone !
  */
 public class PBehaviour {
+    /**
+     * ma udawać zachowanie uciekających
+     * @param ten
+     * @param boids
+     * @return 
+     */
     public static vector2d escapeP(boid ten,ArrayList<boid> boids)
     {
         vector2d poz,pom=new vector2d(0,0);
         vector2d w=new vector2d(0,0);
+        double criticaldist=15;
         double d;
+        Random randGen = new Random();
         
         if(ten.type==2||boids.isEmpty()) return pom;
         for(int i=0;i<boids.size();i++)
@@ -33,15 +41,25 @@ public class PBehaviour {
                 poz=boids.get(i).getPosition().getVec();
                 pom=poz.minus(ten.position);
                 pom=pom.multi(-1);
-                
-               // if(d>20) w.add(pom.div(d));
-              //  else w.add(pom);
+               
+                if(d>20) w.add(pom.div(d));
+                else 
+                {
+                    w.add(pom);
+                }
                 w.add(pom);
                 
             } 
         }
         return w;
     }
+    
+    /**
+     * ma zwracać najliczniejszy koszyk
+     * @param ten
+     * @param bucketboids
+     * @return 
+     */
     public static ArrayList<boid> getCrowdedBucket(boid ten, ArrayList<bucket> bucketboids)
     {
         int pom,a=0;
@@ -140,8 +158,9 @@ public class PBehaviour {
             pom.add(mD.getPosition());
             pom.minus(ten.getPosition());  
             pom.normalize();
+            return pom;
         }
-        return pom;
+        else return pom;
     }
     /**
      * Biegnie za grupą wyznaczoną za pomocą sąsiedztwa jednego z sąsiadów drapieżnika
@@ -213,13 +232,14 @@ public class PBehaviour {
             * Atakowanie najbliższej potencjalnej zdobyczy, jeśli jest w zasięgu drapieżnika
             */ 
             
-            if(!boids.isEmpty())
+            /**if(!boids.isEmpty())
             {
                  potPrey=NDistance.minPrey(ten, boids);
                  if(potPrey!=null && potPrey.type!=2){
                    wszystkie.remove(potPrey);
+                //   if(boids.contains(potPrey)) boids.remove(potPrey);
                  } 
-            } 
+            }  **/
             
             /**
              * Strategia poruszania się

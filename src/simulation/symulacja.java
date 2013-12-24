@@ -23,12 +23,16 @@ public class symulacja {
   public double radiusNeigh=64;
   public vector2d globalAim=new vector2d(-1,-1);
   gridBucket siatkaKoszykow;
+  //-----------------------------
+  public boolean critical_sit;
+  //-----------------------------
   
   public symulacja(ArrayList<boid> _boids){
       cofSep=1;cofAli=1;cofCoh=1;randCof=1;
    continueSimulation=false;
     timeStep=1;//pozniej zmienic
   boids=_boids;
+  critical_sit=false;
   animSpeed=10;
   siatkaKoszykow =new gridBucket(12,8,80,80,1100,700);
   }
@@ -159,9 +163,19 @@ public class symulacja {
 //          if (lead.getLength()>0){
 //          System.out.println("s"+sep.getLength()+"c"+coh.getLength()+"l"+lead.getLength()+"a"+ali.getLength());
 //          }
+          
+           /* Dla drapieżnika wyłączony wektor losowy */
            if(boids.get(i).getType()==2) rand=new vector2d(0,0);
           
-            boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred).add(avoid).add(toAim).add(predH));
+           /**
+            * rozbudowałem o sytuację wyjątkową jak flaga critical_situation jest ustawiona ma olewać wszystko oprócz wybranego wektora
+            */
+           if(!critical_sit) boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred).add(avoid).add(toAim).add(predH));
+           else
+           {
+               boids.get(i).setAcceleration(pred);
+               critical_sit=false;
+           }
        }
        
        for(int i=0;i<boids.size();i++){
@@ -176,7 +190,6 @@ public class symulacja {
        mainBoids.mainWin.setFPS((int)fps);
        }
        mainBoids.mainWin.ptr.repaint( );
-     //  System.out.println(prey.size());
       }
   }
 }

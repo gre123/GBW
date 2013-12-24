@@ -23,7 +23,7 @@ public class NDistance {
         for(int j=0;j<boids.size();j++)
         {
             pom=ten.getPosition().getDistance(boids.get(j));
-            if(d>pom) 
+            if(d>pom && boids.get(j).getType()!=2) 
             {
                 d=pom; 
                 k=boids.get(j);
