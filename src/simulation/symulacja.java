@@ -16,7 +16,8 @@ public class symulacja {
   ArrayList<boid> boids;
   ArrayList<Obstacle> obs;
   public boolean continueSimulation;
-  double cofSep,cofAli,cofCoh,leadCof,randCof,cofPred,cofAvoid;
+  double cofSep,cofAli,cofCoh,leadCof,randCof,cofPred,cofAvoid,AvoidMode;
+  int AvoidRec;
   double timeStep;
   int animSpeed;
   public double katWidzenia;
@@ -105,8 +106,14 @@ public class symulacja {
   public void setParametrs(double aCof,double sCof,double cCof,double lCof,double pCof,double avCof){
       cofSep=sCof;cofAli=aCof;cofCoh=cCof;leadCof=lCof;cofPred=pCof;cofAvoid=avCof;
   }
+  public void setParametrs(double aCof,double sCof,double cCof,double lCof,double pCof,double avCof, double AvMode){
+      cofSep=sCof;cofAli=aCof;cofCoh=cCof;leadCof=lCof;cofPred=pCof;cofAvoid=avCof;AvoidMode=AvMode;
+  }
   public void setRandCof(double rCof){
       randCof=rCof;
+  }
+  public void setAvoidRec(int rec){
+      AvoidRec=rec;
   }
   public void setNeightParametrs(double angle,double distance){
      katWidzenia=angle;
@@ -149,7 +156,8 @@ public class symulacja {
           rand=new vector2d(randGen.nextDouble()*2-1,randGen.nextDouble()*2-1);
           pred=boids.get(i).predator(tempBoids);
           predH=boids.get(i).predHunt(tempBoids,siatkaKoszykow.getArrayNeightB(boids.get(i)),boids);
-          avoid = boids.get(i).avoid(obs);
+          avoid = boids.get(i).better_avoid(obs,AvoidMode, AvoidRec);
+          //avoid = boids.get(i).avoid(obs);
          // System.out.println(avoid.getLength());
           //if (avoid.getLength()>0){rand=lead=coh=ali=new vector2d(0,0);}
           toAim=boids.get(i).goToAim(globalAim);

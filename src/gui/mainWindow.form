@@ -278,6 +278,7 @@
             <Component class="javax.swing.JSlider" name="sldMaxAccel">
               <Properties>
                 <Property name="maximum" type="int" value="200"/>
+                <Property name="snapToTicks" type="boolean" value="true"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
                 <Property name="value" type="int" value="40"/>
               </Properties>
@@ -374,6 +375,12 @@
                           <Component id="sldAngle" alignment="0" pref="0" max="32767" attributes="0"/>
                           <Component id="sldRandCof" alignment="0" pref="0" max="32767" attributes="0"/>
                           <Component id="sldPredCof" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="sldAvoidCof" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="lblAvoid" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="startButton" pref="160" max="32767" attributes="0"/>
@@ -417,16 +424,33 @@
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Component id="lblPred" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Component id="lblAvoidMode" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="sldAvoidMode" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
-                          <Component id="sldAvoidCof" alignment="0" pref="0" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="lblAvoid" min="-2" max="-2" attributes="0"/>
-                          </Group>
                       </Group>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="lblAvoidRec" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="sldAvoidRec" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -496,7 +520,21 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="sldAvoidCof" min="-2" pref="14" max="-2" attributes="0"/>
-                      <EmptySpace pref="312" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel23" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblAvoidMode" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="sldAvoidMode" min="-2" pref="14" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblAvoidRec" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="sldAvoidRec" min="-2" pref="14" max="-2" attributes="0"/>
+                      <EmptySpace pref="232" max="32767" attributes="0"/>
                       <Component id="startButton" min="-2" pref="32" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -693,8 +731,49 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel19">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Obstacle avoidance:"/>
-                <Property name="toolTipText" type="java.lang.String" value="D&#x105;&#x17c;enie do zachowania bezpiecznej odleg&#x142;o&#x15b;ci od siebie"/>
+                <Property name="text" type="java.lang.String" value="Omijanie przeszk&#xf3;d:"/>
+                <Property name="toolTipText" type="java.lang.String" value="Sterowanie pozwalaj&#x105;ce na nie zderzanie si&#x119; z przeszkodami"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JSlider" name="sldAvoidMode">
+              <Properties>
+                <Property name="maximum" type="int" value="1000"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+                <Property name="value" type="int" value="0"/>
+              </Properties>
+              <Events>
+                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sldAvoidModeStateChanged"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel23">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Tryb omijania:"/>
+                <Property name="toolTipText" type="java.lang.String" value="0=przeciwnie do przeszkody, 1=lewo/prawo"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblAvoidMode">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="0"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JSlider" name="sldAvoidRec">
+              <Properties>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+                <Property name="value" type="int" value="0"/>
+              </Properties>
+              <Events>
+                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sldAvoidRecStateChanged"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel24">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="D&#x142;ugo&#x15b;&#x107; prostok&#x105;ta:"/>
+                <Property name="toolTipText" type="java.lang.String" value="0=przeciwnie do przeszkody, 1=lewo/prawo"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblAvoidRec">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="0"/>
               </Properties>
             </Component>
           </SubComponents>

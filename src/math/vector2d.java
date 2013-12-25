@@ -90,6 +90,10 @@ public class vector2d {
         double wynik = x*a.getX()+y*a.getY();
         return wynik;
     }
+    public double skalarny(double _x, double _y){
+        double wynik = x*_x+y*_y;
+        return wynik;
+    }
 /**
  * 
  * @return Zwraca wektor obrócony 90* w prawo

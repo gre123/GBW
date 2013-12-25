@@ -175,6 +175,41 @@ public class boid {
         odl = odl - this.radius - ob.getR(); //o ile radius to rozmiar osobnika//tak radius to jego rozmiar
         return odl;
     }
+    /**
+     * 
+     * @param obs   tablica przeszkód do potencjalnego ominięcia
+     * @param waga  <0,1> który tryb omijania został wybrany 1=tylko skręcanie
+     * @param dl    długość (prawie)prostokąta w którym osobnik reaguje na przeszkody
+     * @return sterowanie, póki co normalizowane
+     */
+    public vector2d better_avoid(ArrayList<Obstacle> obs, double waga, int dl) {
+        vector2d value = new vector2d(0, 0);
+        double min = Double.MAX_VALUE;
+        int minn = -1;
+        for (int i = 0; i < obs.size(); i++) {
+            double odl = this.getOdl(obs.get(i));//szukam najbliższej przeszkody
+            if (odl < min && this.velocity.skalarny(position.getX() - obs.get(i).getX(), position.getY() - obs.get(i).getY()) < 0) {
+                //jeśli jesteś najbliższą i jesteś przede mną, to zapamiętaj indeks
+                min = odl;  //odległość najbliższej przeszkody
+                minn = i;   //indeks przeszkody w tablicy
+            }
+        }
+        if (minn < 0 || min > 0) {
+            return value;       // nie ma przeszkód(zwykle są), albo odległość jest dodatnia, czyli nie będzie zderzenia
+        } else {                //czyli jest przeszkoda i przecina prostą
+            Obstacle najblizsza = obs.get(minn);
+            value.setX(position.getX() - najblizsza.getX());
+            value.setY(position.getY() - najblizsza.getY());
+            
+            if (this.position.getDistance(najblizsza.getPosition())-najblizsza.getR()>dl){
+                    return new vector2d(0, 0);} //sprawdź czy nie za daleko, dl to (długość prostokąta-pomijalna wielkość osobnika)
+                //jak blisko, to sprawdź czy jest po prawej czy po lewej
+            if (this.velocity.getRight().skalarny(value)>0){        //to przeszkoda po lewej od wektora
+                    return this.velocity.getRight().normalize().multi(waga).add(value.normalize().multi(1-waga));
+                }
+                    return this.velocity.getLeft().normalize().multi(waga).add(value.normalize().multi(1-waga));
+        }
+    }
     
     public vector2d avoid(ArrayList<Obstacle> obs) {
         vector2d value = new vector2d(0, 0);
@@ -198,11 +233,13 @@ public class boid {
             if (this.velocity.skalarny(value) < 0) {            //jeśli przeszkoda przede mną
                 if (this.position.getDistance(najblizsza.getPosition())-najblizsza.getR()>50){
                     return new vector2d(0, 0);} //to sprawdź czy nie za daleko, 50 to (długość prostokąta-pomijalna wielkość osobnika)
-                //jak blisko, to sprawdź czy jest po prawej czy po lewej
-                //System.out.println("Dzień dobry, widzę przeszkodę");
+                //jak blisko, to sprawdź czy jest po prawej czy po lewe
+                //System.out.println("Będę omijał");
                 if (this.velocity.getRight().skalarny(value)>0){        //to przeszkoda po lewej od wektora
+                    //System.out.println("!@#$%, przeszkoda po lewej");
                     return this.velocity.getRight().normalize();
                 }
+                //System.out.println("!@#$%, przeszkoda po prawej");
                 return this.velocity.getLeft().normalize();
             } else {
                 //System.out.println("Nie widzę, bo za mną");
