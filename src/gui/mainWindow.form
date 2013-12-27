@@ -809,7 +809,7 @@
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="combpredEscape" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -836,7 +836,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
+                      <Component id="combpredEscape" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="459" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -903,21 +903,20 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel22">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Zwyk&#x142;e :"/>
+                <Property name="text" type="java.lang.String" value="Zwyk&#x142;e - ucieczka :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBox1">
+            <Component class="javax.swing.JComboBox" name="combpredEscape">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="3">
-                    <StringItem index="0" value="ucieczka_standardowa"/>
-                    <StringItem index="1" value="ucieczka_rozbudowana"/>
-                    <StringItem index="2" value=" "/>
+                  <StringArray count="2">
+                    <StringItem index="0" value="stada+sam_doStada"/>
+                    <StringItem index="1" value="stada+sam_niezale&#x17c;"/>
                   </StringArray>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="combpredEscapeActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

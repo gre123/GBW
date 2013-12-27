@@ -28,9 +28,8 @@ public class PBehaviour {
     {
         vector2d poz,pom=new vector2d(0,0);
         vector2d w=new vector2d(0,0);
-        double criticaldist=19;
+        double criticaldist=20;
         double d;
-        int count=0;
         Random randGen = new Random();
         
         if(ten.type==2||boids.isEmpty()) return pom;
@@ -38,26 +37,40 @@ public class PBehaviour {
         {
             if(boids.get(i).type==2)
             {
-                  count++;
                   d=ten.getPosition().getDistance(boids.get(i));
-                  if(d<criticaldist && randGen.nextBoolean() && count==5)
+                  /**
+                   *  Zachowanie ucieczki w sytuacji krytycznej, ucieczka wgłąb stada(?)
+                   */
+                  if(d<criticaldist && randGen.nextBoolean() && mainBoids.mainWin.getEscapeStrategy()==0)
                   {
                       mainBoids.simul.critical_sit=true;
-                      poz=boids.get(i).getPosition().getVec();
-                      pom=poz.minus(ten.position);
-                      pom=pom.multi(-1);
-                      pom.setX(pom.getY()*10);
-                      pom.multi(20);
-                      w.add(pom);
-                      count=0;
                   }
                   /**
                    * Zachowanie ucieczki w stadzie
                    */
                   else{
+                    
                     poz=boids.get(i).getPosition().getVec();
                     pom=poz.minus(ten.position);
                     pom=pom.multi(-1);
+                    
+                   /**
+                    *  Zachowanie ucieczki w sytuacji krytycznej , ucieczka w jakimś kierunku
+                    */
+                    if(d<criticaldist && randGen.nextBoolean() && mainBoids.mainWin.getEscapeStrategy()==1)
+                    {
+                        mainBoids.simul.critical_sit=true;
+                        if(pom.getX()>pom.getY())
+                        {
+                            pom.setY(pom.getY()*5);
+                            pom.multi(10);
+                        }
+                        else
+                        {
+                            pom.setX(pom.getX()*5);
+                            pom.multi(10);
+                        }
+                    }
                
                     if(d>25) w.add(pom.div(d));
                     else 
@@ -227,7 +240,7 @@ public class PBehaviour {
             {
                 pom.add(mD.getPosition());
                 pom.minus(ten.getPosition());  
-                //pom.normalize();
+                pom.normalize();
                 return pom;
             }
             else
@@ -252,7 +265,7 @@ public class PBehaviour {
             * Atakowanie najbliższej potencjalnej zdobyczy, jeśli jest w zasięgu drapieżnika
             */ 
             
-           /** if(!boids.isEmpty())
+            if(!boids.isEmpty())
             {
                  potPrey=NDistance.minPrey(ten, boids);
                  if(potPrey!=null && potPrey.type!=2){
@@ -260,7 +273,7 @@ public class PBehaviour {
                    //boids.remove(potPrey);
                  } 
             }  
-            **/
+            
             /**
              * Strategia poruszania się
              */

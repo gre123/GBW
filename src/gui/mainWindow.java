@@ -97,7 +97,7 @@ double[] tabFPS = new double[10];
         jLabel21 = new javax.swing.JLabel();
         combpredMove = new javax.swing.JComboBox();
         jLabel22 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        combpredEscape = new javax.swing.JComboBox();
         wygladPanel = new javax.swing.JPanel();
         btnWpływLeader = new javax.swing.JToggleButton();
         btnVelWart = new javax.swing.JToggleButton();
@@ -611,12 +611,12 @@ double[] tabFPS = new double[10];
             }
         });
 
-        jLabel22.setText("Zwykłe :");
+        jLabel22.setText("Zwykłe - ucieczka :");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ucieczka_standardowa", "ucieczka_rozbudowana", " " }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        combpredEscape.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "stada+sam_doStada", "stada+sam_niezależ" }));
+        combpredEscape.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                combpredEscapeActionPerformed(evt);
             }
         });
 
@@ -640,7 +640,7 @@ double[] tabFPS = new double[10];
                             .addComponent(jLabel21)
                             .addComponent(jLabel22))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(combpredEscape, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         sterLeadLayout.setVerticalGroup(
@@ -663,7 +663,7 @@ double[] tabFPS = new double[10];
                 .addGap(18, 18, 18)
                 .addComponent(jLabel22)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(combpredEscape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(459, Short.MAX_VALUE))
         );
 
@@ -773,6 +773,10 @@ double[] tabFPS = new double[10];
     public int getHuntStrategy()
     {
         return combpredMove.getSelectedIndex();
+    }
+    public int getEscapeStrategy()
+    {
+        return combpredEscape.getSelectedIndex();
     }
     //-----------------------------------------1
     public  int getLeaderTypeMovement(){
@@ -959,9 +963,9 @@ double[] tabFPS = new double[10];
         // TODO add your handling code here:
     }//GEN-LAST:event_combLeadMoveActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void combpredEscapeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combpredEscapeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_combpredEscapeActionPerformed
 
     private void sldAvoidModeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldAvoidModeStateChanged
         lblAvoidMode.setText(Double.toString(sldAvoidMode.getValue()/(double)1000));
@@ -1039,9 +1043,9 @@ double[] tabFPS = new double[10];
     private javax.swing.JToggleButton btnWpływLeader;
     private javax.swing.JComboBox cobRozklad;
     private javax.swing.JComboBox combLeadMove;
+    private javax.swing.JComboBox combpredEscape;
     private javax.swing.JComboBox combpredMove;
     private javax.swing.JPanel editFlock;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

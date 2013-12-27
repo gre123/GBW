@@ -181,7 +181,8 @@ public class symulacja {
            if(!critical_sit) boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred).add(avoid).add(toAim).add(predH));
            else
            {
-               boids.get(i).setAcceleration(pred);
+               if(mainBoids.mainWin.getEscapeStrategy()==0) boids.get(i).setAcceleration(coh.multi(2));
+               else boids.get(i).setAcceleration(pred);
                critical_sit=false;
            }
        }
