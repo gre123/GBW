@@ -348,7 +348,10 @@ public class boid {
         velocity.add(acceleration.multi(step));
         if (velocity.getLength() > maxSpeed) {
             velocity.normalize();
-            velocity.multi(maxSpeed);
+            //---------------------------------
+            if(this.type==2) velocity.multi(maxSpeed*1); // do przyspieszania drapieznika
+            //---------------------------------
+            else velocity.multi(maxSpeed);
             colorVelB=0;
         }else{
             colorVelB=1-(float)(velocity.getLength()/maxSpeed);

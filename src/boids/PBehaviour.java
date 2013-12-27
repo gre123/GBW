@@ -28,8 +28,9 @@ public class PBehaviour {
     {
         vector2d poz,pom=new vector2d(0,0);
         vector2d w=new vector2d(0,0);
-        double criticaldist=15;
+        double criticaldist=19;
         double d;
+        int count=0;
         Random randGen = new Random();
         
         if(ten.type==2||boids.isEmpty()) return pom;
@@ -37,18 +38,35 @@ public class PBehaviour {
         {
             if(boids.get(i).type==2)
             {
-                d=ten.getPosition().getDistance(boids.get(i));
-                poz=boids.get(i).getPosition().getVec();
-                pom=poz.minus(ten.position);
-                pom=pom.multi(-1);
+                  count++;
+                  d=ten.getPosition().getDistance(boids.get(i));
+                  if(d<criticaldist && randGen.nextBoolean() && count==5)
+                  {
+                      mainBoids.simul.critical_sit=true;
+                      poz=boids.get(i).getPosition().getVec();
+                      pom=poz.minus(ten.position);
+                      pom=pom.multi(-1);
+                      pom.setX(pom.getY()*10);
+                      pom.multi(20);
+                      w.add(pom);
+                      count=0;
+                  }
+                  /**
+                   * Zachowanie ucieczki w stadzie
+                   */
+                  else{
+                    poz=boids.get(i).getPosition().getVec();
+                    pom=poz.minus(ten.position);
+                    pom=pom.multi(-1);
                
-                if(d>20) w.add(pom.div(d));
-                else 
-                {
-                    w.add(pom);
-                }
-                w.add(pom);
-                
+                    if(d>25) w.add(pom.div(d));
+                    else 
+                    {
+                        w.add(pom);
+                    }
+                //w.add(pom);
+                 
+                  } 
             } 
         }
         return w;
@@ -127,7 +145,7 @@ public class PBehaviour {
         
         if(tmp.isEmpty())
         {
-          pom=new vector2d(randGen.nextDouble()*2-2,randGen.nextDouble()*2+4);
+          pom=new vector2d(randGen.nextDouble()-2,randGen.nextDouble()+4);
         }
         else 
         {
@@ -138,7 +156,7 @@ public class PBehaviour {
            pom.div(tmp.size());
            pom.minus(ten.getPosition());
          }
-         return pom.normalize().multi(10);
+         return pom.normalize();
             
     }
     /**
@@ -155,9 +173,11 @@ public class PBehaviour {
         mD=NDistance.minDist(ten, boids);
         if(mD!=null)
         {
-            pom.add(mD.getPosition());
-            pom.minus(ten.getPosition());  
-            pom.normalize();
+ 
+                pom.add(mD.getPosition());
+                pom.minus(ten.getPosition());  
+                pom.normalize();
+                  //  System.out.println("["+pom.getX()+" ; "+pom.getY()+"]");
             return pom;
         }
         else return pom;
@@ -185,7 +205,7 @@ public class PBehaviour {
             move.normalize();
             return move;
         }
-        else return new vector2d(randGen.nextDouble()*2-2,randGen.nextDouble()*2+4);
+        else return new vector2d(randGen.nextDouble()-2,randGen.nextDouble()+4);
     }
     
     /**
@@ -215,7 +235,7 @@ public class PBehaviour {
                 return huntStrategy3(ten,boids);
             }
         }
-        return new vector2d(randGen.nextDouble()*2-2,randGen.nextDouble()*2+4);  
+        return new vector2d(randGen.nextDouble()-2,randGen.nextDouble()+4);  
     }
     
     
@@ -232,15 +252,15 @@ public class PBehaviour {
             * Atakowanie najbliższej potencjalnej zdobyczy, jeśli jest w zasięgu drapieżnika
             */ 
             
-            /**if(!boids.isEmpty())
+           /** if(!boids.isEmpty())
             {
                  potPrey=NDistance.minPrey(ten, boids);
                  if(potPrey!=null && potPrey.type!=2){
                    wszystkie.remove(potPrey);
-                //   if(boids.contains(potPrey)) boids.remove(potPrey);
+                   //boids.remove(potPrey);
                  } 
-            }  **/
-            
+            }  
+            **/
             /**
              * Strategia poruszania się
              */
@@ -249,7 +269,9 @@ public class PBehaviour {
             return huntStrategy1(ten,boids,bucketboids);
             else
             {
-                if(str==1) return huntStrategy2(ten,boids);
+                if(str==1) {
+                    return huntStrategy2(ten,boids);
+                }
                 else 
                 {
                     if(str==2) return huntStrategy3(ten,boids);
