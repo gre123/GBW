@@ -13,12 +13,18 @@ public class boidsFabric {
     double maxSpeed=0;
     double maxAccel=0;
     ArrayList<boid> boids;
+    ArrayList<boid> predators;
+    ArrayList<boid> leaders;
     public boidsFabric(int n){
         numberOfBoids=n;
         boids=new ArrayList<>(n);
+        predators=new ArrayList<>();
+        leaders=new ArrayList<>();
     }
     public boidsFabric(){       
         boids=new ArrayList<>();
+        predators=new ArrayList<>();
+        leaders=new ArrayList<>();
     }
     public void setBoidsParametrs(double _maxSpeed,double _maxAccel){
         maxSpeed=_maxSpeed;
@@ -34,8 +40,7 @@ public class boidsFabric {
         double wsp=(1080*680)/total;
         wsp=sqrt(wsp);
         boids.ensureCapacity(total+1);
-        for(int i=0;i<n;i++){
-            
+        for(int i=0;i<n;i++){           
             if(rozklad==0){ boids.add(new boid(randGen.nextInt(1080),randGen.nextInt(680)));
             }else if(rozklad==1){
             boids.add(new boid(x*wsp,y*wsp));x++;
@@ -54,6 +59,7 @@ public class boidsFabric {
         
         for(int i=0;i<mainBoids.mainWin.getNumOfLeaders();i++){
         boids.add(new boid(randGen.nextInt(1095),randGen.nextInt(680)));
+        leaders.add(boids.get(boids.size()-1));
         boids.get(boids.size()-1).type=0;
        // boids.get(boids.size()-1).velocity=new vector2d(randGen.nextInt(6)-3,randGen.nextInt(6)-3);
         boids.get(boids.size()-1).radius=7;
@@ -88,15 +94,20 @@ public class boidsFabric {
             if (maxAccel!=0){boids.get(boids.size()-1).maxForce=maxAccel;}
         }
         
-        //--------------------------------------
-     
-       for(int j=0;j<np;j++)
-       {
-         boids.get(j).type=2;
-         boids.get(j).radius=12;
-         boids.get(j).velocity=new vector2d(randGen.nextInt(9)-6,randGen.nextInt(9)-6);
-       }
-        //---------------------------------------
+        
+        for(int i=0;i<np;i++){
+        boids.add(new boid(randGen.nextInt(1095),randGen.nextInt(680)));
+        predators.add(boids.get(boids.size()-1));
+        boids.get(boids.size()-1).type=2;
+       // boids.get(boids.size()-1).velocity=new vector2d(randGen.nextInt(6)-3,randGen.nextInt(6)-3);
+        boids.get(boids.size()-1).radius=9;
+        
+            if (maxSpeed!=0){boids.get(boids.size()-1).maxSpeed=maxSpeed;}
+            if (maxAccel!=0){boids.get(boids.size()-1).maxForce=maxAccel;}
+        }
+        
+        mainBoids.leaders=leaders;
+        mainBoids.predators=predators;
         return boids;
     }
     

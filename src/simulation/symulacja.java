@@ -144,23 +144,20 @@ public class symulacja {
      // System.out.println("t"+timeStep);
 
       timeStep=((double)time)/(55-animSpeed);
-       
+
        for(int i=0;i<boids.size();i++){
-           
+           if (boids.get(i).getType()==2){continue;}
           tempBoids=getNeighbourhoodOptm(boids.get(i));
           //if (tempBoids.size()>0){boids.get(i).radius=20;}
-          sep= boids.get(i).spearate(tempBoids);
+          sep= boids.get(i).separate(tempBoids);
           ali= boids.get(i).alignment(tempBoids);
           coh= boids.get(i).cohesion(tempBoids);
           lead= boids.get(i).followLeader(tempBoids);
           rand=new vector2d(randGen.nextDouble()*2-1,randGen.nextDouble()*2-1);
-          pred=boids.get(i).predator(tempBoids);
-          predH=boids.get(i).predHunt(tempBoids,siatkaKoszykow.getArrayNeightB(boids.get(i)),boids);
           avoid = boids.get(i).better_avoid(obs,AvoidMode, AvoidRec);
-          //avoid = boids.get(i).avoid(obs);
-         // System.out.println(avoid.getLength());
-          //if (avoid.getLength()>0){rand=lead=coh=ali=new vector2d(0,0);}
           toAim=boids.get(i).goToAim(globalAim);
+          pred=boids.get(i).predator(tempBoids);
+          
           sep.multi(cofSep);
           ali.multi(cofAli);
           coh.multi(cofCoh);
@@ -168,17 +165,14 @@ public class symulacja {
           rand.multi(randCof);
           pred.multi(cofPred);
           avoid.multi(cofAvoid);
-//          if (lead.getLength()>0){
-//          System.out.println("s"+sep.getLength()+"c"+coh.getLength()+"l"+lead.getLength()+"a"+ali.getLength());
-//          }
           
            /* Dla drapieżnika wyłączony wektor losowy */
-           if(boids.get(i).getType()==2) rand=new vector2d(0,0);
+//           if(boids.get(i).getType()==2) rand=new vector2d(0,0);
           
            /**
             * rozbudowałem o sytuację wyjątkową jak flaga critical_situation jest ustawiona ma olewać wszystko oprócz wybranego wektora
             */
-           if(!critical_sit) boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred).add(avoid).add(toAim).add(predH));
+           if(!critical_sit) boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred).add(avoid).add(toAim));
            else
            {
                if(mainBoids.mainWin.getEscapeStrategy()==0) boids.get(i).setAcceleration(coh.multi(2));
@@ -186,6 +180,15 @@ public class symulacja {
                critical_sit=false;
            }
        }
+       
+       for(int i=0;i<mainBoids.predators.size();i++){
+            tempBoids=getNeighbourhoodOptm(mainBoids.predators.get(i));
+            predH=mainBoids.predators.get(i).predHunt(tempBoids,siatkaKoszykow.getArrayNeightB(mainBoids.predators.get(i)),boids);
+            vector2d Sep=mainBoids.predators.get(i).separatePredator(tempBoids);
+            mainBoids.predators.get(i).setAcceleration(Sep.add(predH));
+       }
+             
+       
        
        for(int i=0;i<boids.size();i++){
             boids.get(i).applyForce(timeStep);

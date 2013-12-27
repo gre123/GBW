@@ -180,13 +180,14 @@ public class PBehaviour {
      */
     public static vector2d huntStrategy2(boid ten,ArrayList<boid> boids)
     {
-        Random randGen = new Random();
+       // Random randGen = new Random();
         boid mD=null;
         vector2d pom=new vector2d(0,0);
+        
+        System.out.println(boids.size());
         mD=NDistance.minDist(ten, boids);
         if(mD!=null)
-        {
- 
+        { 
                 pom.add(mD.getPosition());
                 pom.minus(ten.getPosition());  
                 pom.normalize();
@@ -259,17 +260,18 @@ public class PBehaviour {
         boid potPrey;
         int str;
         
-        if(ten.type==2)
-        {
+       // if(ten.type==2)
+     //   {
            /**
             * Atakowanie najbliższej potencjalnej zdobyczy, jeśli jest w zasięgu drapieżnika
             */ 
             
             if(!boids.isEmpty())
             {
-                 potPrey=NDistance.minPrey(ten, boids);
-                 if(potPrey!=null && potPrey.type!=2){
+                 potPrey=NDistance.minPrey(ten, boids,7);
+                 if(potPrey!=null){
                    wszystkie.remove(potPrey);
+                   
                    //boids.remove(potPrey);
                  } 
             }  
@@ -294,10 +296,9 @@ public class PBehaviour {
                         else return new vector2d(0,0);
                     } // żeby coś bylo
                 }
-            }
-       
-        }
-        else return new vector2d(0,0);
+            }      
+       // }
+       // else return new vector2d(0,0);
      }
 }
 

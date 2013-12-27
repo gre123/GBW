@@ -51,29 +51,23 @@ public class boid {
         katWidzenia = 0.5;
     }
 
-    public vector2d spearate(ArrayList<boid> boids) {
+    public vector2d separate(ArrayList<boid> boids) {
         vector2d value = new vector2d(0, 0);
         vector2d pos = new vector2d(0, 0);
         colorSeparB=0;
         int k = 0;
         double sDist;
-        if (type == 3 || type == 0 || boids.isEmpty()) {
+        if (type == 3 || type == 0 || type == 2 || boids.isEmpty()) {
             return value;
         }
         for (int i = 0; i < boids.size(); i++) {
             sDist = this.position.getSDistance(boids.get(i));
             if (sDist < minimalDistance * minimalDistance) {
-                if (sDist == 0) {
-                    sDist = 0.000000001;
-                }
-                k++;
-                pos.setX(this.getX() - boids.get(i).getX());
-                pos.setY(this.getY() - boids.get(i).getY());
+                if (sDist == 0) {sDist = 0.000000001;}              
+                pos=this.getPosition().getVec().minus(boids.get(i).position);
                 pos.div(sDist);
-                //-----------------------------------------
-                if(type==2 && boids.get(i).getType()!=2);
-                else value.add(pos);
-                //-----------------------------------------
+                value.add(pos);
+                k++;
             }
         }
         if (k > 0) {
@@ -84,11 +78,38 @@ public class boid {
         }
         //-----------------------------
         //Żeby zwiększyć separację dla drapieżników
-        if(type==2) return value;
+      //  if(type==2) return value;
         //-----------------------------
         return value.normalize();
     }
-
+    public vector2d separatePredator(ArrayList<boid> boids){
+     vector2d value = new vector2d(0, 0);
+     vector2d pos = new vector2d(0, 0);
+        int k = 0;
+        double sDist;
+        for (int i = 0; i < boids.size(); i++) {
+            if(boids.get(i).getType()==2){continue;}
+            sDist = this.position.getSDistance(boids.get(i));
+            if (sDist < minimalDistance * minimalDistance) {
+                if (sDist == 0) {sDist = 0.000000001;}
+                pos=this.getPosition().getVec().minus(boids.get(i).position);
+                pos.div(sDist);
+                value.add(pos);k++;
+            }
+        }
+        if (k > 0) {
+            value.div(k);
+            //colorSeparB=1-(float)(pos.getLength()/(minimalDistance * minimalDistance));
+        } else {
+            return value;
+        }
+        //-----------------------------
+        //Żeby zwiększyć separację dla drapieżników
+      //  if(type==2) return value;
+        //-----------------------------
+        return value.normalize();
+    
+    }
     public vector2d alignment(ArrayList<boid> boids) {
         vector2d value = new vector2d(0, 0);
 
