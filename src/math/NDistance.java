@@ -6,6 +6,7 @@
 
 package math;
 
+import boids.Food;
 import boids.boid;
 import java.util.ArrayList;
 
@@ -14,6 +15,22 @@ import java.util.ArrayList;
  * @author Grzesiek
  */
 public class NDistance {
+    
+    public static Food minFood(boid ten,ArrayList<Food> w)
+    {
+        double d=Double.MAX_VALUE;
+        Food min=null;
+        for(int i=0;i<w.size();i++)
+        {
+            if(d>ten.getPosition().getDistance(w.get(i).getPos()))
+            {
+                min=w.get(i);
+                d=ten.getPosition().getDistance(w.get(i).getPos());
+            }
+        }
+        return min;
+    }
+    
     public static boid minPrey(boid ten,ArrayList<boid> boids,double distance)
     {
        //double preyDistance=14;

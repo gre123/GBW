@@ -158,7 +158,8 @@ public class PBehaviour {
         
         if(tmp.isEmpty())
         {
-          pom=new vector2d(randGen.nextDouble()-2,randGen.nextDouble()+4);
+          //pom=new vector2d(randGen.nextDouble()-2,randGen.nextDouble()+4);
+            pom=new vector2d(0,0);
         }
         else 
         {
@@ -184,7 +185,6 @@ public class PBehaviour {
         boid mD=null;
         vector2d pom=new vector2d(0,0);
         
-        System.out.println(boids.size());
         mD=NDistance.minDist(ten, boids);
         if(mD!=null)
         { 
@@ -219,7 +219,7 @@ public class PBehaviour {
             move.normalize();
             return move;
         }
-        else return new vector2d(randGen.nextDouble()-2,randGen.nextDouble()+4);
+        else return new vector2d(randGen.nextDouble()-2,randGen.nextDouble()+4).normalize();
     }
     
     /**
@@ -249,7 +249,8 @@ public class PBehaviour {
                 return huntStrategy3(ten,boids);
             }
         }
-        return new vector2d(randGen.nextDouble()-2,randGen.nextDouble()+4);  
+        return new vector2d(randGen.nextDouble()-2,randGen.nextDouble()+1).normalize();  
+
     }
     
     

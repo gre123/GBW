@@ -16,6 +16,7 @@ public class mainBoids {
     public static ArrayList<boid> boids;
     public static ArrayList<boid> predators;
     public static ArrayList<boid> leaders;
+    public static ArrayList<Food> food;
     public static ArrayList<Obstacle> obs;
     public static symulacja simul=null;
     public static trigonometric tryg;  

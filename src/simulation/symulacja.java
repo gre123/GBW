@@ -1,11 +1,11 @@
 package simulation;
 
+import boids.Food;
 import boids.boid;
 import boids.mainBoids;
 import static java.lang.StrictMath.abs;
 import java.util.ArrayList;
 import java.util.Random;
-import math.trigonometric;
 import math.vector2d;
 import trunk.src.boids.Obstacle;
 
@@ -15,6 +15,7 @@ import trunk.src.boids.Obstacle;
 public class symulacja {
   ArrayList<boid> boids;
   ArrayList<Obstacle> obs;
+  ArrayList<Food> food;
   public boolean continueSimulation;
   double cofSep,cofAli,cofCoh,leadCof,randCof,cofPred,cofAvoid,AvoidMode;
   int AvoidRec;
@@ -25,7 +26,7 @@ public class symulacja {
   public vector2d globalAim=new vector2d(-1,-1);
   gridBucket siatkaKoszykow;
   //-----------------------------
-  public boolean critical_sit;
+  public boolean critical_sit,foraging_situation;
   //-----------------------------
   
   public symulacja(ArrayList<boid> _boids){
@@ -34,15 +35,17 @@ public class symulacja {
     timeStep=1;//pozniej zmienic
   boids=_boids;
   critical_sit=false;
+  foraging_situation=false;
   animSpeed=10;
   siatkaKoszykow =new gridBucket(12,8,80,80,1100,700);
   }
-  public symulacja(ArrayList<boid> _boids, ArrayList<Obstacle> _obs ){
+  public symulacja(ArrayList<boid> _boids, ArrayList<Obstacle> _obs, ArrayList<Food> _food ){
       cofSep=1;cofAli=1;cofCoh=1;randCof=1;
    continueSimulation=false;
     timeStep=1;//pozniej zmienic
   boids=_boids;
   obs=_obs;
+  food=_food;
   animSpeed=10;
   siatkaKoszykow =new gridBucket(12,8,80,80,1100,700);
   }
@@ -132,7 +135,7 @@ public class symulacja {
       double time;
       double timeMin=0;
        double fps;
-      vector2d sep,ali,coh,lead,rand,pred, avoid, predH,toAim;
+      vector2d sep,ali,coh,lead,rand,pred, avoid, predH,toAim,forag;
       
       ArrayList<boid> tempBoids;
       while(continueSimulation){
@@ -157,6 +160,7 @@ public class symulacja {
           avoid = boids.get(i).better_avoid(obs,AvoidMode, AvoidRec);
           toAim=boids.get(i).goToAim(globalAim);
           pred=boids.get(i).predator(tempBoids);
+          forag=boids.get(i).foraging(food, katWidzenia);
           
           sep.multi(cofSep);
           ali.multi(cofAli);
@@ -165,19 +169,27 @@ public class symulacja {
           rand.multi(randCof);
           pred.multi(cofPred);
           avoid.multi(cofAvoid);
-          
            /* Dla drapieżnika wyłączony wektor losowy */
 //           if(boids.get(i).getType()==2) rand=new vector2d(0,0);
           
            /**
-            * rozbudowałem o sytuację wyjątkową jak flaga critical_situation jest ustawiona ma olewać wszystko oprócz wybranego wektora
+            * rozbudowałem o sytuację wyjątkową jak flaga critical_situation jest ustawiona ma olewać wszystko oprócz wybranego wektora,
+            * jest też flaga od żerowania, czyli olewka wszystkiego oprocz wektora zerowania, chyba ze krytyczna sytuacja
             */
-           if(!critical_sit) boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred).add(avoid).add(toAim));
+           if(!critical_sit && !foraging_situation) boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred).add(avoid).add(toAim).add(forag));
            else
            {
-               if(mainBoids.mainWin.getEscapeStrategy()==0) boids.get(i).setAcceleration(coh.multi(2));
-               else boids.get(i).setAcceleration(pred);
-               critical_sit=false;
+               if(foraging_situation && !critical_sit)
+               {
+                   boids.get(i).setAcceleration(forag.multi(3));
+                   foraging_situation=false;
+               }
+               else {
+                    if(mainBoids.mainWin.getEscapeStrategy()==0) boids.get(i).setAcceleration(coh.multi(1));
+                    else boids.get(i).setAcceleration(pred);
+               
+                    critical_sit=false;
+               }
            }
        }
        

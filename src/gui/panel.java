@@ -1,15 +1,18 @@
 package gui;
+import boids.Food;
 import boids.boid;
 import boids.mainBoids;
 import java.awt.*;
 import java.awt.geom.*;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.JPanel;
 import trunk.src.boids.Obstacle;
  
 public class panel extends JPanel {
-    public ArrayList<boid> boids,prey;
+    public ArrayList<boid> boids;
     public ArrayList<Obstacle> obs;
+    public ArrayList<Food> food;
     int x,y;
     int aimX=-1,aimY=-1;
     public panel(ArrayList<boid> _boids) {
@@ -23,12 +26,13 @@ public class panel extends JPanel {
         repaint();
     }
     
-    public panel(ArrayList<boid> _boids, ArrayList<Obstacle> _obs) {
+    public panel(ArrayList<boid> _boids, ArrayList<Obstacle> _obs, ArrayList<Food> _food) {
         x=1080;
         y=685;
         setPreferredSize(new Dimension(x, y));
         boids=_boids;
         obs = _obs;
+        food=_food;
         setSize(x, y);
         setBackground(Color.getHSBColor(0.5f, 0.14f, 1));
         setLocation(11, 11);
@@ -67,7 +71,7 @@ public class panel extends JPanel {
                 Ellipse2D circle = new Ellipse2D.Double( boids.get(i).getX(), boids.get(i).getY(), r,r);
                 g2d.fill(circle);
                 g2d.draw(circle);
-                
+
             } 
             
         }
@@ -88,6 +92,24 @@ public class panel extends JPanel {
         g2d.fill(circle);
         g2d.draw(circle);
         }
+        
+        if(food!=null && !food.isEmpty())
+        {
+            g2d.setColor(Color.green); 
+            for(int i=0;i<food.size();i++)
+            {
+                
+               // Ellipse2D circle = new Ellipse2D.Double(food.get(i).getX(), food.get(i).getY(), 33,33);
+               // g2d.draw(circle);
+                for(int j=0;j<food.get(i).cir.size();j++)
+                {
+                    g2d.draw(food.get(i).cir.get(j));
+                    g2d.fill(food.get(i).cir.get(j));
+                }
+                
+            }
+        }
+        
         
         }
     public void drawAim( Graphics2D g2d,int x,int y,int r){

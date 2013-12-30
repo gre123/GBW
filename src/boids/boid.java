@@ -4,6 +4,7 @@ import static java.lang.StrictMath.abs;
 import static java.lang.StrictMath.sqrt;
 import java.util.ArrayList;
 import java.util.Random;
+import math.NDistance;
 import math.trigonometric;
 import math.vector2d;
 import simulation.bucket;
@@ -364,13 +365,52 @@ public class boid {
         return wynik;
     }
 
+    /**
+     * Udaje zachowanie wobec jedzenia
+     * @param jedzonko
+     * @param kat_widzenia
+     * @return 
+     */
+    public vector2d foraging(ArrayList<Food> jedzonko,double kat_widzenia)
+    {
+        double s;
+        double kat;
+        Food target;
+        vector2d jedziem=new vector2d(0,0);
+        ArrayList<Food> seeFood=new ArrayList<Food>();
+        for(int i=0;i<jedzonko.size();i++)
+        {
+               s=this.position.getDistance(jedzonko.get(i).fpos);
+               if(s<=mainBoids.mainWin.getForagingDistance())
+               {
+                   kat=this.calcAngle((jedzonko.get(i).fpos));
+                   if(s<25*25) seeFood.add(jedzonko.get(i));
+                   else {
+                        if((180-kat)<kat_widzenia*180/3.1415)
+                        {
+                                seeFood.add(jedzonko.get(i));
+                        }
+                   }
+                   
+               }
+               target=NDistance.minFood(this,seeFood);
+               if(target!=null)
+               {
+                  jedziem.add(target.fpos);
+                  jedziem.minus(this.getPosition());
+                  jedziem.normalize();
+                  mainBoids.simul.critical_sit=true;
+               }
+        }
+        return jedziem;
+    }
     //--------------------------------------------
     public void applyForce(double step) {
         velocity.add(acceleration.multi(step));
         if (velocity.getLength() > maxSpeed) {
             velocity.normalize();
             //---------------------------------
-            if(this.type==2) velocity.multi(maxSpeed*1); // do przyspieszania drapieznika
+            if(this.type==2) velocity.multi(maxSpeed*0.8); // do przyspieszania drapieznika
             //---------------------------------
             else velocity.multi(maxSpeed);
             colorVelB=0;
