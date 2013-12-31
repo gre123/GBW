@@ -181,7 +181,7 @@ public class symulacja {
            {
                if(foraging_situation && !critical_sit)
                {
-                   boids.get(i).setAcceleration(forag.multi(3));
+                   boids.get(i).setAcceleration(forag.multi(2));
                    foraging_situation=false;
                }
                else {

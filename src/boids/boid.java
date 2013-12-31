@@ -378,6 +378,7 @@ public class boid {
         Food target;
         vector2d jedziem=new vector2d(0,0);
         ArrayList<Food> seeFood=new ArrayList<Food>();
+
         for(int i=0;i<jedzonko.size();i++)
         {
                s=this.position.getDistance(jedzonko.get(i).fpos);
@@ -396,10 +397,19 @@ public class boid {
                target=NDistance.minFood(this,seeFood);
                if(target!=null)
                {
-                  jedziem.add(target.fpos);
-                  jedziem.minus(this.getPosition());
-                  jedziem.normalize();
-                  mainBoids.simul.critical_sit=true;
+                  if(this.getPosition().getDistance(target.getPos())<=12)
+                  {
+                      mainBoids.simul.foraging_situation=true;
+                     // jedziem.add(this.velocity);
+                     // jedziem.multi(-14);
+                      if(target.iam_eating()) jedzonko.remove(target);
+                  }
+                  else {
+                      mainBoids.simul.foraging_situation=true;
+                      jedziem.add(target.fpos);
+                      jedziem.minus(this.getPosition());
+                      jedziem.normalize();
+                  }
                }
         }
         return jedziem;

@@ -99,8 +99,10 @@ public class panel extends JPanel {
             for(int i=0;i<food.size();i++)
             {
                 
-               // Ellipse2D circle = new Ellipse2D.Double(food.get(i).getX(), food.get(i).getY(), 33,33);
-               // g2d.draw(circle);
+                //Ellipse2D circle = new Ellipse2D.Double(food.get(i).getX(), food.get(i).getY(), 15,15);
+             //   g2d.draw(circle);
+              //  g2d.fill(circle);
+             
                 for(int j=0;j<food.get(i).cir.size();j++)
                 {
                     g2d.draw(food.get(i).cir.get(j));

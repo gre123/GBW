@@ -27,11 +27,18 @@ public class Food {
         x=iks;
         y=igrek;
         fpos=new vector2d(x,y);
-        time=20;
+        time=50000;
         for(int j=0;j<8;j++) 
                     cir.add(new Ellipse2D.Double(this.x+randGen.nextInt(16)-8,this.y+randGen.nextInt(16)-8,8,8));
         
     }
+    public boolean iam_eating()
+    {
+        time--;
+        if(time==-1) return true;
+        return false;
+    }
+  
     public vector2d getPos()
     {
         return fpos;
