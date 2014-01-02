@@ -48,7 +48,7 @@ public class boid {
         omijam=false;
         
         // angle=randGen.nextDouble()*360;
-        minimalDistance = 8;
+        minimalDistance = 6;
         type = 1;
         eats = -1;
         katWidzenia = 0.5;
@@ -171,10 +171,10 @@ public class boid {
             this.colorLeadB=1-(float)(dist/mainBoids.simul.radiusNeigh);
             //pos.minus(leader.getVelocity().getVec().normalize().multi(15));
             value = pos.minus(this.position);
-            if (dist > 12) {
+            if (dist > 15) {
                 return value.div(dist);
             } else {
-                return value.normalize().multi(dist / 12);
+                return value.normalize().multi(dist / 15);
             }
 
         } else {
