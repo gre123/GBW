@@ -9,6 +9,9 @@ import java.util.Random;
 import javax.swing.JPanel;
 import trunk.src.boids.Obstacle;
  
+/**
+ *@author  Gajda
+ */
 public class panel extends JPanel {
     public ArrayList<boid> boids;
     public ArrayList<Obstacle> obs;

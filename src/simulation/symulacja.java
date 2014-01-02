@@ -47,7 +47,7 @@ public class symulacja {
   obs=_obs;
   food=_food;
   animSpeed=10;
-  siatkaKoszykow =new gridBucket(12,8,80,80,1100,700);
+  siatkaKoszykow =new gridBucket(13,8,80,80,1100,700);
   }
   public void addBoid(boid agt){
       boids.add(agt);
@@ -103,6 +103,57 @@ public class symulacja {
   } 
   return neigh;
   }
+  
+  public ArrayList<boid> getNeighbourhoodOptmTopological(boid osobnik, int maxNeigh ){ // zmieniłem na public - Grzesiek
+  ArrayList<boid> neigh=new ArrayList<>();
+  neigh.ensureCapacity(1000);
+  double alfa,d;
+  int inxMax=0;
+  double maxDist=0;//Double.MAX_VALUE;
+  ArrayList<boid> gridBoids=siatkaKoszykow.getArrayNeight(osobnik);
+  ArrayList<Double> distannces=new ArrayList<>();
+  for(int i=0;i<gridBoids.size();i++){
+      
+      d=osobnik.getPosition().getSDistance(gridBoids.get(i).getPosition());     
+      
+      if (d<(radiusNeigh*radiusNeigh) && !osobnik.equals(gridBoids.get(i))){ 
+         alfa=osobnik.calcAngle(gridBoids.get(i).getPosition());
+          if((180-alfa)<katWidzenia*180/3.1415){
+              if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
+              if (maxDist<d && neigh.size()>=maxNeigh){continue;}
+              if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
+              neigh.add(gridBoids.get(i));
+              distannces.add(d);
+              continue; 
+            }
+      }else{continue;}   
+      if  (d<(9*9) && !osobnik.equals(gridBoids.get(i))){
+       if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
+              if (maxDist<d && neigh.size()>=maxNeigh){continue;}
+              if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
+              neigh.add(gridBoids.get(i));
+              distannces.add(d);
+              continue;
+      }
+      if(osobnik.getVelocity().getLength()<osobnik.getMaxSpeed()/10 && !osobnik.equals(gridBoids.get(i))){ 
+              if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
+              if (maxDist<d && neigh.size()>=maxNeigh){continue;}
+              if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
+              neigh.add(gridBoids.get(i));
+              distannces.add(d);
+              continue;
+      }
+  } 
+ // System.out.println("d- "+maxDist);
+  for(int i=0;i<neigh.size();i++){
+  if (distannces.get(i)>maxDist && neigh.get(i).getType()==1){
+  distannces.remove(i);
+  neigh.remove(i);
+  i--;
+  }
+  }
+  return neigh;
+  }
   public void setParametrs(double aCof,double sCof,double cCof,double lCof,double pCof){
       cofSep=sCof;cofAli=aCof;cofCoh=cCof;leadCof=lCof;cofPred=pCof;
   }
@@ -150,7 +201,8 @@ public class symulacja {
 
        for(int i=0;i<boids.size();i++){
            if (boids.get(i).getType()==2){continue;}
-          tempBoids=getNeighbourhoodOptm(boids.get(i));
+          tempBoids=getNeighbourhoodOptmTopological(boids.get(i),mainBoids.mainWin.getNumNeight());
+           //System.out.println(tempBoids.size());
           //if (tempBoids.size()>0){boids.get(i).radius=20;}
           sep= boids.get(i).separate(tempBoids);
           ali= boids.get(i).alignment(tempBoids);

@@ -322,7 +322,7 @@ public class boid {
             }
             value = aims.get(indexAims).getVec().minus(this.position);
             d = value.getLength();
-            if (d < 10) {
+            if (d < 28) {
                 if (indexAims >= aims.size() - 1) {
                     indexAims = 0;
                 } else {
