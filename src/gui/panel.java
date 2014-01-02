@@ -55,7 +55,9 @@ public class panel extends JPanel {
                 r=boids.get(i).getR();
                 if (boids.get(i).getType()==1){//zwykły
                     //g2d.setColor(Color.black);
-                    if (mainBoids.mainWin.czyWplywLeader()){
+                    if (boids.get(i).czyOmijam()){
+                        g2d.setColor(Color.ORANGE);
+                    }else if (mainBoids.mainWin.czyWplywLeader()){
                     g2d.setColor(Color.getHSBColor(0, 0, boids.get(i).getColorLeadB()));
                     }else if(mainBoids.mainWin.czyAccelWart()){
                     g2d.setColor(Color.getHSBColor(0, 0, boids.get(i).getColorAccelB()));
@@ -68,7 +70,7 @@ public class panel extends JPanel {
                     g2d.setColor(Color.red);
                 }
                 
-                Ellipse2D circle = new Ellipse2D.Double( boids.get(i).getX(), boids.get(i).getY(), r,r);
+                Ellipse2D circle = new Ellipse2D.Double( boids.get(i).getX()-r/2, boids.get(i).getY()-r/2, r,r);
                 g2d.fill(circle);
                 g2d.draw(circle);
 
@@ -79,8 +81,8 @@ public class panel extends JPanel {
         
         if (obs!=null || !obs.isEmpty()){
             for(int i=0;i<obs.size();i++){
-               g2d.setColor(Color.PINK); 
-               Ellipse2D circle = new Ellipse2D.Double(obs.get(i).getX(), obs.get(i).getY(), obs.get(i).getR(),obs.get(i).getR());
+               g2d.setColor(Color.MAGENTA); 
+               Ellipse2D circle = new Ellipse2D.Double(obs.get(i).getX()-obs.get(i).getR(), obs.get(i).getY()-obs.get(i).getR(), obs.get(i).getR()*2,obs.get(i).getR()*2);
                g2d.fill(circle);
                g2d.draw(circle);
             }

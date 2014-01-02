@@ -29,6 +29,7 @@ public class boid {
     float colorSeparB;
     float colorVelB;
     float colorAccelB;
+    boolean omijam;
     
     
     public boid(double x, double y) {
@@ -44,6 +45,7 @@ public class boid {
         colorSeparB=0.0f;
         colorVelB=0.0f;
         colorAccelB=0.0f;
+        omijam=false;
         
         // angle=randGen.nextDouble()*360;
         minimalDistance = 8;
@@ -211,25 +213,29 @@ public class boid {
         for (int i = 0; i < obs.size(); i++) {
             double odl = this.getOdl(obs.get(i));//szukam najbliższej przeszkody
             if (odl < min && this.velocity.skalarny(position.getX() - obs.get(i).getX(), position.getY() - obs.get(i).getY()) < 0) {
+            //NIEprawidłowe, użyte do testów if (odl < min ) {
                 //jeśli jesteś najbliższą i jesteś przede mną, to zapamiętaj indeks
                 min = odl;  //odległość najbliższej przeszkody
                 minn = i;   //indeks przeszkody w tablicy
             }
         }
         if (minn < 0 || min > 0) {
+            omijam=false;
             return value;       // nie ma przeszkód(zwykle są), albo odległość jest dodatnia, czyli nie będzie zderzenia
         } else {                //czyli jest przeszkoda i przecina prostą
             Obstacle najblizsza = obs.get(minn);
             value.setX(position.getX() - najblizsza.getX());
             value.setY(position.getY() - najblizsza.getY());
-            
-            if (this.position.getDistance(najblizsza.getPosition())-najblizsza.getR()>dl){
-                    return new vector2d(0, 0);} //sprawdź czy nie za daleko, dl to (długość prostokąta-pomijalna wielkość osobnika)
+            if (this.position.getDistance(najblizsza.getPosition())-najblizsza.getR()-2.5>dl){
+                    omijam=false;
+                    return new vector2d(0, 0);} //sprawdź czy nie za daleko, dl to (długość prostokąta-2.5[czyli promien osobnika])
                 //jak blisko, to sprawdź czy jest po prawej czy po lewej
+            omijam=true;
+            //System.out.println("Getdistance do środka przeszkody: " + this.position.getDistance(najblizsza.getPosition()) +" - promien przeszkody: "+najblizsza.getR() +" -2.5 = "+(this.position.getDistance(najblizsza.getPosition())-najblizsza.getR()-5)+ "a prostokat ma: " + dl);
             if (this.velocity.getRight().skalarny(value)>0){        //to przeszkoda po lewej od wektora
-                    return this.velocity.getRight().normalize().multi(waga).add(value.normalize().multi(1-waga));
+                return this.velocity.getRight().normalize().multi(waga).add(value.normalize().multi(1-waga));
                 }
-                    return this.velocity.getLeft().normalize().multi(waga).add(value.normalize().multi(1-waga));
+            return this.velocity.getLeft().normalize().multi(waga).add(value.normalize().multi(1-waga));
         }
     }
     
@@ -543,5 +549,8 @@ public class boid {
     }
     public float getColorAccelB(){
     return colorAccelB;
+    }
+    public boolean czyOmijam(){
+    return omijam;
     }
 }
