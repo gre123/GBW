@@ -4,8 +4,10 @@ import boids.boid;
 import boids.mainBoids;
 import java.awt.*;
 import java.awt.geom.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Random;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import trunk.src.boids.Obstacle;
  
@@ -16,6 +18,7 @@ public class panel extends JPanel {
     public ArrayList<boid> boids;
     public ArrayList<Obstacle> obs;
     public ArrayList<Food> food;
+    BufferedImage wrobel;
     int x,y;
     int aimX=-1,aimY=-1;
     public panel(ArrayList<boid> _boids) {
@@ -26,6 +29,12 @@ public class panel extends JPanel {
         setSize(x, y);
         setBackground(Color.getHSBColor(0.5f, 0.14f, 1));
         setLocation(11, 11);
+        try{
+            wrobel=ImageIO.read(new File("D:\\wrobel.png"));
+        }catch(Exception e)
+        {
+            
+        }
         repaint();
     }
     
@@ -72,8 +81,10 @@ public class panel extends JPanel {
                 }else if(boids.get(i).getType()==2) {//przeciwnik
                     g2d.setColor(Color.red);
                 }
+                if(boids.get(i).isHungry()) g2d.setColor(Color.CYAN);
                 
                 Ellipse2D circle = new Ellipse2D.Double( boids.get(i).getX()-r/2, boids.get(i).getY()-r/2, r,r);
+                
                 g2d.fill(circle);
                 g2d.draw(circle);
 
@@ -104,9 +115,9 @@ public class panel extends JPanel {
             for(int i=0;i<food.size();i++)
             {
                 
-                //Ellipse2D circle = new Ellipse2D.Double(food.get(i).getX(), food.get(i).getY(), 15,15);
-             //   g2d.draw(circle);
-              //  g2d.fill(circle);
+                Ellipse2D circle = new Ellipse2D.Double(food.get(i).getX()-13, food.get(i).getY()-13, 26,26);
+               g2d.draw(circle);
+              //  g2d.fill(circle)
              
                 for(int j=0;j<food.get(i).cir.size();j++)
                 {

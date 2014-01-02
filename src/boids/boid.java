@@ -22,7 +22,7 @@ public class boid {
     double angle;
     public double radius;
     double maxSpeed, maxForce;
-    int type, eats;
+    int type;
     double katWidzenia;
     double minimalDistance;
     float colorLeadB;
@@ -30,7 +30,8 @@ public class boid {
     float colorVelB;
     float colorAccelB;
     boolean omijam;
-    
+    boolean hungry;
+    int eats;
     
     public boid(double x, double y) {
         Random randGen = new Random();
@@ -46,12 +47,12 @@ public class boid {
         colorVelB=0.0f;
         colorAccelB=0.0f;
         omijam=false;
-        
+        hungry=false;
         // angle=randGen.nextDouble()*360;
         minimalDistance = 6;
         type = 1;
-        eats = -1;
         katWidzenia = 0.5;
+        eats=0;
     }
 
     public vector2d separate(ArrayList<boid> boids) {
@@ -380,45 +381,61 @@ public class boid {
     public vector2d foraging(ArrayList<Food> jedzonko,double kat_widzenia)
     {
         double s;
+        Random randGen=new Random();
         double kat;
         Food target;
         vector2d jedziem=new vector2d(0,0);
         ArrayList<Food> seeFood=new ArrayList<Food>();
-
-        for(int i=0;i<jedzonko.size();i++)
-        {
-               s=this.position.getDistance(jedzonko.get(i).fpos);
-               if(s<=mainBoids.mainWin.getForagingDistance())
-               {
-                   kat=this.calcAngle((jedzonko.get(i).fpos));
-                   if(s<25*25) seeFood.add(jedzonko.get(i));
-                   else {
-                        if((180-kat)<kat_widzenia*180/3.1415)
-                        {
-                                seeFood.add(jedzonko.get(i));
+        if(this.hungry) {
+            for(int i=0;i<jedzonko.size();i++)
+            {
+                   s=this.position.getDistance(jedzonko.get(i).fpos);
+                   if(s<=mainBoids.mainWin.getForagingDistance())
+                   {
+                        kat=this.calcAngle((jedzonko.get(i).fpos));
+                        if(s<25*25) seeFood.add(jedzonko.get(i));
+                        else {
+                            if((180-kat)<kat_widzenia*180/3.1415)
+                            {
+                                 seeFood.add(jedzonko.get(i));
+                            }
                         }
-                   }
                    
-               }
-               target=NDistance.minFood(this,seeFood);
-               if(target!=null)
-               {
-                  if(this.getPosition().getDistance(target.getPos())<=12)
+                  }
+                  target=NDistance.minFood(this,seeFood);
+                  if(target!=null)
                   {
-                      mainBoids.simul.foraging_situation=true;
-                     // jedziem.add(this.velocity);
-                     // jedziem.multi(-14);
-                      if(target.iam_eating()) jedzonko.remove(target);
-                  }
-                  else {
-                      mainBoids.simul.foraging_situation=true;
-                      jedziem.add(target.fpos);
-                      jedziem.minus(this.getPosition());
-                      jedziem.normalize();
-                  }
-               }
+                    if(this.getPosition().getDistance(target.getPos())<=9)
+                    {
+                          mainBoids.simul.foraging_situation=true;
+                          this.velocity=new vector2d(0,0);
+                          eats++;
+                          if(eats>=1200) 
+                          {
+                              hungry=false;
+                              return new vector2d(randGen.nextDouble()-2,randGen.nextDouble()+4).normalize();
+                          }
+                        //jedziem.add(this.velocity);
+                        // jedziem.multi(-14);
+                          if(target.iam_eating())
+                          {
+                              jedzonko.remove(target);
+                              mainBoids.simul.pom.clear();
+                              mainBoids.simul.pom.addAll(mainBoids.obs);
+                              mainBoids.simul.pom.addAll(mainBoids.food);
+           
+                          }
+                    }
+                    else {
+                         mainBoids.simul.foraging_situation=true;
+                         jedziem.add(target.fpos);
+                         jedziem.minus(this.getPosition());
+                         jedziem.normalize();
+                    }
+                }
+            }
         }
-        return jedziem;
+            return jedziem.multi(2);
     }
     //--------------------------------------------
     public void applyForce(double step) {
@@ -553,4 +570,10 @@ public class boid {
     public boolean czyOmijam(){
     return omijam;
     }
+    public boolean isHungry()
+    {
+        return hungry;
+    }
+    
+    
 }

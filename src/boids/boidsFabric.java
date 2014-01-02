@@ -30,13 +30,14 @@ public class boidsFabric {
         maxSpeed=_maxSpeed;
         maxAccel=_maxAccel;
     }
-    
-    public ArrayList<boid> createBoids(int n,int np){
+    public ArrayList<boid> createBoids(int n,int np,double per){
         Random randGen = new Random();
+        ArrayList<boid> pom=new ArrayList<boid>();
         int total=n+np+mainBoids.mainWin.getNumOfLeaders();
         int rozklad= mainBoids.mainWin.getRozklad();
         int leadMovement=mainBoids.mainWin.getLeaderTypeMovement();
         int x=0,y=0;
+        int r;
         double wsp=(1080*680)/total;
         wsp=sqrt(wsp);
         boids.ensureCapacity(total+1);
@@ -105,7 +106,20 @@ public class boidsFabric {
             if (maxSpeed!=0){boids.get(boids.size()-1).maxSpeed=maxSpeed;}
             if (maxAccel!=0){boids.get(boids.size()-1).maxForce=maxAccel;}
         }
-        
+        //-------------------------------------------------
+        /**
+         * zmienia okresloną ilosc boidów na głodne
+         */
+        pom.addAll(leaders);
+        pom.addAll(boids);
+        for(int i=0;i<Math.round(per*pom.size());i++)
+        {
+            do
+                r=randGen.nextInt(pom.size());
+            while(pom.get(r).hungry);
+            pom.get(r).hungry=true;
+        }
+        //-------------------------------------------------
         mainBoids.leaders=leaders;
         mainBoids.predators=predators;
         return boids;

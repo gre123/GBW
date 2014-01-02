@@ -16,6 +16,8 @@ public class symulacja {
   ArrayList<boid> boids;
   ArrayList<Obstacle> obs;
   ArrayList<Food> food;
+  
+  public ArrayList<Obstacle> pom;
   public boolean continueSimulation;
   double cofSep,cofAli,cofCoh,leadCof,randCof,cofPred,cofAvoid,AvoidMode;
   int AvoidRec;
@@ -38,6 +40,7 @@ public class symulacja {
   foraging_situation=false;
   animSpeed=10;
   siatkaKoszykow =new gridBucket(12,8,80,80,1100,700);
+  pom=new ArrayList<Obstacle>();
   }
   public symulacja(ArrayList<boid> _boids, ArrayList<Obstacle> _obs, ArrayList<Food> _food ){
       cofSep=1;cofAli=1;cofCoh=1;randCof=1;
@@ -48,6 +51,7 @@ public class symulacja {
   food=_food;
   animSpeed=10;
   siatkaKoszykow =new gridBucket(13,8,80,80,1100,700);
+  pom=new ArrayList<Obstacle>();
   }
   public void addBoid(boid agt){
       boids.add(agt);
@@ -187,8 +191,11 @@ public class symulacja {
       double timeMin=0;
        double fps;
       vector2d sep,ali,coh,lead,rand,pred, avoid, predH,toAim,forag;
-      
       ArrayList<boid> tempBoids;
+      
+      pom.addAll(obs);
+      pom.addAll(food);
+      
       while(continueSimulation){
       end=start;
       start=System.nanoTime();   
@@ -199,7 +206,7 @@ public class symulacja {
 
       timeStep=((double)time)/(55-animSpeed);
 
-       for(int i=0;i<boids.size();i++){
+       for(int i=0;i<boids.size();i++){ 
            if (boids.get(i).getType()==2){continue;}
           tempBoids=getNeighbourhoodOptmTopological(boids.get(i),mainBoids.mainWin.getNumNeight());
            //System.out.println(tempBoids.size());
@@ -209,7 +216,7 @@ public class symulacja {
           coh= boids.get(i).cohesion(tempBoids);
           lead= boids.get(i).followLeader(tempBoids);
           rand=new vector2d(randGen.nextDouble()*2-1,randGen.nextDouble()*2-1);
-          avoid = boids.get(i).better_avoid(obs,AvoidMode, AvoidRec);
+          avoid = boids.get(i).better_avoid(pom,AvoidMode, AvoidRec);
           toAim=boids.get(i).goToAim(globalAim);
           pred=boids.get(i).predator(tempBoids);
           forag=boids.get(i).foraging(food, katWidzenia);
@@ -233,7 +240,7 @@ public class symulacja {
            {
                if(foraging_situation && !critical_sit)
                {
-                   boids.get(i).setAcceleration(forag.multi(2));
+                   boids.get(i).setAcceleration(forag.add(sep.multi(7)));
                    foraging_situation=false;
                }
                else {
@@ -241,6 +248,7 @@ public class symulacja {
                     else boids.get(i).setAcceleration(pred);
                
                     critical_sit=false;
+                    foraging_situation=false;
                }
            }
        }

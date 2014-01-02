@@ -31,7 +31,7 @@ public class foodFabric {
         Random rand=new Random();
         for(int i=0;i<m;i++)
         {
-            pom=new Food(rand.nextInt(1090),rand.nextInt(660));
+            pom=new Food(rand.nextInt(1090),rand.nextInt(660),mainBoids.mainWin.getTimeFood());
             food.add(pom);  
         }
         return food;

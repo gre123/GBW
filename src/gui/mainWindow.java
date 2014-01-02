@@ -12,6 +12,7 @@ import javax.swing.event.ChangeEvent;
 import math.vector2d;
 import simulation.symulacja;
 import simulation.threadSym;
+import trunk.src.boids.Obstacle;
 import trunk.src.boids.obstaclesFabric;
 
 /**
@@ -116,6 +117,12 @@ double[] tabFPS = new double[10];
         jLabel20 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         textNumFood = new javax.swing.JSpinner();
+        jLabel27 = new javax.swing.JLabel();
+        sldPerHunger = new javax.swing.JSlider();
+        lblHunger = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        sldTimeFood = new javax.swing.JSlider();
+        lblTimeFood = new javax.swing.JLabel();
         statPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -309,7 +316,7 @@ double[] tabFPS = new double[10];
 
         lblAvoidRec.setText("0");
 
-        sldForDist.setValue(0);
+        sldForDist.setValue(35);
         sldForDist.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sldForDistStateChanged(evt);
@@ -319,7 +326,7 @@ double[] tabFPS = new double[10];
         e.setText("Wpływ jedzenia(odl) :");
 
         lblForagingDistance.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblForagingDistance.setText("0");
+        lblForagingDistance.setText("35");
 
         jLabel26.setText("Max lliczba sąsiadów:");
 
@@ -684,6 +691,29 @@ double[] tabFPS = new double[10];
 
         jLabel25.setText("Jedzenie :");
 
+        jLabel27.setText("Głodnych :");
+
+        sldPerHunger.setValue(0);
+        sldPerHunger.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sldPerHungerStateChanged(evt);
+            }
+        });
+
+        lblHunger.setText("0");
+
+        jLabel28.setText("Wytrzymałość jedzenia:");
+
+        sldTimeFood.setMaximum(50000);
+        sldTimeFood.setMinimum(5000);
+        sldTimeFood.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sldTimeFoodStateChanged(evt);
+            }
+        });
+
+        lblTimeFood.setText("5000");
+
         javax.swing.GroupLayout editFlockLayout = new javax.swing.GroupLayout(editFlock);
         editFlock.setLayout(editFlockLayout);
         editFlockLayout.setHorizontalGroup(
@@ -718,12 +748,21 @@ double[] tabFPS = new double[10];
                         .addGap(62, 62, 62)
                         .addComponent(textNumFood))
                     .addGroup(editFlockLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(editFlockLayout.createSequentialGroup()
                         .addComponent(jLabel20)
                         .addGap(24, 24, 24)
-                        .addComponent(textNumObs)))
+                        .addComponent(textNumObs))
+                    .addComponent(sldPerHunger, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(editFlockLayout.createSequentialGroup()
+                        .addComponent(jLabel27)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblHunger))
+                    .addComponent(sldTimeFood, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(editFlockLayout.createSequentialGroup()
+                        .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(lblTimeFood, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         editFlockLayout.setVerticalGroup(
@@ -765,7 +804,19 @@ double[] tabFPS = new double[10];
                     .addComponent(lblMaxAccel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sldMaxAccel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 359, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27)
+                    .addComponent(lblHunger))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sldPerHunger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sldTimeFood, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTimeFood)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
                 .addComponent(btnGenStado, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -838,6 +889,10 @@ double[] tabFPS = new double[10];
     public  int getNumOfObs(){
      return (int)this.textNumObs.getValue();
     }
+    public int getTimeFood()
+    {
+        return (int)this.sldTimeFood.getValue();
+    }
     public  int getRozklad(){
      return (int)this.cobRozklad.getSelectedIndex();
     }
@@ -896,7 +951,7 @@ double[] tabFPS = new double[10];
     private void btnGenStadoActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnGenStadoActionPerformed
        fabric= new boidsFabric();
        fabric.setBoidsParametrs(sldMaxSpeed.getValue()/100d,sldMaxAccel.getValue()/10d);
-       mainBoids.boids=fabric.createBoids(Integer.parseInt(this.txtNumSwarm.getText()),(int)this.textNumPred.getValue());
+       mainBoids.boids=fabric.createBoids(Integer.parseInt(this.txtNumSwarm.getText()),(int)this.textNumPred.getValue(),(double)this.sldPerHunger.getValue()/100);
     
        obsfabric = new obstaclesFabric();
        mainBoids.obs = obsfabric.createObs((int)textNumObs.getValue());// dorobić pole na ilośc przeszkód i wartość tutaj
@@ -1087,6 +1142,16 @@ double[] tabFPS = new double[10];
             this.lblMaxNeight.setText(Integer.toString(sldNumNeight.getValue()));
     }//GEN-LAST:event_sldNumNeightStateChanged
 
+    private void sldPerHungerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldPerHungerStateChanged
+            this.lblHunger.setText(Integer.toString(sldPerHunger.getValue())+"%");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sldPerHungerStateChanged
+
+    private void sldTimeFoodStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldTimeFoodStateChanged
+         this.lblTimeFood.setText(Integer.toString(sldTimeFood.getValue()));
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sldTimeFoodStateChanged
+
     private void panelMouseClicked(java.awt.event.MouseEvent evt) {                                     
       ptr.aimX=evt.getX();
       ptr.aimY=evt.getY();
@@ -1169,6 +1234,8 @@ double[] tabFPS = new double[10];
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1184,6 +1251,7 @@ double[] tabFPS = new double[10];
     private javax.swing.JLabel lblAvoidRec;
     private javax.swing.JLabel lblCoh;
     private javax.swing.JLabel lblForagingDistance;
+    private javax.swing.JLabel lblHunger;
     private javax.swing.JLabel lblLead;
     private javax.swing.JLabel lblMaxAccel;
     private javax.swing.JLabel lblMaxNeight;
@@ -1192,6 +1260,7 @@ double[] tabFPS = new double[10];
     private javax.swing.JLabel lblPred;
     private javax.swing.JLabel lblRand;
     private javax.swing.JLabel lblSep;
+    private javax.swing.JLabel lblTimeFood;
     private javax.swing.JPanel setPanel;
     private javax.swing.JSlider sldAliCof;
     private javax.swing.JSlider sldAngle;
@@ -1206,9 +1275,11 @@ double[] tabFPS = new double[10];
     private javax.swing.JSlider sldMaxSpeed;
     private javax.swing.JSlider sldNeigh;
     private javax.swing.JSlider sldNumNeight;
+    private javax.swing.JSlider sldPerHunger;
     private javax.swing.JSlider sldPredCof;
     private javax.swing.JSlider sldRandCof;
     private javax.swing.JSlider sldSepCof;
+    private javax.swing.JSlider sldTimeFood;
     private javax.swing.JButton startButton;
     private javax.swing.JPanel statPanel;
     private javax.swing.JPanel sterLead;
