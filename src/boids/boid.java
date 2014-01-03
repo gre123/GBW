@@ -227,16 +227,18 @@ public class boid {
             Obstacle najblizsza = obs.get(minn);
             value.setX(position.getX() - najblizsza.getX());
             value.setY(position.getY() - najblizsza.getY());
-            if (this.position.getDistance(najblizsza.getPosition())-najblizsza.getR()-2.5>dl){
+            min=this.position.getDistance(najblizsza.getPosition())-najblizsza.getR()-2.5;//to nie jest min, ale po co nową zmienną robić jak stara niepotrzebna
+            if (min>dl){
                     omijam=false;
                     return new vector2d(0, 0);} //sprawdź czy nie za daleko, dl to (długość prostokąta-2.5[czyli promien osobnika])
                 //jak blisko, to sprawdź czy jest po prawej czy po lewej
             omijam=true;
             //System.out.println("Getdistance do środka przeszkody: " + this.position.getDistance(najblizsza.getPosition()) +" - promien przeszkody: "+najblizsza.getR() +" -2.5 = "+(this.position.getDistance(najblizsza.getPosition())-najblizsza.getR()-5)+ "a prostokat ma: " + dl);
             if (this.velocity.getRight().skalarny(value)>0){        //to przeszkoda po lewej od wektora
-                return this.velocity.getRight().normalize().multi(waga).add(value.normalize().multi(1-waga));
+                return this.velocity.getRight().normalize().multi(waga).add(value.normalize().multi(1-waga)).multi(dl/2/min);
+                //to multi(dl/2/min) to jest skalowanie, żeby działało mocniej od 1 jesli bliżej niz polowa prostokata, a slabiej dalej
                 }
-            return this.velocity.getLeft().normalize().multi(waga).add(value.normalize().multi(1-waga));
+            return this.velocity.getLeft().normalize().multi(waga).add(value.normalize().multi(1-waga)).multi(dl/2/min);
         }
     }
     

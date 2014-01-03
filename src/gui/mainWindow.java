@@ -103,6 +103,8 @@ double[] tabFPS = new double[10];
         spnLeaderRadius = new javax.swing.JSpinner();
         spnPredatorRadius = new javax.swing.JSpinner();
         jLabel31 = new javax.swing.JLabel();
+        spnObstacleRadius = new javax.swing.JSpinner();
+        jLabel33 = new javax.swing.JLabel();
         editFlock = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         textNumPred = new javax.swing.JSpinner();
@@ -630,6 +632,11 @@ double[] tabFPS = new double[10];
 
         jLabel31.setText("Wielkość przeciwnika:");
 
+        spnObstacleRadius.setOpaque(false);
+        spnObstacleRadius.setValue(20);
+
+        jLabel33.setText("Wielkość przeszkody:");
+
         javax.swing.GroupLayout wygladPanelLayout = new javax.swing.GroupLayout(wygladPanel);
         wygladPanel.setLayout(wygladPanelLayout);
         wygladPanelLayout.setHorizontalGroup(
@@ -651,7 +658,11 @@ double[] tabFPS = new double[10];
                     .addGroup(wygladPanelLayout.createSequentialGroup()
                         .addComponent(jLabel31)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(spnPredatorRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(spnPredatorRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(wygladPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel33)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(spnObstacleRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         wygladPanelLayout.setVerticalGroup(
@@ -675,7 +686,11 @@ double[] tabFPS = new double[10];
                 .addGroup(wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel31)
                     .addComponent(spnPredatorRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(528, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel33)
+                    .addComponent(spnObstacleRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(502, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Wygląd", wygladPanel);
@@ -989,6 +1004,10 @@ double[] tabFPS = new double[10];
     {
         return (int )this.spnPredatorRadius.getValue();
     }
+    public int getObstacleSize()
+    {
+        return (int )this.spnObstacleRadius.getValue();
+    }
     public int getMinmalSeparate()
     {
         return (int )this.spnMinDist.getValue();
@@ -1031,7 +1050,7 @@ double[] tabFPS = new double[10];
        mainBoids.boids=fabric.createBoids(Integer.parseInt(this.txtNumSwarm.getText()),(int)this.textNumPred.getValue(),(double)this.sldPerHunger.getValue()/100);
     
        obsfabric = new obstaclesFabric();
-       mainBoids.obs = obsfabric.createObs((int)textNumObs.getValue());// dorobić pole na ilośc przeszkód i wartość tutaj
+       mainBoids.obs = obsfabric.createObs((int)textNumObs.getValue(),this.getObstacleSize());// dorobić pole na ilośc przeszkód i wartość tutaj
        ffabric=new foodFabric();
        mainBoids.food=ffabric.createFood((int)textNumFood.getValue());
        if (ptr!=null){this.remove(ptr);}
@@ -1318,6 +1337,7 @@ double[] tabFPS = new double[10];
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1364,6 +1384,7 @@ double[] tabFPS = new double[10];
     private javax.swing.JSpinner spnBoidRadius;
     private javax.swing.JSpinner spnLeaderRadius;
     private javax.swing.JSpinner spnMinDist;
+    private javax.swing.JSpinner spnObstacleRadius;
     private javax.swing.JSpinner spnPredatorRadius;
     private javax.swing.JButton startButton;
     private javax.swing.JPanel statPanel;

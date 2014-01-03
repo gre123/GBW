@@ -15,11 +15,15 @@ import math.vector2d;
 public class Obstacle {
 
     vector2d position;
-    double radius;
+    int radius;
 
     public Obstacle(double x, double y) {
         position = new vector2d(x, y);
         radius = 30;
+    }
+    public Obstacle(double x, double y, int rad) {
+        position = new vector2d(x, y);
+        radius = rad;
     }
 
     public vector2d getPosition() {
@@ -38,7 +42,7 @@ public class Obstacle {
         return position.getY();
     }
 
-    public double getR() {
+    public int getR() {
         return radius;
     }
 }
