@@ -39,6 +39,7 @@ public class symulacja {
   critical_sit=false;
   foraging_situation=false;
   animSpeed=10;
+  
   siatkaKoszykow =new gridBucket(12,8,80,80,1100,700);
   pom=new ArrayList<Obstacle>();
   }

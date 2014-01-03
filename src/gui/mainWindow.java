@@ -1225,7 +1225,7 @@ double[] tabFPS = new double[10];
         lblAvoidRec.setText(Integer.toString(sldAvoidRec.getValue()));
         if (mainBoids.simul!=null){
             //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000,sldAvoidMode.getValue()/(double)1000);
-            mainBoids.simul.setAvoidRec(sldAvoidMode.getValue());
+            mainBoids.simul.setAvoidRec(sldAvoidRec.getValue());
         }
     }//GEN-LAST:event_sldAvoidRecStateChanged
 
