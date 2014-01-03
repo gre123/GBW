@@ -97,6 +97,12 @@ double[] tabFPS = new double[10];
         btnWpływLeader = new javax.swing.JToggleButton();
         btnVelWart = new javax.swing.JToggleButton();
         btnAccelWart = new javax.swing.JToggleButton();
+        jLabel29 = new javax.swing.JLabel();
+        spnBoidRadius = new javax.swing.JSpinner();
+        jLabel30 = new javax.swing.JLabel();
+        spnLeaderRadius = new javax.swing.JSpinner();
+        spnPredatorRadius = new javax.swing.JSpinner();
+        jLabel31 = new javax.swing.JLabel();
         editFlock = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         textNumPred = new javax.swing.JSpinner();
@@ -123,6 +129,8 @@ double[] tabFPS = new double[10];
         jLabel28 = new javax.swing.JLabel();
         sldTimeFood = new javax.swing.JSlider();
         lblTimeFood = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        spnMinDist = new javax.swing.JSpinner();
         statPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -141,7 +149,6 @@ double[] tabFPS = new double[10];
         jLabel8.setText("Szybkość animacji:");
 
         sldAnimSpeed.setMaximum(50);
-        sldAnimSpeed.setMinimum(1);
         sldAnimSpeed.setPaintLabels(true);
         sldAnimSpeed.setValue(30);
         sldAnimSpeed.setMaximumSize(new java.awt.Dimension(32767, 20));
@@ -211,7 +218,8 @@ double[] tabFPS = new double[10];
         });
 
         sldNeigh.setMaximum(3000);
-        sldNeigh.setValue(400);
+        sldNeigh.setToolTipText("");
+        sldNeigh.setValue(700);
         sldNeigh.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sldNeighStateChanged(evt);
@@ -219,7 +227,7 @@ double[] tabFPS = new double[10];
         });
 
         sldAngle.setMaximum(3150);
-        sldAngle.setValue(1000);
+        sldAngle.setValue(2000);
         sldAngle.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sldAngleStateChanged(evt);
@@ -607,6 +615,21 @@ double[] tabFPS = new double[10];
 
         btnAccelWart.setText("wartość przyspieszenia");
 
+        jLabel29.setText("Wielkość boida:");
+
+        spnBoidRadius.setOpaque(false);
+        spnBoidRadius.setValue(2);
+
+        jLabel30.setText("Wielkość lidera:");
+
+        spnLeaderRadius.setOpaque(false);
+        spnLeaderRadius.setValue(3);
+
+        spnPredatorRadius.setOpaque(false);
+        spnPredatorRadius.setValue(4);
+
+        jLabel31.setText("Wielkość przeciwnika:");
+
         javax.swing.GroupLayout wygladPanelLayout = new javax.swing.GroupLayout(wygladPanel);
         wygladPanel.setLayout(wygladPanelLayout);
         wygladPanelLayout.setHorizontalGroup(
@@ -616,7 +639,19 @@ double[] tabFPS = new double[10];
                 .addGroup(wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAccelWart, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                     .addComponent(btnVelWart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnWpływLeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnWpływLeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(wygladPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel29)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(spnBoidRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(wygladPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel30)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(spnLeaderRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(wygladPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel31)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(spnPredatorRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         wygladPanelLayout.setVerticalGroup(
@@ -628,7 +663,19 @@ double[] tabFPS = new double[10];
                 .addComponent(btnVelWart)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAccelWart)
-                .addContainerGap(618, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel29)
+                    .addComponent(spnBoidRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel30)
+                    .addComponent(spnLeaderRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel31)
+                    .addComponent(spnPredatorRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(528, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Wygląd", wygladPanel);
@@ -714,6 +761,10 @@ double[] tabFPS = new double[10];
 
         lblTimeFood.setText("5000");
 
+        jLabel32.setText("Min odlgłośc:");
+
+        spnMinDist.setValue(5);
+
         javax.swing.GroupLayout editFlockLayout = new javax.swing.GroupLayout(editFlock);
         editFlock.setLayout(editFlockLayout);
         editFlockLayout.setHorizontalGroup(
@@ -721,18 +772,7 @@ double[] tabFPS = new double[10];
             .addGroup(editFlockLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cobRozklad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnGenStado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                    .addComponent(sldMaxSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(sldMaxAccel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(editFlockLayout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblMaxSpeed))
-                    .addGroup(editFlockLayout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblMaxAccel))
                     .addGroup(editFlockLayout.createSequentialGroup()
                         .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
@@ -744,13 +784,23 @@ double[] tabFPS = new double[10];
                             .addComponent(textLeaderNum)
                             .addComponent(textNumPred, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(editFlockLayout.createSequentialGroup()
-                        .addComponent(jLabel25)
-                        .addGap(62, 62, 62)
-                        .addComponent(textNumFood))
-                    .addGroup(editFlockLayout.createSequentialGroup()
-                        .addComponent(jLabel20)
+                        .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel25))
                         .addGap(24, 24, 24)
-                        .addComponent(textNumObs))
+                        .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textNumFood)
+                            .addComponent(textNumObs)))
+                    .addComponent(sldMaxSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(sldMaxAccel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(editFlockLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblMaxSpeed))
+                    .addGroup(editFlockLayout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblMaxAccel))
                     .addComponent(sldPerHunger, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(editFlockLayout.createSequentialGroup()
                         .addComponent(jLabel27)
@@ -760,9 +810,16 @@ double[] tabFPS = new double[10];
                     .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(editFlockLayout.createSequentialGroup()
                         .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
+                            .addGroup(editFlockLayout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(cobRozklad, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblTimeFood, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(editFlockLayout.createSequentialGroup()
+                        .addComponent(jLabel32)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(spnMinDist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         editFlockLayout.setVerticalGroup(
@@ -780,19 +837,19 @@ double[] tabFPS = new double[10];
                 .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(textNumPred, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel25)
-                    .addComponent(textNumFood, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(textNumFood, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
                     .addComponent(textNumObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cobRozklad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(cobRozklad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(lblMaxSpeed))
@@ -804,7 +861,7 @@ double[] tabFPS = new double[10];
                     .addComponent(lblMaxAccel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sldMaxAccel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel27)
                     .addComponent(lblHunger))
@@ -816,7 +873,11 @@ double[] tabFPS = new double[10];
                 .addComponent(sldTimeFood, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTimeFood)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel32)
+                    .addComponent(spnMinDist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 263, Short.MAX_VALUE)
                 .addComponent(btnGenStado, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -915,6 +976,22 @@ double[] tabFPS = new double[10];
     public int getHuntStrategy()
     {
         return combpredMove.getSelectedIndex();
+    }
+    public int getBoidSize()
+    {
+        return (int )this.spnBoidRadius.getValue();
+    }
+    public int getLeaderSize()
+    {
+        return (int )this.spnLeaderRadius.getValue();
+    }
+    public int getPredatorSize()
+    {
+        return (int )this.spnPredatorRadius.getValue();
+    }
+    public int getMinmalSeparate()
+    {
+        return (int )this.spnMinDist.getValue();
     }
     public int getForagingDistance()
     {
@@ -1236,7 +1313,11 @@ double[] tabFPS = new double[10];
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1280,6 +1361,10 @@ double[] tabFPS = new double[10];
     private javax.swing.JSlider sldRandCof;
     private javax.swing.JSlider sldSepCof;
     private javax.swing.JSlider sldTimeFood;
+    private javax.swing.JSpinner spnBoidRadius;
+    private javax.swing.JSpinner spnLeaderRadius;
+    private javax.swing.JSpinner spnMinDist;
+    private javax.swing.JSpinner spnPredatorRadius;
     private javax.swing.JButton startButton;
     private javax.swing.JPanel statPanel;
     private javax.swing.JPanel sterLead;

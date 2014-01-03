@@ -209,7 +209,7 @@ public class symulacja {
        for(int i=0;i<boids.size();i++){ 
            if (boids.get(i).getType()==2){continue;}
           tempBoids=getNeighbourhoodOptmTopological(boids.get(i),mainBoids.mainWin.getNumNeight());
-           //System.out.println(tempBoids.size());
+          // System.out.println(tempBoids.size());
           //if (tempBoids.size()>0){boids.get(i).radius=20;}
           sep= boids.get(i).separate(tempBoids);
           ali= boids.get(i).alignment(tempBoids);

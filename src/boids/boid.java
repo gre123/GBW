@@ -455,6 +455,7 @@ public class boid {
     public void move(double step) {
         vector2d temp = velocity.getVec();
         position.add(temp.multi(step));
+       // velocity.multi(0.9999);
         //System.out.println(velocity.getLength());
         double maxX = 1072;
         double maxY = 677;

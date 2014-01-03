@@ -41,6 +41,10 @@ public class boidsFabric {
         double wsp=(1080*680)/total;
         wsp=sqrt(wsp);
         boids.ensureCapacity(total+1);
+        int boidRadius=mainBoids.mainWin.getBoidSize();
+        int leaderRadius=mainBoids.mainWin.getLeaderSize();
+        int predatorRadius=mainBoids.mainWin.getPredatorSize();
+        int minimalDistSeparate=mainBoids.mainWin.getMinmalSeparate();
         for(int i=0;i<n;i++){           
             if(rozklad==0){ boids.add(new boid(randGen.nextInt(1080),randGen.nextInt(680)));
             }else if(rozklad==1){
@@ -53,7 +57,9 @@ public class boidsFabric {
                 while (y<0|| y>680){y=(int)(randGen.nextGaussian()*90+330);}
             boids.add(new boid(x,y));
             }
-            boids.get(i).radius=5;
+            boids.get(i).radius=boidRadius;
+            boids.get(i).minimalDistance=minimalDistSeparate;
+            
             if (maxSpeed!=0){boids.get(i).maxSpeed=maxSpeed;}
             if (maxAccel!=0){ boids.get(i).maxForce=maxAccel; }
         }
@@ -61,9 +67,10 @@ public class boidsFabric {
         for(int i=0;i<mainBoids.mainWin.getNumOfLeaders();i++){
         boids.add(new boid(randGen.nextInt(1095),randGen.nextInt(680)));
         leaders.add(boids.get(boids.size()-1));
+        boids.get(i).minimalDistance=minimalDistSeparate;
         boids.get(boids.size()-1).type=0;
        // boids.get(boids.size()-1).velocity=new vector2d(randGen.nextInt(6)-3,randGen.nextInt(6)-3);
-        boids.get(boids.size()-1).radius=7;
+        boids.get(boids.size()-1).radius=leaderRadius;
         boids.get(boids.size()-1).aims= new ArrayList<>();
         boids.get(boids.size()-1).indexAims=0;
      
@@ -101,7 +108,7 @@ public class boidsFabric {
         predators.add(boids.get(boids.size()-1));
         boids.get(boids.size()-1).type=2;
        // boids.get(boids.size()-1).velocity=new vector2d(randGen.nextInt(6)-3,randGen.nextInt(6)-3);
-        boids.get(boids.size()-1).radius=9;
+        boids.get(boids.size()-1).radius=predatorRadius;
         
             if (maxSpeed!=0){boids.get(boids.size()-1).maxSpeed=maxSpeed;}
             if (maxAccel!=0){boids.get(boids.size()-1).maxForce=maxAccel;}
