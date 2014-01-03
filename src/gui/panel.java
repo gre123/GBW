@@ -9,6 +9,7 @@ import java.io.File;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import math.vector2d;
 import trunk.src.boids.Obstacle;
  
 /**
@@ -19,6 +20,7 @@ public class panel extends JPanel {
     public ArrayList<Obstacle> obs;
     public ArrayList<Food> food;
     BufferedImage wrobel;
+    boolean isImage=false;
     int x,y;
     int aimX=-1,aimY=-1;
     public panel(ArrayList<boid> _boids) {
@@ -29,12 +31,7 @@ public class panel extends JPanel {
         setSize(x, y);
         setBackground(Color.getHSBColor(0.5f, 0.14f, 1));
         setLocation(11, 11);
-        try{
-            wrobel=ImageIO.read(new File("D:\\wrobel.png"));
-        }catch(Exception e)
-        {
-            
-        }
+      
         repaint();
     }
     
@@ -60,6 +57,15 @@ public class panel extends JPanel {
     public void paint(Graphics gContext) {  
         super.paintComponent(gContext);
         Graphics2D g2d = (Graphics2D) gContext;
+        
+        try{
+            wrobel=ImageIO.read(new File("D:\\wrobel.gif"));
+            isImage=true;
+        }catch(Exception e)
+        {  
+            isImage=false;
+        }
+        
         if (boids!=null){
           //System.out.println(boids.size());
             double r;
@@ -81,13 +87,21 @@ public class panel extends JPanel {
                 }else if(boids.get(i).getType()==2) {//przeciwnik
                     g2d.setColor(Color.red);
                 }
-                if(boids.get(i).isHungry()) g2d.setColor(Color.CYAN);
-                
+                //-----------------------------------------------------------------
+                //if(boids.get(i).isHungry()) g2d.setColor(Color.CYAN);
+                 /**
+                  * Tu jakaś próba wstawienia obrazku ptaka
+                  */
+               if(isImage) 
+               {
+                  g2d.drawImage(wrobel,(int)(boids.get(i).getX()-r/2), (int)boids.get(i).getY(),null);
+               }
+               else {
                 Ellipse2D circle = new Ellipse2D.Double( boids.get(i).getX()-r/2, boids.get(i).getY()-r/2, r,r);
-                
                 g2d.fill(circle);
                 g2d.draw(circle);
-
+               }
+               //-----------------------------------------------------------------
             } 
             
         }
