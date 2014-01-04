@@ -65,11 +65,12 @@ public class boid {
             return value;
         }
         for (int i = 0; i < boids.size(); i++) {
-            sDist = this.position.getSDistance(boids.get(i));
-            if (sDist < minimalDistance * minimalDistance) {
+            sDist = this.position.getSDistance(boids.get(i).position);
+            if (sDist < minimalDistance*minimalDistance) {
                 if (sDist == 0) {sDist = 0.000000001;}              
                 pos=this.getPosition().getVec().minus(boids.get(i).position);
                 pos.div(sDist);
+               
                 value.add(pos);
                 k++;
             }
@@ -80,10 +81,7 @@ public class boid {
         } else {
             return value;
         }
-        //-----------------------------
-        //Żeby zwiększyć separację dla drapieżników
-      //  if(type==2) return value;
-        //-----------------------------
+
         return value.normalize();
     }
     public vector2d separatePredator(ArrayList<boid> boids){
@@ -107,56 +105,52 @@ public class boid {
         } else {
             return value;
         }
-        //-----------------------------
-        //Żeby zwiększyć separację dla drapieżników
-      //  if(type==2) return value;
-        //-----------------------------
+
         return value.normalize();
     
     }
     public vector2d alignment(ArrayList<boid> boids) {
-        vector2d value = new vector2d(0, 0);
-
         vector2d pos = new vector2d(0, 0);
         if (type == 3 || type == 2 || boids.isEmpty() || type == 0) {
-            return value;
+            return pos;
         }
+        int k=0;
         for (int i = 0; i < boids.size(); i++) {
-            pos.add(boids.get(i).velocity);
-        }
-        if (!boids.isEmpty()) {
-            pos.div(boids.size()).minus(this.velocity);//ten minus nie wiem co robi
+            if (boids.get(i).type==1){
+            pos.add(boids.get(i).velocity);k++;}
+        }      
+            if (k>0){
+            pos.div(k).minus(this.velocity);
             return pos.normalize();
-        } else {
-            return pos.normalize();
-        }
+            }else{return pos;}
     }
 
     public vector2d cohesion(ArrayList<boid> boids) {
-        vector2d value = new vector2d(0, 0);
         vector2d pos = new vector2d(0, 0);
-        if (type == 3 || type == 2 || type == 0 || boids.size() == 0) {
-            return value;
-        }
+        if (type == 3 || type == 2 || type == 0 || boids.size() == 0) {return pos;}
+        int k=0;
         for (int i = 0; i < boids.size(); i++) {
+            if (boids.get(i).type==1){
             pos.add(boids.get(i).position);
+            k++;
+            }
         }
-        pos.div(boids.size());
-        value = pos.minus(this.position);
-        return value.normalize();
+        if (k>0){
+        pos.div(k);
+        pos.minus(this.position);
+        return pos.normalize();
+        }else{return pos;}
+        
     }
 
     public vector2d followLeader(ArrayList<boid> boids) {
         vector2d value = new vector2d(0, 0);
-        vector2d pos;
         this.colorLeadB=0;
         boid leader = null;
-        if (type == 3 || type == 2 || type == 0 || boids.isEmpty()) {
-            return value;
-        }
+        if (type == 3 || type == 2 || type == 0 || boids.isEmpty()) {return value; }
 
-        double dist = 1;
-        double minDist = 100000000;
+        double dist;
+        double minDist = Double.MAX_VALUE;
         for (int i = 0; i < boids.size(); i++) {
             if (boids.get(i).type == 0) {
                 //pos.add(boids.get(i).getPosition());
@@ -168,16 +162,15 @@ public class boid {
             }
         }
         if (leader != null) {
-            pos = leader.getPosition().getVec();
+            dist=minDist;
             this.colorLeadB=1-(float)(dist/mainBoids.simul.radiusNeigh);
             //pos.minus(leader.getVelocity().getVec().normalize().multi(15));
-            value = pos.minus(this.position);
-            if (dist > 15) {
+            value = leader.getPosition().getVec().minus(this.position);
+            if (dist > minimalDistance*2) {
                 return value.div(dist);
             } else {
-                return value.normalize().multi(dist / 15);
+                return value.normalize().multi(dist / minimalDistance*2);
             }
-
         } else {
             return value;
         }

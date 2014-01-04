@@ -125,16 +125,16 @@ public class symulacja {
          alfa=osobnik.calcAngle(gridBoids.get(i).getPosition());
           if((180-alfa)<katWidzenia*180/3.1415){
               if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
-              if (maxDist<d && neigh.size()>=maxNeigh){continue;}
+              if (maxDist<d && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
               if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
               neigh.add(gridBoids.get(i));
               distannces.add(d);
               continue; 
             }
       }else{continue;}   
-      if  (d<(9*9) && !osobnik.equals(gridBoids.get(i))){
+      if  (d<(osobnik.radius*osobnik.radius*1.5) && !osobnik.equals(gridBoids.get(i))){
        if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
-              if (maxDist<d && neigh.size()>=maxNeigh){continue;}
+              if (maxDist<d && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
               if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
               neigh.add(gridBoids.get(i));
               distannces.add(d);
@@ -142,7 +142,7 @@ public class symulacja {
       }
       if(osobnik.getVelocity().getLength()<osobnik.getMaxSpeed()/10 && !osobnik.equals(gridBoids.get(i))){ 
               if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
-              if (maxDist<d && neigh.size()>=maxNeigh){continue;}
+             if (maxDist<d && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
               if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
               neigh.add(gridBoids.get(i));
               distannces.add(d);
