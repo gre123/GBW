@@ -368,9 +368,9 @@ public class boid {
      * @param wszystkie
      * @return
      */
-    public vector2d predHunt(ArrayList<boid> boids,ArrayList<bucket> bucketboids, ArrayList<boid> wszystkie) {
+    public vector2d predHunt(ArrayList<boid> boids,ArrayList<bucket> bucketboids) {
         vector2d wynik;
-        wynik = PBehaviour.huntP(this, boids,bucketboids,wszystkie);
+        wynik = PBehaviour.huntP(this, boids,bucketboids);
         return wynik;
     }
 
@@ -439,7 +439,7 @@ public class boid {
         }
             return jedziem.multi(2);
     }
-    //--------------------------------------------
+    //---------------------------------------------------------------
     public void applyForce(double step) {
         velocity.add(acceleration.multi(step));
         if (velocity.getLength() > maxSpeed) {

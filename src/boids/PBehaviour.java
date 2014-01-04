@@ -256,7 +256,7 @@ public class PBehaviour {
     
     
     
-    public static vector2d huntP(boid ten,ArrayList<boid> boids,ArrayList<bucket> bucketboids,ArrayList<boid> wszystkie)
+    public static vector2d huntP(boid ten,ArrayList<boid> boids,ArrayList<bucket> bucketboids)
     {
         boid potPrey;
         int str;
@@ -271,8 +271,8 @@ public class PBehaviour {
             {
                  potPrey=NDistance.minPrey(ten, boids,7);
                  if(potPrey!=null){
-                   wszystkie.remove(potPrey);
                    
+                   mainBoids.simul.boids.remove(potPrey);
                    //boids.remove(potPrey);
                  } 
             }  
@@ -295,7 +295,7 @@ public class PBehaviour {
                     {
                         if(str==3) return huntStrategy2_3(ten,boids);
                         else return new vector2d(0,0);
-                    } // żeby coś bylo
+                    } 
                 }
             }      
        // }

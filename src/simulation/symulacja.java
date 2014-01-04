@@ -13,7 +13,7 @@ import trunk.src.boids.Obstacle;
  * @author Tomek
  */
 public class symulacja {
-  ArrayList<boid> boids;
+  public ArrayList<boid> boids;
   ArrayList<Obstacle> obs;
   ArrayList<Food> food;
   
@@ -43,7 +43,7 @@ public class symulacja {
   siatkaKoszykow =new gridBucket(12,8,80,80,1100,700);
   pom=new ArrayList<Obstacle>();
   }
-  public symulacja(ArrayList<boid> _boids, ArrayList<Obstacle> _obs, ArrayList<Food> _food ){
+  public symulacja(ArrayList<boid> _boids, ArrayList<Obstacle> _obs, ArrayList<Food> _food){
       cofSep=1;cofAli=1;cofCoh=1;randCof=1;
    continueSimulation=false;
     timeStep=1;//pozniej zmienic
@@ -256,7 +256,7 @@ public class symulacja {
        
        for(int i=0;i<mainBoids.predators.size();i++){
             tempBoids=getNeighbourhoodOptm(mainBoids.predators.get(i));
-            predH=mainBoids.predators.get(i).predHunt(tempBoids,siatkaKoszykow.getArrayNeightB(mainBoids.predators.get(i)),boids);
+            predH=mainBoids.predators.get(i).predHunt(tempBoids,siatkaKoszykow.getArrayNeightB(mainBoids.predators.get(i)));
             vector2d Sep=mainBoids.predators.get(i).separatePredator(tempBoids);
             mainBoids.predators.get(i).setAcceleration(Sep.add(predH));
        }
