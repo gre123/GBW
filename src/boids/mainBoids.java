@@ -4,6 +4,7 @@ import simulation.symulacja;
 import gui.mainWindow;
 import java.util.ArrayList;
 import math.trigonometric;
+import simulation.statistic;
 import trunk.src.boids.Obstacle;
 
 /**
@@ -19,6 +20,7 @@ public class mainBoids {
     public static ArrayList<Food> food;
     public static ArrayList<Obstacle> obs;
     public static symulacja simul=null;
+    public static statistic stat=null;
     public static trigonometric tryg;  
     public static void main(String[] args){
       

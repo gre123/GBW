@@ -57,23 +57,24 @@ public class boid {
 
     public vector2d separate(ArrayList<boid> boids) {
         vector2d value = new vector2d(0, 0);
-        vector2d pos = new vector2d(0, 0);
+        if (type == 3 || type == 0 || type == 2 || boids.isEmpty()) {return value;}
+        vector2d pos;
         colorSeparB=0;
         int k = 0;
-        double sDist;
-        if (type == 3 || type == 0 || type == 2 || boids.isEmpty()) {
-            return value;
-        }
+        double dist;
         for (int i = 0; i < boids.size(); i++) {
-            sDist = this.position.getSDistance(boids.get(i).position);
-            if (sDist < minimalDistance*minimalDistance) {
-                if (sDist == 0) {sDist = 0.000000001;}              
+            dist = this.position.getDistance(boids.get(i).position);
+            if (dist < minimalDistance) {             
                 pos=this.getPosition().getVec().minus(boids.get(i).position);
-                pos.div(sDist);
-               
+                return pos.normalize();
+            }
+            if(dist>40){continue;}
+                pos=this.getPosition().getVec().minus(boids.get(i).position);
+                pos.div(dist);
+                pos.div(dist-minimalDistance+1);
                 value.add(pos);
                 k++;
-            }
+              // System.out.println(pos.getLength()); 
         }
         if (k > 0) {
             value.div(k);
@@ -82,11 +83,11 @@ public class boid {
             return value;
         }
 
-        return value.normalize();
+        return value;
     }
     public vector2d separatePredator(ArrayList<boid> boids){
      vector2d value = new vector2d(0, 0);
-     vector2d pos = new vector2d(0, 0);
+     vector2d pos;
         int k = 0;
         double sDist;
         for (int i = 0; i < boids.size(); i++) {
@@ -111,9 +112,7 @@ public class boid {
     }
     public vector2d alignment(ArrayList<boid> boids) {
         vector2d pos = new vector2d(0, 0);
-        if (type == 3 || type == 2 || boids.isEmpty() || type == 0) {
-            return pos;
-        }
+        if (type == 3 || type == 2 || boids.isEmpty() || type == 0) {return pos;}
         int k=0;
         for (int i = 0; i < boids.size(); i++) {
             if (boids.get(i).type==1){
@@ -144,16 +143,14 @@ public class boid {
     }
 
     public vector2d followLeader(ArrayList<boid> boids) {
-        vector2d value = new vector2d(0, 0);
-        this.colorLeadB=0;
-        boid leader = null;
+        vector2d value = new vector2d(0, 0); 
         if (type == 3 || type == 2 || type == 0 || boids.isEmpty()) {return value; }
-
+        boid leader = null;
+        this.colorLeadB=0;
         double dist;
         double minDist = Double.MAX_VALUE;
         for (int i = 0; i < boids.size(); i++) {
             if (boids.get(i).type == 0) {
-                //pos.add(boids.get(i).getPosition());
                 dist = this.getPosition().getDistance(boids.get(i));
                 if (dist < minDist) {
                     leader = boids.get(i);
@@ -331,10 +328,10 @@ public class boid {
 
         }
 
-        if (d > 100) {
+        if (d > 60) {
             value.normalize();
         } else {
-            value.normalize().multi(d / 100);
+            value.normalize().multi(d / 60);
         }
 
         return value;
@@ -450,7 +447,7 @@ public class boid {
     public void move(double step) {
         vector2d temp = velocity.getVec();
         position.add(temp.multi(step));
-       // velocity.multi(0.9999);
+        //velocity.multi(0.9);
         //System.out.println(velocity.getLength());
         double maxX = 1072;
         double maxY = 677;
@@ -566,10 +563,8 @@ public class boid {
     public boolean czyOmijam(){
     return omijam;
     }
-    public boolean isHungry()
-    {
+    public boolean isHungry(){
         return hungry;
     }
-    
-    
+       
 }

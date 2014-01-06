@@ -16,7 +16,6 @@ public class symulacja {
   public ArrayList<boid> boids;
   ArrayList<Obstacle> obs;
   ArrayList<Food> food;
-  
   public ArrayList<Obstacle> pom;
   public boolean continueSimulation;
   double cofSep,cofAli,cofCoh,leadCof,randCof,cofPred,cofAvoid,AvoidMode;
@@ -32,22 +31,11 @@ public class symulacja {
   public boolean critical_sit,foraging_situation;
   //-----------------------------
   
-  public symulacja(ArrayList<boid> _boids){
-      cofSep=1;cofAli=1;cofCoh=1;randCof=1;
-   continueSimulation=false;
-    timeStep=1;//pozniej zmienic
-  boids=_boids;
-  critical_sit=false;
-  foraging_situation=false;
-  animSpeed=10;
-  reactionTime=50;
-  siatkaKoszykow=new gridBucket(12,8,80,80,1100,700);
-  pom=new ArrayList<Obstacle>();
-  }
+
   public symulacja(ArrayList<boid> _boids, ArrayList<Obstacle> _obs, ArrayList<Food> _food){
-      cofSep=1;cofAli=1;cofCoh=1;randCof=1;
-   continueSimulation=false;
-    timeStep=1;//pozniej zmienic
+  cofSep=1;cofAli=1;cofCoh=1;randCof=1;
+  continueSimulation=false;
+
   boids=_boids;
   obs=_obs;
   food=_food;
@@ -120,7 +108,6 @@ public class symulacja {
   ArrayList<boid> gridBoids=siatkaKoszykow.getArrayNeight(osobnik);
   ArrayList<Double> distannces=new ArrayList<>();
   for(int i=0;i<gridBoids.size();i++){
-      
       d=osobnik.getPosition().getSDistance(gridBoids.get(i).getPosition());     
       
       if (d<(radiusNeigh*radiusNeigh) && !osobnik.equals(gridBoids.get(i))){ 
@@ -134,7 +121,7 @@ public class symulacja {
               continue; 
             }
       }else{continue;}   
-      if  (d<(osobnik.radius*osobnik.radius*1.5) && !osobnik.equals(gridBoids.get(i))){
+      if  (d<(osobnik.radius*osobnik.radius*1.2) && !osobnik.equals(gridBoids.get(i))){
        if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
               if (maxDist<d && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
               if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
@@ -158,7 +145,8 @@ public class symulacja {
   neigh.remove(i);
   i--;
   }
-  }
+  
+  }mainBoids.stat.averageNumOfNeight+=neigh.size();
   return neigh;
   }
   public void setParametrs(double aCof,double sCof,double cCof,double lCof,double pCof){
@@ -189,14 +177,12 @@ public class symulacja {
   public void simulate(){
       continueSimulation=true;
       Random randGen = new Random();
-     // siatkaKoszykow.writeToGrid(boids);
+      siatkaKoszykow.writeToGrid(boids);
       long start=System.nanoTime();
-      
       long end;
       double time;
-      
       double timeMin=0;
-       double fps;
+      double fps;
       vector2d sep,ali,coh,lead,rand,pred, avoid, predH,toAim,forag;
       ArrayList<boid> tempBoids;
       
@@ -210,7 +196,7 @@ public class symulacja {
       time=(start-end)/1000000d;
       timeMin+=time;
   // System.out.println("t"+time);
-      while(time<reactionTime){
+      while(time<reactionTime-1){
           try{
             Thread.sleep((int)(reactionTime-time));
             start=System.nanoTime();   
@@ -223,7 +209,7 @@ public class symulacja {
       timeStep=((double)time)/(55-animSpeed);
 
        for(int i=0;i<boids.size();i++){ 
-           if (boids.get(i).getType()==2){continue;}
+          if (boids.get(i).getType()==2){continue;}
           tempBoids=getNeighbourhoodOptmTopological(boids.get(i),mainBoids.mainWin.getNumNeight());
           // System.out.println(tempBoids.size());
           //if (tempBoids.size()>0){boids.get(i).radius=20;}
@@ -232,7 +218,7 @@ public class symulacja {
           coh= boids.get(i).cohesion(tempBoids);
           lead= boids.get(i).followLeader(tempBoids);
           rand=new vector2d(randGen.nextDouble()*2-1,randGen.nextDouble()*2-1);
-          avoid = boids.get(i).better_avoid(pom,AvoidMode, AvoidRec);
+          avoid=boids.get(i).better_avoid(pom,AvoidMode, AvoidRec);
           toAim=boids.get(i).goToAim(globalAim);
           pred=boids.get(i).predator(tempBoids);
           forag=boids.get(i).foraging(food, katWidzenia);
@@ -276,8 +262,6 @@ public class symulacja {
             mainBoids.predators.get(i).setAcceleration(Sep.add(predH));
        }
              
-       
-       
        for(int i=0;i<boids.size();i++){
             boids.get(i).applyForce(timeStep);
             boids.get(i).move(timeStep);
@@ -287,8 +271,9 @@ public class symulacja {
        fps=100000/time;    
        if (timeMin>333){
            timeMin=0;
-       mainBoids.mainWin.setFPS((int)fps);
+           mainBoids.mainWin.setFPS((int)fps);
        }
+       mainBoids.stat.updateStats();
        mainBoids.mainWin.ptr.repaint( );
       }
   }

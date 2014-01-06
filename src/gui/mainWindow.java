@@ -10,9 +10,9 @@ import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import javax.swing.event.ChangeEvent;
 import math.vector2d;
+import simulation.statistic;
 import simulation.symulacja;
 import simulation.threadSym;
-import trunk.src.boids.Obstacle;
 import trunk.src.boids.obstaclesFabric;
 
 /**
@@ -23,8 +23,6 @@ public panel ptr=null;
 public boidsFabric fabric=null;
 public obstaclesFabric obsfabric = null;
 public foodFabric ffabric = null;
-double[] tabFPS = new double[10];
-      int tabIter=0;
     public mainWindow() {
         initComponents(); 
         setAllLbl();
@@ -93,6 +91,14 @@ double[] tabFPS = new double[10];
         jLabel32 = new javax.swing.JLabel();
         spnMinDist = new javax.swing.JSpinner();
         statPanel = new javax.swing.JPanel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        lblNumBoids = new javax.swing.JLabel();
+        lblNumPred = new javax.swing.JLabel();
+        lblNumLeaders = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        lblAvgNumNeight = new javax.swing.JLabel();
         Symulacja = new javax.swing.JTabbedPane();
         setPanelPod = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -549,15 +555,67 @@ double[] tabFPS = new double[10];
 
         jTabbedPane1.addTab("Stado", editFlock);
 
+        jLabel35.setText("Ilość boidów:");
+
+        jLabel36.setText("Ilość drapieżników:");
+
+        jLabel37.setText("Ilość liderów:");
+
+        lblNumBoids.setText("0");
+
+        lblNumPred.setText("0");
+
+        lblNumLeaders.setText("0");
+
+        jLabel38.setText("Średnia ilość sąsiadów:");
+
+        lblAvgNumNeight.setText("0");
+
         javax.swing.GroupLayout statPanelLayout = new javax.swing.GroupLayout(statPanel);
         statPanel.setLayout(statPanelLayout);
         statPanelLayout.setHorizontalGroup(
             statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
+            .addGroup(statPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(statPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel35)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblNumBoids))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, statPanelLayout.createSequentialGroup()
+                        .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel36)
+                            .addComponent(jLabel37))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblNumLeaders, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblNumPred, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(statPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel38)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addComponent(lblAvgNumNeight)))
+                .addContainerGap())
         );
         statPanelLayout.setVerticalGroup(
             statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 708, Short.MAX_VALUE)
+            .addGroup(statPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel35)
+                    .addComponent(lblNumBoids))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel36)
+                    .addComponent(lblNumPred))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel37)
+                    .addComponent(lblNumLeaders))
+                .addGap(18, 18, 18)
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel38)
+                    .addComponent(lblAvgNumNeight))
+                .addContainerGap(611, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Statystyki", statPanel);
@@ -662,7 +720,7 @@ double[] tabFPS = new double[10];
 
         jLabel34.setText("Czas reakcji:");
 
-        sldReactionTime.setMaximum(500);
+        sldReactionTime.setMaximum(150);
         sldReactionTime.setToolTipText("");
         sldReactionTime.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -1072,6 +1130,14 @@ double[] tabFPS = new double[10];
     public  int getLeaderTypeMovement(){
      return (int)this.combLeadMove.getSelectedIndex();
     }
+    public void setNumOfThings(int b,int l, int p){
+    this.lblNumBoids.setText(Integer.toString(b));
+    this.lblNumLeaders.setText(Integer.toString(l));
+    this.lblNumPred.setText(Integer.toString(p));
+    }
+    public void setAvgNumNeight(double ann){
+    this.lblAvgNumNeight.setText(Double.toString(ann));
+    }
     private void setAllLbl(){
          lblAli.setText(Double.toString(sldAliCof.getValue()/(double)1000));
          lblSep.setText(Double.toString(sldSepCof.getValue()/(double)1000));
@@ -1102,6 +1168,7 @@ double[] tabFPS = new double[10];
        mainBoids.obs = obsfabric.createObs((int)textNumObs.getValue(),this.getObstacleSize());// dorobić pole na ilośc przeszkód i wartość tutaj
        ffabric=new foodFabric();
        mainBoids.food=ffabric.createFood((int)textNumFood.getValue());
+       mainBoids.stat=new statistic(Integer.parseInt(this.txtNumSwarm.getText()),(int)this.textNumPred.getValue(),(int)this.textLeaderNum.getValue());
        if (ptr!=null){this.remove(ptr);}
        //ptr=new panel(mainBoids.boids,mainBoids.prey);
        ptr=new panel(mainBoids.boids,mainBoids.obs,mainBoids.food);
@@ -1398,6 +1465,10 @@ double[] tabFPS = new double[10];
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1407,6 +1478,7 @@ double[] tabFPS = new double[10];
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblAli;
     private javax.swing.JLabel lblAngle;
+    private javax.swing.JLabel lblAvgNumNeight;
     private javax.swing.JLabel lblAvoid;
     private javax.swing.JLabel lblAvoidMode;
     private javax.swing.JLabel lblAvoidRec;
@@ -1418,6 +1490,9 @@ double[] tabFPS = new double[10];
     private javax.swing.JLabel lblMaxNeight;
     private javax.swing.JLabel lblMaxSpeed;
     private javax.swing.JLabel lblNeigh;
+    private javax.swing.JLabel lblNumBoids;
+    private javax.swing.JLabel lblNumLeaders;
+    private javax.swing.JLabel lblNumPred;
     private javax.swing.JLabel lblPred;
     private javax.swing.JLabel lblRand;
     private javax.swing.JLabel lblSep;
