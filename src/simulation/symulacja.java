@@ -25,6 +25,7 @@ public class symulacja {
   int animSpeed;
   public double katWidzenia;
   public double radiusNeigh=64;
+  double reactionTime;
   public vector2d globalAim=new vector2d(-1,-1);
   gridBucket siatkaKoszykow;
   //-----------------------------
@@ -39,8 +40,8 @@ public class symulacja {
   critical_sit=false;
   foraging_situation=false;
   animSpeed=10;
-  
-  siatkaKoszykow =new gridBucket(12,8,80,80,1100,700);
+  reactionTime=50;
+  siatkaKoszykow=new gridBucket(12,8,80,80,1100,700);
   pom=new ArrayList<Obstacle>();
   }
   public symulacja(ArrayList<boid> _boids, ArrayList<Obstacle> _obs, ArrayList<Food> _food){
@@ -51,7 +52,8 @@ public class symulacja {
   obs=_obs;
   food=_food;
   animSpeed=10;
-  siatkaKoszykow =new gridBucket(13,8,80,80,1100,700);
+  reactionTime=50;
+  siatkaKoszykow =new gridBucket(12,8,80,80,1100,700);
   pom=new ArrayList<Obstacle>();
   }
   public void addBoid(boid agt){
@@ -162,6 +164,9 @@ public class symulacja {
   public void setParametrs(double aCof,double sCof,double cCof,double lCof,double pCof){
       cofSep=sCof;cofAli=aCof;cofCoh=cCof;leadCof=lCof;cofPred=pCof;
   }
+  public void setReationTime(double _rectionTime){
+  reactionTime=_rectionTime;
+  }
   public void setParametrs(double aCof,double sCof,double cCof,double lCof,double pCof,double avCof){
       cofSep=sCof;cofAli=aCof;cofCoh=cCof;leadCof=lCof;cofPred=pCof;cofAvoid=avCof;
   }
@@ -203,8 +208,17 @@ public class symulacja {
       //System.out.println(System.nanoTime());
       time=(start-end)/1000000d;
       timeMin+=time;
-     // System.out.println("t"+timeStep);
-
+  // System.out.println("t"+time);
+      while(time<reactionTime){
+          try{
+            Thread.sleep((int)(reactionTime-time));
+            start=System.nanoTime();   
+            time=(start-end)/1000000d;
+      
+          } catch(InterruptedException ex) {
+          Thread.currentThread().interrupt();
+          }
+      }
       timeStep=((double)time)/(55-animSpeed);
 
        for(int i=0;i<boids.size();i++){ 
