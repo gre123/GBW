@@ -428,7 +428,7 @@ double[] tabFPS = new double[10];
 
         jLabel32.setText("Min odlgłośc:");
 
-        spnMinDist.setValue(5);
+        spnMinDist.setValue(3);
 
         javax.swing.GroupLayout editFlockLayout = new javax.swing.GroupLayout(editFlock);
         editFlock.setLayout(editFlockLayout);
@@ -662,7 +662,7 @@ double[] tabFPS = new double[10];
 
         jLabel34.setText("Czas reakcji:");
 
-        sldReactionTime.setMaximum(1000);
+        sldReactionTime.setMaximum(500);
         sldReactionTime.setToolTipText("");
         sldReactionTime.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {

@@ -194,6 +194,7 @@ public class symulacja {
       
       long end;
       double time;
+      
       double timeMin=0;
        double fps;
       vector2d sep,ali,coh,lead,rand,pred, avoid, predH,toAim,forag;
