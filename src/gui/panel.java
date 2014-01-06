@@ -72,10 +72,10 @@ public class panel extends JPanel {
             for(int i=0;i<boids.size();i++){ 
                 r=boids.get(i).getR();
                 if (boids.get(i).getType()==1){//zwykły
-                    //g2d.setColor(Color.black);
-                    if (boids.get(i).czyOmijam()){
-                        g2d.setColor(Color.ORANGE);
-                    }else if (mainBoids.mainWin.czyWplywLeader()){
+                    //if (boids.get(i).czyOmijam()){
+                    //    g2d.setColor(Color.ORANGE);
+                    //}else 
+                    if (mainBoids.mainWin.czyWplywLeader()){
                     g2d.setColor(Color.getHSBColor(0, 0, boids.get(i).getColorLeadB()));
                     }else if(mainBoids.mainWin.czyAccelWart()){
                     g2d.setColor(Color.getHSBColor(0, 0, boids.get(i).getColorAccelB()));
@@ -109,7 +109,7 @@ public class panel extends JPanel {
         
         if (obs!=null || !obs.isEmpty()){
             for(int i=0;i<obs.size();i++){
-               g2d.setColor(Color.MAGENTA); 
+               g2d.setColor(Color.GRAY); 
                Ellipse2D circle = new Ellipse2D.Double(obs.get(i).getX()-obs.get(i).getR(), obs.get(i).getY()-obs.get(i).getR(), obs.get(i).getR()*2,obs.get(i).getR()*2);
                g2d.fill(circle);
                g2d.draw(circle);

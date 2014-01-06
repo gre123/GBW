@@ -10,9 +10,6 @@
     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
       <Color id="Default Cursor"/>
     </Property>
-    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1300, 760]"/>
-    </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[1140, 640]"/>
     </Property>
@@ -45,36 +42,32 @@
               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="sldAnimSpeed" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtFPS" min="-2" pref="60" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="576" max="-2" attributes="0"/>
+              <EmptySpace pref="605" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jTabbedPane1" min="-2" pref="189" max="-2" attributes="0"/>
                   <Component id="btnStart" min="-2" pref="184" max="-2" attributes="0"/>
+                  <Component id="jTabbedPane1" min="-2" pref="199" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane1" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" pref="683" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtFPS" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnStart" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="sldAnimSpeed" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                      </Group>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                      <Component id="sldAnimSpeed" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtFPS" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="btnStart" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -144,7 +137,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="combLeadMove" pref="160" max="32767" attributes="0"/>
+                          <Component id="combLeadMove" pref="170" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
@@ -188,7 +181,7 @@
                       <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="combpredEscape" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="447" max="32767" attributes="0"/>
+                      <EmptySpace pref="373" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -287,7 +280,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnAccelWart" pref="160" max="32767" attributes="0"/>
+                          <Component id="btnAccelWart" pref="170" max="32767" attributes="0"/>
                           <Component id="btnVelWart" max="32767" attributes="0"/>
                           <Component id="btnWpływLeader" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
@@ -344,7 +337,7 @@
                           <Component id="jLabel33" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="spnObstacleRadius" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="490" max="32767" attributes="0"/>
+                      <EmptySpace pref="416" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -434,7 +427,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnGenStado" alignment="1" pref="160" max="32767" attributes="0"/>
+                          <Component id="btnGenStado" alignment="1" pref="170" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -565,7 +558,7 @@
                           <Component id="jLabel32" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="spnMinDist" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="251" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnGenStado" min="-2" pref="32" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -726,7 +719,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel32">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Min odlg&#x142;o&#x15b;c:"/>
+                <Property name="text" type="java.lang.String" value="Min odleg&#x142;o&#x15b;c:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="spnMinDist">
@@ -750,105 +743,15 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="lblNumBoids" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel36" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel37" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="lblNumLeaders" max="32767" attributes="0"/>
-                                  <Component id="lblNumPred" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel38" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="44" max="32767" attributes="0"/>
-                              <Component id="lblAvgNumNeight" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
+                  <EmptySpace min="0" pref="190" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel35" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblNumBoids" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblNumPred" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel37" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblNumLeaders" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel38" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblAvgNumNeight" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="611" max="32767" attributes="0"/>
-                  </Group>
+                  <EmptySpace min="0" pref="634" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel35">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Ilo&#x15b;&#x107; boid&#xf3;w:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel36">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Ilo&#x15b;&#x107; drapie&#x17c;nik&#xf3;w:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel37">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Ilo&#x15b;&#x107; lider&#xf3;w:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblNumBoids">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="0"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblNumPred">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="0"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblNumLeaders">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="0"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel38">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&#x15a;rednia ilo&#x15b;&#x107; s&#x105;siad&#xf3;w:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblAvgNumNeight">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="0"/>
-              </Properties>
-            </Component>
-          </SubComponents>
         </Container>
         <Container class="javax.swing.JTabbedPane" name="Symulacja">
           <Constraints>
@@ -910,7 +813,7 @@
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="28" max="32767" attributes="0"/>
+                                          <EmptySpace pref="40" max="32767" attributes="0"/>
                                           <Component id="lblMaxNeight" min="-2" pref="25" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
@@ -1001,7 +904,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="sldReactionTime" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="337" max="32767" attributes="0"/>
+                          <EmptySpace pref="263" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1009,7 +912,7 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="jLabel2">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Aligmnet:"/>
+                    <Property name="text" type="java.lang.String" value="Alignment:"/>
                     <Property name="toolTipText" type="java.lang.String" value="D&#x105;&#x17c;enie do pr&#x119;dko&#x15b;ci tej co grupa"/>
                   </Properties>
                 </Component>
@@ -1096,7 +999,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel14">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Losowe Ruchy:"/>
+                    <Property name="text" type="java.lang.String" value="Losowe ruchy:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblAli">
@@ -1132,7 +1035,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel26">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Max lliczba s&#x105;siad&#xf3;w:"/>
+                    <Property name="text" type="java.lang.String" value="Max liczba s&#x105;siad&#xf3;w:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JSlider" name="sldNumNeight">
@@ -1158,7 +1061,7 @@
                 </Component>
                 <Component class="javax.swing.JSlider" name="sldReactionTime">
                   <Properties>
-                    <Property name="maximum" type="int" value="150"/>
+                    <Property name="maximum" type="int" value="500"/>
                     <Property name="toolTipText" type="java.lang.String" value=""/>
                   </Properties>
                   <Events>
@@ -1191,7 +1094,7 @@
                               <Component id="sldLeadCof" alignment="0" pref="0" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="82" max="32767" attributes="0"/>
+                                  <EmptySpace pref="92" max="32767" attributes="0"/>
                                   <Component id="lblLead" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="sldPredCof" alignment="0" pref="0" max="32767" attributes="0"/>
@@ -1283,7 +1186,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="sldForDist" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="426" max="32767" attributes="0"/>
+                          <EmptySpace pref="352" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1341,7 +1244,7 @@
                   <Properties>
                     <Property name="maximum" type="int" value="3000"/>
                     <Property name="toolTipText" type="java.lang.String" value=""/>
-                    <Property name="value" type="int" value="0"/>
+                    <Property name="value" type="int" value="1500"/>
                   </Properties>
                   <Events>
                     <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sldAvoidCofStateChanged"/>
@@ -1366,8 +1269,8 @@
                 <Component class="javax.swing.JSlider" name="sldAvoidMode">
                   <Properties>
                     <Property name="maximum" type="int" value="1000"/>
-                    <Property name="toolTipText" type="java.lang.String" value=""/>
-                    <Property name="value" type="int" value="0"/>
+                    <Property name="toolTipText" type="java.lang.String" value="0=przeciwnie do przeszkody, 1=lewo/prawo"/>
+                    <Property name="value" type="int" value="750"/>
                   </Properties>
                   <Events>
                     <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sldAvoidModeStateChanged"/>
@@ -1376,18 +1279,18 @@
                 <Component class="javax.swing.JLabel" name="jLabel24">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="D&#x142;ugo&#x15b;&#x107; prostok&#x105;ta:"/>
-                    <Property name="toolTipText" type="java.lang.String" value="0=przeciwnie do przeszkody, 1=lewo/prawo"/>
+                    <Property name="toolTipText" type="java.lang.String" value="D&#x142;ugo&#x15b;&#x107; prostok&#x105;ta przed boidem, w kt&#xf3;rym widzi on przeszkody"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblAvoidRec">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="0"/>
+                    <Property name="toolTipText" type="java.lang.String" value="D&#x142;ugo&#x15b;&#x107; prostok&#x105;ta przed boidem, w kt&#xf3;rym widzi on przeszkody"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JSlider" name="sldAvoidRec">
                   <Properties>
-                    <Property name="toolTipText" type="java.lang.String" value=""/>
-                    <Property name="value" type="int" value="0"/>
+                    <Property name="toolTipText" type="java.lang.String" value="D&#x142;ugo&#x15b;&#x107; prostok&#x105;ta przed boidem, w kt&#xf3;rym widzi on przeszkody"/>
                   </Properties>
                   <Events>
                     <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sldAvoidRecStateChanged"/>
