@@ -8,12 +8,11 @@ import boids.mainBoids;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
-import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import math.vector2d;
+import simulation.statistic;
 import simulation.symulacja;
 import simulation.threadSym;
-import trunk.src.boids.Obstacle;
 import trunk.src.boids.obstaclesFabric;
 
 /**
@@ -24,8 +23,6 @@ public panel ptr=null;
 public boidsFabric fabric=null;
 public obstaclesFabric obsfabric = null;
 public foodFabric ffabric = null;
-double[] tabFPS = new double[10];
-      int tabIter=0;
     public mainWindow() {
         initComponents(); 
         setAllLbl();
@@ -94,6 +91,14 @@ double[] tabFPS = new double[10];
         jLabel32 = new javax.swing.JLabel();
         spnMinDist = new javax.swing.JSpinner();
         statPanel = new javax.swing.JPanel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        lblNumBoids = new javax.swing.JLabel();
+        lblNumPred = new javax.swing.JLabel();
+        lblNumLeaders = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        lblAvgNumNeight = new javax.swing.JLabel();
         Symulacja = new javax.swing.JTabbedPane();
         setPanelPod = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -145,6 +150,7 @@ double[] tabFPS = new double[10];
         setTitle("Symulacja stada - Bylina,Gajda,Wszołek 2013");
         setBackground(new java.awt.Color(204, 204, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMaximumSize(new java.awt.Dimension(1300, 760));
         setMinimumSize(new java.awt.Dimension(1140, 640));
         setName("mainWin"); // NOI18N
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -172,6 +178,7 @@ double[] tabFPS = new double[10];
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jTabbedPane1.setName(""); // NOI18N
+        jTabbedPane1.setPreferredSize(new java.awt.Dimension(199, 512));
 
         jLabel17.setText("Liderzy:");
 
@@ -219,7 +226,7 @@ double[] tabFPS = new double[10];
             .addGroup(sterLeadLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(combLeadMove, 0, 170, Short.MAX_VALUE)
+                    .addComponent(combLeadMove, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sterLeadLayout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -256,7 +263,7 @@ double[] tabFPS = new double[10];
                 .addComponent(jLabel22)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(combpredEscape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(373, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Sterowanie", sterLead);
@@ -292,9 +299,9 @@ double[] tabFPS = new double[10];
         wygladPanelLayout.setHorizontalGroup(
             wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(wygladPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(2, 2, 2)
                 .addGroup(wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAccelWart, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                    .addComponent(btnAccelWart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnVelWart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnWpływLeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(wygladPanelLayout.createSequentialGroup()
@@ -313,7 +320,7 @@ double[] tabFPS = new double[10];
                         .addComponent(jLabel33)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(spnObstacleRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addGap(2, 2, 2))
         );
         wygladPanelLayout.setVerticalGroup(
             wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -340,7 +347,7 @@ double[] tabFPS = new double[10];
                 .addGroup(wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel33)
                     .addComponent(spnObstacleRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(416, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Wygląd", wygladPanel);
@@ -426,7 +433,7 @@ double[] tabFPS = new double[10];
 
         lblTimeFood.setText("5000");
 
-        jLabel32.setText("Min odległośc:");
+        jLabel32.setText("Min odległość:");
 
         spnMinDist.setValue(3);
 
@@ -437,7 +444,7 @@ double[] tabFPS = new double[10];
             .addGroup(editFlockLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnGenStado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                    .addComponent(btnGenStado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(editFlockLayout.createSequentialGroup()
                         .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
@@ -480,7 +487,7 @@ double[] tabFPS = new double[10];
                                 .addGap(18, 18, 18)
                                 .addComponent(cobRozklad, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblTimeFood, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 11, Short.MAX_VALUE))
                     .addGroup(editFlockLayout.createSequentialGroup()
                         .addComponent(jLabel32)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -503,9 +510,9 @@ double[] tabFPS = new double[10];
                     .addComponent(jLabel16)
                     .addComponent(textNumPred, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel25)
-                    .addComponent(textNumFood, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textNumFood, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel25))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
@@ -549,15 +556,64 @@ double[] tabFPS = new double[10];
 
         jTabbedPane1.addTab("Stado", editFlock);
 
+        statPanel.setMaximumSize(new java.awt.Dimension(182, 32767));
+
+        jLabel35.setText("Ilość boidów:");
+
+        jLabel36.setText("Ilość drapieżników:");
+
+        jLabel37.setText("Ilość liderów:");
+
+        lblNumBoids.setText("0");
+
+        lblNumPred.setText("0");
+
+        lblNumLeaders.setText("0");
+
+        jLabel38.setText("Śr. ilość sąsiadów:");
+
+        lblAvgNumNeight.setText("0");
+
         javax.swing.GroupLayout statPanelLayout = new javax.swing.GroupLayout(statPanel);
         statPanel.setLayout(statPanelLayout);
         statPanelLayout.setHorizontalGroup(
             statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 190, Short.MAX_VALUE)
+            .addGroup(statPanelLayout.createSequentialGroup()
+                .addGap(2, 2, 2)
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel38)
+                    .addComponent(jLabel35)
+                    .addComponent(jLabel36)
+                    .addComponent(jLabel37))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNumBoids)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(lblNumLeaders, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblNumPred))
+                    .addComponent(lblAvgNumNeight))
+                .addGap(2, 2, 2))
         );
         statPanelLayout.setVerticalGroup(
             statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 634, Short.MAX_VALUE)
+            .addGroup(statPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel35)
+                    .addComponent(lblNumBoids))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel36)
+                    .addComponent(lblNumPred))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel37)
+                    .addComponent(lblNumLeaders))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblAvgNumNeight)
+                    .addComponent(jLabel38))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Statystyki", statPanel);
@@ -662,7 +718,7 @@ double[] tabFPS = new double[10];
 
         jLabel34.setText("Czas reakcji:");
 
-        sldReactionTime.setMaximum(500);
+        sldReactionTime.setMaximum(150);
         sldReactionTime.setToolTipText("");
         sldReactionTime.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -775,7 +831,7 @@ double[] tabFPS = new double[10];
                     .addComponent(lblTimeReaction))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sldReactionTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(263, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         Symulacja.addTab("Podstawowe", setPanelPod);
@@ -825,6 +881,7 @@ double[] tabFPS = new double[10];
         jLabel23.setToolTipText("0=przeciwnie do przeszkody, 1=lewo/prawo");
 
         lblAvoidMode.setText("0");
+        lblAvoidMode.setToolTipText("0=przeciwnie do przeszkody, 1=lewo/prawo");
 
         sldAvoidMode.setMaximum(1000);
         sldAvoidMode.setToolTipText("0=przeciwnie do przeszkody, 1=lewo/prawo");
@@ -870,7 +927,7 @@ double[] tabFPS = new double[10];
                     .addComponent(sldLeadCof, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(setPanelAdvLayout.createSequentialGroup()
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblLead))
                     .addComponent(sldPredCof, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(sldAvoidCof, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -888,7 +945,7 @@ double[] tabFPS = new double[10];
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblForagingDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, setPanelAdvLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 35, Short.MAX_VALUE)
                         .addGroup(setPanelAdvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, setPanelAdvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, setPanelAdvLayout.createSequentialGroup()
@@ -943,14 +1000,14 @@ double[] tabFPS = new double[10];
                     .addComponent(lblForagingDistance))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sldForDist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(352, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         Symulacja.addTab("Zaawansowane", setPanelAdv);
 
         jTabbedPane1.addTab("Symulacja", Symulacja);
 
-        btnStart.setText("Rozpocznij symulacje");
+        btnStart.setText("Rozpocznij symulację");
         btnStart.setEnabled(false);
         btnStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -962,33 +1019,37 @@ double[] tabFPS = new double[10];
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sldAnimSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFPS, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 605, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 615, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
-                .addGap(3, 3, 3)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(sldAnimSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel8)
-                        .addComponent(jLabel9)
-                        .addComponent(txtFPS))
-                    .addComponent(btnStart, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(sldAnimSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel9)
+                                .addComponent(txtFPS))
+                            .addComponent(jLabel8))))
                 .addContainerGap())
         );
 
@@ -1069,6 +1130,14 @@ double[] tabFPS = new double[10];
     public  int getLeaderTypeMovement(){
      return (int)this.combLeadMove.getSelectedIndex();
     }
+    public void setNumOfThings(int b,int l, int p){
+    this.lblNumBoids.setText(Integer.toString(b));
+    this.lblNumLeaders.setText(Integer.toString(l));
+    this.lblNumPred.setText(Integer.toString(p));
+    }
+    public void setAvgNumNeight(double ann){
+    this.lblAvgNumNeight.setText(String.format("%.2f", ann));
+    }
     private void setAllLbl(){
          lblAli.setText(Double.toString(sldAliCof.getValue()/(double)1000));
          lblSep.setText(Double.toString(sldSepCof.getValue()/(double)1000));
@@ -1100,6 +1169,7 @@ double[] tabFPS = new double[10];
        mainBoids.obs = obsfabric.createObs((int)textNumObs.getValue(),this.getObstacleSize());// dorobić pole na ilośc przeszkód i wartość tutaj
        ffabric=new foodFabric();
        mainBoids.food=ffabric.createFood((int)textNumFood.getValue());
+       mainBoids.stat=new statistic(Integer.parseInt(this.txtNumSwarm.getText()),(int)this.textNumPred.getValue(),(int)this.textLeaderNum.getValue());
        if (ptr!=null){this.remove(ptr);}
        //ptr=new panel(mainBoids.boids,mainBoids.prey);
        ptr=new panel(mainBoids.boids,mainBoids.obs,mainBoids.food);
@@ -1136,6 +1206,17 @@ double[] tabFPS = new double[10];
        lblMaxAccel.setText(Double.toString(sldMaxAccel.getValue()/(double)10));
     }//GEN-LAST:event_sldMaxAccelStateChanged
 
+    private void sldPredCofStateChanged(ChangeEvent evt) {//GEN-FIRST:event_sldPredCofStateChanged
+        //------------------------------------------------------------------------
+        //Uaktualnianie wartości z suwaczka odnosnie ucieczki
+        lblPred.setText(Double.toString(sldPredCof.getValue()/(double)100));
+        if (mainBoids.simul!=null){
+            mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
+        }
+        //--------------------------------------------------------------------------
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sldPredCofStateChanged
+
     private void sldRandCofStateChanged(ChangeEvent evt) {//GEN-FIRST:event_sldRandCofStateChanged
         lblRand.setText(Double.toString(sldRandCof.getValue()/(double)1000));
         if (mainBoids.simul!=null){
@@ -1156,6 +1237,16 @@ double[] tabFPS = new double[10];
             mainBoids.simul.setNeightParametrs(sldAngle.getValue()/(double)1000,sldNeigh.getValue()/(double)10);
         }
     }//GEN-LAST:event_sldNeighStateChanged
+
+    private void sldLeadCofStateChanged(ChangeEvent evt) {//GEN-FIRST:event_sldLeadCofStateChanged
+        lblLead.setText(Double.toString(sldLeadCof.getValue()/(double)1000));
+        if (mainBoids.simul!=null){
+            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
+            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000);
+            mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000,sldAvoidMode.getValue()/(double)1000);
+
+        }
+    }//GEN-LAST:event_sldLeadCofStateChanged
 
     private void sldCohCofStateChanged(ChangeEvent evt) {//GEN-FIRST:event_sldCohCofStateChanged
         lblCoh.setText(Double.toString(sldCohCof.getValue()/(double)1000));
@@ -1214,6 +1305,15 @@ double[] tabFPS = new double[10];
       
     }//GEN-LAST:event_btnGlobAimActionPerformed
 
+    private void sldAvoidCofStateChanged(ChangeEvent evt) {//GEN-FIRST:event_sldAvoidCofStateChanged
+        lblAvoid.setText(Double.toString(sldAvoidCof.getValue()/(double)1000));
+        if (mainBoids.simul!=null){
+            mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000,sldAvoidMode.getValue()/(double)1000);
+            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000);
+            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
+        }
+    }//GEN-LAST:event_sldAvoidCofStateChanged
+
     private void formKeyTyped(KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_formKeyTyped
@@ -1229,6 +1329,28 @@ double[] tabFPS = new double[10];
     private void combpredEscapeActionPerformed(ActionEvent evt) {//GEN-FIRST:event_combpredEscapeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_combpredEscapeActionPerformed
+
+    private void sldAvoidModeStateChanged(ChangeEvent evt) {//GEN-FIRST:event_sldAvoidModeStateChanged
+        lblAvoidMode.setText(Double.toString(sldAvoidMode.getValue()/(double)1000));
+        if (mainBoids.simul!=null){
+            mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000,sldAvoidMode.getValue()/(double)1000);
+            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000);
+            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
+        }
+    }//GEN-LAST:event_sldAvoidModeStateChanged
+
+    private void sldAvoidRecStateChanged(ChangeEvent evt) {//GEN-FIRST:event_sldAvoidRecStateChanged
+        lblAvoidRec.setText(Integer.toString(sldAvoidRec.getValue()));
+        if (mainBoids.simul!=null){
+            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000,sldAvoidMode.getValue()/(double)1000);
+            mainBoids.simul.setAvoidRec(sldAvoidRec.getValue());
+        }
+    }//GEN-LAST:event_sldAvoidRecStateChanged
+
+    private void sldForDistStateChanged(ChangeEvent evt) {//GEN-FIRST:event_sldForDistStateChanged
+        lblForagingDistance.setText(Integer.toString(sldForDist.getValue()));
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sldForDistStateChanged
 
     private void sldNumNeightStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldNumNeightStateChanged
             this.lblMaxNeight.setText(Integer.toString(sldNumNeight.getValue()));
@@ -1250,58 +1372,6 @@ double[] tabFPS = new double[10];
         this.lblTimeReaction.setText(Integer.toString(sldReactionTime.getValue())+"ms");
        }else{this.lblTimeReaction.setText("MAX");}
     }//GEN-LAST:event_sldReactionTimeStateChanged
-
-    private void sldForDistStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldForDistStateChanged
-        lblForagingDistance.setText(Integer.toString(sldForDist.getValue()));
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sldForDistStateChanged
-
-    private void sldAvoidRecStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldAvoidRecStateChanged
-        lblAvoidRec.setText(Integer.toString(sldAvoidRec.getValue()));
-        if (mainBoids.simul!=null){
-            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000,sldAvoidMode.getValue()/(double)1000);
-            mainBoids.simul.setAvoidRec(sldAvoidRec.getValue());
-        }
-    }//GEN-LAST:event_sldAvoidRecStateChanged
-
-    private void sldAvoidModeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldAvoidModeStateChanged
-        lblAvoidMode.setText(Double.toString(sldAvoidMode.getValue()/(double)1000));
-        if (mainBoids.simul!=null){
-            mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000,sldAvoidMode.getValue()/(double)1000);
-            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000);
-            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
-        }
-    }//GEN-LAST:event_sldAvoidModeStateChanged
-
-    private void sldAvoidCofStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldAvoidCofStateChanged
-        lblAvoid.setText(Double.toString(sldAvoidCof.getValue()/(double)1000));
-        if (mainBoids.simul!=null){
-            mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000,sldAvoidMode.getValue()/(double)1000);
-            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000);
-            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
-        }
-    }//GEN-LAST:event_sldAvoidCofStateChanged
-
-    private void sldPredCofStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldPredCofStateChanged
-        //------------------------------------------------------------------------
-        //Uaktualnianie wartości z suwaczka odnosnie ucieczki
-        lblPred.setText(Double.toString(sldPredCof.getValue()/(double)100));
-        if (mainBoids.simul!=null){
-            mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
-        }
-        //--------------------------------------------------------------------------
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sldPredCofStateChanged
-
-    private void sldLeadCofStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldLeadCofStateChanged
-        lblLead.setText(Double.toString(sldLeadCof.getValue()/(double)1000));
-        if (mainBoids.simul!=null){
-            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
-            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000);
-            mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000,sldAvoidMode.getValue()/(double)1000);
-
-        }
-    }//GEN-LAST:event_sldLeadCofStateChanged
 
     private void panelMouseClicked(java.awt.event.MouseEvent evt) {                                     
       ptr.aimX=evt.getX();
@@ -1347,6 +1417,7 @@ double[] tabFPS = new double[10];
             public void run() {
                mainWindow win= new mainWindow();   
                win.setVisible(true);
+               
                
             }
         });
@@ -1395,6 +1466,10 @@ double[] tabFPS = new double[10];
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1404,6 +1479,7 @@ double[] tabFPS = new double[10];
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblAli;
     private javax.swing.JLabel lblAngle;
+    private javax.swing.JLabel lblAvgNumNeight;
     private javax.swing.JLabel lblAvoid;
     private javax.swing.JLabel lblAvoidMode;
     private javax.swing.JLabel lblAvoidRec;
@@ -1415,6 +1491,9 @@ double[] tabFPS = new double[10];
     private javax.swing.JLabel lblMaxNeight;
     private javax.swing.JLabel lblMaxSpeed;
     private javax.swing.JLabel lblNeigh;
+    private javax.swing.JLabel lblNumBoids;
+    private javax.swing.JLabel lblNumLeaders;
+    private javax.swing.JLabel lblNumPred;
     private javax.swing.JLabel lblPred;
     private javax.swing.JLabel lblRand;
     private javax.swing.JLabel lblSep;
