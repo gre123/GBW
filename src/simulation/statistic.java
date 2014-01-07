@@ -10,6 +10,7 @@ public class statistic {
     int numberOfBoids;
     int numberOfPredators;
     int numberOfLeaders;
+    int numOfColision;
     vector2d averageSpeed,prevAverageSpeed;
     vector2d averageAcceleration;
     double averageNumOfNeight;
@@ -33,10 +34,14 @@ public class statistic {
         mainBoids.mainWin.setNumOfThings(numberOfBoids, numberOfPredators, numberOfLeaders);
         mainBoids.mainWin.setAvgNumNeight(averageNumOfNeight/numberOfBoids);averageNumOfNeight=0;
         mainBoids.mainWin.setHeveLeader((boidsHaveLeader*100)/numberOfBoids);boidsHaveLeader=0;
+        mainBoids.mainWin.setNumOfColision(numOfColision);numOfColision=0;
         mainBoids.mainWin.setAvgSpeed(averageSpeed.getX()/numberOfBoids, averageSpeed.getY()/numberOfBoids);prevAverageSpeed=averageSpeed.getVec();averageSpeed.setX(0);averageSpeed.setY(0);
         mainBoids.mainWin.setAvgSpeedOdst((odstAverageSpeed*100)/numberOfBoids);odstAverageSpeed=0;
     }
     public void incBoidHaveLeader(){
     boidsHaveLeader++;
+    }
+    public void incNumOfColision(){
+    numOfColision++;
     }
 }

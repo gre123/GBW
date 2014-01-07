@@ -93,6 +93,8 @@ public foodFabric ffabric = null;
         lblAvgSpeed = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
         lblOdstAvgSpeed = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        lblNumCols = new javax.swing.JLabel();
         Symulacja = new javax.swing.JTabbedPane();
         setPanelPod = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -507,26 +509,34 @@ public foodFabric ffabric = null;
 
         lblOdstAvgSpeed.setText("0");
 
+        jLabel43.setText("Ilość nowych kolizji:");
+
+        lblNumCols.setText("0");
+
         javax.swing.GroupLayout statPanelLayout = new javax.swing.GroupLayout(statPanel);
         statPanel.setLayout(statPanelLayout);
         statPanelLayout.setHorizontalGroup(
             statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, statPanelLayout.createSequentialGroup()
+            .addGroup(statPanelLayout.createSequentialGroup()
                 .addGap(2, 2, 2)
-                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(statPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel43)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblNumCols))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, statPanelLayout.createSequentialGroup()
                         .addComponent(jLabel42)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblOdstAvgSpeed))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, statPanelLayout.createSequentialGroup()
+                    .addGroup(statPanelLayout.createSequentialGroup()
                         .addComponent(jLabel40)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblAvgSpeed))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, statPanelLayout.createSequentialGroup()
+                    .addGroup(statPanelLayout.createSequentialGroup()
                         .addComponent(jLabel39)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblHaveLeaderPer))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, statPanelLayout.createSequentialGroup()
+                    .addGroup(statPanelLayout.createSequentialGroup()
                         .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel38)
                             .addComponent(jLabel35)
@@ -572,7 +582,11 @@ public foodFabric ffabric = null;
                 .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel42)
                     .addComponent(lblOdstAvgSpeed))
-                .addContainerGap(486, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel43)
+                    .addComponent(lblNumCols))
+                .addContainerGap(466, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Statystyki", statPanel);
@@ -1193,6 +1207,9 @@ public foodFabric ffabric = null;
     public void setAvgSpeedOdst(double avgODS){     
     this.lblOdstAvgSpeed.setText(String.format("%.1f", avgODS)+"%");
     }
+    public void setNumOfColision(int _cols){     
+        this.lblNumCols.setText(Integer.toString(_cols));
+    }
     private void setAllLbl(){
          lblAli.setText(Double.toString(sldAliCof.getValue()/(double)1000));
          lblSep.setText(Double.toString(sldSepCof.getValue()/(double)1000));
@@ -1529,6 +1546,7 @@ public foodFabric ffabric = null;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1552,6 +1570,7 @@ public foodFabric ffabric = null;
     private javax.swing.JLabel lblMaxSpeed;
     private javax.swing.JLabel lblNeigh;
     private javax.swing.JLabel lblNumBoids;
+    private javax.swing.JLabel lblNumCols;
     private javax.swing.JLabel lblNumLeaders;
     private javax.swing.JLabel lblNumPred;
     private javax.swing.JLabel lblOdstAvgSpeed;

@@ -264,6 +264,7 @@ public class symulacja {
              
        for(int i=0;i<boids.size();i++){
             boids.get(i).applyForce(timeStep);
+            if (boids.get(i).czyBum()) {mainBoids.stat.incNumOfColision();}
             mainBoids.stat.averageSpeed.add(boids.get(i).getVelocity());
             mainBoids.stat.odstAverageSpeed+=mainBoids.stat.prevAverageSpeed.getVec().normalize().minus(boids.get(i).getVelocity().getVec().normalize()).getLength()/(2);
             boids.get(i).move(timeStep);
