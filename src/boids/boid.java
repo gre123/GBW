@@ -64,8 +64,10 @@ public class boid {
         colorSeparB=0;
         int k = 0;
         double dist;
+        double acumDist=0;
         for (int i = 0; i < boids.size(); i++) {
             dist = this.position.getDistance(boids.get(i).position);
+            acumDist+=dist;
             if (dist < minimalDistance) {             
                 pos=this.getPosition().getVec().minus(boids.get(i).position);
                 return pos.normalize();
@@ -78,8 +80,10 @@ public class boid {
                 k++;
               // System.out.println(pos.getLength()); 
         }
+        
         if (k > 0) {
             value.div(k);
+            mainBoids.stat.addAverageDist(acumDist/k);
             //colorSeparB=1-(float)(pos.getLength()/(minimalDistance * minimalDistance));
         } else {
             return value;
