@@ -259,6 +259,7 @@ public class PBehaviour {
     public static vector2d huntP(boid ten,ArrayList<boid> boids,ArrayList<bucket> bucketboids)
     {
         boid potPrey;
+        Random randGen= new Random();
         int str;
         
        // if(ten.type==2)
@@ -272,7 +273,7 @@ public class PBehaviour {
                  potPrey=NDistance.minPrey(ten, boids,7);
                  if(potPrey!=null){
                    
-                   mainBoids.simul.boids.remove(potPrey);
+                 if(randGen.nextInt(30)==2)  mainBoids.simul.boids.remove(potPrey);
                    //boids.remove(potPrey);
                  } 
             }  

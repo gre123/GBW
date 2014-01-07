@@ -355,6 +355,8 @@ public class boid {
         Food target;
         vector2d jedziem=new vector2d(0,0);
         ArrayList<Food> seeFood=new ArrayList<Food>();
+        if(this.getType()==2) return jedziem;
+        
         if(this.hungry) {
             for(int i=0;i<jedzonko.size();i++)
             {
@@ -412,7 +414,7 @@ public class boid {
         if (velocity.getLength() > maxSpeed) {
             velocity.normalize();
             //---------------------------------
-            if(this.type==2) velocity.multi(maxSpeed*0.8); // do przyspieszania drapieznika
+            if(this.type==2) velocity.multi(maxSpeed*1.1); // do przyspieszania drapieznika
             //---------------------------------
             else velocity.multi(maxSpeed);
             colorVelB=0;
