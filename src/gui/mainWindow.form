@@ -761,22 +761,45 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel38" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel35" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel36" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel37" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblNumBoids" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="lblNumLeaders" max="32767" attributes="0"/>
-                              <Component id="lblNumPred" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="lblOdstAvgSpeed" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="lblAvgNumNeight" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jLabel40" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lblAvgSpeed" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="jLabel39" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="lblHaveLeaderPer" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel38" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel35" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel36" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel37" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace pref="89" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lblNumBoids" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="lblNumLeaders" max="32767" attributes="0"/>
+                                              <Component id="lblNumPred" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="lblAvgNumNeight" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                   </Group>
@@ -805,7 +828,22 @@
                           <Component id="lblAvgNumNeight" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel38" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel39" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblHaveLeaderPer" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel40" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblAvgSpeed" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel42" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblOdstAvgSpeed" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="486" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -847,6 +885,36 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblAvgNumNeight">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="0"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel39">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Procent widz&#x105;cych lidera:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblHaveLeaderPer">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="0"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel40">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x15a;redni wektor pr&#x119;dko&#x15b;ci:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblAvgSpeed">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="0"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel42">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Odst&#x119;pstwo od &#x15b;redniej:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblOdstAvgSpeed">
               <Properties>
                 <Property name="text" type="java.lang.String" value="0"/>
               </Properties>
@@ -1142,7 +1210,7 @@
                   <Properties>
                     <Property name="majorTickSpacing" type="int" value="1"/>
                     <Property name="toolTipText" type="java.lang.String" value=""/>
-                    <Property name="value" type="int" value="7"/>
+                    <Property name="value" type="int" value="23"/>
                   </Properties>
                   <Events>
                     <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sldNumNeightStateChanged"/>

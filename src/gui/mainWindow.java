@@ -99,6 +99,12 @@ public foodFabric ffabric = null;
         lblNumLeaders = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         lblAvgNumNeight = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        lblHaveLeaderPer = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        lblAvgSpeed = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        lblOdstAvgSpeed = new javax.swing.JLabel();
         Symulacja = new javax.swing.JTabbedPane();
         setPanelPod = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -574,24 +580,52 @@ public foodFabric ffabric = null;
 
         lblAvgNumNeight.setText("0");
 
+        jLabel39.setText("Procent widzących lidera:");
+
+        lblHaveLeaderPer.setText("0");
+
+        jLabel40.setText("Średni wektor prędkości:");
+
+        lblAvgSpeed.setText("0");
+
+        jLabel42.setText("Odstępstwo od średniej:");
+
+        lblOdstAvgSpeed.setText("0");
+
         javax.swing.GroupLayout statPanelLayout = new javax.swing.GroupLayout(statPanel);
         statPanel.setLayout(statPanelLayout);
         statPanelLayout.setHorizontalGroup(
             statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(statPanelLayout.createSequentialGroup()
-                .addGap(2, 2, 2)
-                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel38)
-                    .addComponent(jLabel35)
-                    .addComponent(jLabel36)
-                    .addComponent(jLabel37))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNumBoids)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblNumLeaders, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblNumPred))
-                    .addComponent(lblAvgNumNeight))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, statPanelLayout.createSequentialGroup()
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(statPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel42)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblOdstAvgSpeed))
+                    .addGroup(statPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel40)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAvgSpeed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(statPanelLayout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(statPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel39)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblHaveLeaderPer))
+                            .addGroup(statPanelLayout.createSequentialGroup()
+                                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel38)
+                                    .addComponent(jLabel35)
+                                    .addComponent(jLabel36)
+                                    .addComponent(jLabel37))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNumBoids)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(lblNumLeaders, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblNumPred))
+                                    .addComponent(lblAvgNumNeight))))))
                 .addGap(2, 2, 2))
         );
         statPanelLayout.setVerticalGroup(
@@ -613,7 +647,19 @@ public foodFabric ffabric = null;
                 .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblAvgNumNeight)
                     .addComponent(jLabel38))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel39)
+                    .addComponent(lblHaveLeaderPer))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel40)
+                    .addComponent(lblAvgSpeed))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel42)
+                    .addComponent(lblOdstAvgSpeed))
+                .addContainerGap(486, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Statystyki", statPanel);
@@ -706,7 +752,7 @@ public foodFabric ffabric = null;
 
         sldNumNeight.setMajorTickSpacing(1);
         sldNumNeight.setToolTipText("");
-        sldNumNeight.setValue(7);
+        sldNumNeight.setValue(23);
         sldNumNeight.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sldNumNeightStateChanged(evt);
@@ -1126,6 +1172,9 @@ public foodFabric ffabric = null;
     {
         return combpredEscape.getSelectedIndex();
     }
+    public void setHeveLeader(double per){
+        this.lblHaveLeaderPer.setText(Double.toString(per)+"%");
+    }
     //-----------------------------------------1
     public  int getLeaderTypeMovement(){
      return (int)this.combLeadMove.getSelectedIndex();
@@ -1137,6 +1186,12 @@ public foodFabric ffabric = null;
     }
     public void setAvgNumNeight(double ann){
     this.lblAvgNumNeight.setText(String.format("%.2f", ann));
+    }
+    public void setAvgSpeed(double avgsX,double avgsY){     
+    this.lblAvgSpeed.setText(String.format("%.1f", avgsX)+";"+String.format("%.1f", avgsY));
+    }
+    public void setAvgSpeedOdst(double avgODS){     
+    this.lblOdstAvgSpeed.setText(String.format("%.1f", avgODS)+"%");
     }
     private void setAllLbl(){
          lblAli.setText(Double.toString(sldAliCof.getValue()/(double)1000));
@@ -1470,7 +1525,10 @@ public foodFabric ffabric = null;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1480,11 +1538,13 @@ public foodFabric ffabric = null;
     private javax.swing.JLabel lblAli;
     private javax.swing.JLabel lblAngle;
     private javax.swing.JLabel lblAvgNumNeight;
+    private javax.swing.JLabel lblAvgSpeed;
     private javax.swing.JLabel lblAvoid;
     private javax.swing.JLabel lblAvoidMode;
     private javax.swing.JLabel lblAvoidRec;
     private javax.swing.JLabel lblCoh;
     private javax.swing.JLabel lblForagingDistance;
+    private javax.swing.JLabel lblHaveLeaderPer;
     private javax.swing.JLabel lblHunger;
     private javax.swing.JLabel lblLead;
     private javax.swing.JLabel lblMaxAccel;
@@ -1494,6 +1554,7 @@ public foodFabric ffabric = null;
     private javax.swing.JLabel lblNumBoids;
     private javax.swing.JLabel lblNumLeaders;
     private javax.swing.JLabel lblNumPred;
+    private javax.swing.JLabel lblOdstAvgSpeed;
     private javax.swing.JLabel lblPred;
     private javax.swing.JLabel lblRand;
     private javax.swing.JLabel lblSep;

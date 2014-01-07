@@ -159,6 +159,7 @@ public class boid {
             }
         }
         if (leader != null) {
+            mainBoids.stat.incBoidHaveLeader();
             dist=minDist;
             this.colorLeadB=1-(float)(dist/mainBoids.simul.radiusNeigh);
             //pos.minus(leader.getVelocity().getVec().normalize().multi(15));

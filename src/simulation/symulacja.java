@@ -264,6 +264,8 @@ public class symulacja {
              
        for(int i=0;i<boids.size();i++){
             boids.get(i).applyForce(timeStep);
+            mainBoids.stat.averageSpeed.add(boids.get(i).getVelocity());
+            mainBoids.stat.odstAverageSpeed+=mainBoids.stat.prevAverageSpeed.getVec().normalize().minus(boids.get(i).getVelocity().getVec().normalize()).getLength()/(2);
             boids.get(i).move(timeStep);
             siatkaKoszykow.updateGrid(boids.get(i));
        }
