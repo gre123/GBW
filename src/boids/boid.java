@@ -29,7 +29,7 @@ public class boid {
     float colorSeparB;
     float colorVelB;
     float colorAccelB;
-    boolean omijam;
+    boolean zderzony,bum;
     boolean hungry;
     int eats;
     
@@ -46,7 +46,9 @@ public class boid {
         colorSeparB=0.0f;
         colorVelB=0.0f;
         colorAccelB=0.0f;
-        omijam=false;
+        //omijam=false;
+        zderzony=false;
+        bum=false;
         hungry=false;
         // angle=randGen.nextDouble()*360;
         minimalDistance = 6;
@@ -205,26 +207,33 @@ public class boid {
         for (int i = 0; i < obs.size(); i++) {
             double odl = this.getOdl(obs.get(i));//szukam najbliższej przeszkody
             if (odl < min && this.velocity.skalarny(position.getX() - obs.get(i).getX(), position.getY() - obs.get(i).getY()) < 0) {
-            //NIEprawidłowe, użyte do testów if (odl < min ) {
-                //jeśli jesteś najbliższą i jesteś przede mną, to zapamiętaj indeks
-                min = odl;  //odległość najbliższej przeszkody
-                minn = i;   //indeks przeszkody w tablicy
+                //jeśli jesteś najbliższą prostej i jesteś przede mną, to zapamiętaj indeks
+                min = odl;
+                minn = i;
             }
         }
         if (minn < 0 || min > 0) {
-            omijam=false;
-            return value;       // nie ma przeszkód(zwykle są), albo odległość jest dodatnia, czyli nie będzie zderzenia
+            //omijam=false;
+            bum=false;
+            zderzony=false;
+            return value;       // nie ma przeszkód(zwykle są), albo odległość od prostej jest dodatnia, czyli nie będzie zderzenia
         } else {                //czyli jest przeszkoda i przecina prostą
             Obstacle najblizsza = obs.get(minn);
             value.setX(position.getX() - najblizsza.getX());
             value.setY(position.getY() - najblizsza.getY());
             min=this.position.getDistance(najblizsza.getPosition())-najblizsza.getR()-2.5;//to nie jest min, ale po co nową zmienną robić jak stara niepotrzebna
-            if (min>dl){
-                    omijam=false;
-                    return new vector2d(0, 0);} //sprawdź czy nie za daleko, dl to (długość prostokąta-2.5[czyli promien osobnika])
+            if (min>dl){//sprawdź czy nie za daleko
+                    //omijam=false;
+                    bum=false;
+                    zderzony=false;
+                    return new vector2d(0, 0);} 
                 //jak blisko, to sprawdź czy jest po prawej czy po lewej
-            omijam=true;
-            //System.out.println("Getdistance do środka przeszkody: " + this.position.getDistance(najblizsza.getPosition()) +" - promien przeszkody: "+najblizsza.getR() +" -2.5 = "+(this.position.getDistance(najblizsza.getPosition())-najblizsza.getR()-5)+ "a prostokat ma: " + dl);
+            if (min<=0){
+                if(bum){zderzony=true;bum=false;}
+                else {zderzony=true;bum=true;}
+                return value.normalize(); //steruj naprzeciwko przeszkody jak i tak się zderzyłeś.
+            }
+            //omijam=true;
             if (this.velocity.getRight().skalarny(value)>0){        //to przeszkoda po lewej od wektora
                 return this.velocity.getRight().normalize().multi(waga).add(value.normalize().multi(1-waga)).multi(dl/2/min);
                 //to multi(dl/2/min) to jest skalowanie, żeby działało mocniej od 1 jesli bliżej niz polowa prostokata, a slabiej dalej
@@ -528,9 +537,12 @@ public class boid {
     public float getColorAccelB(){
     return colorAccelB;
     }
-    public boolean czyOmijam(){
-    return omijam;
+    public boolean czyBum(){
+        return bum;
     }
+    //public boolean czyOmijam(){
+    //return omijam;
+    //}
     public boolean isHungry(){
         return hungry;
     }
