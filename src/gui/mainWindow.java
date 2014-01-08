@@ -7,12 +7,14 @@ import boids.foodFabric;
 import boids.mainBoids;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import javax.swing.event.ChangeEvent;
 import math.vector2d;
 import simulation.statistic;
 import simulation.symulacja;
 import simulation.threadSym;
+import trunk.src.boids.Obstacle;
 import trunk.src.boids.obstaclesFabric;
 
 /**
@@ -23,6 +25,12 @@ public panel ptr=null;
 public boidsFabric fabric=null;
 public obstaclesFabric obsfabric = null;
 public foodFabric ffabric = null;
+private MouseListener mlster=new java.awt.event.MouseAdapter() {
+    public void mouseClicked(java.awt.event.MouseEvent evt) {panelMouseClicked(evt);}
+};
+private MouseListener mlobs=new java.awt.event.MouseAdapter() {
+    public void mouseClicked(java.awt.event.MouseEvent evt) {panelMouseClickedOBS(evt);}
+};
     public mainWindow() {
         initComponents(); 
         setAllLbl();
@@ -50,6 +58,7 @@ public foodFabric ffabric = null;
         combpredMove = new javax.swing.JComboBox();
         jLabel22 = new javax.swing.JLabel();
         combpredEscape = new javax.swing.JComboBox();
+        btnSterMysza1 = new javax.swing.JToggleButton();
         editFlock = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         textNumPred = new javax.swing.JSpinner();
@@ -233,6 +242,18 @@ public foodFabric ffabric = null;
             }
         });
 
+        btnSterMysza1.setText("Dodaj przeszkodę");
+        btnSterMysza1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                btnSterMysza1ItemStateChanged(evt);
+            }
+        });
+        btnSterMysza1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSterMysza1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout sterLeadLayout = new javax.swing.GroupLayout(sterLead);
         sterLead.setLayout(sterLeadLayout);
         sterLeadLayout.setHorizontalGroup(
@@ -243,17 +264,18 @@ public foodFabric ffabric = null;
                     .addComponent(combLeadMove, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sterLeadLayout.createSequentialGroup()
                         .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                         .addComponent(btnGlobAim))
                     .addComponent(btnSterMysza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(combpredMove, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSterMysza1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(combpredMove, 0, 170, Short.MAX_VALUE)
+                    .addComponent(combpredEscape, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(sterLeadLayout.createSequentialGroup()
                         .addGroup(sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17)
                             .addComponent(jLabel21)
                             .addComponent(jLabel22))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(combpredEscape, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         sterLeadLayout.setVerticalGroup(
@@ -277,7 +299,9 @@ public foodFabric ffabric = null;
                 .addComponent(jLabel22)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(combpredEscape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(415, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnSterMysza1)
+                .addContainerGap(374, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Sterowanie", sterLead);
@@ -1264,6 +1288,8 @@ public foodFabric ffabric = null;
        mainBoids.stat=new statistic(Integer.parseInt(this.txtNumSwarm.getText()),(int)this.textNumPred.getValue(),(int)this.textLeaderNum.getValue());
        if (ptr!=null){this.remove(ptr);}
        //ptr=new panel(mainBoids.boids,mainBoids.prey);
+       btnSterMysza.setSelected(false);
+       btnSterMysza1.setSelected(false);
        ptr=new panel(mainBoids.boids,mainBoids.obs,mainBoids.food);
        this.add(ptr);  
 //        ptr.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1466,41 +1492,56 @@ public foodFabric ffabric = null;
     }//GEN-LAST:event_sldReactionTimeStateChanged
 
     private void btnSterMyszaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnSterMyszaItemStateChanged
-        if(ptr!=null){
-        if (btnSterMysza.isSelected()){
-            ptr.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelMouseClicked(evt);
+        if (ptr != null) {
+            if (btnSterMysza.isSelected()) {
+                ptr.addMouseListener(mlster);
+                ptr.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+                    public void mouseMoved(java.awt.event.MouseEvent evt) {
+                        panelMouseMoved(evt);
+                    }
+                });
+
+            } else {
+                ptr.aimX = -1;    //w tych 3 linijkach się coś dubluje chyba, te funkcje są pomieszane jakieś
+                ptr.aimY = -1;
+                if (mainBoids.simul!=null)mainBoids.simul.globalAim = new vector2d(-1, -1);
+                ptr.removeMouseListener(mlster);
+                ptr.removeMouseMotionListener(ptr.getMouseMotionListeners()[0]);
             }
-        });
-        ptr.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                panelMouseMoved(evt);
-            }
-        });
-            
-        }
-        else{
-            ptr.aimX=-1;    //w tych 3 linijkach się coś dubluje chyba, te funkcje są pomieszane jakieś
-            ptr.aimY=-1;
-            mainBoids.simul.globalAim=new vector2d(-1,-1);
-            ptr.removeMouseListener(ptr.getMouseListeners()[0]);
-            ptr.removeMouseMotionListener(ptr.getMouseMotionListeners()[0]);
-        }
         }
     }//GEN-LAST:event_btnSterMyszaItemStateChanged
 
+    private void btnSterMysza1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnSterMysza1ItemStateChanged
+        if (ptr != null) {
+            if (btnSterMysza1.isSelected()) {
+                ptr.addMouseListener(mlobs);
+            }
+            else{
+                ptr.removeMouseListener(mlobs);
+            }
+        }
+    }//GEN-LAST:event_btnSterMysza1ItemStateChanged
+
+    private void btnSterMysza1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSterMysza1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSterMysza1ActionPerformed
+
+    private void panelMouseClickedOBS(java.awt.event.MouseEvent evt) {
+      Obstacle przeszkoda=new Obstacle(evt.getX(),evt.getY(),getObstacleSize());
+      ptr.obs.add(przeszkoda);
+      ptr.repaint();
+      if (mainBoids.simul!=null){mainBoids.simul.pom.add(przeszkoda);}
+      //else{mainBoids.obs.add(przeszkoda);}
+    }
     private void panelMouseClicked(java.awt.event.MouseEvent evt) {                                     
       ptr.aimX=evt.getX();
       ptr.aimY=evt.getY();
-      mainBoids.simul.globalAim=new vector2d(evt.getX(),evt.getY());
+      if(mainBoids.simul!=null)mainBoids.simul.globalAim=new vector2d(evt.getX(),evt.getY());
     } 
     private void panelMouseMoved(java.awt.event.MouseEvent evt) {
-        if(ptr.aimX>0 && ptr.aimY>0 && btnSterMysza.isSelected()){
-        ptr.aimX=evt.getX();
+      ptr.aimX=evt.getX();
       ptr.aimY=evt.getY();
-      mainBoids.simul.globalAim=new vector2d(evt.getX(),evt.getY());
-        }
+      if(mainBoids.simul!=null)mainBoids.simul.globalAim=new vector2d(evt.getX(),evt.getY());
     } 
     /**
      * @param args the command line arguments
@@ -1547,6 +1588,7 @@ public foodFabric ffabric = null;
     private javax.swing.JButton btnGlobAim;
     private javax.swing.JButton btnStart;
     private javax.swing.JToggleButton btnSterMysza;
+    private javax.swing.JToggleButton btnSterMysza1;
     private javax.swing.JToggleButton btnVelWart;
     private javax.swing.JToggleButton btnWpływLeader;
     private javax.swing.JComboBox cobRozklad;

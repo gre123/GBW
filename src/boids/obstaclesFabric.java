@@ -28,6 +28,7 @@ public class obstaclesFabric {
         }
         return obs;
     }
+    
     public ArrayList<Obstacle> createObs(int n){
         Random randGen = new Random();
         int x=0,y=0;
