@@ -2,11 +2,13 @@
 
 package gui;
 
+import boids.boid;
 import boids.boidsFabric;
 import boids.foodFabric;
 import boids.mainBoids;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import javax.swing.event.ChangeEvent;
@@ -25,13 +27,18 @@ public panel ptr=null;
 public boidsFabric fabric=null;
 public obstaclesFabric obsfabric = null;
 public foodFabric ffabric = null;
-private MouseListener mlster=new java.awt.event.MouseAdapter() {
-    public void mouseClicked(java.awt.event.MouseEvent evt) {panelMouseClicked(evt);}
+private final MouseListener mlster;
+private final MouseListener mlld=new java.awt.event.MouseAdapter() {
+    public void mouseClicked(java.awt.event.MouseEvent evt) {panelMouseClickedLD(evt);}
 };
-private MouseListener mlobs=new java.awt.event.MouseAdapter() {
+private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
     public void mouseClicked(java.awt.event.MouseEvent evt) {panelMouseClickedOBS(evt);}
 };
     public mainWindow() {
+        this.mlster = new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {panelMouseClicked(evt);}
+        };
     
         initComponents(); 
         this.setIconImage(this.getToolkit().getImage("src\\trunk\\src\\fish_big.png"));
@@ -61,6 +68,7 @@ private MouseListener mlobs=new java.awt.event.MouseAdapter() {
         jLabel22 = new javax.swing.JLabel();
         combpredEscape = new javax.swing.JComboBox();
         btnSterMysza1 = new javax.swing.JToggleButton();
+        btnSterMysza3 = new javax.swing.JToggleButton();
         editFlock = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         textNumPred = new javax.swing.JSpinner();
@@ -256,6 +264,18 @@ private MouseListener mlobs=new java.awt.event.MouseAdapter() {
             }
         });
 
+        btnSterMysza3.setText("Lider/Drapieżnik");
+        btnSterMysza3.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                btnSterMysza3ItemStateChanged(evt);
+            }
+        });
+        btnSterMysza3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSterMysza3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout sterLeadLayout = new javax.swing.GroupLayout(sterLead);
         sterLead.setLayout(sterLeadLayout);
         sterLeadLayout.setHorizontalGroup(
@@ -277,7 +297,8 @@ private MouseListener mlobs=new java.awt.event.MouseAdapter() {
                             .addComponent(jLabel17)
                             .addComponent(jLabel21)
                             .addComponent(jLabel22))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnSterMysza3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         sterLeadLayout.setVerticalGroup(
@@ -303,7 +324,9 @@ private MouseListener mlobs=new java.awt.event.MouseAdapter() {
                 .addComponent(combpredEscape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSterMysza1)
-                .addContainerGap(374, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSterMysza3)
+                .addContainerGap(345, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Sterowanie", sterLead);
@@ -1514,19 +1537,32 @@ private MouseListener mlobs=new java.awt.event.MouseAdapter() {
     }//GEN-LAST:event_btnSterMyszaItemStateChanged
 
     private void btnSterMysza1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnSterMysza1ItemStateChanged
-        if (ptr != null) {
             if (btnSterMysza1.isSelected()) {
-                ptr.addMouseListener(mlobs);
+                btnSterMysza3.setSelected(false);
+                if (ptr != null)ptr.addMouseListener(mlobs);
             }
             else{
-                ptr.removeMouseListener(mlobs);
+                if (ptr != null)ptr.removeMouseListener(mlobs);
             }
-        }
     }//GEN-LAST:event_btnSterMysza1ItemStateChanged
 
     private void btnSterMysza1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSterMysza1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSterMysza1ActionPerformed
+
+    private void btnSterMysza3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnSterMysza3ItemStateChanged
+            if (btnSterMysza3.isSelected()) {
+                btnSterMysza1.setSelected(false); //może jeszcze trzeba wywołać linijki ze zmiany stanu
+                if (ptr != null)ptr.addMouseListener(mlld);
+            }
+            else{
+                if (ptr != null)ptr.removeMouseListener(mlld);
+            }
+    }//GEN-LAST:event_btnSterMysza3ItemStateChanged
+
+    private void btnSterMysza3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSterMysza3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSterMysza3ActionPerformed
 
     private void panelMouseClickedOBS(java.awt.event.MouseEvent evt) {
       Obstacle przeszkoda=new Obstacle(evt.getX(),evt.getY(),getObstacleSize());
@@ -1534,6 +1570,22 @@ private MouseListener mlobs=new java.awt.event.MouseAdapter() {
       ptr.repaint();
       if (mainBoids.simul!=null){mainBoids.simul.pom.add(przeszkoda);}
       //else{mainBoids.obs.add(przeszkoda);}
+    }
+private void panelMouseClickedLD(java.awt.event.MouseEvent e) {
+    boid nowy= new boid(e.getX(),e.getY());
+     if(e.getButton() == MouseEvent.BUTTON1)
+	    {
+	     nowy.setType(0);
+             {mainBoids.leaders.add(nowy);}
+	    }	    
+	    else //if(e.getButton() == MouseEvent.BUTTON3)
+	    {
+	      nowy.setType(2);
+              {mainBoids.predators.add(nowy);}
+	    }
+      ptr.boids.add(nowy);
+      ptr.repaint();
+      //if (mainBoids.simul!=null){mainBoids.simul.boids.add(nowy);}
     }
     private void panelMouseClicked(java.awt.event.MouseEvent evt) {                                     
       ptr.aimX=evt.getX();
@@ -1591,6 +1643,7 @@ private MouseListener mlobs=new java.awt.event.MouseAdapter() {
     private javax.swing.JButton btnStart;
     private javax.swing.JToggleButton btnSterMysza;
     private javax.swing.JToggleButton btnSterMysza1;
+    private javax.swing.JToggleButton btnSterMysza3;
     private javax.swing.JToggleButton btnVelWart;
     private javax.swing.JToggleButton btnWpływLeader;
     private javax.swing.JComboBox cobRozklad;

@@ -502,6 +502,10 @@ public class boid {
     public void setPosition(vector2d _pos) {
         this.position = _pos;
     }
+    
+    public void setType(int _type) {
+        type=_type;
+    }
 
     public double getX() {
         return position.getX();
