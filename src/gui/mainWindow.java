@@ -69,6 +69,9 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
         combpredEscape = new javax.swing.JComboBox();
         btnSterMysza1 = new javax.swing.JToggleButton();
         btnSterMysza3 = new javax.swing.JToggleButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel44 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
         editFlock = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         textNumPred = new javax.swing.JSpinner();
@@ -252,7 +255,7 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
             }
         });
 
-        btnSterMysza1.setText("Dodaj przeszkodę");
+        btnSterMysza1.setText("Przeszkoda");
         btnSterMysza1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 btnSterMysza1ItemStateChanged(evt);
@@ -265,6 +268,7 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
         });
 
         btnSterMysza3.setText("Lider/Drapieżnik");
+        btnSterMysza3.setToolTipText("Lewym i prawym klawiszem myszy");
         btnSterMysza3.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 btnSterMysza3ItemStateChanged(evt);
@@ -276,6 +280,8 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
             }
         });
 
+        jLabel44.setText("Dodawanie elementów:");
+
         javax.swing.GroupLayout sterLeadLayout = new javax.swing.GroupLayout(sterLead);
         sterLead.setLayout(sterLeadLayout);
         sterLeadLayout.setHorizontalGroup(
@@ -283,23 +289,30 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
             .addGroup(sterLeadLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(combLeadMove, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sterLeadLayout.createSequentialGroup()
-                        .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                        .addComponent(btnGlobAim))
-                    .addComponent(btnSterMysza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSterMysza1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(combpredMove, 0, 170, Short.MAX_VALUE)
-                    .addComponent(combpredEscape, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(sterLeadLayout.createSequentialGroup()
                         .addGroup(sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel22))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnSterMysza3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                            .addComponent(combLeadMove, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sterLeadLayout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                                .addComponent(btnGlobAim))
+                            .addComponent(btnSterMysza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSterMysza1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(combpredMove, 0, 170, Short.MAX_VALUE)
+                            .addComponent(combpredEscape, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSterMysza3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(sterLeadLayout.createSequentialGroup()
+                                .addGroup(sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel17)
+                                    .addComponent(jLabel21)
+                                    .addComponent(jLabel22))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(sterLeadLayout.createSequentialGroup()
+                        .addComponent(jLabel44)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jSeparator2)
         );
         sterLeadLayout.setVerticalGroup(
             sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,13 +321,15 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(combLeadMove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGlobAim)
                     .addComponent(jLabel18))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSterMysza)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel21)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(combpredMove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -322,11 +337,15 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
                 .addComponent(jLabel22)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(combpredEscape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel44)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSterMysza1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSterMysza3)
-                .addContainerGap(345, Short.MAX_VALUE))
+                .addContainerGap(326, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Sterowanie", sterLead);
@@ -1315,6 +1334,7 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
        //ptr=new panel(mainBoids.boids,mainBoids.prey);
        btnSterMysza.setSelected(false);
        btnSterMysza1.setSelected(false);
+       btnSterMysza3.setSelected(false);
        ptr=new panel(mainBoids.boids,mainBoids.obs,mainBoids.food);
        this.add(ptr);  
 //        ptr.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1334,6 +1354,8 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
 //            }
 //        });
        ptr.repaint();
+       this.btnStart.setText("Rozpocznij symulację");
+       if (mainBoids.simul!=null)mainBoids.simul.continueSimulation=false;
        this.btnStart.setEnabled(true);
     }//GEN-LAST:event_btnGenStadoActionPerformed
 
@@ -1572,18 +1594,20 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
       //else{mainBoids.obs.add(przeszkoda);}
     }
 private void panelMouseClickedLD(java.awt.event.MouseEvent e) {
-    boid nowy= new boid(e.getX(),e.getY());
+    //boid nowy= new boid(e.getX(),e.getY());
      if(e.getButton() == MouseEvent.BUTTON1)
 	    {
-	     nowy.setType(0);
-             {mainBoids.leaders.add(nowy);}
+	     //nowy.setType(0);
+             //{mainBoids.leaders.add(nowy);}
+            fabric.crateLeader(e.getX(),e.getY());
 	    }	    
 	    else //if(e.getButton() == MouseEvent.BUTTON3)
 	    {
-	      nowy.setType(2);
-              {mainBoids.predators.add(nowy);}
+            fabric.cratePredator(e.getX(),e.getY());
+	      //nowy.setType(2);
+              //{mainBoids.predators.add(nowy);}
 	    }
-      ptr.boids.add(nowy);
+      //ptr.boids.add(nowy);
       ptr.repaint();
       //if (mainBoids.simul!=null){mainBoids.simul.boids.add(nowy);}
     }
@@ -1690,11 +1714,14 @@ private void panelMouseClickedLD(java.awt.event.MouseEvent e) {
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblAli;
     private javax.swing.JLabel lblAngle;

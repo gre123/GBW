@@ -60,7 +60,7 @@ public class boidsFabric {
             boids.get(i).radius=boidRadius;
             boids.get(i).minimalDistance=minimalDistSeparate;
             
-            if (maxSpeed!=0){boids.get(i).maxSpeed=maxSpeed;}
+            if (maxSpeed!=0){boids.get(i).maxSpeed=maxSpeed/1.2;}
             if (maxAccel!=0){ boids.get(i).maxForce=maxAccel; }
         }
         
@@ -131,5 +131,66 @@ public class boidsFabric {
         mainBoids.predators=predators;
         return boids;
     }
-    
+    /**
+     * Dodaje lidera do imprezy, z tego co sprawdziłem nie trzeba go nigdzie dopisywać, return jest właściwie niepotrzebny
+     * @param _x
+     * @param _y
+     * @return 
+     */
+    public boid crateLeader(double _x, double _y){
+        boid lider = new boid(_x, _y);
+        boids.add(lider);
+        leaders.add(lider);
+        lider.minimalDistance=mainBoids.mainWin.getMinmalSeparate();
+        lider.type=0;
+       // boids.get(boids.size()-1).velocity=new vector2d(randGen.nextInt(6)-3,randGen.nextInt(6)-3);
+        lider.radius=mainBoids.mainWin.getLeaderSize();
+        lider.aims= new ArrayList<>();
+        lider.indexAims=0;
+        int TypeMovement=mainBoids.mainWin.getLeaderTypeMovement();
+        if (TypeMovement==0){
+            lider.aims.add(new vector2d(340,150));
+            lider.aims.add(new vector2d(270,330));
+            lider.aims.add(new vector2d(340,520));
+            lider.aims.add(new vector2d(530,590));
+            lider.aims.add(new vector2d(710,510));
+            lider.aims.add(new vector2d(780,340));
+            lider.aims.add(new vector2d(710,160));
+            lider.aims.add(new vector2d(530,80));
+        }else if (TypeMovement==1){
+            lider.aims.add(new vector2d(280,500));
+            lider.aims.add(new vector2d(100,310));
+            lider.aims.add(new vector2d(240,120));
+            lider.aims.add(new vector2d(780,500));
+            lider.aims.add(new vector2d(920,320));
+            lider.aims.add(new vector2d(790,120));
+        }else if (TypeMovement==2){
+         lider.aims.add(new vector2d(60,60));
+         lider.aims.add(new vector2d(1000,60));
+         lider.aims.add(new vector2d(1000,600));
+         lider.aims.add(new vector2d(60,600));
+         
+        }
+        
+            if (maxSpeed!=0){lider.maxSpeed=maxSpeed/1.2;}
+            if (maxAccel!=0){lider.maxForce=maxAccel;}
+        return lider;
+        }
+    /**
+     * Dodaje drapieżnika, rezultatu nie trzeba nigdzie przypisywać.
+     * @param _x
+     * @param _y
+     * @return 
+     */
+    public boid cratePredator(double _x, double _y){
+        boid zjemcie = new boid(_x, _y);
+        boids.add(zjemcie);
+        predators.add(zjemcie);
+        zjemcie.type=2;
+        zjemcie.radius=mainBoids.mainWin.getPredatorSize();
+        
+            if (maxSpeed!=0){zjemcie.maxSpeed=maxSpeed;}
+            if (maxAccel!=0){zjemcie.maxForce=maxAccel;}
+        return zjemcie;
+    }
 }

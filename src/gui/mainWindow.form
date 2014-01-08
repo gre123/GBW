@@ -153,28 +153,38 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="combLeadMove" max="32767" attributes="0"/>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="61" max="32767" attributes="0"/>
-                              <Component id="btnGlobAim" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="btnSterMysza" max="32767" attributes="0"/>
-                          <Component id="btnSterMysza1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="combpredMove" alignment="0" pref="170" max="32767" attributes="0"/>
-                          <Component id="combpredEscape" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel22" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="combLeadMove" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace pref="61" max="32767" attributes="0"/>
+                                      <Component id="btnGlobAim" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="btnSterMysza" max="32767" attributes="0"/>
+                                  <Component id="btnSterMysza1" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="combpredMove" alignment="0" pref="170" max="32767" attributes="0"/>
+                                  <Component id="combpredEscape" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="btnSterMysza3" alignment="1" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel22" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel44" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="btnSterMysza3" alignment="1" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
+                  <Component id="jSeparator1" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -184,14 +194,16 @@
                       <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="combLeadMove" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnGlobAim" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnSterMysza" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jSeparator2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="combpredMove" min="-2" max="-2" attributes="0"/>
@@ -199,11 +211,15 @@
                       <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="combpredEscape" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnSterMysza1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel44" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnSterMysza1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="btnSterMysza3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="345" max="32767" attributes="0"/>
+                      <EmptySpace pref="326" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -289,7 +305,7 @@
             </Component>
             <Component class="javax.swing.JToggleButton" name="btnSterMysza1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Dodaj przeszkod&#x119;"/>
+                <Property name="text" type="java.lang.String" value="Przeszkoda"/>
               </Properties>
               <Events>
                 <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="btnSterMysza1ItemStateChanged"/>
@@ -299,11 +315,21 @@
             <Component class="javax.swing.JToggleButton" name="btnSterMysza3">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Lider/Drapie&#x17c;nik"/>
+                <Property name="toolTipText" type="java.lang.String" value="Lewym i prawym klawiszem myszy"/>
               </Properties>
               <Events>
                 <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="btnSterMysza3ItemStateChanged"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSterMysza3ActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator1">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel44">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Dodawanie element&#xf3;w:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator2">
             </Component>
           </SubComponents>
         </Container>
