@@ -32,7 +32,9 @@ private MouseListener mlobs=new java.awt.event.MouseAdapter() {
     public void mouseClicked(java.awt.event.MouseEvent evt) {panelMouseClickedOBS(evt);}
 };
     public mainWindow() {
+    
         initComponents(); 
+        this.setIconImage(this.getToolkit().getImage("src\\trunk\\src\\fish_big.png"));
         setAllLbl();
     }
 
