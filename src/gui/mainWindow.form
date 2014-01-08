@@ -237,9 +237,11 @@
             </Component>
             <Component class="javax.swing.JToggleButton" name="btnSterMysza">
               <Properties>
-                <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Steruj mysz&#x105;&#xa;"/>
               </Properties>
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="btnSterMyszaItemStateChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel21">
               <Properties>

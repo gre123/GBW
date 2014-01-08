@@ -208,8 +208,12 @@ public foodFabric ffabric = null;
 
         jLabel18.setText("Global aim:");
 
-        btnSterMysza.setSelected(true);
         btnSterMysza.setText("Steruj myszą\n");
+        btnSterMysza.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                btnSterMyszaItemStateChanged(evt);
+            }
+        });
 
         jLabel21.setText("Drapieżnik:");
 
@@ -1262,16 +1266,16 @@ public foodFabric ffabric = null;
        //ptr=new panel(mainBoids.boids,mainBoids.prey);
        ptr=new panel(mainBoids.boids,mainBoids.obs,mainBoids.food);
        this.add(ptr);  
-        ptr.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelMouseClicked(evt);
-            }
-        });
-        ptr.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                panelMouseMoved(evt);
-            }
-        });
+//        ptr.addMouseListener(new java.awt.event.MouseAdapter() {
+//            public void mouseClicked(java.awt.event.MouseEvent evt) {
+//                panelMouseClicked(evt);
+//            }
+//        });
+//        ptr.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+//            public void mouseMoved(java.awt.event.MouseEvent evt) {
+//                panelMouseMoved(evt);
+//            }
+//        });
 
 //       ptr.addKeyListener(new java.awt.event.KeyAdapter() {
 //            public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -1460,6 +1464,31 @@ public foodFabric ffabric = null;
         this.lblTimeReaction.setText(Integer.toString(sldReactionTime.getValue())+"ms");
        }else{this.lblTimeReaction.setText("MAX");}
     }//GEN-LAST:event_sldReactionTimeStateChanged
+
+    private void btnSterMyszaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnSterMyszaItemStateChanged
+        if(ptr!=null){
+        if (btnSterMysza.isSelected()){
+            ptr.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelMouseClicked(evt);
+            }
+        });
+        ptr.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                panelMouseMoved(evt);
+            }
+        });
+            
+        }
+        else{
+            ptr.aimX=-1;    //w tych 3 linijkach się coś dubluje chyba, te funkcje są pomieszane jakieś
+            ptr.aimY=-1;
+            mainBoids.simul.globalAim=new vector2d(-1,-1);
+            ptr.removeMouseListener(ptr.getMouseListeners()[0]);
+            ptr.removeMouseMotionListener(ptr.getMouseMotionListeners()[0]);
+        }
+        }
+    }//GEN-LAST:event_btnSterMyszaItemStateChanged
 
     private void panelMouseClicked(java.awt.event.MouseEvent evt) {                                     
       ptr.aimX=evt.getX();

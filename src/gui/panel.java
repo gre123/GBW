@@ -117,7 +117,7 @@ public class panel extends JPanel {
         }
         
         if (aimX>=0 &&aimY>=0){
-        Ellipse2D circle = new Ellipse2D.Double(aimX, aimY, 10,10);
+        Ellipse2D circle = new Ellipse2D.Double(aimX-5, aimY-5, 10,10);
         g2d.setColor(Color.PINK);
         g2d.fill(circle);
         g2d.draw(circle);
