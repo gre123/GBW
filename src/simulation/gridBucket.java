@@ -54,13 +54,33 @@ public class gridBucket {
       temp.ensureCapacity(1000);
       int dX=osobnik.getBucketX()+2;
       int dY=osobnik.getBucketY()+2;
-      int k=0;
       for (int i=dX-3;i<dX;i++){
           if (i<0 || i>=x){continue;}
           for (int j=dY-3;j<dY;j++){
                if (j<0 || j>=y){continue;}
-               k++;
                temp.addAll(bucketList.get(i).get(j).koszyk);//tu moze bez kopiowania calych koszyków
+          }
+      }
+      return temp;
+      }
+      
+      public ArrayList <boid> getArrayNeightEdge(boid osobnik){
+      ArrayList <boid> temp=new ArrayList <>();
+      temp.ensureCapacity(1000);
+      int dX=osobnik.getBucketX()+2;
+      int dY=osobnik.getBucketY()+2;
+      
+      for (int i=dX-3;i<dX;i++){      
+          for (int j=dY-3;j<dY;j++){
+             if (j<0 && i<0){temp.addAll(bucketList.get(x-1).get(y-1).koszyk);continue;}
+             if (j>=y && i<0){temp.addAll(bucketList.get(x-1).get(0).koszyk);continue;}
+             if (i>=x && j<0){temp.addAll(bucketList.get(0).get(y-1).koszyk);continue;}
+             if (j>=y && i>=x){temp.addAll(bucketList.get(0).get(0).koszyk);continue;}
+             if (j>=y){temp.addAll(bucketList.get(i).get(0).koszyk);continue;}
+             if (i>=x){temp.addAll(bucketList.get(0).get(j).koszyk);continue;}
+             if (j<0){temp.addAll(bucketList.get(0).get(y-1).koszyk);continue;}
+             if (i<0){temp.addAll(bucketList.get(x-1).get(j).koszyk);continue;}
+             temp.addAll(bucketList.get(i).get(j).koszyk);
           }
       }
       return temp;
@@ -89,4 +109,5 @@ public class gridBucket {
       
       return temp;
       }
+
 }

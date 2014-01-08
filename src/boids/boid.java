@@ -59,6 +59,7 @@ public class boid {
 
     public vector2d separate(ArrayList<boid> boids) {
         vector2d value = new vector2d(0, 0);
+        vector2d bestPos;
         if (type == 3 || type == 0 || type == 2 || boids.isEmpty()) {return value;}
         vector2d pos;
         colorSeparB=0;
@@ -66,19 +67,20 @@ public class boid {
         double dist;
         double acumDist=0;
         for (int i = 0; i < boids.size(); i++) {
-            dist = this.position.getDistance(boids.get(i).position);
+            bestPos=this.position.getCloserPosition(boids.get(i).position, 1072, 677);
+  
+            dist = this.position.getDistance(bestPos);
             acumDist+=dist;
             if (dist < minimalDistance) {             
-                pos=this.getPosition().getVec().minus(boids.get(i).position);
+                pos=this.getPosition().getVec().minus(bestPos);
                 return pos.normalize();
             }
             if(dist>40){continue;}
-                pos=this.getPosition().getVec().minus(boids.get(i).position);
+                pos=this.getPosition().getVec().minus(bestPos);
                 pos.div(dist);
                 pos.div(dist-minimalDistance+1);
                 value.add(pos);
                 k++;
-              // System.out.println(pos.getLength()); 
         }
         
         if (k > 0) {
@@ -94,6 +96,7 @@ public class boid {
     public vector2d separatePredator(ArrayList<boid> boids){
      vector2d value = new vector2d(0, 0);
      vector2d pos;
+  
         int k = 0;
         double sDist;
         for (int i = 0; i < boids.size(); i++) {
@@ -132,11 +135,13 @@ public class boid {
 
     public vector2d cohesion(ArrayList<boid> boids) {
         vector2d pos = new vector2d(0, 0);
+        vector2d bestPos;
         if (type == 3 || type == 2 || type == 0 || boids.size() == 0) {return pos;}
         int k=0;
         for (int i = 0; i < boids.size(); i++) {
             if (boids.get(i).type==1){
-            pos.add(boids.get(i).position);
+            bestPos=this.position.getCloserPosition(boids.get(i).position, 1072, 677);     
+            pos.add(bestPos);
             k++;
             }
         }

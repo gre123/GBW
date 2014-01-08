@@ -105,13 +105,39 @@ public class symulacja {
   double alfa,d;
   int inxMax=0;
   double maxDist=0;//Double.MAX_VALUE;
-  ArrayList<boid> gridBoids=siatkaKoszykow.getArrayNeight(osobnik);
+  ArrayList<boid> gridBoids=siatkaKoszykow.getArrayNeightEdge(osobnik);
   ArrayList<Double> distannces=new ArrayList<>();
+  int bucX=osobnik.getBucketX();
+  int bucY=osobnik.getBucketY();
+  int sizeX=1072;
+  int sizeY=677;
+  vector2d tempPosition;
   for(int i=0;i<gridBoids.size();i++){
-      d=osobnik.getPosition().getSDistance(gridBoids.get(i).getPosition());     
-      
+      if (abs(gridBoids.get(i).getBucketX()-bucX)<=1 && abs(gridBoids.get(i).getBucketY()-bucY)<=1){
+      tempPosition=gridBoids.get(i).getPosition().getVec();
+      }else if(gridBoids.get(i).getBucketX()-bucX>2 && gridBoids.get(i).getBucketY()-bucY>2){      
+      tempPosition=gridBoids.get(i).getPosition().getVec().add(new vector2d(-sizeX,-sizeY));
+      }else if(gridBoids.get(i).getBucketX()-bucX<-2 && gridBoids.get(i).getBucketY()-bucY<-2){
+      tempPosition=gridBoids.get(i).getPosition().getVec().add(new vector2d(sizeX,sizeY));
+      }else if(gridBoids.get(i).getBucketX()-bucX>2 && gridBoids.get(i).getBucketY()-bucY<-2){
+      tempPosition=gridBoids.get(i).getPosition().getVec().add(new vector2d(-sizeX,sizeY));
+      }else if(gridBoids.get(i).getBucketX()-bucX<-2 && gridBoids.get(i).getBucketY()-bucY>2){
+      tempPosition=gridBoids.get(i).getPosition().getVec().add(new vector2d(sizeX,-sizeY));
+      }else if(gridBoids.get(i).getBucketX()-bucX<-2){
+      tempPosition=gridBoids.get(i).getPosition().getVec().add(new vector2d(sizeX,0));
+      }else if(gridBoids.get(i).getBucketX()-bucX>2){
+      tempPosition=gridBoids.get(i).getPosition().getVec().add(new vector2d(-sizeX,0));
+      }else if(gridBoids.get(i).getBucketY()-bucY<-2){
+      tempPosition=gridBoids.get(i).getPosition().getVec().add(new vector2d(0,sizeY));
+      }else if(gridBoids.get(i).getBucketY()-bucY>2){
+      tempPosition=gridBoids.get(i).getPosition().getVec().add(new vector2d(0,-sizeY));
+      }else{
+      tempPosition=gridBoids.get(i).getPosition().getVec();
+      }
+          
+      d=osobnik.getPosition().getSDistance(tempPosition); 
       if (d<(radiusNeigh*radiusNeigh) && !osobnik.equals(gridBoids.get(i))){ 
-         alfa=osobnik.calcAngle(gridBoids.get(i).getPosition());
+         alfa=osobnik.calcAngle(tempPosition);
           if((180-alfa)<katWidzenia*180/3.1415){
               if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
               if (maxDist<d && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
