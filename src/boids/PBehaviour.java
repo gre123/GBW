@@ -28,7 +28,7 @@ public class PBehaviour {
     {
         vector2d poz,pom=new vector2d(0,0);
         vector2d w=new vector2d(0,0);
-        double criticaldist=20;
+        double criticaldist=25;
         double d;
         Random randGen = new Random();
         
@@ -37,19 +37,7 @@ public class PBehaviour {
         {
             if(boids.get(i).type==2)
             {
-                  d=ten.getPosition().getDistance(boids.get(i));
-                  /**
-                   *  Zachowanie ucieczki w sytuacji krytycznej, ucieczka wgłąb stada(?)
-                   */
-                  if(d<criticaldist && randGen.nextBoolean() && mainBoids.mainWin.getEscapeStrategy()==0)
-                  {
-                      mainBoids.simul.critical_sit=true;
-                  }
-                  /**
-                   * Zachowanie ucieczki w stadzie
-                   */
-                  else{
-                    
+                    d=ten.getPosition().getDistance(boids.get(i));             
                     poz=boids.get(i).getPosition().getVec();
                     pom=poz.minus(ten.position);
                     pom=pom.multi(-1);
@@ -57,29 +45,52 @@ public class PBehaviour {
                    /**
                     *  Zachowanie ucieczki w sytuacji krytycznej , ucieczka w jakimś kierunku
                     */
-                    if(d<criticaldist && randGen.nextBoolean() && mainBoids.mainWin.getEscapeStrategy()==1)
+                    if(d<criticaldist)
                     {
                         mainBoids.simul.critical_sit=true;
-                        if(pom.getX()>pom.getY())
+                        if(mainBoids.mainWin.getEscapeStrategy()==0)
                         {
-                            pom.setY(pom.getY()*5);
+                          //  System.out.println("Sytuacja szybciej");
                             pom.multi(10);
-                        }
+                            w.add(pom);
+                        } 
                         else
                         {
-                            pom.setX(pom.getX()*5);
-                            pom.multi(10);
+                         if(randGen.nextInt(10)==5)
+                         {
+                           // System.out.println("Sytuacja niezależniej");
+                            if(pom.getX()>pom.getY())
+                            {
+                                pom.setY(pom.getY()*5);
+                                pom.multi(10);
+                            }   
+                            else
+                            {
+                                pom.setX(pom.getX()*5);
+                                pom.multi(10);
+                            }
+
+                            w.add(pom);
+                         }
+                         else
+                         {
+                             if(d>25) w.add(pom.div(d));
+                             else 
+                             {
+                                w.add(pom);
+                             }
+                         }
                         }
+                        
                     }
-               
-                    if(d>25) w.add(pom.div(d));
-                    else 
+                    else
                     {
-                        w.add(pom);
-                    }
-                //w.add(pom);
-                 
-                  } 
+                        if(d>25) w.add(pom.div(d));
+                        else 
+                        {
+                          w.add(pom);
+                        }
+                    } 
             } 
         }
         return w;
@@ -219,7 +230,7 @@ public class PBehaviour {
             move.normalize();
             return move;
         }
-        else return new vector2d(randGen.nextDouble()-2,randGen.nextDouble()+4).normalize();
+        else return new vector2d(0,0);
     }
     
     /**

@@ -260,8 +260,8 @@ public class symulacja {
 //           if(boids.get(i).getType()==2) rand=new vector2d(0,0);
           
            /**
-            * rozbudowałem o sytuację wyjątkową jak flaga critical_situation jest ustawiona ma olewać wszystko oprócz wybranego wektora,
-            * jest też flaga od żerowania, czyli olewka wszystkiego oprocz wektora zerowania, chyba ze krytyczna sytuacja
+            * rozbudowałem o sytuację wyjątkową jak flaga critical_sit jest ustawiona ma olewać wszystko oprócz wybranego wektora,
+            * jest też flaga od żerowania, czyli olewka wszystkiego oprocz wybranych wektorów, chyba ze krytyczna sytuacja
             */
            if(!critical_sit && !foraging_situation) boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred).add(avoid).add(toAim).add(forag));
            else
@@ -272,9 +272,7 @@ public class symulacja {
                    foraging_situation=false;
                }
                else {
-                    if(mainBoids.mainWin.getEscapeStrategy()==0) boids.get(i).setAcceleration(coh.multi(1));
-                    else boids.get(i).setAcceleration(pred);
-               
+                    boids.get(i).setAcceleration(pred);
                     critical_sit=false;
                     foraging_situation=false;
                }
@@ -285,7 +283,8 @@ public class symulacja {
             tempBoids=getNeighbourhoodOptm(mainBoids.predators.get(i));
             predH=mainBoids.predators.get(i).predHunt(tempBoids,siatkaKoszykow.getArrayNeightB(mainBoids.predators.get(i)));
             vector2d Sep=mainBoids.predators.get(i).separatePredator(tempBoids);
-            mainBoids.predators.get(i).setAcceleration(Sep.add(predH));
+            avoid=mainBoids.predators.get(i).better_avoid(pom,AvoidMode, AvoidRec);
+            mainBoids.predators.get(i).setAcceleration(Sep.add(predH).add(avoid));
        }
              
        for(int i=0;i<boids.size();i++){
