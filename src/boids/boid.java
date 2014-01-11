@@ -138,18 +138,26 @@ public class boid {
     public vector2d cohesion(ArrayList<boid> boids) {
         vector2d pos = new vector2d(0, 0);
         vector2d bestPos;
-        if (type == 3 || type == 2 || type == 0 || boids.size() == 0) {return pos;}
+        
+        if (type == 3 || type == 2 || type == 0 || boids.isEmpty()) {return pos;}
         int k=0;
         for (int i = 0; i < boids.size(); i++) {
             if (boids.get(i).type==1){
-            bestPos=this.position.getCloserPosition(boids.get(i).position, 1072, 677);     
+            bestPos=this.position.getCloserPosition(boids.get(i).position, 1072, 677); 
+             if( this.position.getSDistance(bestPos)>minimalDistance*minimalDistance ){//pominiecie najblizszych
             pos.add(bestPos);
             k++;
+             }
+             
             }
         }
         if (k>0){
         pos.div(k);
         pos.minus(this.position);
+//        if(pos.getLength()<minimalDistance){
+//          //  System.out.println(pos.getLength());
+//        return pos.normalize().;
+//        }
         return pos.normalize();
         }else{return pos;}
         
@@ -158,6 +166,8 @@ public class boid {
     public vector2d followLeader(ArrayList<boid> boids) {
         vector2d value = new vector2d(0, 0); 
         vector2d bestPos;
+        if (type ==0 && boids.size()<5){velocity.multi(0.5);}
+        
         if (type == 3 || type == 2 || type == 0 || boids.isEmpty()) {return value; }
         boid leader = null;
         this.colorLeadB=0;
@@ -479,11 +489,12 @@ public class boid {
         return this.acceleration;
     }
     public void setAcceleration(vector2d _accel) {
-        _accel.div(masa);
+        
+        //System.out.println(_accel.getLength());
         if (_accel.getSLength() > maxForce*maxForce) {
             _accel.normalize();
             _accel.multi(maxForce);
-        }
+        }_accel.div(masa);
         this.acceleration = _accel;
     colorAccelB=1-(float)(_accel.getSLength()/(maxForce*maxForce));
     }
@@ -542,6 +553,9 @@ public class boid {
     }
     public boolean czyBum(){
         return bum;
+    }
+    public double getMinimalDist(){
+        return minimalDistance;
     }
     //public boolean czyOmijam(){
     //return omijam;

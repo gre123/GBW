@@ -43,7 +43,7 @@ public class symulacja {
   food=_food;
   animSpeed=10;
   reactionTime=50;
-  siatkaKoszykow =new gridBucket(12,8,80,80,1100,700);
+  siatkaKoszykow =new gridBucket(11,7,80,80,1100,700);
   pom=new ArrayList<>();
   }
   public void addBoid(boid agt){
@@ -141,7 +141,7 @@ public class symulacja {
               continue; 
             }
       }else{continue;}   
-      if  (d<(osobnik.radius*osobnik.radius*1.2) && !osobnik.equals(gridBoids.get(i))){
+      if  (d<(osobnik.getMinimalDist()*osobnik.getMinimalDist()) && !osobnik.equals(gridBoids.get(i))){
        if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
        else if (maxDist<d && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
        //else if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
