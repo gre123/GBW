@@ -5,6 +5,7 @@ import boids.boid;
 import boids.mainBoids;
 import static java.lang.StrictMath.abs;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import math.vector2d;
 import trunk.src.boids.Obstacle;
@@ -108,6 +109,7 @@ public class symulacja {
   double maxDist=0;//Double.MAX_VALUE;
   ArrayList<boid> gridBoids=siatkaKoszykow.getArrayNeightEdge(osobnik);
   ArrayList<Double> distannces=new ArrayList<>();
+  ArrayList<Double> distannces1=new ArrayList<>();
   int bucX=osobnik.getBucketX();
   int bucY=osobnik.getBucketY();
   int sizeX=1072;
@@ -131,38 +133,45 @@ public class symulacja {
           if((180-alfa)<katWidzenia*180/3.1415){
               if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
               else if (maxDist<d && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
-              else if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
+              //else if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
               neigh.add(gridBoids.get(i));
               distannces.add(d);
+              distannces1.add(d);
+              
               continue; 
             }
       }else{continue;}   
       if  (d<(osobnik.radius*osobnik.radius*1.2) && !osobnik.equals(gridBoids.get(i))){
        if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
        else if (maxDist<d && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
-       else if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
+       //else if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
               neigh.add(gridBoids.get(i));
               distannces.add(d);
+              distannces1.add(d);
               continue;
       }
       if(osobnik.getVelocity().getLength()<osobnik.getMaxSpeed()/10 && !osobnik.equals(gridBoids.get(i))){ 
               if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
               else if (maxDist<d && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
-              else if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
+              //else if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
               neigh.add(gridBoids.get(i));
               distannces.add(d);
+              distannces1.add(d);
               continue;
       }
   } 
-
+ 
+  if (distannces.size()>=maxNeigh){
+       
+ Collections.sort(distannces);
+ maxDist=distannces.get(maxNeigh-1);
   for(int i=0;i<neigh.size();){
-  if (distannces.get(i)>maxDist && neigh.get(i).getType()==1){
-  distannces.remove(i);
+  if (distannces1.get(i)>maxDist && neigh.get(i).getType()==1){
+  distannces1.remove(i);
   neigh.remove(i);
   }else{i++;}
-  
   }
-
+  }
   mainBoids.stat.averageNumOfNeight+=neigh.size();
   return neigh;
   }

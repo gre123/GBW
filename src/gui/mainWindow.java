@@ -838,7 +838,7 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
 
         sldNumNeight.setMajorTickSpacing(1);
         sldNumNeight.setToolTipText("");
-        sldNumNeight.setValue(23);
+        sldNumNeight.setValue(7);
         sldNumNeight.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sldNumNeightStateChanged(evt);
