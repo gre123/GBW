@@ -12,6 +12,9 @@ public class boidsFabric {
     int numberOfBoids;
     double maxSpeed=0;
     double maxAccel=0;
+    double mass;
+    double skala;
+    double separateRadius=4;
     ArrayList<boid> boids;
     ArrayList<boid> predators;
     ArrayList<boid> leaders;
@@ -26,9 +29,11 @@ public class boidsFabric {
         predators=new ArrayList<>();
         leaders=new ArrayList<>();
     }
-    public void setBoidsParametrs(double _maxSpeed,double _maxAccel){
-        maxSpeed=_maxSpeed;
-        maxAccel=_maxAccel;
+    public void setBoidsParametrs(double _maxSpeed,double _maxAccel,double _mass,double _skala){
+        maxSpeed=_maxSpeed*_skala;
+        maxAccel=_maxAccel*_skala;
+        mass=_mass;
+        skala=_skala;
     }
     public ArrayList<boid> createBoids(int n,int np,double per){
         Random randGen = new Random();
@@ -44,7 +49,7 @@ public class boidsFabric {
         int boidRadius=mainBoids.mainWin.getBoidSize();
         int leaderRadius=mainBoids.mainWin.getLeaderSize();
         int predatorRadius=mainBoids.mainWin.getPredatorSize();
-        int minimalDistSeparate=mainBoids.mainWin.getMinmalSeparate();
+        double minimalDistSeparate=mainBoids.mainWin.getMinmalSeparate();
         for(int i=0;i<n;i++){           
             if(rozklad==0){ boids.add(new boid(randGen.nextInt(1080),randGen.nextInt(680)));
             }else if(rozklad==1){
@@ -58,8 +63,10 @@ public class boidsFabric {
             boids.add(new boid(x,y));
             }
             boids.get(i).radius=boidRadius;
-            boids.get(i).minimalDistance=minimalDistSeparate;
-            
+            boids.get(i).minimalDistance=minimalDistSeparate*skala;
+            boids.get(i).masa=mass;
+            boids.get(i).skala=skala;
+            boids.get(i).separateRadius=separateRadius*skala;
             if (maxSpeed!=0){boids.get(i).maxSpeed=maxSpeed/1.2;}
             if (maxAccel!=0){ boids.get(i).maxForce=maxAccel; }
         }
@@ -67,13 +74,15 @@ public class boidsFabric {
         for(int i=0;i<mainBoids.mainWin.getNumOfLeaders();i++){
         boids.add(new boid(randGen.nextInt(1095),randGen.nextInt(680)));
         leaders.add(boids.get(boids.size()-1));
-        boids.get(i).minimalDistance=minimalDistSeparate;
+        boids.get(boids.size()-1).minimalDistance=minimalDistSeparate*skala;
         boids.get(boids.size()-1).type=0;
        // boids.get(boids.size()-1).velocity=new vector2d(randGen.nextInt(6)-3,randGen.nextInt(6)-3);
         boids.get(boids.size()-1).radius=leaderRadius;
         boids.get(boids.size()-1).aims= new ArrayList<>();
         boids.get(boids.size()-1).indexAims=0;
-     
+        boids.get(boids.size()-1).masa=mass;
+         boids.get(boids.size()-1).skala=skala;
+         boids.get(boids.size()-1).separateRadius=separateRadius*skala;
         if (leadMovement==0){
             boids.get(boids.size()-1).aims.add(new vector2d(340,150));
             boids.get(boids.size()-1).aims.add(new vector2d(270,330));
@@ -107,10 +116,13 @@ public class boidsFabric {
         boids.add(new boid(randGen.nextInt(1095),randGen.nextInt(680)));
         predators.add(boids.get(boids.size()-1));
         boids.get(boids.size()-1).type=2;
-       // boids.get(boids.size()-1).velocity=new vector2d(randGen.nextInt(6)-3,randGen.nextInt(6)-3);
         boids.get(boids.size()-1).radius=predatorRadius;
+        boids.get(boids.size()-1).minimalDistance=(predatorRadius+minimalDistSeparate)*skala;
+        boids.get(boids.size()-1).masa=mass;
+        boids.get(boids.size()-1).skala=skala;
+        boids.get(boids.size()-1).separateRadius=separateRadius*skala;
         
-            if (maxSpeed!=0){boids.get(boids.size()-1).maxSpeed=maxSpeed;}
+            if (maxSpeed!=0){boids.get(boids.size()-1).maxSpeed=maxSpeed*0.9;}
             if (maxAccel!=0){boids.get(boids.size()-1).maxForce=maxAccel;}
         }
         //-------------------------------------------------

@@ -51,7 +51,7 @@ public class gridBucket {
       }
       public ArrayList <boid> getArrayNeight(boid osobnik){
       ArrayList <boid> temp=new ArrayList <>();
-      temp.ensureCapacity(1000);
+      temp.ensureCapacity(200);
       int dX=osobnik.getBucketX()+2;
       int dY=osobnik.getBucketY()+2;
       for (int i=dX-3;i<dX;i++){
@@ -66,7 +66,7 @@ public class gridBucket {
       
       public ArrayList <boid> getArrayNeightEdge(boid osobnik){
       ArrayList <boid> temp=new ArrayList <>();
-      temp.ensureCapacity(1000);
+      temp.ensureCapacity(200);
       int dX=osobnik.getBucketX()+2;
       int dY=osobnik.getBucketY()+2;
       

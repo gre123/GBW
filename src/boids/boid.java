@@ -19,16 +19,15 @@ public class boid {
     ArrayList<vector2d> aims = null;
     int indexAims;
     int koszX, koszY;
-    double angle;
     public double radius;
     double maxSpeed, maxForce;
+    double masa;
+    double skala;
     int type;
     double katWidzenia;
     double minimalDistance;
-    float colorLeadB;
-    float colorSeparB;
-    float colorVelB;
-    float colorAccelB;
+    double separateRadius;
+    float colorLeadB,colorSeparB,colorVelB,colorAccelB;
     boolean zderzony,bum;
     boolean hungry;
     int eats;
@@ -38,23 +37,26 @@ public class boid {
         acceleration = new vector2d(0, 0);
         velocity = new vector2d(0, 0);
         position = new vector2d(x, y);
-        radius = 7;
+        radius = 2;
+        skala=1;
         indexAims = -1;
-        maxSpeed = 1;
-        maxForce = 0.5;
+        maxSpeed = 3;
+        maxForce = 2.5;
         colorLeadB=0.0f;
         colorSeparB=0.0f;
         colorVelB=0.0f;
         colorAccelB=0.0f;
+        masa=0.08;
         //omijam=false;
         zderzony=false;
         bum=false;
         hungry=false;
         // angle=randGen.nextDouble()*360;
-        minimalDistance = 6;
+        minimalDistance = 0.2;
         type = 1;
-        katWidzenia = 0.5;
+        katWidzenia = 2.6;
         eats=0;
+        separateRadius=4;
     }
 
     public vector2d separate(ArrayList<boid> boids) {
@@ -71,11 +73,12 @@ public class boid {
   
             dist = this.position.getDistance(bestPos);
             acumDist+=dist;
+             if(dist>separateRadius){continue;}
             if (dist < minimalDistance) {             
                 pos=this.getPosition().getVec().minus(bestPos);
                 return pos.normalize();
             }
-            if(dist>40){continue;}
+           
                 pos=this.getPosition().getVec().minus(bestPos);
                 pos.div(dist);
                 pos.div(dist-minimalDistance+1);
@@ -84,15 +87,15 @@ public class boid {
         }
         
         if (k > 0) {
-            value.div(k);
             mainBoids.stat.addAverageDist(acumDist/k);
+            return  value.div(k);
             //colorSeparB=1-(float)(pos.getLength()/(minimalDistance * minimalDistance));
         } else {
             return value;
         }
 
-        return value;
     }
+    
     public vector2d separatePredator(ArrayList<boid> boids){
      vector2d value = new vector2d(0, 0);
      vector2d pos;
@@ -102,7 +105,7 @@ public class boid {
         for (int i = 0; i < boids.size(); i++) {
             if(boids.get(i).getType()==2){continue;}
             sDist = this.position.getSDistance(boids.get(i));
-            if (sDist < minimalDistance * minimalDistance) {
+            if (sDist < minimalDistance * minimalDistance*5) {
                 if (sDist == 0) {sDist = 0.000000001;}
                 pos=this.getPosition().getVec().minus(boids.get(i).position);
                 pos.div(sDist);
@@ -132,7 +135,6 @@ public class boid {
             return pos.normalize();
             }else{return pos;}
     }
-
     public vector2d cohesion(ArrayList<boid> boids) {
         vector2d pos = new vector2d(0, 0);
         vector2d bestPos;
@@ -155,6 +157,7 @@ public class boid {
 
     public vector2d followLeader(ArrayList<boid> boids) {
         vector2d value = new vector2d(0, 0); 
+        vector2d bestPos;
         if (type == 3 || type == 2 || type == 0 || boids.isEmpty()) {return value; }
         boid leader = null;
         this.colorLeadB=0;
@@ -162,7 +165,8 @@ public class boid {
         double minDist = Double.MAX_VALUE;
         for (int i = 0; i < boids.size(); i++) {
             if (boids.get(i).type == 0) {
-                dist = this.getPosition().getDistance(boids.get(i));
+                bestPos=this.position.getCloserPosition(boids.get(i).position, 1072, 677);
+                dist = this.getPosition().getDistance(bestPos);
                 if (dist < minDist) {
                     leader = boids.get(i);
                     minDist = dist;
@@ -174,7 +178,8 @@ public class boid {
             dist=minDist;
             this.colorLeadB=1-(float)(dist/mainBoids.simul.radiusNeigh);
             //pos.minus(leader.getVelocity().getVec().normalize().multi(15));
-            value = leader.getPosition().getVec().minus(this.position);
+            bestPos=this.position.getCloserPosition(leader.position, 1072, 677);
+            value = bestPos.getVec().minus(this.position);
             if (dist > minimalDistance*2) {
                 return value.div(dist);
             } else {
@@ -419,16 +424,14 @@ public class boid {
     }
     //---------------------------------------------------------------
     public void applyForce(double step) {
-        velocity.add(acceleration.multi(step));
-        if (velocity.getLength() > maxSpeed) {
+     //   System.out.println("a"+velocity.getLength());
+        velocity.add(acceleration.multi(1));
+        if (velocity.getLength() > maxSpeed) {    
             velocity.normalize();
-            //---------------------------------
-            if(this.type==2) velocity.multi(maxSpeed*0.1); // do przyspieszania drapieznika
-            //---------------------------------
-            else velocity.multi(maxSpeed);
+            velocity.multi(maxSpeed);
             colorVelB=0;
         }else{
-            colorVelB=1-(float)(velocity.getLength()/maxSpeed);
+            colorVelB=1-(float)(velocity.getSLength()/(maxSpeed*maxSpeed));
         }
     }
 
@@ -452,7 +455,6 @@ public class boid {
         if (position.getY() > maxY) {
             position.setY(position.getY() - maxY);
         }
-
     }
 
     public double calcAngle() {
@@ -476,67 +478,53 @@ public class boid {
     public vector2d getAcceleration() {
         return this.acceleration;
     }
-
     public void setAcceleration(vector2d _accel) {
-        if (_accel.getLength() > maxForce) {
+        _accel.div(masa);
+        if (_accel.getSLength() > maxForce*maxForce) {
             _accel.normalize();
             _accel.multi(maxForce);
-        colorAccelB=0;
         }
         this.acceleration = _accel;
-    colorAccelB=1-(float)(_accel.getLength()/maxForce);
+    colorAccelB=1-(float)(_accel.getSLength()/(maxForce*maxForce));
     }
-
     public vector2d getPosition() {
         return this.position;
     }
-
     public vector2d getVelocity() {
         return this.velocity;
     }
-
     public double getMaxSpeed() {
         return this.maxSpeed;
     }
-
     public void setPosition(vector2d _pos) {
         this.position = _pos;
     }
-    
     public void setType(int _type) {
         type=_type;
     }
-
     public double getX() {
         return position.getX();
     }
-
     public double getY() {
         return position.getY();
     }
-
     public double getR() {
         return radius;
     }
-
     public int getType() {
         return type;
     }
-
     public boolean setBucket(int _x, int _y) {
         koszX = _x;
         koszY = _y;
         return true;
     }
-
     public boolean checkBucketXY(int _x, int _y) {
         return koszX != _x || koszY != _y;
     }
-
     public int getBucketX() {
         return koszX;
     }
-
     public int getBucketY() {
         return koszY;
     }

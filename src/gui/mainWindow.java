@@ -2,7 +2,6 @@
 
 package gui;
 
-import boids.boid;
 import boids.boidsFabric;
 import boids.foodFabric;
 import boids.mainBoids;
@@ -99,7 +98,14 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
         sldTimeFood = new javax.swing.JSlider();
         lblTimeFood = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
-        spnMinDist = new javax.swing.JSpinner();
+        sldMass = new javax.swing.JSlider();
+        jLabel45 = new javax.swing.JLabel();
+        lblMass = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        sldSkala = new javax.swing.JSlider();
+        lblSkala = new javax.swing.JLabel();
+        sldMinDistSep = new javax.swing.JSlider();
+        lblMinDistSep = new javax.swing.JLabel();
         statPanel = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
@@ -195,7 +201,8 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
 
         sldAnimSpeed.setMaximum(54);
         sldAnimSpeed.setPaintLabels(true);
-        sldAnimSpeed.setValue(30);
+        sldAnimSpeed.setToolTipText("");
+        sldAnimSpeed.setValue(54);
         sldAnimSpeed.setMaximumSize(new java.awt.Dimension(32767, 20));
         sldAnimSpeed.setPreferredSize(new java.awt.Dimension(200, 20));
         sldAnimSpeed.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -362,7 +369,9 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
         jLabel7.setText("Liczebność:");
 
         sldMaxSpeed.setMaximum(3000);
-        sldMaxSpeed.setValue(500);
+        sldMaxSpeed.setMinimum(1);
+        sldMaxSpeed.setToolTipText("");
+        sldMaxSpeed.setValue(1800);
         sldMaxSpeed.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sldMaxSpeedStateChanged(evt);
@@ -378,10 +387,10 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
             }
         });
 
-        sldMaxAccel.setMaximum(200);
+        sldMaxAccel.setMaximum(3000);
         sldMaxAccel.setSnapToTicks(true);
         sldMaxAccel.setToolTipText("");
-        sldMaxAccel.setValue(40);
+        sldMaxAccel.setValue(3000);
         sldMaxAccel.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sldMaxAccelStateChanged(evt);
@@ -433,7 +442,44 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
 
         jLabel32.setText("Min odległość:");
 
-        spnMinDist.setValue(3);
+        sldMass.setMaximum(50);
+        sldMass.setMinimum(1);
+        sldMass.setToolTipText("");
+        sldMass.setValue(4);
+        sldMass.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sldMassStateChanged(evt);
+            }
+        });
+
+        jLabel45.setText("Masa osobnika:");
+
+        lblMass.setText("0");
+
+        jLabel46.setText("Skala:");
+
+        sldSkala.setMaximum(40);
+        sldSkala.setMinimum(1);
+        sldSkala.setToolTipText("");
+        sldSkala.setValue(20);
+        sldSkala.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sldSkalaStateChanged(evt);
+            }
+        });
+
+        lblSkala.setText("0");
+
+        sldMinDistSep.setMaximum(10);
+        sldMinDistSep.setToolTipText("2");
+        sldMinDistSep.setValue(2);
+        sldMinDistSep.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sldMinDistSepStateChanged(evt);
+            }
+        });
+
+        lblMinDistSep.setText("0");
 
         javax.swing.GroupLayout editFlockLayout = new javax.swing.GroupLayout(editFlock);
         editFlock.setLayout(editFlockLayout);
@@ -442,6 +488,9 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
             .addGroup(editFlockLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sldMinDistSep, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(sldSkala, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(sldMass, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(btnGenStado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(editFlockLayout.createSequentialGroup()
                         .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -484,11 +533,19 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
                     .addGroup(editFlockLayout.createSequentialGroup()
                         .addComponent(jLabel32)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(spnMinDist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblMinDistSep))
                     .addGroup(editFlockLayout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cobRozklad, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cobRozklad, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(editFlockLayout.createSequentialGroup()
+                        .addComponent(jLabel45)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblMass))
+                    .addGroup(editFlockLayout.createSequentialGroup()
+                        .addComponent(jLabel46)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblSkala)))
                 .addContainerGap())
         );
         editFlockLayout.setVerticalGroup(
@@ -545,8 +602,22 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel32)
-                    .addComponent(spnMinDist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
+                    .addComponent(lblMinDistSep))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sldMinDistSep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel45)
+                    .addComponent(lblMass))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sldMass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(editFlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel46)
+                    .addComponent(lblSkala))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sldSkala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(btnGenStado, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -723,15 +794,17 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
         });
 
         sldAngle.setMaximum(3150);
-        sldAngle.setValue(2000);
+        sldAngle.setToolTipText("");
+        sldAngle.setValue(2363);
         sldAngle.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sldAngleStateChanged(evt);
             }
         });
 
-        sldRandCof.setMaximum(3000);
-        sldRandCof.setValue(500);
+        sldRandCof.setMaximum(1000);
+        sldRandCof.setToolTipText("");
+        sldRandCof.setValue(100);
         sldRandCof.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sldRandCofStateChanged(evt);
@@ -1099,7 +1172,7 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
             .addGroup(wygladPanelLayout.createSequentialGroup()
                 .addGap(2, 2, 2)
                 .addGroup(wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAccelWart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAccelWart, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                     .addComponent(btnVelWart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnWpływLeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(wygladPanelLayout.createSequentialGroup()
@@ -1145,7 +1218,7 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
                 .addGroup(wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel33)
                     .addComponent(spnObstacleRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(413, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Wygląd", wygladPanel);
@@ -1184,9 +1257,6 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1194,7 +1264,10 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel9)
                                 .addComponent(txtFPS))
-                            .addComponent(jLabel8))))
+                            .addComponent(jLabel8)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -1259,9 +1332,9 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
     {
         return (int )this.spnObstacleRadius.getValue();
     }
-    public int getMinmalSeparate()
+    public double getMinmalSeparate()
     {
-        return (int )this.spnMinDist.getValue();
+        return this.sldMinDistSep.getValue()/10d;
     }
     public int getForagingDistance()
     {
@@ -1309,10 +1382,13 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
          lblRand.setText(Double.toString(sldRandCof.getValue()/(double)1000));
          lblAngle.setText(Double.toString((int)((sldAngle.getValue()/(double)1000)*360/3.15)));
          lblNeigh.setText(Double.toString(sldNeigh.getValue()/(double)10));
-         lblMaxAccel.setText(Double.toString(sldMaxAccel.getValue()/(double)10));
-         lblMaxSpeed.setText(Double.toString(sldMaxSpeed.getValue()/(double)100));
+         lblMaxAccel.setText(Double.toString(sldMaxAccel.getValue()/(double)10)+" m/s^2");
+         lblMaxSpeed.setText(Double.toString(sldMaxSpeed.getValue()/(double)100)+" m/s");
          lblMaxNeight.setText(Double.toString(sldNumNeight.getValue()));
          lblTimeReaction.setText(Double.toString(sldReactionTime.getValue())+"ms");
+         lblMass.setText(Double.toString(sldMass.getValue()/50d)+"kg");
+         lblSkala.setText("1 metr-"+Double.toString(sldSkala.getValue()/2d)+"px");
+         lblMinDistSep.setText(Double.toString(sldMinDistSep.getValue()/10d));
     }
     private void sldAnimSpeedStateChanged(ChangeEvent evt) {//GEN-FIRST:event_sldAnimSpeedStateChanged
        if ( mainBoids.simul!=null){
@@ -1322,7 +1398,8 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
 
     private void btnGenStadoActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnGenStadoActionPerformed
        fabric= new boidsFabric();
-       fabric.setBoidsParametrs(sldMaxSpeed.getValue()/100d,sldMaxAccel.getValue()/10d);
+       fabric.setBoidsParametrs(sldMaxSpeed.getValue()/100d,sldMaxAccel.getValue()/10d,sldMass.getValue()/50d,sldSkala.getValue()/2d);
+
        mainBoids.boids=fabric.createBoids(Integer.parseInt(this.txtNumSwarm.getText()),(int)this.textNumPred.getValue(),(double)this.sldPerHunger.getValue()/100);
     
        obsfabric = new obstaclesFabric();
@@ -1364,11 +1441,11 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
     }//GEN-LAST:event_txtNumSwarmPropertyChange
 
     private void sldMaxSpeedStateChanged(ChangeEvent evt) {//GEN-FIRST:event_sldMaxSpeedStateChanged
-       lblMaxSpeed.setText(Double.toString(sldMaxSpeed.getValue()/(double)100));
+       lblMaxSpeed.setText(Double.toString(sldMaxSpeed.getValue()/(double)100)+"m/s");
     }//GEN-LAST:event_sldMaxSpeedStateChanged
 
     private void sldMaxAccelStateChanged(ChangeEvent evt) {//GEN-FIRST:event_sldMaxAccelStateChanged
-       lblMaxAccel.setText(Double.toString(sldMaxAccel.getValue()/(double)10));
+       lblMaxAccel.setText(Double.toString(sldMaxAccel.getValue()/(double)10)+"m/s^2");
     }//GEN-LAST:event_sldMaxAccelStateChanged
 
     private void sldPredCofStateChanged(ChangeEvent evt) {//GEN-FIRST:event_sldPredCofStateChanged
@@ -1453,6 +1530,7 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
             mainBoids.simul.setAnimSpeed(sldAnimSpeed.getValue());
             mainBoids.simul.setRandCof(sldRandCof.getValue()/(double)1000);
             mainBoids.simul.setAvoidRec(sldAvoidRec.getValue());
+            mainBoids.simul.setSkala(sldSkala.getValue()/2d);
 
             Runnable runner = new threadSym(mainBoids.simul);
             Thread thread = new Thread(runner);
@@ -1569,7 +1647,7 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
     }//GEN-LAST:event_btnSterMysza1ItemStateChanged
 
     private void btnSterMysza1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSterMysza1ActionPerformed
-        // TODO add your handling code here:
+     
     }//GEN-LAST:event_btnSterMysza1ActionPerformed
 
     private void btnSterMysza3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnSterMysza3ItemStateChanged
@@ -1585,6 +1663,21 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
     private void btnSterMysza3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSterMysza3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSterMysza3ActionPerformed
+
+    private void sldMassStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldMassStateChanged
+        this.lblMass.setText(Double.toString(sldMass.getValue()/50d)+"kg");
+    }//GEN-LAST:event_sldMassStateChanged
+
+    private void sldSkalaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldSkalaStateChanged
+         if ( mainBoids.simul!=null){
+        mainBoids.simul.setSkala(sldSkala.getValue()/2d);
+       }
+        this.lblSkala.setText("1 metr-"+Double.toString(sldSkala.getValue()/2d)+"px");
+    }//GEN-LAST:event_sldSkalaStateChanged
+
+    private void sldMinDistSepStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldMinDistSepStateChanged
+      this.lblMinDistSep.setText(Double.toString(sldMinDistSep.getValue()/10d));
+    }//GEN-LAST:event_sldMinDistSepStateChanged
 
     private void panelMouseClickedOBS(java.awt.event.MouseEvent evt) {
       Obstacle przeszkoda=new Obstacle(evt.getX(),evt.getY(),getObstacleSize());
@@ -1715,6 +1808,8 @@ private void panelMouseClickedLD(java.awt.event.MouseEvent e) {
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1736,9 +1831,11 @@ private void panelMouseClickedLD(java.awt.event.MouseEvent e) {
     private javax.swing.JLabel lblHaveLeaderPer;
     private javax.swing.JLabel lblHunger;
     private javax.swing.JLabel lblLead;
+    private javax.swing.JLabel lblMass;
     private javax.swing.JLabel lblMaxAccel;
     private javax.swing.JLabel lblMaxNeight;
     private javax.swing.JLabel lblMaxSpeed;
+    private javax.swing.JLabel lblMinDistSep;
     private javax.swing.JLabel lblNeigh;
     private javax.swing.JLabel lblNumBoids;
     private javax.swing.JLabel lblNumCols;
@@ -1748,6 +1845,7 @@ private void panelMouseClickedLD(java.awt.event.MouseEvent e) {
     private javax.swing.JLabel lblPred;
     private javax.swing.JLabel lblRand;
     private javax.swing.JLabel lblSep;
+    private javax.swing.JLabel lblSkala;
     private javax.swing.JLabel lblTimeFood;
     private javax.swing.JLabel lblTimeReaction;
     private javax.swing.JPanel setPanelAdv;
@@ -1761,8 +1859,10 @@ private void panelMouseClickedLD(java.awt.event.MouseEvent e) {
     private javax.swing.JSlider sldCohCof;
     private javax.swing.JSlider sldForDist;
     private javax.swing.JSlider sldLeadCof;
+    private javax.swing.JSlider sldMass;
     private javax.swing.JSlider sldMaxAccel;
     private javax.swing.JSlider sldMaxSpeed;
+    private javax.swing.JSlider sldMinDistSep;
     private javax.swing.JSlider sldNeigh;
     private javax.swing.JSlider sldNumNeight;
     private javax.swing.JSlider sldPerHunger;
@@ -1770,10 +1870,10 @@ private void panelMouseClickedLD(java.awt.event.MouseEvent e) {
     private javax.swing.JSlider sldRandCof;
     private javax.swing.JSlider sldReactionTime;
     private javax.swing.JSlider sldSepCof;
+    private javax.swing.JSlider sldSkala;
     private javax.swing.JSlider sldTimeFood;
     private javax.swing.JSpinner spnBoidRadius;
     private javax.swing.JSpinner spnLeaderRadius;
-    private javax.swing.JSpinner spnMinDist;
     private javax.swing.JSpinner spnObstacleRadius;
     private javax.swing.JSpinner spnPredatorRadius;
     private javax.swing.JPanel statPanel;

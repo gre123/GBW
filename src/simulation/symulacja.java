@@ -24,6 +24,7 @@ public class symulacja {
   int animSpeed;
   public double katWidzenia;
   public double radiusNeigh=64;
+  double skala;
   double reactionTime;
   public vector2d globalAim=new vector2d(-1,-1);
   gridBucket siatkaKoszykow;
@@ -35,14 +36,14 @@ public class symulacja {
   public symulacja(ArrayList<boid> _boids, ArrayList<Obstacle> _obs, ArrayList<Food> _food){
   cofSep=1;cofAli=1;cofCoh=1;randCof=1;
   continueSimulation=false;
-
+  skala=10;
   boids=_boids;
   obs=_obs;
   food=_food;
   animSpeed=10;
   reactionTime=50;
   siatkaKoszykow =new gridBucket(12,8,80,80,1100,700);
-  pom=new ArrayList<Obstacle>();
+  pom=new ArrayList<>();
   }
   public void addBoid(boid agt){
       boids.add(agt);
@@ -77,7 +78,7 @@ public class symulacja {
  
   public ArrayList<boid> getNeighbourhoodOptm(boid osobnik){ // zmieniłem na public - Grzesiek
   ArrayList<boid> neigh=new ArrayList<>();
-  neigh.ensureCapacity(1000);
+  neigh.ensureCapacity(100);
   double alfa,d;
   ArrayList<boid> gridBoids=siatkaKoszykow.getArrayNeight(osobnik);
   
@@ -101,7 +102,7 @@ public class symulacja {
   
   public ArrayList<boid> getNeighbourhoodOptmTopological(boid osobnik, int maxNeigh ){ // zmieniłem na public - Grzesiek
   ArrayList<boid> neigh=new ArrayList<>();
-  neigh.ensureCapacity(1000);
+  neigh.ensureCapacity(100);
   double alfa,d;
   int inxMax=0;
   double maxDist=0;//Double.MAX_VALUE;
@@ -112,36 +113,25 @@ public class symulacja {
   int sizeX=1072;
   int sizeY=677;
   vector2d tempPosition;
+  double difx,dify;
   for(int i=0;i<gridBoids.size();i++){
-      if (abs(gridBoids.get(i).getBucketX()-bucX)<=1 && abs(gridBoids.get(i).getBucketY()-bucY)<=1){
-      tempPosition=gridBoids.get(i).getPosition().getVec();
-      }else if(gridBoids.get(i).getBucketX()-bucX>2 && gridBoids.get(i).getBucketY()-bucY>2){      
-      tempPosition=gridBoids.get(i).getPosition().getVec().add(new vector2d(-sizeX,-sizeY));
-      }else if(gridBoids.get(i).getBucketX()-bucX<-2 && gridBoids.get(i).getBucketY()-bucY<-2){
-      tempPosition=gridBoids.get(i).getPosition().getVec().add(new vector2d(sizeX,sizeY));
-      }else if(gridBoids.get(i).getBucketX()-bucX>2 && gridBoids.get(i).getBucketY()-bucY<-2){
-      tempPosition=gridBoids.get(i).getPosition().getVec().add(new vector2d(-sizeX,sizeY));
-      }else if(gridBoids.get(i).getBucketX()-bucX<-2 && gridBoids.get(i).getBucketY()-bucY>2){
-      tempPosition=gridBoids.get(i).getPosition().getVec().add(new vector2d(sizeX,-sizeY));
-      }else if(gridBoids.get(i).getBucketX()-bucX<-2){
-      tempPosition=gridBoids.get(i).getPosition().getVec().add(new vector2d(sizeX,0));
-      }else if(gridBoids.get(i).getBucketX()-bucX>2){
-      tempPosition=gridBoids.get(i).getPosition().getVec().add(new vector2d(-sizeX,0));
-      }else if(gridBoids.get(i).getBucketY()-bucY<-2){
-      tempPosition=gridBoids.get(i).getPosition().getVec().add(new vector2d(0,sizeY));
-      }else if(gridBoids.get(i).getBucketY()-bucY>2){
-      tempPosition=gridBoids.get(i).getPosition().getVec().add(new vector2d(0,-sizeY));
-      }else{
-      tempPosition=gridBoids.get(i).getPosition().getVec();
-      }
-          
+      difx=gridBoids.get(i).getBucketX()-bucX;
+      dify=gridBoids.get(i).getBucketY()-bucY;
+        tempPosition=gridBoids.get(i).getPosition().getVec();
+     if (abs(difx)<=1){}
+     else if (difx>2){tempPosition.add(new vector2d(-sizeX,0));}
+     else if (difx<-2){tempPosition.add(new vector2d(sizeX,0));}
+     if (abs(dify)<=1){}
+     else if (dify>2){tempPosition.add(new vector2d(0,sizeX));}
+     else if (dify<-2){tempPosition.add(new vector2d(0,sizeY));}
+
       d=osobnik.getPosition().getSDistance(tempPosition); 
       if (d<(radiusNeigh*radiusNeigh) && !osobnik.equals(gridBoids.get(i))){ 
          alfa=osobnik.calcAngle(tempPosition);
           if((180-alfa)<katWidzenia*180/3.1415){
               if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
-              if (maxDist<d && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
-              if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
+              else if (maxDist<d && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
+              else if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
               neigh.add(gridBoids.get(i));
               distannces.add(d);
               continue; 
@@ -149,30 +139,31 @@ public class symulacja {
       }else{continue;}   
       if  (d<(osobnik.radius*osobnik.radius*1.2) && !osobnik.equals(gridBoids.get(i))){
        if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
-              if (maxDist<d && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
-              if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
+       else if (maxDist<d && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
+       else if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
               neigh.add(gridBoids.get(i));
               distannces.add(d);
               continue;
       }
       if(osobnik.getVelocity().getLength()<osobnik.getMaxSpeed()/10 && !osobnik.equals(gridBoids.get(i))){ 
               if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
-             if (maxDist<d && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
-              if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
+              else if (maxDist<d && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
+              else if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
               neigh.add(gridBoids.get(i));
               distannces.add(d);
               continue;
       }
   } 
- // System.out.println("d- "+maxDist);
-  for(int i=0;i<neigh.size();i++){
+
+  for(int i=0;i<neigh.size();){
   if (distannces.get(i)>maxDist && neigh.get(i).getType()==1){
   distannces.remove(i);
   neigh.remove(i);
-  i--;
-  }
+  }else{i++;}
   
-  }mainBoids.stat.averageNumOfNeight+=neigh.size();
+  }
+
+  mainBoids.stat.averageNumOfNeight+=neigh.size();
   return neigh;
   }
   public void setParametrs(double aCof,double sCof,double cCof,double lCof,double pCof){
@@ -187,6 +178,12 @@ public class symulacja {
   public void setParametrs(double aCof,double sCof,double cCof,double lCof,double pCof,double avCof, double AvMode){
       cofSep=sCof;cofAli=aCof;cofCoh=cCof;leadCof=lCof;cofPred=pCof;cofAvoid=avCof;AvoidMode=AvMode;
   }
+  public void setSkala(double _skala){
+  skala=_skala;
+  }
+  public void setMass(double m){
+ // masa=
+  }
   public void setRandCof(double rCof){
       randCof=rCof;
   }
@@ -195,7 +192,7 @@ public class symulacja {
   }
   public void setNeightParametrs(double angle,double distance){
      katWidzenia=angle;
-     radiusNeigh=distance;
+     radiusNeigh=distance*skala;
   }
   public void setAnimSpeed(int speed){
       animSpeed=speed;
@@ -232,8 +229,8 @@ public class symulacja {
           Thread.currentThread().interrupt();
           }
       }
-      timeStep=((double)time)/(55-animSpeed);
-
+      timeStep=((double)time)/(55-animSpeed)/1000;
+//System.out.println(timeStep);
        for(int i=0;i<boids.size();i++){ 
           if (boids.get(i).getType()==2){continue;}
           tempBoids=getNeighbourhoodOptmTopological(boids.get(i),mainBoids.mainWin.getNumNeight());
@@ -263,16 +260,16 @@ public class symulacja {
             * rozbudowałem o sytuację wyjątkową jak flaga critical_sit jest ustawiona ma olewać wszystko oprócz wybranego wektora,
             * jest też flaga od żerowania, czyli olewka wszystkiego oprocz wybranych wektorów, chyba ze krytyczna sytuacja
             */
-           if(!critical_sit && !foraging_situation) boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred).add(avoid).add(toAim).add(forag));
+           if(!critical_sit && !foraging_situation){ boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred).add(avoid).add(toAim).add(forag).multi(skala));}
            else
            {
                if(foraging_situation && !critical_sit)
                {
-                   boids.get(i).setAcceleration(forag.add(sep));
+                   boids.get(i).setAcceleration(forag.add(sep).multi(skala));
                    foraging_situation=false;
                }
                else {
-                    boids.get(i).setAcceleration(pred);
+                    boids.get(i).setAcceleration(pred.multi(skala));
                     critical_sit=false;
                     foraging_situation=false;
                }
@@ -284,7 +281,7 @@ public class symulacja {
             predH=mainBoids.predators.get(i).predHunt(tempBoids,siatkaKoszykow.getArrayNeightB(mainBoids.predators.get(i)));
             vector2d Sep=mainBoids.predators.get(i).separatePredator(tempBoids);
             avoid=mainBoids.predators.get(i).better_avoid(pom,AvoidMode, AvoidRec);
-            mainBoids.predators.get(i).setAcceleration(Sep.add(predH).add(avoid));
+            mainBoids.predators.get(i).setAcceleration(Sep.add(predH).add(avoid).multi(skala));
        }
              
        for(int i=0;i<boids.size();i++){

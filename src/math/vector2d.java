@@ -23,6 +23,9 @@ public class vector2d {
     public double getLength(){
         return sqrt(x*x+y*y);
     }
+    public double getSLength(){
+        return x*x+y*y;
+    }
     public vector2d normalize(){
     double d = getLength();
     if (d==0){return this;}
@@ -41,8 +44,7 @@ public class vector2d {
     }
     public double getSDistance(boid b){
         double dX=(x-b.getX());
-        double dY=(y-b.getY());
-       
+        double dY=(y-b.getY());   
     return dX*dX+dY*dY;
     }
     public double getSDistance(vector2d _pos){
@@ -56,28 +58,28 @@ public class vector2d {
     double dist11,dist22,dist33,dist44,dist00 ;
     vector2d close;
     double bestDist;
-    dist1=this.getDistance(_pos);
-    dist2=this.getDistance(_pos.getVec().add(new vector2d(sizeX,0)));
-    if (dist1<dist2){bestDist=dist1;close=_pos;}else{bestDist=dist2;close=_pos.getVec().add(new vector2d(sizeX,0));}
+    dist1=this.getSDistance(_pos);
+    dist2=this.getSDistance(_pos.getVec().add(new vector2d(sizeX,0)));
+    if (dist1<dist2){bestDist=dist1;close=_pos.getVec();}else{bestDist=dist2;close=_pos.getVec().add(new vector2d(sizeX,0));}
     
-    dist3=this.getDistance(_pos.getVec().add(new vector2d(0,sizeY)));
+    dist3=this.getSDistance(_pos.getVec().add(new vector2d(0,sizeY)));
     if (bestDist>dist3){bestDist=dist3;close=_pos.getVec().add(new vector2d(0,sizeY));}
-    dist4=this.getDistance(_pos.getVec().add(new vector2d(sizeX,sizeY)));
+    dist4=this.getSDistance(_pos.getVec().add(new vector2d(sizeX,sizeY)));
     if (bestDist>dist4){bestDist=dist4;close=_pos.getVec().add(new vector2d(sizeX,sizeY));}
     
-    dist00=this.getDistance(_pos.getVec().add(new vector2d(sizeX,-sizeY)));
+    dist00=this.getSDistance(_pos.getVec().add(new vector2d(sizeX,-sizeY)));
     if (bestDist>dist00){bestDist=dist00;close=_pos.getVec().add(new vector2d(sizeX,-sizeY));}
     
-    dist11=this.getDistance(_pos.getVec().add(new vector2d(-sizeX,sizeY)));
+    dist11=this.getSDistance(_pos.getVec().add(new vector2d(-sizeX,sizeY)));
     if (bestDist>dist11){bestDist=dist11;close=_pos.getVec().add(new vector2d(-sizeX,sizeY));}
     
-    dist22=this.getDistance(_pos.getVec().add(new vector2d(-sizeX,0)));
+    dist22=this.getSDistance(_pos.getVec().add(new vector2d(-sizeX,0)));
     if (bestDist>dist22){bestDist=dist22;close=_pos.getVec().add(new vector2d(-sizeX,0));}
     
-    dist33=this.getDistance(_pos.getVec().add(new vector2d(0,-sizeY)));
+    dist33=this.getSDistance(_pos.getVec().add(new vector2d(0,-sizeY)));
     if (bestDist>dist33){bestDist=dist33;close=_pos.getVec().add(new vector2d(0,-sizeY));}
  
-    dist44=this.getDistance(_pos.getVec().add(new vector2d(-sizeX,-sizeY)));
+    dist44=this.getSDistance(_pos.getVec().add(new vector2d(-sizeX,-sizeY)));
     if (bestDist>dist44){bestDist=dist44;close=_pos.getVec().add(new vector2d(-sizeX,-sizeY));}
     
     return close;
