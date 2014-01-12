@@ -43,7 +43,7 @@ public class boidsFabric {
         int leadMovement=mainBoids.mainWin.getLeaderTypeMovement();
         int x=0,y=0;
         int r;
-        double wsp=(1080*680)/total;
+        double wsp=(1077*680)/n;
         wsp=sqrt(wsp);
         boids.ensureCapacity(total+1);
         int boidRadius=mainBoids.mainWin.getBoidSize();

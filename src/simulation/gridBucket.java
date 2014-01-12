@@ -10,13 +10,11 @@ import math.vector2d;
 public class gridBucket {
       ArrayList<ArrayList <bucket>> bucketList; 
       int x,y;
-      double sizeX,sizeY;
+      //double sizeX,sizeY;
       double maxX,maxY;
-      public gridBucket(int _x,int _y,double _sizeX, double _sizeY,double _maxX, double _maxY){
+      public gridBucket(int _x,int _y,double _maxX, double _maxY){
       x=_x;
       y=_y;
-      sizeX=_sizeX; 
-      sizeY=_sizeY;
       maxX=_maxX;
       maxY=_maxY;
       
@@ -29,9 +27,10 @@ public class gridBucket {
       }
       }
       public void writeToGrid(ArrayList<boid> boids){
-          for(int i=0;i<boids.size();i++){
-          int posX,posY;    
-          vector2d pos=boids.get(i).getPosition().getVec();
+          int posX,posY;
+           vector2d pos;
+          for(int i=0;i<boids.size();i++){  
+          pos=boids.get(i).getPosition();
           posX=(int)(pos.getX()/maxX*(x));
           posY=(int)(pos.getY()/maxY*(y));
           boids.get(i).setBucket(posX,posY);
@@ -51,7 +50,7 @@ public class gridBucket {
       }
       public ArrayList <boid> getArrayNeight(boid osobnik){
       ArrayList <boid> temp=new ArrayList <>();
-      temp.ensureCapacity(200);
+      temp.ensureCapacity(400);
       int dX=osobnik.getBucketX()+2;
       int dY=osobnik.getBucketY()+2;
       for (int i=dX-3;i<dX;i++){
@@ -66,23 +65,26 @@ public class gridBucket {
       
       public ArrayList <boid> getArrayNeightEdge(boid osobnik){
       ArrayList <boid> temp=new ArrayList <>();
-      temp.ensureCapacity(200);
+      temp.ensureCapacity(400);
       int dX=osobnik.getBucketX()+2;
       int dY=osobnik.getBucketY()+2;
-      
+      temp.addAll(bucketList.get(dX-2).get(dY-2).koszyk);
       for (int i=dX-3;i<dX;i++){      
           for (int j=dY-3;j<dY;j++){
-             if (j<0 && i<0){temp.addAll(bucketList.get(x-1).get(y-1).koszyk);continue;}
-             if (j>=y && i<0){temp.addAll(bucketList.get(x-1).get(0).koszyk);continue;}
-             if (i>=x && j<0){temp.addAll(bucketList.get(0).get(y-1).koszyk);continue;}
-             if (j>=y && i>=x){temp.addAll(bucketList.get(0).get(0).koszyk);continue;}
-             if (j>=y){temp.addAll(bucketList.get(i).get(0).koszyk);continue;}
-             if (i>=x){temp.addAll(bucketList.get(0).get(j).koszyk);continue;}
-             if (j<0){temp.addAll(bucketList.get(0).get(y-1).koszyk);continue;}
-             if (i<0){temp.addAll(bucketList.get(x-1).get(j).koszyk);continue;}
-             temp.addAll(bucketList.get(i).get(j).koszyk);
+             if (i==dX-2 && j==dY-2){continue;}
+             if (j>=0 && j<y && i>=0 && i<x){temp.addAll(bucketList.get(i).get(j).koszyk);}  
+             else if (j<0 && i<0){temp.addAll(bucketList.get(x-1).get(y-1).koszyk);continue;}
+             else if (j>=y && i<0){temp.addAll(bucketList.get(x-1).get(0).koszyk);continue;}
+             else if (i>=x && j<0){temp.addAll(bucketList.get(0).get(y-1).koszyk);continue;}
+             else if (j>=y && i>=x){temp.addAll(bucketList.get(0).get(0).koszyk);continue;}
+             else if (j>=y){temp.addAll(bucketList.get(i).get(0).koszyk);continue;}
+             else if (i>=x){temp.addAll(bucketList.get(0).get(j).koszyk);continue;}
+             else if (j<0){temp.addAll(bucketList.get(0).get(y-1).koszyk);continue;}
+             else if (i<0){temp.addAll(bucketList.get(x-1).get(j).koszyk);continue;}
+             //temp.addAll(bucketList.get(i).get(j).koszyk);
           }
       }
+     // System.out.println(temp.size());
       return temp;
       }
       

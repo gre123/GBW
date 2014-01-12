@@ -80,7 +80,7 @@ public class vector2d {
     if (bestDist>dist33){bestDist=dist33;close=_pos.getVec().add(new vector2d(0,-sizeY));}
  
     dist44=this.getSDistance(_pos.getVec().add(new vector2d(-sizeX,-sizeY)));
-    if (bestDist>dist44){bestDist=dist44;close=_pos.getVec().add(new vector2d(-sizeX,-sizeY));}
+    if (bestDist>dist44){close=_pos.getVec().add(new vector2d(-sizeX,-sizeY));}
     
     return close;
     }

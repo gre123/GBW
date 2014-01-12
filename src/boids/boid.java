@@ -74,7 +74,8 @@ public class boid {
             dist = this.position.getDistance(bestPos);
             acumDist+=dist;
              if(dist>separateRadius){continue;}
-            if (dist < minimalDistance) {             
+            if (dist <= minimalDistance) {
+                velocity.multi(0.00);
                 pos=this.getPosition().getVec().minus(bestPos);
                 return pos.normalize();
             }
@@ -106,19 +107,14 @@ public class boid {
             if(boids.get(i).getType()==2){continue;}
             sDist = this.position.getSDistance(boids.get(i));
             if (sDist < minimalDistance * minimalDistance*5) {
-                if (sDist == 0) {sDist = 0.000000001;}
+             //   if (sDist == 0) {sDist = 0.000000001;}
                 pos=this.getPosition().getVec().minus(boids.get(i).position);
                 pos.div(sDist);
                 value.add(pos);k++;
             }
         }
-        if (k > 0) {
-            value.div(k);
-            //colorSeparB=1-(float)(pos.getLength()/(minimalDistance * minimalDistance));
-        } else {
-            return value;
-        }
 
+        value.div(k);
         return value.normalize();
     
     }
@@ -127,8 +123,7 @@ public class boid {
         if (type == 3 || type == 2 || boids.isEmpty() || type == 0) {return pos;}
         int k=0;
         for (int i = 0; i < boids.size(); i++) {
-            if (boids.get(i).type==1){
-            pos.add(boids.get(i).velocity);k++;}
+            if (boids.get(i).type==1){pos.add(boids.get(i).velocity);k++;}
         }      
             if (k>0){
             pos.div(k).minus(this.velocity);
@@ -164,18 +159,18 @@ public class boid {
     }
 
     public vector2d followLeader(ArrayList<boid> boids) {
-        vector2d value = new vector2d(0, 0); 
-        vector2d bestPos;
-        if (type ==0 && boids.size()<5){velocity.multi(0.5);}
+        vector2d value = new vector2d(0, 0);
         
+        if (type ==0 && boids.size()<5){velocity.multi(0.5);return value;} 
         if (type == 3 || type == 2 || type == 0 || boids.isEmpty()) {return value; }
+        vector2d bestPos;
         boid leader = null;
         this.colorLeadB=0;
         double dist;
         double minDist = Double.MAX_VALUE;
         for (int i = 0; i < boids.size(); i++) {
             if (boids.get(i).type == 0) {
-                bestPos=this.position.getCloserPosition(boids.get(i).position, 1072, 677);
+                bestPos=this.position.getCloserPosition(boids.get(i).position, mainBoids.panelSizeX, mainBoids.panelSizeY);
                 dist = this.getPosition().getDistance(bestPos);
                 if (dist < minDist) {
                     leader = boids.get(i);
@@ -188,12 +183,12 @@ public class boid {
             dist=minDist;
             this.colorLeadB=1-(float)(dist/mainBoids.simul.radiusNeigh);
             //pos.minus(leader.getVelocity().getVec().normalize().multi(15));
-            bestPos=this.position.getCloserPosition(leader.position, 1072, 677);
+            bestPos=this.position.getCloserPosition(leader.position, mainBoids.panelSizeX, mainBoids.panelSizeY);
             value = bestPos.getVec().minus(this.position);
-            if (dist > minimalDistance*2) {
+            if (dist > skala*5) {
                 return value.div(dist);
             } else {
-                return value.normalize().multi(dist / minimalDistance*2);
+                return value.div(dist).multi(dist / (skala*5));
             }
         } else {
             return value;
@@ -305,7 +300,7 @@ public class boid {
 
     public vector2d goToAim(vector2d aim) {
         vector2d value = new vector2d(0, 0);
-        if (this.type != 0) {
+        if (this.type != 0) {// zrobic opcje dla wszystkich
             return value;
         }
 
@@ -315,8 +310,8 @@ public class boid {
                 return value;
             }
             value = aims.get(indexAims).getVec().minus(this.position);
-            d = value.getLength();
-            if (d < 28) {
+            d = value.getSLength();
+            if (d < 5*skala*5*skala) {
                 if (indexAims >= aims.size() - 1) {
                     indexAims = 0;
                 } else {
@@ -325,14 +320,14 @@ public class boid {
             }
         } else {
             value = aim.getVec().minus(this.position);
-            d = value.getLength();
+            d = value.getSLength();
 
         }
 
-        if (d > 60) {
+        if (d >10*skala*10*skala) {
             value.normalize();
         } else {
-            value.normalize().multi(d / 60);
+            value.normalize().multi(d / (10*skala*10*skala));
         }
 
         return value;
@@ -390,7 +385,7 @@ public class boid {
                         kat=this.calcAngle((jedzonko.get(i).fpos));
                         if(s<25*25) seeFood.add(jedzonko.get(i));
                         else {
-                            if((180-kat)<kat_widzenia*180/3.1415)
+                            if((3.1415-kat)<kat_widzenia)
                             {
                                  seeFood.add(jedzonko.get(i));
                             }
@@ -436,7 +431,7 @@ public class boid {
     public void applyForce(double step) {
      //   System.out.println("a"+velocity.getLength());
         velocity.add(acceleration.multi(1));
-        if (velocity.getLength() > maxSpeed) {    
+        if (velocity.getSLength() > maxSpeed*maxSpeed) {    
             velocity.normalize();
             velocity.multi(maxSpeed);
             colorVelB=0;
@@ -480,8 +475,8 @@ public class boid {
     public double calcAngle(vector2d _pos) {
         vector2d pos = this.getPosition().getVec();
         pos.minus(_pos);
-        double k1 = (pos.getX() * this.velocity.getX() + pos.getY() * this.velocity.getY()) / (pos.getLength() * this.velocity.getLength());
-        k1 = trigonometric.acosLUT(k1) * 180 / 3.1415;
+        double k1 = (pos.getX() * this.velocity.getX() + pos.getY() * this.velocity.getY()) / (sqrt(pos.getSLength() * this.velocity.getSLength()));
+        k1 = trigonometric.acosLUT(k1);
         return k1;
     }
 
@@ -494,7 +489,8 @@ public class boid {
         if (_accel.getSLength() > maxForce*maxForce) {
             _accel.normalize();
             _accel.multi(maxForce);
-        }_accel.div(masa);
+        }
+        _accel.div(masa);
         this.acceleration = _accel;
     colorAccelB=1-(float)(_accel.getSLength()/(maxForce*maxForce));
     }
@@ -525,10 +521,9 @@ public class boid {
     public int getType() {
         return type;
     }
-    public boolean setBucket(int _x, int _y) {
+    public void setBucket(int _x, int _y) {
         koszX = _x;
         koszY = _y;
-        return true;
     }
     public boolean checkBucketXY(int _x, int _y) {
         return koszX != _x || koszY != _y;

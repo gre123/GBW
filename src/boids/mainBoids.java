@@ -22,14 +22,15 @@ public class mainBoids {
     public static symulacja simul = null;
     public static statistic stat = null;
     public static trigonometric tryg;
-
+    public static int panelSizeX,panelSizeY;
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
+        panelSizeX=1072;
+        panelSizeX=677;
         mainWin = new mainWindow();
         mainWin.setVisible(true);
         tryg = new trigonometric(20, 4000);

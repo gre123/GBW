@@ -43,7 +43,7 @@ public class symulacja {
   food=_food;
   animSpeed=10;
   reactionTime=50;
-  siatkaKoszykow =new gridBucket(11,7,80,80,1100,700);
+  siatkaKoszykow =new gridBucket(11,7,1080,680);
   pom=new ArrayList<>();
   }
   public void addBoid(boid agt){
@@ -89,7 +89,7 @@ public class symulacja {
       
       if (d<(radiusNeigh*radiusNeigh) && !osobnik.equals(gridBoids.get(i))){ 
          alfa=osobnik.calcAngle(gridBoids.get(i).getPosition());
-          if((180-alfa)<katWidzenia*180/3.1415){
+          if((3.1415-alfa)<katWidzenia){
               neigh.add(gridBoids.get(i));continue;
             }
       }   
@@ -104,7 +104,7 @@ public class symulacja {
   public ArrayList<boid> getNeighbourhoodOptmTopological(boid osobnik, int maxNeigh ){ // zmieniłem na public - Grzesiek
   ArrayList<boid> neigh=new ArrayList<>();
   neigh.ensureCapacity(100);
-  double alfa,d;
+  double alfa,d,td;
   int inxMax=0;
   double maxDist=0;//Double.MAX_VALUE;
   ArrayList<boid> gridBoids=siatkaKoszykow.getArrayNeightEdge(osobnik);
@@ -121,47 +121,51 @@ public class symulacja {
       dify=gridBoids.get(i).getBucketY()-bucY;
         tempPosition=gridBoids.get(i).getPosition().getVec();
      if (abs(difx)<=1){}
-     else if (difx>2){tempPosition.add(new vector2d(-sizeX,0));}
-     else if (difx<-2){tempPosition.add(new vector2d(sizeX,0));}
+     else if (difx>2){tempPosition.add(-sizeX,0);}
+     else if (difx<-2){tempPosition.add(sizeX,0);}
      if (abs(dify)<=1){}
-     else if (dify>2){tempPosition.add(new vector2d(0,sizeX));}
-     else if (dify<-2){tempPosition.add(new vector2d(0,sizeY));}
+     else if (dify>2){tempPosition.add(0,-sizeY);}
+     else if (dify<-2){tempPosition.add(0,sizeY);}
 
-      d=osobnik.getPosition().getSDistance(tempPosition); 
+      d=osobnik.getPosition().getSDistance(tempPosition);
+      td=d;
       if (d<(radiusNeigh*radiusNeigh) && !osobnik.equals(gridBoids.get(i))){ 
          alfa=osobnik.calcAngle(tempPosition);
-          if((180-alfa)<katWidzenia*180/3.1415){
+         //System.out.println((3.1415-alfa)+"+"+katWidzenia);
+          if((3.1415-alfa)<katWidzenia){
+              
+              d=d*(3.1415-alfa)/3.1415;
               if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
               else if (maxDist<d && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
               //else if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
               neigh.add(gridBoids.get(i));
               distannces.add(d);
               distannces1.add(d);
-              
+
               continue; 
             }
       }else{continue;}   
-      if  (d<(osobnik.getMinimalDist()*osobnik.getMinimalDist()) && !osobnik.equals(gridBoids.get(i))){
-       if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
-       else if (maxDist<d && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
+      if  (td<(osobnik.getMinimalDist()*osobnik.getMinimalDist()) && !osobnik.equals(gridBoids.get(i))){
+       if (maxDist<td && neigh.size()<maxNeigh){maxDist=d;}
+       else if (maxDist<td && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
        //else if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
               neigh.add(gridBoids.get(i));
-              distannces.add(d);
-              distannces1.add(d);
+              distannces.add(td);
+              distannces1.add(td);
               continue;
       }
-      if(osobnik.getVelocity().getLength()<osobnik.getMaxSpeed()/10 && !osobnik.equals(gridBoids.get(i))){ 
+      if(osobnik.getVelocity().getSLength()<osobnik.getMaxSpeed()/(100*skala) && !osobnik.equals(gridBoids.get(i))){ 
               if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
               else if (maxDist<d && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
               //else if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
               neigh.add(gridBoids.get(i));
-              distannces.add(d);
-              distannces1.add(d);
+              distannces.add(td);
+              distannces1.add(td);
               continue;
       }
   } 
  
-  if (distannces.size()>=maxNeigh){
+  if (distannces.size()>maxNeigh){
        
  Collections.sort(distannces);
  maxDist=distannces.get(maxNeigh-1);
@@ -243,8 +247,6 @@ public class symulacja {
        for(int i=0;i<boids.size();i++){ 
           if (boids.get(i).getType()==2){continue;}
           tempBoids=getNeighbourhoodOptmTopological(boids.get(i),mainBoids.mainWin.getNumNeight());
-          // System.out.println(tempBoids.size());
-          //if (tempBoids.size()>0){boids.get(i).radius=20;}
           sep= boids.get(i).separate(tempBoids);
           ali= boids.get(i).alignment(tempBoids);
           coh= boids.get(i).cohesion(tempBoids);
@@ -262,8 +264,6 @@ public class symulacja {
           rand.multi(randCof);
           pred.multi(cofPred);
           avoid.multi(cofAvoid);
-           /* Dla drapieżnika wyłączony wektor losowy */
-//           if(boids.get(i).getType()==2) rand=new vector2d(0,0);
           
            /**
             * rozbudowałem o sytuację wyjątkową jak flaga critical_sit jest ustawiona ma olewać wszystko oprócz wybranego wektora,

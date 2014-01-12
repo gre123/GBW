@@ -1535,6 +1535,7 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
             Runnable runner = new threadSym(mainBoids.simul);
             Thread thread = new Thread(runner);
             thread.start();
+
         }else{
             this.btnStart.setText("Rozpocznij symulację");
             mainBoids.simul.continueSimulation=false;
@@ -1558,19 +1559,19 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
     }//GEN-LAST:event_sldAvoidCofStateChanged
 
     private void formKeyTyped(KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_formKeyTyped
 
     private void combpredMoveActionPerformed(ActionEvent evt) {//GEN-FIRST:event_combpredMoveActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_combpredMoveActionPerformed
 
     private void combLeadMoveActionPerformed(ActionEvent evt) {//GEN-FIRST:event_combLeadMoveActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_combLeadMoveActionPerformed
 
     private void combpredEscapeActionPerformed(ActionEvent evt) {//GEN-FIRST:event_combpredEscapeActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_combpredEscapeActionPerformed
 
     private void sldAvoidModeStateChanged(ChangeEvent evt) {//GEN-FIRST:event_sldAvoidModeStateChanged
