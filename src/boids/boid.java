@@ -61,15 +61,14 @@ public class boid {
 
     public vector2d separate(ArrayList<boid> boids) {
         vector2d value = new vector2d(0, 0);
-        vector2d bestPos;
-        if (type == 3 || type == 0 || type == 2 || boids.isEmpty()) {return value;}
-        vector2d pos;
+        if (type == 3 ||  type == 2 || boids.isEmpty()) {return value;}
+        vector2d pos,bestPos;
         colorSeparB=0;
         int k = 0;
         double dist;
         double acumDist=0;
         for (int i = 0; i < boids.size(); i++) {
-            bestPos=this.position.getCloserPosition(boids.get(i).position, 1072, 677);
+            bestPos=this.position.getCloserPosition(boids.get(i).position, mainBoids.panelSizeX, mainBoids.panelSizeY);
   
             dist = this.position.getDistance(bestPos);
             acumDist+=dist;
@@ -120,10 +119,10 @@ public class boid {
     }
     public vector2d alignment(ArrayList<boid> boids) {
         vector2d pos = new vector2d(0, 0);
-        if (type == 3 || type == 2 || boids.isEmpty() || type == 0) {return pos;}
+        if (type == 3 || type == 2 || boids.isEmpty() ) {return pos;}
         int k=0;
         for (int i = 0; i < boids.size(); i++) {
-            if (boids.get(i).type==1){pos.add(boids.get(i).velocity);k++;}
+            if (boids.get(i).type<2){pos.add(boids.get(i).velocity);k++;}
         }      
             if (k>0){
             pos.div(k).minus(this.velocity);
@@ -134,11 +133,11 @@ public class boid {
         vector2d pos = new vector2d(0, 0);
         vector2d bestPos;
         
-        if (type == 3 || type == 2 || type == 0 || boids.isEmpty()) {return pos;}
+        if (type == 3 || type == 2 ||  boids.isEmpty()) {return pos;}
         int k=0;
         for (int i = 0; i < boids.size(); i++) {
-            if (boids.get(i).type==1){
-            bestPos=this.position.getCloserPosition(boids.get(i).position, 1072, 677); 
+            if (boids.get(i).type<2){
+            bestPos=this.position.getCloserPosition(boids.get(i).position, mainBoids.panelSizeX, mainBoids.panelSizeY); 
              if( this.position.getSDistance(bestPos)>minimalDistance*minimalDistance ){//pominiecie najblizszych
             pos.add(bestPos);
             k++;
@@ -373,7 +372,7 @@ public class boid {
         double kat;
         Food target;
         vector2d jedziem=new vector2d(0,0);
-        ArrayList<Food> seeFood=new ArrayList<Food>();
+        ArrayList<Food> seeFood=new ArrayList<>();
         if(this.getType()==2) return jedziem;
         
         if(this.hungry) {

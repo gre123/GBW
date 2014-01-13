@@ -53,10 +53,10 @@ public class gridBucket {
       temp.ensureCapacity(400);
       int dX=osobnik.getBucketX()+2;
       int dY=osobnik.getBucketY()+2;
+      temp.addAll(bucketList.get(dX-2).get(dY-2).koszyk);
       for (int i=dX-3;i<dX;i++){
-          if (i<0 || i>=x){continue;}
           for (int j=dY-3;j<dY;j++){
-               if (j<0 || j>=y){continue;}
+              if (i==dX-2 && j==dY-2){continue;}
                temp.addAll(bucketList.get(i).get(j).koszyk);//tu moze bez kopiowania calych koszyków
           }
       }
@@ -68,24 +68,35 @@ public class gridBucket {
       temp.ensureCapacity(400);
       int dX=osobnik.getBucketX()+2;
       int dY=osobnik.getBucketY()+2;
+      int tx=0,ty=0;
       temp.addAll(bucketList.get(dX-2).get(dY-2).koszyk);
+      
       for (int i=dX-3;i<dX;i++){      
           for (int j=dY-3;j<dY;j++){
              if (i==dX-2 && j==dY-2){continue;}
-             if (j>=0 && j<y && i>=0 && i<x){temp.addAll(bucketList.get(i).get(j).koszyk);}  
-             else if (j<0 && i<0){temp.addAll(bucketList.get(x-1).get(y-1).koszyk);continue;}
-             else if (j>=y && i<0){temp.addAll(bucketList.get(x-1).get(0).koszyk);continue;}
-             else if (i>=x && j<0){temp.addAll(bucketList.get(0).get(y-1).koszyk);continue;}
-             else if (j>=y && i>=x){temp.addAll(bucketList.get(0).get(0).koszyk);continue;}
-             else if (j>=y){temp.addAll(bucketList.get(i).get(0).koszyk);continue;}
-             else if (i>=x){temp.addAll(bucketList.get(0).get(j).koszyk);continue;}
-             else if (j<0){temp.addAll(bucketList.get(0).get(y-1).koszyk);continue;}
-             else if (i<0){temp.addAll(bucketList.get(x-1).get(j).koszyk);continue;}
-             //temp.addAll(bucketList.get(i).get(j).koszyk);
+             
+             if (j<0) {ty=y-1;}
+             else if (j>=y) {ty=0;}
+             else  {ty=j;}
+              
+             if (i<0) {tx=x-1;}
+             else if (i>=x) {tx=0;}
+             else {tx=i;}
+             
+             temp.addAll(bucketList.get(tx).get(ty).koszyk);  
           }
       }
-     // System.out.println(temp.size());
       return temp;
+      }
+      public ArrayList <boid> getArrayNeightCombinate(boid osobnik){
+
+      int dX=osobnik.getBucketX();
+      int dY=osobnik.getBucketY();
+      
+      if (dX>0 && dX<x-1 && dY>0 && dY<y-1){
+      return getArrayNeight(osobnik);
+      }else { return getArrayNeightEdge(osobnik);}
+      
       }
       
       //-------------------------------------------

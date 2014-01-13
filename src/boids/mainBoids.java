@@ -30,7 +30,7 @@ public class mainBoids {
             ex.printStackTrace();
         }
         panelSizeX=1072;
-        panelSizeX=677;
+        panelSizeY=677;
         mainWin = new mainWindow();
         mainWin.setVisible(true);
         tryg = new trigonometric(20, 4000);
