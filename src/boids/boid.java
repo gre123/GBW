@@ -68,8 +68,8 @@ public class boid {
         double dist;
         double acumDist=0;
         for (int i = 0; i < boids.size(); i++) {
-            bestPos=this.position.getCloserPosition(boids.get(i).position, mainBoids.panelSizeX, mainBoids.panelSizeY);
-  
+            //bestPos=this.position.getCloserPosition(boids.get(i).position, mainBoids.panelSizeX, mainBoids.panelSizeY);
+            bestPos=this.getBestPosition(boids.get(i), mainBoids.panelSizeX, mainBoids.panelSizeX);
             dist = this.position.getDistance(bestPos);
             acumDist+=dist;
              if(dist>separateRadius){continue;}
@@ -137,7 +137,8 @@ public class boid {
         int k=0;
         for (int i = 0; i < boids.size(); i++) {
             if (boids.get(i).type<2){
-            bestPos=this.position.getCloserPosition(boids.get(i).position, mainBoids.panelSizeX, mainBoids.panelSizeY); 
+            //bestPos=this.position.getCloserPosition(boids.get(i).position, mainBoids.panelSizeX, mainBoids.panelSizeY); 
+            bestPos=this.getBestPosition(boids.get(i), mainBoids.panelSizeX, mainBoids.panelSizeY);
              if( this.position.getSDistance(bestPos)>minimalDistance*minimalDistance ){//pominiecie najblizszych
             pos.add(bestPos);
             k++;
@@ -169,7 +170,8 @@ public class boid {
         double minDist = Double.MAX_VALUE;
         for (int i = 0; i < boids.size(); i++) {
             if (boids.get(i).type == 0) {
-                bestPos=this.position.getCloserPosition(boids.get(i).position, mainBoids.panelSizeX, mainBoids.panelSizeY);
+                //bestPos=this.position.getCloserPosition(boids.get(i).position, mainBoids.panelSizeX, mainBoids.panelSizeY);
+                  bestPos=this.getBestPosition(boids.get(i), mainBoids.panelSizeX, mainBoids.panelSizeY);
                 dist = this.getPosition().getDistance(bestPos);
                 if (dist < minDist) {
                     leader = boids.get(i);
@@ -182,7 +184,8 @@ public class boid {
             dist=minDist;
             this.colorLeadB=1-(float)(dist/mainBoids.simul.radiusNeigh);
             //pos.minus(leader.getVelocity().getVec().normalize().multi(15));
-            bestPos=this.position.getCloserPosition(leader.position, mainBoids.panelSizeX, mainBoids.panelSizeY);
+           // bestPos=this.position.getCloserPosition(leader.position, mainBoids.panelSizeX, mainBoids.panelSizeY);
+            bestPos=this.getBestPosition(leader, mainBoids.panelSizeX, mainBoids.panelSizeY);
             value = bestPos.getVec().minus(this.position);
             if (dist > skala*5) {
                 return value.div(dist);
@@ -444,8 +447,8 @@ public class boid {
         position.add(temp.multi(step));
         //velocity.multi(0.9);
         //System.out.println(velocity.getLength());
-        double maxX = 1072;
-        double maxY = 677;
+        double maxX = mainBoids.panelSizeX;
+        double maxY = mainBoids.panelSizeY;
         // velocity.multi(0.1);
         if (position.getX() < 0) {
             position.setX(maxX + position.getX());
@@ -492,6 +495,22 @@ public class boid {
         _accel.div(masa);
         this.acceleration = _accel;
     colorAccelB=1-(float)(_accel.getSLength()/(maxForce*maxForce));
+    }
+    public vector2d getBestPosition(boid osobnik,int sizeX,int sizeY){
+     vector2d tempPosition;
+     int bucX=this.getBucketX();
+     int bucY=this.getBucketY();
+     int difx=osobnik.getBucketX()-bucX;
+     int dify=osobnik.getBucketY()-bucY;
+        tempPosition=osobnik.getPosition().getVec();
+        
+     if (abs(difx)<=1){}
+     else if (difx>2){tempPosition.add(-sizeX,0);}
+     else if (difx<-2){tempPosition.add(sizeX,0);}
+     if (abs(dify)<=1){}
+     else if (dify>2){tempPosition.add(0,-sizeY);}
+     else if (dify<-2){tempPosition.add(0,sizeY);}
+     return tempPosition;
     }
     public vector2d getPosition() {
         return this.position;

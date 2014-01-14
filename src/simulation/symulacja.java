@@ -52,32 +52,8 @@ public class symulacja {
   public void changeAnimSpeed(int speed){
       animSpeed=speed;
   }
-  private ArrayList<boid> getNeighbourhood(boid osobnik){
-  ArrayList<boid> neigh=new ArrayList<>();
-      double alfa=osobnik.calcAngle();
-      double mian;
-      double k2,d;
-
-  for(int i=0;i<boids.size();i++){
-      d=osobnik.getPosition().getSDistance(boids.get(i));
-      if  (d<(18*18) &&osobnik!=boids.get(i) ){
-       neigh.add(boids.get(i));continue;//jezeli jest bardzo blisko to widzi go nawet za plecami
-      }
-      if ( d<(radiusNeigh*radiusNeigh) &&osobnik!=boids.get(i) ){
-          if (osobnik.getVelocity().getLength()<osobnik.getMaxSpeed()/5){//jesli osobnik sie prawie nie porusza to ma oczy dookola glowy
-              neigh.add(boids.get(i));
-          }else{
-             mian=(boids.get(i).getX()-osobnik.getX());
-          if (mian==0){mian=0.0000000001;}
-              k2=Math.atan2((boids.get(i).getY()-osobnik.getY()),mian);
-          if(abs(alfa-k2)<katWidzenia){neigh.add(boids.get(i));}
-          }
-      }
-  }
-  return neigh;//to tylko pogladowo narazie
-  }
  
-  public ArrayList<boid> getNeighbourhoodOptm(boid osobnik){ // zmieniłem na public - Grzesiek
+  public ArrayList<boid> getNeighbourhoodOptm(boid osobnik){
   ArrayList<boid> neigh=new ArrayList<>();
   neigh.ensureCapacity(100);
   double alfa,d;
@@ -103,17 +79,20 @@ public class symulacja {
   
   public ArrayList<boid> getNeighbourhoodOptmTopological(boid osobnik, int maxNeigh ){ // zmieniłem na public - Grzesiek
   ArrayList<boid> neigh=new ArrayList<>();
-  neigh.ensureCapacity(100);
+   ArrayList<Double> distannces=new ArrayList<>();
+  neigh.ensureCapacity(10);
+  distannces.ensureCapacity(10);
   double alfa,d,td;
   int inxMax=0;
   double maxDist=0;//Double.MAX_VALUE;
   ArrayList<boid> gridBoids=siatkaKoszykow.getArrayNeightCombinate(osobnik);
-  ArrayList<Double> distannces=new ArrayList<>();
-  ArrayList<Double> distannces1=new ArrayList<>();
+ 
+ // ArrayList<Double> distannces1=new ArrayList<>();
   int bucX=osobnik.getBucketX();
   int bucY=osobnik.getBucketY();
   int sizeX=mainBoids.panelSizeX;
   int sizeY=mainBoids.panelSizeY;
+  int a=0,b=0,c=0;
   vector2d tempPosition;
   double difx,dify;
   for(int i=0;i<gridBoids.size();i++){
@@ -135,24 +114,36 @@ public class symulacja {
           if((3.1415-alfa)<katWidzenia){
               
               d=d*(3.1415-alfa)/3.1415;
-              if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
-              else if (maxDist<d && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
-              //else if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
-              neigh.add(gridBoids.get(i));
-              distannces.add(d);
-              distannces1.add(d);
 
-              continue; 
+              if (maxDist<d && neigh.size()>=maxNeigh){}
+              else if (maxDist>d && neigh.size()>=maxNeigh){
+                  neigh.remove(inxMax);distannces.remove(inxMax); 
+                  neigh.add(gridBoids.get(i));distannces.add(d);
+                  maxDist=Collections.max(distannces);inxMax=distannces.indexOf(maxDist);
+              continue;
+              }else if (neigh.size()<maxNeigh){
+                  if (maxDist<d){maxDist=d;inxMax=neigh.size();}
+                  neigh.add(gridBoids.get(i));
+                  distannces.add(d);
+                  continue;
+              }
+              
+
             }
       }else{continue;}   
       if  (td<(osobnik.getMinimalDist()*osobnik.getMinimalDist()) && !osobnik.equals(gridBoids.get(i))){
-       if (maxDist<td && neigh.size()<maxNeigh){maxDist=d;}
-       else if (maxDist<td && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
-       //else if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
-              neigh.add(gridBoids.get(i));
-              distannces.add(td);
-              distannces1.add(td);
+      if (maxDist<d && neigh.size()>=maxNeigh){}
+              else if (maxDist>d && neigh.size()>=maxNeigh){
+                  neigh.remove(inxMax);distannces.remove(inxMax); 
+                  neigh.add(gridBoids.get(i));distannces.add(d);
+                  maxDist=Collections.max(distannces);inxMax=distannces.indexOf(maxDist);
               continue;
+              }else if (neigh.size()<maxNeigh){
+                  if (maxDist<d){maxDist=d;inxMax=neigh.size();}
+                  neigh.add(gridBoids.get(i));
+                  distannces.add(d);
+                  continue;
+              }
       }
 //      if(osobnik.getVelocity().getSLength()<osobnik.getMaxSpeed()/(100*skala) && !osobnik.equals(gridBoids.get(i))){ 
 //              if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
@@ -164,18 +155,18 @@ public class symulacja {
 //              continue;
 //      }
   } 
- 
-  if (distannces.size()>maxNeigh){
-       
- Collections.sort(distannces);
- maxDist=distannces.get(maxNeigh-1);
-  for(int i=0;i<neigh.size();){
-  if (distannces1.get(i)>maxDist && neigh.get(i).getType()==1){
-  distannces1.remove(i);
-  neigh.remove(i);
-  }else{i++;}
-  }
-  }
+ //System.out.println(a+"-"+b+"-"+c);
+//  if (distannces.size()>maxNeigh){
+//       
+// Collections.sort(distannces);
+// maxDist=distannces.get(maxNeigh-1);
+//  for(int i=0;i<neigh.size();){
+//  if (distannces1.get(i)>maxDist && neigh.get(i).getType()<2){
+//  distannces1.remove(i);
+//  neigh.remove(i);
+//  }else{i++;}
+//  }
+//  }
   mainBoids.stat.averageNumOfNeight+=neigh.size();
   return neigh;
   }
@@ -307,7 +298,7 @@ public class symulacja {
            timeMin=0;
            mainBoids.mainWin.setFPS((int)fps);
        }
-       //mainBoids.stat.updateStats();
+       mainBoids.stat.updateStats();
        mainBoids.mainWin.ptr.repaint( );
       }
   }
