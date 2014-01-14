@@ -21,32 +21,34 @@ public class PBehaviour {
     public static vector2d escapeP(boid ten,ArrayList<boid> boids)
     {
         vector2d poz,pom=new vector2d(0,0);
-        vector2d w=new vector2d(0,0);
+        if(ten.type==2||boids.isEmpty()) {return pom;}
+        vector2d bestPos,w=new vector2d(0,0);
         double criticaldist=25;
         double d;
         Random randGen = new Random();
-        
-        if(ten.type==2||boids.isEmpty()) return pom;
+        int k=0;
+       
         for(int i=0;i<boids.size();i++)
         {
             if(boids.get(i).type==2)
             {
-                    d=ten.getPosition().getDistance(boids.get(i));             
-                    poz=boids.get(i).getPosition().getVec();
+                bestPos=ten.getBestPosition(boids.get(i), mainBoids.panelSizeX, mainBoids.panelSizeX);
+                    d=ten.getPosition().getDistance(bestPos);             
+                    poz=bestPos.getVec();
                     pom=poz.minus(ten.position);
                     pom=pom.multi(-1);
                     
                    /**
                     *  Zachowanie ucieczki w sytuacji krytycznej , ucieczka w jakimś kierunku
                     */
-                    if(d<criticaldist)
+                    if(d<ten.minimalDistance)
                     {
                         mainBoids.simul.critical_sit=true;
                         if(mainBoids.mainWin.getEscapeStrategy()==0)
                         {
                           //  System.out.println("Sytuacja szybciej");
                             pom.multi(10);
-                            w.add(pom);
+                            w.add(pom);k++;
                         } 
                         else
                         {
@@ -64,14 +66,14 @@ public class PBehaviour {
                                 pom.multi(10);
                             }
 
-                            w.add(pom);
+                            w.add(pom);k++;
                          }
                          else
                          {
-                             if(d>25) w.add(pom.div(d));
+                             if(d>ten.minimalDistance){ w.add(pom.div(d));k++;}
                              else 
                              {
-                                w.add(pom);
+                                w.add(pom);k++;
                              }
                          }
                         }
@@ -79,15 +81,15 @@ public class PBehaviour {
                     }
                     else
                     {
-                        if(d>25) w.add(pom.div(d));
+                        if(d>ten.minimalDistance){ w.add(pom.div(d));k++;}
                         else 
                         {
-                          w.add(pom);
+                          w.add(pom);k++;
                         }
                     } 
             } 
         }
-        return w;
+        return w.div(k);
     }
     
     /**
@@ -112,7 +114,7 @@ public class PBehaviour {
         }
         for(int i=0;i<w.size();i++)
         {
-            if(w.get(i).getType()!=2) wynik.add(w.get(i));
+            if(w.get(i).getType()!=2){ wynik.add(w.get(i));}
         }
         return wynik;
     }
@@ -151,11 +153,10 @@ public class PBehaviour {
      * @return 
      */
     public static vector2d huntStrategy1(boid ten,ArrayList<boid> boids,ArrayList<bucket> bucketboids)
-    { 
-       
+    {      
         boid minDist;
-        ArrayList <boid> tmp=new ArrayList <>();
-        vector2d mindist,pom=new vector2d(0,0);
+        ArrayList <boid> tmp;
+        vector2d mindist,bestPos,pom=new vector2d(0,0);
         Random randGen = new Random();
         
         minDist=NDistance.minDist(ten, boids);
@@ -170,7 +171,8 @@ public class PBehaviour {
         {
            for(int j=0;j<tmp.size();j++)
            {
-             pom.add(tmp.get(j).getPosition());
+             bestPos=ten.getBestPosition(tmp.get(j), mainBoids.panelSizeX, mainBoids.panelSizeX);  
+             pom.add(bestPos);
            }
            pom.div(tmp.size());
            pom.minus(ten.getPosition());
@@ -184,7 +186,7 @@ public class PBehaviour {
      * @param boids
      * @return 
      */
-    public static vector2d huntStrategy2(boid ten,ArrayList<boid> boids)
+    public static vector2d huntStrategy2(boid ten,ArrayList<boid> boids)//tu dodac pozniej trzeba oblsuge krawedzi - zulov
     {
        // Random randGen = new Random();
         boid mD=null;
@@ -211,13 +213,14 @@ public class PBehaviour {
     {
         Random randGen = new Random();
         ArrayList <boid> tmp=new ArrayList <>();
-        vector2d move=new vector2d(0,0);
+        vector2d bestPos,move=new vector2d(0,0);
         tmp=getCrowdedGroup(ten,boids);
         if(!tmp.isEmpty())
         {
             for(int i=0;i<tmp.size();i++)
             {
-                move.add(tmp.get(i).getPosition());
+                bestPos=ten.getBestPosition(tmp.get(i), mainBoids.panelSizeX, mainBoids.panelSizeX);
+                move.add(bestPos);
             }
             move.div(tmp.size());
             move.minus(ten.getPosition());
@@ -233,7 +236,7 @@ public class PBehaviour {
      * @param boids
      * @return 
      */
-    public static vector2d huntStrategy2_3(boid ten,ArrayList<boid> boids)
+    public static vector2d huntStrategy2_3(boid ten,ArrayList<boid> boids)//dodac obsluge krawedzi
     {
         Random randGen = new Random();
         double chStrategy=30;
@@ -258,9 +261,6 @@ public class PBehaviour {
 
     }
     
-    
-    
-    
     public static vector2d huntP(boid ten,ArrayList<boid> boids,ArrayList<bucket> bucketboids)
     {
         boid potPrey;
@@ -275,10 +275,9 @@ public class PBehaviour {
             
             if(!boids.isEmpty())
             {
-                 potPrey=NDistance.minPrey(ten, boids,7);
-                 if(potPrey!=null){
-                   
-                 if(randGen.nextInt(30)==2)  mainBoids.simul.boids.remove(potPrey);
+                 potPrey=NDistance.minPrey(ten, boids,ten.minimalDistance);
+                 if(potPrey!=null){  
+                 if(randGen.nextInt(15)==2)  {mainBoids.simul.boids.remove(potPrey);}
                    //boids.remove(potPrey);
                  } 
             }  

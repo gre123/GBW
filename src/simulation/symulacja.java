@@ -111,6 +111,7 @@ public class symulacja {
       if (d<(radiusNeigh*radiusNeigh) && !osobnik.equals(gridBoids.get(i))){ 
          alfa=osobnik.calcAngle(tempPosition);
          //System.out.println((3.1415-alfa)+"+"+katWidzenia);
+         if (gridBoids.get(i).getType()==2){d=0;}
           if((3.1415-alfa)<katWidzenia){
               
               d=d*(3.1415-alfa)/3.1415;
