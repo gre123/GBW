@@ -34,13 +34,15 @@ public class vector2d {
     return this;
     }
     public double getDistance(boid b){
-
-    return sqrt((x-b.getX())*(x-b.getX())+(y-b.getY())*(y-b.getY()));
+        double dX=(x-b.getX());
+        double dY=(y-b.getY());   
+    return sqrt(dX*dX+dY*dY);
     }
     
     public double getDistance(vector2d _pos){
-
-    return sqrt((x-_pos.x)*(x-_pos.x)+(y-_pos.y)*(y-_pos.y));
+        double dX=(x-_pos.x);
+        double dY=(y-_pos.y);   
+    return sqrt(dX*dX+dY*dY);
     }
     public double getSDistance(boid b){
         double dX=(x-b.getX());
@@ -50,7 +52,6 @@ public class vector2d {
     public double getSDistance(vector2d _pos){
         double dX=(x-_pos.x);
         double dY=(y-_pos.y);
-
     return dX*dX+dY*dY;
     }
     
@@ -125,26 +126,21 @@ public class vector2d {
     }
     
     public vector2d divNonZero(double a){
-        
         this.x=this.x/a;
         this.y=this.y/a;
         
         return this;
     }
     public vector2d getVec(){
-        vector2d temp=new vector2d(this.x,this.y);
-        return temp;
+        return  new vector2d(this.x,this.y);
     }
-    public double skalarny(vector2d a){
-        double wynik = x*a.getX()+y*a.getY();
-        return wynik;
+    public double skalarny(vector2d a){ 
+        return x*a.x+y*a.y;
     }
     public double skalarny(double _x, double _y){
-        double wynik = x*_x+y*_y;
-        return wynik;
+        return x*_x+y*_y;
     }
 /**
- * 
  * @return Zwraca wektor obrócony 90* w prawo
  */
     public vector2d getRight(){
