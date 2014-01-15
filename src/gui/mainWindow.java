@@ -123,6 +123,14 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
         lblNumCols = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
         lblAvgDist = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        lblBoidsColide = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
+        lblPerformance = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
+        lblMinPerf = new javax.swing.JLabel();
+        lblMaxPerf = new javax.swing.JLabel();
         Symulacja = new javax.swing.JTabbedPane();
         setPanelPod = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -168,6 +176,9 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
         e = new javax.swing.JLabel();
         lblForagingDistance = new javax.swing.JLabel();
         sldForDist = new javax.swing.JSlider();
+        jLabel47 = new javax.swing.JLabel();
+        sldFreqEat = new javax.swing.JSlider();
+        lblFreqEat = new javax.swing.JLabel();
         wygladPanel = new javax.swing.JPanel();
         btnWpływLeader = new javax.swing.JToggleButton();
         btnVelWart = new javax.swing.JToggleButton();
@@ -660,6 +671,22 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
 
         lblAvgDist.setText("0");
 
+        jLabel48.setText("Ilość kolizji boidów:");
+
+        lblBoidsColide.setText("0");
+
+        jLabel50.setText("Średnia wydajność:");
+
+        lblPerformance.setText("0");
+
+        jLabel49.setText("Max wydajność:");
+
+        jLabel51.setText("Min wydajność:");
+
+        lblMinPerf.setText("0");
+
+        lblMaxPerf.setText("0");
+
         javax.swing.GroupLayout statPanelLayout = new javax.swing.GroupLayout(statPanel);
         statPanel.setLayout(statPanelLayout);
         statPanelLayout.setHorizontalGroup(
@@ -667,6 +694,22 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
             .addGroup(statPanelLayout.createSequentialGroup()
                 .addGap(2, 2, 2)
                 .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(statPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel49)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblMaxPerf))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, statPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel51)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblMinPerf))
+                    .addGroup(statPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel50)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblPerformance))
+                    .addGroup(statPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel48)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblBoidsColide))
                     .addGroup(statPanelLayout.createSequentialGroup()
                         .addComponent(jLabel41)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -741,7 +784,23 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
                 .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel41)
                     .addComponent(lblAvgDist))
-                .addContainerGap(446, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel48)
+                    .addComponent(lblBoidsColide))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 361, Short.MAX_VALUE)
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel51)
+                    .addComponent(lblMinPerf))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel49)
+                    .addComponent(lblMaxPerf))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel50)
+                    .addComponent(lblPerformance))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Statystyki", statPanel);
@@ -757,7 +816,7 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
 
         sldAliCof.setMaximum(3000);
         sldAliCof.setToolTipText("");
-        sldAliCof.setValue(800);
+        sldAliCof.setValue(600);
         sldAliCof.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sldAliCofStateChanged(evt);
@@ -775,7 +834,7 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
 
         sldCohCof.setMaximum(3000);
         sldCohCof.setToolTipText("");
-        sldCohCof.setValue(500);
+        sldCohCof.setValue(1200);
         sldCohCof.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sldCohCofStateChanged(evt);
@@ -973,7 +1032,7 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
         lblLead.setText("0");
 
         sldLeadCof.setMaximum(3000);
-        sldLeadCof.setValue(1000);
+        sldLeadCof.setValue(0);
         sldLeadCof.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sldLeadCofStateChanged(evt);
@@ -982,11 +1041,12 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
 
         jLabel15.setText("Escape predator:");
 
-        lblPred.setText("jLabel16");
+        lblPred.setText("0");
         lblPred.setText(Double.toString(sldPredCof.getValue()/(double)100));
 
         sldPredCof.setMaximum(3000);
-        sldPredCof.setValue(500);
+        sldPredCof.setToolTipText("");
+        sldPredCof.setValue(1000);
         sldPredCof.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sldPredCofStateChanged(evt);
@@ -1047,6 +1107,19 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
             }
         });
 
+        jLabel47.setText("Częstość zjadania:");
+
+        sldFreqEat.setToolTipText("");
+        sldFreqEat.setValue(10);
+        sldFreqEat.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sldFreqEatStateChanged(evt);
+            }
+        });
+
+        lblFreqEat.setText("0");
+        lblPred.setText(Double.toString(sldPredCof.getValue()/(double)100));
+
         javax.swing.GroupLayout setPanelAdvLayout = new javax.swing.GroupLayout(setPanelAdv);
         setPanelAdv.setLayout(setPanelAdvLayout);
         setPanelAdvLayout.setHorizontalGroup(
@@ -1088,7 +1161,12 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
                                     .addComponent(jLabel24)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblAvoidRec))
-                                .addComponent(sldAvoidRec, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(sldAvoidRec, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(setPanelAdvLayout.createSequentialGroup()
+                        .addComponent(jLabel47)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblFreqEat))
+                    .addComponent(sldFreqEat, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         setPanelAdvLayout.setVerticalGroup(
@@ -1106,6 +1184,12 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
                     .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sldPredCof, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(setPanelAdvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblFreqEat)
+                    .addComponent(jLabel47))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sldFreqEat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(setPanelAdvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
@@ -1130,7 +1214,7 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
                     .addComponent(lblForagingDistance))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sldForDist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(304, Short.MAX_VALUE))
+                .addContainerGap(255, Short.MAX_VALUE))
         );
 
         Symulacja.addTab("Zaawansowane", setPanelAdv);
@@ -1342,6 +1426,9 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
     {
         return combpredEscape.getSelectedIndex();
     }
+    public int getFreqEat(){
+    return  sldFreqEat.getValue();
+    }
     public void setHeveLeader(double per){
         this.lblHaveLeaderPer.setText(Double.toString(per)+"%");
     }
@@ -1357,6 +1444,12 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
     public void setAvgNumNeight(double ann){
     this.lblAvgNumNeight.setText(String.format("%.2f", ann));
     }
+    public void setNumCollisions(int param){
+    this.lblBoidsColide.setText(Integer.toString(param));
+    }
+    public void setPerformace(double param){
+    this.lblPerformance.setText(String.format("%.2f", param));
+    }
     public void setAvgSpeed(double avgsX,double avgsY){     
     this.lblAvgSpeed.setText("("+String.format("%.1f", avgsX)+";"+String.format("%.1f", avgsY)+")");
     }
@@ -1368,6 +1461,13 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
     }
     public void setNumOfColision(int _cols){     
         this.lblNumCols.setText(Integer.toString(_cols));
+    }
+    public void setMinPerf(double _minPerf){     
+        this.lblMinPerf.setText(String.format("%.1f",_minPerf));
+    }
+    public void setMaxPerf(double _maxPerf){     
+        this.lblMaxPerf.setText(String.format("%.1f",_maxPerf));
+        
     }
     private void setAllLbl(){
          lblAli.setText(Double.toString(sldAliCof.getValue()/(double)1000));
@@ -1387,6 +1487,7 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
          lblMass.setText(Double.toString(sldMass.getValue()/50d)+"kg");
          lblSkala.setText("1 metr-"+Double.toString(sldSkala.getValue()/2d)+"px");
          lblMinDistSep.setText(Double.toString(sldMinDistSep.getValue()/10d));
+         lblFreqEat.setText(Integer.toString(sldFreqEat.getValue())+"%");
     }
     private void sldAnimSpeedStateChanged(ChangeEvent evt) {//GEN-FIRST:event_sldAnimSpeedStateChanged
        if ( mainBoids.simul!=null){
@@ -1678,6 +1779,10 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
       this.lblMinDistSep.setText(Double.toString(sldMinDistSep.getValue()/10d));
     }//GEN-LAST:event_sldMinDistSepStateChanged
 
+    private void sldFreqEatStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldFreqEatStateChanged
+       this.lblFreqEat.setText(Integer.toString(sldFreqEat.getValue())+"%");
+    }//GEN-LAST:event_sldFreqEatStateChanged
+
     private void panelMouseClickedOBS(java.awt.event.MouseEvent evt) {
       Obstacle przeszkoda=new Obstacle(evt.getX(),evt.getY(),getObstacleSize());
       ptr.obs.add(przeszkoda);
@@ -1809,7 +1914,12 @@ private void panelMouseClickedLD(java.awt.event.MouseEvent e) {
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1825,22 +1935,27 @@ private void panelMouseClickedLD(java.awt.event.MouseEvent e) {
     private javax.swing.JLabel lblAvoid;
     private javax.swing.JLabel lblAvoidMode;
     private javax.swing.JLabel lblAvoidRec;
+    private javax.swing.JLabel lblBoidsColide;
     private javax.swing.JLabel lblCoh;
     private javax.swing.JLabel lblForagingDistance;
+    private javax.swing.JLabel lblFreqEat;
     private javax.swing.JLabel lblHaveLeaderPer;
     private javax.swing.JLabel lblHunger;
     private javax.swing.JLabel lblLead;
     private javax.swing.JLabel lblMass;
     private javax.swing.JLabel lblMaxAccel;
     private javax.swing.JLabel lblMaxNeight;
+    private javax.swing.JLabel lblMaxPerf;
     private javax.swing.JLabel lblMaxSpeed;
     private javax.swing.JLabel lblMinDistSep;
+    private javax.swing.JLabel lblMinPerf;
     private javax.swing.JLabel lblNeigh;
     private javax.swing.JLabel lblNumBoids;
     private javax.swing.JLabel lblNumCols;
     private javax.swing.JLabel lblNumLeaders;
     private javax.swing.JLabel lblNumPred;
     private javax.swing.JLabel lblOdstAvgSpeed;
+    private javax.swing.JLabel lblPerformance;
     private javax.swing.JLabel lblPred;
     private javax.swing.JLabel lblRand;
     private javax.swing.JLabel lblSep;
@@ -1857,6 +1972,7 @@ private void panelMouseClickedLD(java.awt.event.MouseEvent e) {
     private javax.swing.JSlider sldAvoidRec;
     private javax.swing.JSlider sldCohCof;
     private javax.swing.JSlider sldForDist;
+    private javax.swing.JSlider sldFreqEat;
     private javax.swing.JSlider sldLeadCof;
     private javax.swing.JSlider sldMass;
     private javax.swing.JSlider sldMaxAccel;

@@ -20,12 +20,14 @@ public class NDistance {
     {
         double d=Double.MAX_VALUE;
         Food min=null;
+        double tempDist;
         for(int i=0;i<w.size();i++)
         {
-            if(d>ten.getPosition().getDistance(w.get(i).getPos()))
+            tempDist=ten.getPosition().getSDistance(w.get(i).getPos());
+            if(d>tempDist)
             {
                 min=w.get(i);
-                d=ten.getPosition().getDistance(w.get(i).getPos());
+                d=tempDist;
             }
         }
         return min;
@@ -39,7 +41,7 @@ public class NDistance {
         double d=distance; //to zmienić?
         for(int j=0;j<boids.size();j++)
         {
-            pom=ten.getPosition().getDistance(boids.get(j));
+            pom=ten.getPosition().getSDistance(boids.get(j));
             if(d>pom && boids.get(j).getType()!=2) 
             {
                 d=pom; 
@@ -56,10 +58,10 @@ public class NDistance {
     {
         double pom=0;
         boid k=null;
-        double d=999999; //to zmienić?
+        double d=Double.MAX_VALUE; //to zmienić?
         for(int j=0;j<boids.size();j++)
         {
-            pom=ten.getPosition().getDistance(boids.get(j));
+            pom=ten.getPosition().getSDistance(boids.get(j));
             if(d>pom && boids.get(j).getType()!=2) 
             {
                 d=pom; 

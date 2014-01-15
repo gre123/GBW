@@ -50,9 +50,17 @@ public class vector2d {
     public double getSDistance(vector2d _pos){
         double dX=(x-_pos.x);
         double dY=(y-_pos.y);
-       
+
     return dX*dX+dY*dY;
     }
+    
+     /**
+     * Liczy pozycje uwzglednajac zawijanie krawędzi, strasznie wolne nie uzywać!! lepsza wersja w boid.java
+     * @param _pos  Pozycja ktorej wspolrzedne chcemy policzyc
+     * @param sizeX szerokosc planszy w px
+     * @param sizeY wysokość planszy w px
+     * @return najblizsza pozycja
+     */
     public vector2d getCloserPosition(vector2d _pos,double sizeX,double sizeY){
     double dist1,dist2,dist3,dist4;
     double dist11,dist22,dist33,dist44,dist00 ;
@@ -113,6 +121,14 @@ public class vector2d {
         this.x=this.x/a;
         this.y=this.y/a;
         }
+        return this;
+    }
+    
+    public vector2d divNonZero(double a){
+        
+        this.x=this.x/a;
+        this.y=this.y/a;
+        
         return this;
     }
     public vector2d getVec(){

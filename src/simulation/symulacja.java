@@ -6,6 +6,7 @@ import boids.mainBoids;
 import static java.lang.StrictMath.abs;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.Random;
 import math.vector2d;
 import trunk.src.boids.Obstacle;
@@ -43,7 +44,7 @@ public class symulacja {
   food=_food;
   animSpeed=10;
   reactionTime=50;
-  siatkaKoszykow =new gridBucket(12,8,mainBoids.panelSizeX+8,mainBoids.panelSizeY+5);
+  siatkaKoszykow =new gridBucket(19,12,mainBoids.panelSizeX+8,mainBoids.panelSizeY+5);
   pom=new ArrayList<>();
   }
   public void addBoid(boid agt){
@@ -55,7 +56,7 @@ public class symulacja {
  
   public ArrayList<boid> getNeighbourhoodOptm(boid osobnik){
   ArrayList<boid> neigh=new ArrayList<>();
-  neigh.ensureCapacity(100);
+  neigh.ensureCapacity(300);
   double alfa,d;
   ArrayList<boid> gridBoids=siatkaKoszykow.getArrayNeightCombinate(osobnik);
   
@@ -72,21 +73,21 @@ public class symulacja {
       if  (d<(15*15) && !osobnik.equals(gridBoids.get(i))){
        neigh.add(gridBoids.get(i));continue;//jezeli jest bardzo blisko to widzi go nawet za plecami
       }
-      if(osobnik.getVelocity().getLength()<osobnik.getMaxSpeed()/10 && !osobnik.equals(gridBoids.get(i))){  neigh.add(gridBoids.get(i)); continue;}
+      //if(osobnik.getVelocity().getLength()<osobnik.getMaxSpeed()/10 && !osobnik.equals(gridBoids.get(i))){  neigh.add(gridBoids.get(i)); continue;}
   } 
   return neigh;
   }
   
   public ArrayList<boid> getNeighbourhoodOptmTopological(boid osobnik, int maxNeigh ){ // zmieniłem na public - Grzesiek
   ArrayList<boid> neigh=new ArrayList<>();
-   ArrayList<Double> distannces=new ArrayList<>();
+  LinkedList<Double> distannces=new LinkedList<>();
   neigh.ensureCapacity(10);
-  distannces.ensureCapacity(10);
+ //distannces.ensureCapacity(10);
   double alfa,d,td;
   int inxMax=0;
   double maxDist=0;//Double.MAX_VALUE;
   ArrayList<boid> gridBoids=siatkaKoszykow.getArrayNeightCombinate(osobnik);
- 
+  osobnik.setHavePredator(false);
  // ArrayList<Double> distannces1=new ArrayList<>();
   int bucX=osobnik.getBucketX();
   int bucY=osobnik.getBucketY();
@@ -109,13 +110,11 @@ public class symulacja {
       d=osobnik.getPosition().getSDistance(tempPosition);
       td=d;
       if (d<(radiusNeigh*radiusNeigh) && !osobnik.equals(gridBoids.get(i))){ 
-         alfa=osobnik.calcAngle(tempPosition);
+         alfa=3.1415-osobnik.calcAngle(tempPosition);
          //System.out.println((3.1415-alfa)+"+"+katWidzenia);
-         if (gridBoids.get(i).getType()==2){d=0;}
-          if((3.1415-alfa)<katWidzenia){
-              
-              d=d*(3.1415-alfa)/3.1415;
-
+         if (gridBoids.get(i).getType()==2){d=0; osobnik.setHavePredator(true);}
+          if((alfa)<katWidzenia){
+              d=d*(alfa)/3.1415;
               if (maxDist<d && neigh.size()>=maxNeigh){}
               else if (maxDist>d && neigh.size()>=maxNeigh){
                   neigh.remove(inxMax);distannces.remove(inxMax); 
@@ -128,22 +127,20 @@ public class symulacja {
                   distannces.add(d);
                   continue;
               }
-              
 
             }
       }else{continue;}   
-      if  (td<(osobnik.getMinimalDist()*osobnik.getMinimalDist()) && !osobnik.equals(gridBoids.get(i))){
+      if  (td<(osobnik.getMinimalDist()*osobnik.getMinimalDist())){
       if (maxDist<d && neigh.size()>=maxNeigh){}
               else if (maxDist>d && neigh.size()>=maxNeigh){
                   neigh.remove(inxMax);distannces.remove(inxMax); 
                   neigh.add(gridBoids.get(i));distannces.add(d);
-                  maxDist=Collections.max(distannces);inxMax=distannces.indexOf(maxDist);
-              continue;
+                  maxDist=Collections.max(distannces);
+                  inxMax=distannces.indexOf(maxDist);
               }else if (neigh.size()<maxNeigh){
                   if (maxDist<d){maxDist=d;inxMax=neigh.size();}
                   neigh.add(gridBoids.get(i));
                   distannces.add(d);
-                  continue;
               }
       }
 //      if(osobnik.getVelocity().getSLength()<osobnik.getMaxSpeed()/(100*skala) && !osobnik.equals(gridBoids.get(i))){ 
@@ -156,7 +153,7 @@ public class symulacja {
 //              continue;
 //      }
   } 
- //System.out.println(a+"-"+b+"-"+c);
+//System.out.println(a+"-"+b+"-"+c);
 //  if (distannces.size()>maxNeigh){
 //       
 // Collections.sort(distannces);
@@ -206,7 +203,7 @@ public class symulacja {
       continueSimulation=true;
       Random randGen = new Random();
       siatkaKoszykow.writeToGrid(boids);
-      long start=System.nanoTime();
+      long start;
       long end;
       double time;
       double timeMin=0;
@@ -216,12 +213,13 @@ public class symulacja {
       
       pom.addAll(obs);
       pom.addAll(food);
-      
+      start=System.nanoTime();
       while(continueSimulation){
       end=start;
-      start=System.nanoTime();   
+      start=System.nanoTime();  
       //System.out.println(System.nanoTime());
       time=(start-end)/1000000d;
+      mainBoids.stat.addPerformance(time);
       timeMin+=time;
   // System.out.println("t"+time);
       while(time<reactionTime-1){
@@ -299,7 +297,7 @@ public class symulacja {
            timeMin=0;
            mainBoids.mainWin.setFPS((int)fps);
        }
-       mainBoids.stat.updateStats();
+     mainBoids.stat.updateStats();
        mainBoids.mainWin.ptr.repaint( );
       }
   }

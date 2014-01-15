@@ -47,7 +47,6 @@ public class bucket {
      for(int i=0;i<koszyk.size();i++)
      {
          if(b.equals(koszyk.get(i))) return true;
-         
      }
      return false;
  }

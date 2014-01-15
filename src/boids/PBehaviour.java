@@ -21,11 +21,11 @@ public class PBehaviour {
     public static vector2d escapeP(boid ten,ArrayList<boid> boids)
     {
         vector2d poz,pom=new vector2d(0,0);
-        if(ten.type==2||boids.isEmpty()) {return pom;}
+        if(!ten.getHavePredator()) {return pom;}
         vector2d bestPos,w=new vector2d(0,0);
         double criticaldist=25;
         double d;
-        Random randGen = new Random();
+        Random randGen;// = new Random();
         int k=0;
        
         for(int i=0;i<boids.size();i++)
@@ -34,7 +34,7 @@ public class PBehaviour {
             {
                 bestPos=ten.getBestPosition(boids.get(i), mainBoids.panelSizeX, mainBoids.panelSizeX);
                     d=ten.getPosition().getDistance(bestPos);             
-                    poz=bestPos.getVec();
+                    poz=bestPos;
                     pom=poz.minus(ten.position);
                     pom=pom.multi(-1);
                     
@@ -52,6 +52,7 @@ public class PBehaviour {
                         } 
                         else
                         {
+                            randGen = new Random();
                          if(randGen.nextInt(10)==5)
                          {
                            // System.out.println("Sytuacja niezależniej");
@@ -70,7 +71,7 @@ public class PBehaviour {
                          }
                          else
                          {
-                             if(d>ten.minimalDistance){ w.add(pom.div(d));k++;}
+                             if(d>ten.minimalDistance){ w.add(pom.divNonZero(d));k++;}
                              else 
                              {
                                 w.add(pom);k++;
@@ -81,7 +82,7 @@ public class PBehaviour {
                     }
                     else
                     {
-                        if(d>ten.minimalDistance){ w.add(pom.div(d));k++;}
+                        if(d>ten.minimalDistance){ w.add(pom.divNonZero(d));k++;}
                         else 
                         {
                           w.add(pom);k++;
@@ -275,9 +276,9 @@ public class PBehaviour {
             
             if(!boids.isEmpty())
             {
-                 potPrey=NDistance.minPrey(ten, boids,ten.minimalDistance);
+                 potPrey=NDistance.minPrey(ten, boids,ten.minimalDistance*2);
                  if(potPrey!=null){  
-                 if(randGen.nextInt(15)==2)  {mainBoids.simul.boids.remove(potPrey);}
+                 if(randGen.nextInt(101)<=mainBoids.mainWin.getFreqEat())  {mainBoids.simul.boids.remove(potPrey);}
                    //boids.remove(potPrey);
                  } 
             }  

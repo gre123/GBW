@@ -71,18 +71,17 @@ public class gridBucket {
       int tx=0,ty=0;
       temp.addAll(bucketList.get(dX-2).get(dY-2).koszyk);
       
-      for (int i=dX-3;i<dX;i++){      
+      for (int i=dX-3;i<dX;i++){                           
+             if (i<0) {tx=x-1;}
+             else if (i>=x) {tx=0;}
+             else {tx=i;}
           for (int j=dY-3;j<dY;j++){
              if (i==dX-2 && j==dY-2){continue;}
              
              if (j<0) {ty=y-1;}
              else if (j>=y) {ty=0;}
              else  {ty=j;}
-              
-             if (i<0) {tx=x-1;}
-             else if (i>=x) {tx=0;}
-             else {tx=i;}
-             
+
              temp.addAll(bucketList.get(tx).get(ty).koszyk);  
           }
       }
