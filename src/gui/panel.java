@@ -20,6 +20,11 @@ public class panel extends JPanel {
     public ArrayList<Obstacle> obs;
     public ArrayList<Food> food;
     BufferedImage wrobel;
+    
+    boolean isRect=false;
+    double recX,recY;
+    int recSizeX,recSizeY;
+    
     boolean isImage=false;
     int x,y;
     int aimX=-1,aimY=-1;
@@ -48,6 +53,15 @@ public class panel extends JPanel {
         repaint();
     }
  
+    public void drRec(double x, double y , int sizeX,int sizeY)
+    {
+        isRect=true;
+        recX=x;
+        recY=y;
+        recSizeX=sizeX;
+        recSizeY=sizeY;
+    }
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -141,7 +155,12 @@ public class panel extends JPanel {
                 
             }
         }
-        
+        if(isRect)
+        {
+            g2d.setColor(Color.red); 
+            g2d.drawRect((int)recX, (int)recY,recSizeX,recSizeY);
+            isRect=false;
+        }
         
         }
     public void drawAim( Graphics2D g2d,int x,int y,int r){
