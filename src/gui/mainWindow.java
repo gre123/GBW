@@ -37,6 +37,8 @@ private final MouseListener mlld=new java.awt.event.MouseAdapter() {
 private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
     public void mouseClicked(java.awt.event.MouseEvent evt) {panelMouseClickedOBS(evt);}
 };
+public saveStats sS;
+public String fSource;
     public mainWindow() {
         this.mlster = new java.awt.event.MouseAdapter() {
             @Override
@@ -146,6 +148,7 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
         boidCntLbl = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
+        saveStatsBtn = new javax.swing.JToggleButton();
         Symulacja = new javax.swing.JTabbedPane();
         setPanelPod = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -737,6 +740,13 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
 
         boidCntLbl.setText("0");
 
+        saveStatsBtn.setText("Zapisz do pliku");
+        saveStatsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveStatsBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout statPanelLayout = new javax.swing.GroupLayout(statPanel);
         statPanel.setLayout(statPanelLayout);
         statPanelLayout.setHorizontalGroup(
@@ -818,6 +828,10 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
                             .addComponent(boidCount, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(statPanelLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(saveStatsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         statPanelLayout.setVerticalGroup(
             statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -892,7 +906,9 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
                 .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel50)
                     .addComponent(lblPerformance))
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                .addComponent(saveStatsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Statystyki", statPanel);
@@ -1527,6 +1543,10 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
     {
         return this.sldMinDistSep.getValue()/10d;
     }
+   /** public String getFSource()
+    {
+        return FSource;
+    }**/
     public int getForagingDistance()
     {
         return (int)sldForDist.getValue();
@@ -1944,6 +1964,13 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLoadSettingsActionPerformed
 
+    private void saveStatsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveStatsBtnActionPerformed
+
+        sS=new saveStats();
+        sS.setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_saveStatsBtnActionPerformed
+
     private void panelMouseClickedOBS(java.awt.event.MouseEvent evt) {
       Obstacle przeszkoda=new Obstacle(evt.getX(),evt.getY(),getObstacleSize());
       ptr.obs.add(przeszkoda);
@@ -2143,6 +2170,7 @@ private void panelMouseClickedLD(java.awt.event.MouseEvent e) {
     private javax.swing.JLabel recSizeLbl1;
     private javax.swing.JSlider rectSize;
     private javax.swing.JSlider rectSize1;
+    private javax.swing.JToggleButton saveStatsBtn;
     private javax.swing.JPanel setPanelAdv;
     private javax.swing.JPanel setPanelPod;
     private javax.swing.JSlider sldAliCof;

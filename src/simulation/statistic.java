@@ -1,6 +1,8 @@
 package simulation;
 
 import boids.mainBoids;
+import java.io.File;
+import java.io.FileOutputStream;
 import math.vector2d;
 
 /**
@@ -22,7 +24,9 @@ public class statistic {
     int boidsHaveLeader;
     double [] perf;
     int iS,iE,sizePerf;
+    File f;
     public statistic(int nBoids,int nPredators,int nLeaders){
+    
     numberOfBoids=nBoids;
     numberOfPredators=nPredators;
     numberOfLeaders=nLeaders;
@@ -41,7 +45,7 @@ public class statistic {
     sizePerf=100;
      perf= new double[sizePerf];
      iS=0;
-     iE=1;
+     iE=1;  
     }
     public void updateStats(){
         numberOfBoids=mainBoids.boids.size();
@@ -89,5 +93,10 @@ public class statistic {
     if(iE<sizePerf-1){iE++;}
     else{iE=0;}
      }
+    }
+    
+    public void saveStats()
+    {
+       if(f==null) f=new File(mainBoids.mainWin.fSource);
     }
 }
