@@ -131,6 +131,7 @@ public class symulacja {
             }
       }else{continue;}   
       if  (td<(osobnik.getMinimalDist()*osobnik.getMinimalDist())){
+        //  d=d/10;
       if (maxDist<d && neigh.size()>=maxNeigh){}
               else if (maxDist>d && neigh.size()>=maxNeigh){
                   neigh.remove(inxMax);distannces.remove(inxMax); 
@@ -239,9 +240,10 @@ public class symulacja {
           tempBoids=getNeighbourhoodOptmTopological(boids.get(i),mainBoids.mainWin.getNumNeight());
           
           sep= boids.get(i).separate(tempBoids).multi(cofSep);
+          if(sep.getSLength()<1){
           ali= boids.get(i).alignment(tempBoids).multi(cofAli);
           coh= boids.get(i).cohesion(tempBoids).multi(cofCoh);
-          
+          }else{ali=new vector2d(0,0);coh=new vector2d(0,0);}
           lead= boids.get(i).followLeader(tempBoids);
           toAim=boids.get(i).goToAim(globalAim);
           rand=new vector2d(randGen.nextDouble()*2-1,randGen.nextDouble()*2-1);
