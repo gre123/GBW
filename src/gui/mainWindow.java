@@ -172,6 +172,7 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
         jLabel34 = new javax.swing.JLabel();
         sldReactionTime = new javax.swing.JSlider();
         lblTimeReaction = new javax.swing.JLabel();
+        btnLoadSettings = new javax.swing.JButton();
         setPanelAdv = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         lblLead = new javax.swing.JLabel();
@@ -1009,6 +1010,13 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
         lblTimeReaction.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTimeReaction.setText("0");
 
+        btnLoadSettings.setText("Wczytaj nastawy");
+        btnLoadSettings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadSettingsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout setPanelPodLayout = new javax.swing.GroupLayout(setPanelPod);
         setPanelPod.setLayout(setPanelPodLayout);
         setPanelPodLayout.setHorizontalGroup(
@@ -1022,6 +1030,8 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
                     .addComponent(sldRandCof, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(sldNeigh, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(sldAngle, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(sldNumNeight, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(sldReactionTime, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(setPanelPodLayout.createSequentialGroup()
                         .addGroup(setPanelPodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(setPanelPodLayout.createSequentialGroup()
@@ -1055,10 +1065,9 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
                             .addGroup(setPanelPodLayout.createSequentialGroup()
                                 .addComponent(jLabel34)
                                 .addGap(18, 18, 18)
-                                .addComponent(lblTimeReaction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addComponent(sldNumNeight, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(sldReactionTime, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                                .addComponent(lblTimeReaction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnLoadSettings, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         setPanelPodLayout.setVerticalGroup(
             setPanelPodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1111,7 +1120,9 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
                     .addComponent(lblTimeReaction))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sldReactionTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(217, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
+                .addComponent(btnLoadSettings)
+                .addContainerGap())
         );
 
         Symulacja.addTab("Podstawowe", setPanelPod);
@@ -1429,9 +1440,6 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 691, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1439,7 +1447,10 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel9)
                                 .addComponent(txtFPS))
-                            .addComponent(jLabel8))))
+                            .addComponent(jLabel8)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -1530,9 +1541,28 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
     public void setHeveLeader(double per){
         this.lblHaveLeaderPer.setText(Double.toString(per)+"%");
     }
-    //-----------------------------------------1
+    //-----------------------------------------
     public  int getLeaderTypeMovement(){
      return (int)this.combLeadMove.getSelectedIndex();
+    }
+    public void loadSettings()
+    {
+        sldAliCof.setValue((int)(0.455*1000)); /** Alignment**/
+        sldSepCof.setValue((int)(0.79*1000));  /** Separate**/
+        sldCohCof.setValue((int)(0.218*1000)); /** Cohesion**/
+//        sldRandCof.setValue();
+//        sldNeigh.setValue();
+//        sldAngle.setValue();
+//        sldNumNeight.setValue();
+//        sldReactionTime.setValue();
+//        sldLeadCof.setValue();
+//        sldPredCof.setValue();
+//        sldFreqEat.setValue();
+//        sldAvoidCof.setValue();
+//        sldAvoidMode.setValue();
+//        sldAvoidRec.setValue();
+//        sldForDist.setValue();
+                                                        
     }
     public void setNumOfThings(int b,int l, int p){
     this.lblNumBoids.setText(Integer.toString(b));
@@ -1909,6 +1939,11 @@ private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
         // TODO add your handling code here:
     }//GEN-LAST:event_boidCountItemStateChanged
 
+    private void btnLoadSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadSettingsActionPerformed
+        loadSettings();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLoadSettingsActionPerformed
+
     private void panelMouseClickedOBS(java.awt.event.MouseEvent evt) {
       Obstacle przeszkoda=new Obstacle(evt.getX(),evt.getY(),getObstacleSize());
       ptr.obs.add(przeszkoda);
@@ -1999,6 +2034,7 @@ private void panelMouseClickedLD(java.awt.event.MouseEvent e) {
     private javax.swing.JToggleButton btnAccelWart;
     private javax.swing.JButton btnGenStado;
     private javax.swing.JButton btnGlobAim;
+    private javax.swing.JButton btnLoadSettings;
     private javax.swing.JButton btnStart;
     private javax.swing.JToggleButton btnSterMysza;
     private javax.swing.JToggleButton btnSterMysza1;
