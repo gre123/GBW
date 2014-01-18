@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
+import javax.swing.JFileChooser;
 import javax.swing.event.ChangeEvent;
 import math.Boidcounter;
 import math.vector2d;
@@ -37,9 +38,13 @@ private final MouseListener mlld=new java.awt.event.MouseAdapter() {
 private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
     public void mouseClicked(java.awt.event.MouseEvent evt) {panelMouseClickedOBS(evt);}
 };
-public saveStats sS;
+
+public savingStats sS;
 public String fSource;
+public boolean savingStats;
+
     public mainWindow() {
+        savingStats=false;
         this.mlster = new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {panelMouseClicked(evt);}
@@ -57,6 +62,7 @@ public String fSource;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        statsChooser = new javax.swing.JFileChooser();
         jLabel8 = new javax.swing.JLabel();
         sldAnimSpeed = new javax.swing.JSlider();
         jLabel9 = new javax.swing.JLabel();
@@ -1479,6 +1485,10 @@ public String fSource;
         double dFPS=(double)fps/100d;
         txtFPS.setText(Double.toString(dFPS));
     }
+    public boolean areWeSaving()
+    {
+        return saveStatsBtn.isSelected()&&savingStats;
+    }
     public  int getNumOfLeaders(){
      return (int)this.textLeaderNum.getValue();
     }
@@ -1965,9 +1975,18 @@ public String fSource;
     }//GEN-LAST:event_btnLoadSettingsActionPerformed
 
     private void saveStatsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveStatsBtnActionPerformed
+     if(saveStatsBtn.isSelected()){
+        //sS=new savingStats();
+        //sS.setVisible(true);
+       //  statsChooser.setVisible(true);
+         if(statsChooser.showSaveDialog(this)==JFileChooser.APPROVE_OPTION)
+         {
+             mainBoids.mainWin.fSource=statsChooser.getSelectedFile().getAbsolutePath();
+             mainBoids.mainWin.savingStats=true;
+         }   
+         else mainBoids.mainWin.savingStats=false;
 
-        sS=new saveStats();
-        sS.setVisible(true);
+     }
         // TODO add your handling code here:
     }//GEN-LAST:event_saveStatsBtnActionPerformed
 
@@ -2133,17 +2152,17 @@ private void panelMouseClickedLD(java.awt.event.MouseEvent e) {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblAli;
     private javax.swing.JLabel lblAngle;
-    private javax.swing.JLabel lblAvgDist;
-    private javax.swing.JLabel lblAvgNumNeight;
-    private javax.swing.JLabel lblAvgSpeed;
+    public javax.swing.JLabel lblAvgDist;
+    public javax.swing.JLabel lblAvgNumNeight;
+    public javax.swing.JLabel lblAvgSpeed;
     private javax.swing.JLabel lblAvoid;
     private javax.swing.JLabel lblAvoidMode;
     private javax.swing.JLabel lblAvoidRec;
-    private javax.swing.JLabel lblBoidsColide;
+    public javax.swing.JLabel lblBoidsColide;
     private javax.swing.JLabel lblCoh;
     private javax.swing.JLabel lblForagingDistance;
     private javax.swing.JLabel lblFreqEat;
-    private javax.swing.JLabel lblHaveLeaderPer;
+    public javax.swing.JLabel lblHaveLeaderPer;
     private javax.swing.JLabel lblHunger;
     private javax.swing.JLabel lblLead;
     private javax.swing.JLabel lblMass;
@@ -2155,10 +2174,10 @@ private void panelMouseClickedLD(java.awt.event.MouseEvent e) {
     private javax.swing.JLabel lblMinPerf;
     private javax.swing.JLabel lblNeigh;
     private javax.swing.JLabel lblNumBoids;
-    private javax.swing.JLabel lblNumCols;
+    public javax.swing.JLabel lblNumCols;
     private javax.swing.JLabel lblNumLeaders;
     private javax.swing.JLabel lblNumPred;
-    private javax.swing.JLabel lblOdstAvgSpeed;
+    public javax.swing.JLabel lblOdstAvgSpeed;
     private javax.swing.JLabel lblPerformance;
     private javax.swing.JLabel lblPred;
     private javax.swing.JLabel lblRand;
@@ -2201,6 +2220,7 @@ private void panelMouseClickedLD(java.awt.event.MouseEvent e) {
     private javax.swing.JSpinner spnObstacleRadius;
     private javax.swing.JSpinner spnPredatorRadius;
     private javax.swing.JPanel statPanel;
+    private javax.swing.JFileChooser statsChooser;
     private javax.swing.JPanel sterLead;
     private javax.swing.JSpinner textLeaderNum;
     private javax.swing.JSpinner textNumFood;

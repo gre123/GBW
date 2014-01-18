@@ -2,7 +2,7 @@ package simulation;
 
 import boids.mainBoids;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import math.vector2d;
 
 /**
@@ -24,6 +24,7 @@ public class statistic {
     int boidsHaveLeader;
     double [] perf;
     int iS,iE,sizePerf;
+    FileWriter fw;
     File f;
     public statistic(int nBoids,int nPredators,int nLeaders){
     
@@ -64,6 +65,7 @@ public class statistic {
         mainBoids.mainWin.setMinPerf(minPerf*1000);
         }
         mainBoids.mainWin.setNumCollisions(collisions);collisions=0;
+        if(mainBoids.mainWin.areWeSaving()) saveStats();
     }
     public void incBoidHaveLeader(){
     boidsHaveLeader++;
@@ -97,6 +99,23 @@ public class statistic {
     
     public void saveStats()
     {
-       if(f==null) f=new File(mainBoids.mainWin.fSource);
+        try{
+            
+            if(fw==null)
+            {
+                fw=new FileWriter(mainBoids.mainWin.fSource,true);
+                fw.write("lblAvgNumNeight     lblHaveLeaderPer       lblOdstAvgSpeed       lblNumCols        lblAvgDist        lblBoidsColide      lblAvgSpeed\n");
+            }
+            else fw=new FileWriter(mainBoids.mainWin.fSource,true);
+        }catch(Exception e){
+            System.out.println("Problem z zapisem do pliku");
+        }
+        
+        try{
+        fw.write(mainBoids.mainWin.lblAvgNumNeight.getText()+"     			"+mainBoids.mainWin.lblHaveLeaderPer.getText()+"       			   "+mainBoids.mainWin.lblOdstAvgSpeed.getText()+"       			 "+mainBoids.mainWin.lblNumCols.getText()+"        			"+mainBoids.mainWin.lblAvgDist.getText()+"                      "+mainBoids.mainWin.lblBoidsColide.getText()+"				     "+mainBoids.mainWin.lblAvgSpeed.getText()+"\n");
+        fw.close();
+        }catch(Exception e){
+            System.out.println("Problem z zapisem pliku");
+        }
     }
 }
