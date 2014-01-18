@@ -53,7 +53,12 @@ public class NDistance {
        // else return null;
         return k;
     }
-    
+    /**
+     * 
+     * @param ten
+     * @param boids
+     * @return Wydaje się, że zwraca boida z listy najbliższego do boida ten
+     */
     public static boid minDist(boid ten,ArrayList<boid> boids)
     {
         double pom=0;

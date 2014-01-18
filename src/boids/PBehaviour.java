@@ -262,50 +262,52 @@ public class PBehaviour {
 
     }
     
-    public static vector2d huntP(boid ten,ArrayList<boid> boids,ArrayList<bucket> bucketboids)
-    {
+    public static vector2d huntP(boid ten, ArrayList<boid> boids, ArrayList<bucket> bucketboids) {
         boid potPrey;
-        Random randGen= new Random();
+        Random randGen = new Random();
         int str;
-        
+
        // if(ten.type==2)
-     //   {
-           /**
-            * Atakowanie najbliższej potencjalnej zdobyczy, jeśli jest w zasięgu drapieżnika
-            */ 
-            
-            if(!boids.isEmpty())
-            {
-                 potPrey=NDistance.minPrey(ten, boids,ten.minimalDistance*2);
-                 if(potPrey!=null){  
-                 if(randGen.nextInt(101)<=mainBoids.mainWin.getFreqEat())  {mainBoids.simul.boids.remove(potPrey);}
-                   //boids.remove(potPrey);
-                 } 
-            }  
-            
-            /**
-             * Strategia poruszania się
-             */
-            str=mainBoids.mainWin.getHuntStrategy();
-            if(str==0)
-            return huntStrategy1(ten,boids,bucketboids);
-            else
-            {
-                if(str==1) {
-                    return huntStrategy2(ten,boids);
+        //   {
+        /**
+         * Atakowanie najbliższej potencjalnej zdobyczy, jeśli jest w zasięgu
+         * drapieżnika
+         */
+        if (!boids.isEmpty()) {
+            potPrey = NDistance.minPrey(ten, boids, ten.minimalDistance * 2);
+            if (potPrey != null) {
+                if (randGen.nextInt(101) <= mainBoids.mainWin.getFreqEat()) {
+                    //mainBoids.mainWin.fabric.boids.remove(potPrey);
+                    mainBoids.simul.boids.remove(potPrey);
+                    mainBoids.simul.siatkaKoszykow.bucketList.get(potPrey.getBucketX()).get(potPrey.getBucketY()).getKoszyk().remove(potPrey); 
+                    //boids.remove(potPrey);
+                    //mainBoids.boids.remove(potPrey);
+                    
                 }
-                else 
-                {
-                    if(str==2) return huntStrategy3(ten,boids);
-                    else 
-                    {
-                        if(str==3) return huntStrategy2_3(ten,boids);
-                        else return new vector2d(0,0);
-                    } 
+            }
+        }
+
+        /**
+         * Strategia poruszania się
+         */
+        str = mainBoids.mainWin.getHuntStrategy();
+        if (str == 0) {
+            return huntStrategy1(ten, boids, bucketboids);
+        } else {
+            if (str == 1) {
+                return huntStrategy2(ten, boids);
+            } else {
+                if (str == 2) {
+                    return huntStrategy3(ten, boids);
+                } else {
+                    if (str == 3) {
+                        return huntStrategy2_3(ten, boids);
+                    } else {
+                        return new vector2d(0, 0);
+                    }
                 }
-            }      
-       // }
-       // else return new vector2d(0,0);
-     }
+            }
+        }
+    }
 }
 

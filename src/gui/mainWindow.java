@@ -28,14 +28,17 @@ public obstaclesFabric obsfabric = null;
 public foodFabric ffabric = null;
 //---------------------
 private final MouseListener mlcount =new java.awt.event.MouseAdapter() {
+    @Override
     public void mouseClicked(java.awt.event.MouseEvent evt) {panelMouseClickedCount(evt);}
 };
 //----------------------------
 private final MouseListener mlster;
 private final MouseListener mlld=new java.awt.event.MouseAdapter() {
+    @Override
     public void mouseClicked(java.awt.event.MouseEvent evt) {panelMouseClickedLD(evt);}
 };
 private final MouseListener mlobs=new java.awt.event.MouseAdapter() {
+    @Override
     public void mouseClicked(java.awt.event.MouseEvent evt) {panelMouseClickedOBS(evt);}
 };
 
@@ -1462,7 +1465,7 @@ public boolean savingStats;
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 691, Short.MAX_VALUE)
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(sldAnimSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2007,23 +2010,13 @@ public boolean savingStats;
         }
         
     }
-private void panelMouseClickedLD(java.awt.event.MouseEvent e) {
-    //boid nowy= new boid(e.getX(),e.getY());
-     if(e.getButton() == MouseEvent.BUTTON1)
-	    {
-	     //nowy.setType(0);
-             //{mainBoids.leaders.add(nowy);}
-            fabric.crateLeader(e.getX(),e.getY());
-	    }	    
-	    else //if(e.getButton() == MouseEvent.BUTTON3)
-	    {
-            fabric.cratePredator(e.getX(),e.getY());
-	      //nowy.setType(2);
-              //{mainBoids.predators.add(nowy);}
-	    }
-      //ptr.boids.add(nowy);
-      ptr.repaint();
-      //if (mainBoids.simul!=null){mainBoids.simul.boids.add(nowy);}
+    private void panelMouseClickedLD(java.awt.event.MouseEvent e) {
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            fabric.crateLeader(e.getX(), e.getY());
+        } else {
+            fabric.cratePredator(e.getX(), e.getY());
+        }
+        ptr.repaint();
     }
     private void panelMouseClicked(java.awt.event.MouseEvent evt) {                                     
       ptr.aimX=evt.getX();

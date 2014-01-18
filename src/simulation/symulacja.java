@@ -29,7 +29,7 @@ public class symulacja {
   double skala;
   double reactionTime;
   public vector2d globalAim=new vector2d(-1,-1);
-  gridBucket siatkaKoszykow;
+  public gridBucket siatkaKoszykow;
   //-----------------------------
   public boolean critical_sit,foraging_situation;
   //-----------------------------

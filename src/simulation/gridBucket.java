@@ -8,7 +8,7 @@ import math.vector2d;
  * @author Tomek
  */
 public class gridBucket {
-      ArrayList<ArrayList <bucket>> bucketList; 
+      public ArrayList<ArrayList <bucket>> bucketList; 
       int x,y;
       //double sizeX,sizeY;
       double maxX,maxY;
