@@ -1005,7 +1005,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel39">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Procent widz&#x105;cych lidera:"/>
+                <Property name="text" type="java.lang.String" value="Procent widz&#x105;cych lidera(%):"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblHaveLeaderPer">
@@ -1031,7 +1031,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel42">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Odst&#x119;pstwo od &#x15b;redniej:"/>
+                <Property name="text" type="java.lang.String" value="Odst&#x119;pstwo od &#x15b;redniej(%):"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblOdstAvgSpeed">

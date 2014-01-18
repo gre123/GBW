@@ -104,7 +104,7 @@ public class statistic {
             if(fw==null)
             {
                 fw=new FileWriter(mainBoids.mainWin.fSource,true);
-                fw.write("lblAvgNumNeight     lblHaveLeaderPer       lblOdstAvgSpeed       lblNumCols        lblAvgDist        lblBoidsColide      lblAvgSpeed\n");
+                fw.write("lblAvgNumNeight     lblHaveLeaderPer       lblOdstAvgSpeed       lblNumCols        lblAvgDist        lblBoidsColide\n");
             }
             else fw=new FileWriter(mainBoids.mainWin.fSource,true);
         }catch(Exception e){
@@ -112,7 +112,7 @@ public class statistic {
         }
         
         try{
-        fw.write(mainBoids.mainWin.lblAvgNumNeight.getText()+"     			"+mainBoids.mainWin.lblHaveLeaderPer.getText()+"       			   "+mainBoids.mainWin.lblOdstAvgSpeed.getText()+"       			 "+mainBoids.mainWin.lblNumCols.getText()+"        			"+mainBoids.mainWin.lblAvgDist.getText()+"                      "+mainBoids.mainWin.lblBoidsColide.getText()+"				     "+mainBoids.mainWin.lblAvgSpeed.getText()+"\n");
+        fw.write(mainBoids.mainWin.lblAvgNumNeight.getText()+"  "+mainBoids.mainWin.lblHaveLeaderPer.getText()+"    "+mainBoids.mainWin.lblOdstAvgSpeed.getText()+" "+mainBoids.mainWin.lblNumCols.getText()+"  "+mainBoids.mainWin.lblAvgDist.getText()+"  "+mainBoids.mainWin.lblBoidsColide.getText()+"\n");
         fw.close();
         }catch(Exception e){
             System.out.println("Problem z zapisem pliku");

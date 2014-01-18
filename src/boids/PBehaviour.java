@@ -32,7 +32,7 @@ public class PBehaviour {
         {
             if(boids.get(i).type==2)
             {
-                    bestPos=ten.getBestPosition(boids.get(i), mainBoids.panelSizeX, mainBoids.panelSizeX);
+                    bestPos=ten.getBestPosition(boids.get(i), mainBoids.panelSizeX, mainBoids.panelSizeY);
                     d=ten.getPosition().getDistance(bestPos);             
                     poz=bestPos;
                     pom=poz.minus(ten.position);

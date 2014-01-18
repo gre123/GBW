@@ -679,7 +679,7 @@ public boolean savingStats;
 
         lblAvgNumNeight.setText("0");
 
-        jLabel39.setText("Procent widzących lidera:");
+        jLabel39.setText("Procent widzących lidera(%):");
 
         lblHaveLeaderPer.setText("0");
 
@@ -687,7 +687,7 @@ public boolean savingStats;
 
         lblAvgSpeed.setText("0");
 
-        jLabel42.setText("Odstępstwo od średniej:");
+        jLabel42.setText("Odstępstwo od średniej(%):");
 
         lblOdstAvgSpeed.setText("0");
 
@@ -1572,7 +1572,7 @@ public boolean savingStats;
     return  sldFreqEat.getValue();
     }
     public void setHeveLeader(double per){
-        this.lblHaveLeaderPer.setText(Double.toString(per)+"%");
+        this.lblHaveLeaderPer.setText(Double.toString(per));
     }
     //-----------------------------------------
     public  int getLeaderTypeMovement(){
@@ -1615,7 +1615,7 @@ public boolean savingStats;
     this.lblAvgSpeed.setText("("+String.format("%.1f", avgsX)+";"+String.format("%.1f", avgsY)+")");
     }
     public void setAvgSpeedOdst(double avgODS){     
-    this.lblOdstAvgSpeed.setText(String.format("%.1f", avgODS)+"%");
+    this.lblOdstAvgSpeed.setText(String.format("%.1f", avgODS));
     }
     public void setAvgDist(double avgDist){     
     this.lblAvgDist.setText(String.format("%.1f", avgDist));
