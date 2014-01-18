@@ -292,7 +292,7 @@ public boolean savingStats;
 
         jLabel22.setText("Zwykłe - ucieczka :");
 
-        combpredEscape.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "stada+sam_szybciej", "stada+sam_niezależ" }));
+        combpredEscape.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "stada_bez kryt", "stada+sam_niezależ" }));
         combpredEscape.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 combpredEscapeActionPerformed(evt);

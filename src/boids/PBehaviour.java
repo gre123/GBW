@@ -43,15 +43,10 @@ public class PBehaviour {
                     */
                     if(d<ten.minimalDistance)
                     {
-                        mainBoids.simul.critical_sit=true;
-                        if(mainBoids.mainWin.getEscapeStrategy()==0)
+                        
+                        if(mainBoids.mainWin.getEscapeStrategy()==1)
                         {
-                          //  System.out.println("Sytuacja szybciej");
-                            pom.multi(10);
-                            w.add(pom);k++;
-                        } 
-                        else
-                        {
+                            mainBoids.simul.critical_sit=true;
                             randGen = new Random();
                          if(randGen.nextInt(10)==5)
                          {
@@ -68,28 +63,21 @@ public class PBehaviour {
                             }
 
                             w.add(pom);k++;
-                         }
-                         else
-                         {
-                             if(d>ten.minimalDistance){ w.add(pom.divNonZero(d));k++;}
-                             else 
-                             {
-                                w.add(pom);k++;
-                             }
-                         }
+                         }  
                         }
                         
-                    }
-                    else
-                    {
-                        if(d>ten.minimalDistance){ w.add(pom.divNonZero(d));k++;}
-                        else 
-                        {
-                          w.add(pom);k++;
-                        }
                     } 
-            } 
+                    else
+                         {
+                            if(d>ten.minimalDistance){ w.add(pom.divNonZero(d));k++;}
+                             else 
+                             {
+                                 w.add(pom);k++;
+                             }
+                         } 
         }
+        
+    }
         return w.div(k);
     }
     
