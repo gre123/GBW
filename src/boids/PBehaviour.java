@@ -172,7 +172,7 @@ public class PBehaviour {
         {
            for(int j=0;j<tmp.size();j++)
            {
-             bestPos=ten.getBestPosition(tmp.get(j), mainBoids.panelSizeX, mainBoids.panelSizeX);  
+             bestPos=ten.getBestPosition(tmp.get(j), mainBoids.panelSizeX, mainBoids.panelSizeY);  
              pom.add(bestPos);
            }
            pom.div(tmp.size());
@@ -220,7 +220,7 @@ public class PBehaviour {
         {
             for(int i=0;i<tmp.size();i++)
             {
-                bestPos=ten.getBestPosition(tmp.get(i), mainBoids.panelSizeX, mainBoids.panelSizeX);
+                bestPos=ten.getBestPosition(tmp.get(i), mainBoids.panelSizeX, mainBoids.panelSizeY);
                 move.add(bestPos);
             }
             move.div(tmp.size());

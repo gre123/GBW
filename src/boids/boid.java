@@ -69,7 +69,7 @@ public class boid {
         double acumDist=0;
         for (int i = 0; i < boids.size(); i++) {
             //bestPos=this.position.getCloserPosition(boids.get(i).position, mainBoids.panelSizeX, mainBoids.panelSizeY);
-            bestPos=this.getBestPosition(boids.get(i), mainBoids.panelSizeX, mainBoids.panelSizeX);
+            bestPos=this.getBestPosition(boids.get(i), mainBoids.panelSizeX, mainBoids.panelSizeY);
             dist = this.position.getDistance(bestPos);
             acumDist+=dist;
              if(dist>separateRadius){continue;}
@@ -88,6 +88,8 @@ public class boid {
         
         if (k > 0) {
             mainBoids.stat.addAverageDist(acumDist/k);
+//            if(acumDist/k<30){this.maxSpeed*=0.9;if (maxSpeed<50){maxSpeed=50;}}
+//            if(acumDist/k>30){this.maxSpeed=150;}
             return  value.divNonZero(k);
             //colorSeparB=1-(float)(pos.getLength()/(minimalDistance * minimalDistance));
         } else {
