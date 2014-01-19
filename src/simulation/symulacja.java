@@ -114,7 +114,7 @@ public class symulacja {
          //System.out.println((3.1415-alfa)+"+"+katWidzenia);
          if (gridBoids.get(i).getType()==2){d=0; osobnik.setHavePredator(true);}
           if((alfa)<katWidzenia){
-              d=d*(alfa)/3.1415;
+              d=d*((((alfa)/3.1415)+0.1)/1.1);
               if (maxDist<d && neigh.size()>=maxNeigh){}
               else if (maxDist>d && neigh.size()>=maxNeigh){
                   neigh.remove(inxMax);distannces.remove(inxMax); 
@@ -240,12 +240,12 @@ public class symulacja {
           tempBoids=getNeighbourhoodOptmTopological(boids.get(i),mainBoids.mainWin.getNumNeight());
           
           sep= boids.get(i).separate(tempBoids).multi(cofSep);
-          if(sep.getSLength()<1){
+          if(sep.getSLength()<cofSep*cofSep){
           ali= boids.get(i).alignment(tempBoids).multi(cofAli);
           coh= boids.get(i).cohesion(tempBoids).multi(cofCoh);
           }else{ali=new vector2d(0,0);coh=new vector2d(0,0);}
           lead= boids.get(i).followLeader(tempBoids);
-          toAim=boids.get(i).goToAim(globalAim);
+          toAim=boids.get(i).goToAim(globalAim).multi(0.4);
           rand=new vector2d(randGen.nextDouble()*2-1,randGen.nextDouble()*2-1);
           avoid=boids.get(i).better_avoid(pom,AvoidMode, AvoidRec);
           

@@ -1,6 +1,7 @@
 package boids;
 
 import static java.lang.StrictMath.abs;
+import static java.lang.StrictMath.exp;
 import static java.lang.StrictMath.sqrt;
 import java.util.ArrayList;
 import java.util.Random;
@@ -75,13 +76,14 @@ public class boid {
              if(dist>separateRadius){continue;}
             if (dist <= minimalDistance) {
                 mainBoids.stat.incCollisonNumber();
-                velocity.multi(0.00);
+                velocity.multi(0.90);
                 pos=this.getPosition().getVec().minus(bestPos);
                 return pos.div(dist);
             }
                 pos=this.getPosition().getVec().minus(bestPos);
                 pos.divNonZero(dist);
-                pos.divNonZero(dist-minimalDistance+1);
+                pos.multi(exp(-((dist-minimalDistance)*(dist-minimalDistance))/(separateRadius)));
+                //pos.divNonZero(dist-minimalDistance+1);
                 value.add(pos);
                 k++;
         }
