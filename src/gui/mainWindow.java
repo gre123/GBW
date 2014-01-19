@@ -219,6 +219,8 @@ public boolean savingStats;
         jLabel31 = new javax.swing.JLabel();
         spnObstacleRadius = new javax.swing.JSpinner();
         jLabel33 = new javax.swing.JLabel();
+        btnSeparacWygl = new javax.swing.JToggleButton();
+        btnPolaryzation = new javax.swing.JToggleButton();
         btnStart = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1374,6 +1376,10 @@ public boolean savingStats;
 
         jLabel33.setText("Wielkość przeszkody:");
 
+        btnSeparacWygl.setText("Separacja");
+
+        btnPolaryzation.setText("Polaryzacja predkości");
+
         javax.swing.GroupLayout wygladPanelLayout = new javax.swing.GroupLayout(wygladPanel);
         wygladPanel.setLayout(wygladPanelLayout);
         wygladPanelLayout.setHorizontalGroup(
@@ -1399,7 +1405,9 @@ public boolean savingStats;
                     .addGroup(wygladPanelLayout.createSequentialGroup()
                         .addComponent(jLabel33)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(spnObstacleRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(spnObstacleRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSeparacWygl, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                    .addComponent(btnPolaryzation, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
                 .addGap(2, 2, 2))
         );
         wygladPanelLayout.setVerticalGroup(
@@ -1411,6 +1419,10 @@ public boolean savingStats;
                 .addComponent(btnVelWart)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAccelWart)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSeparacWygl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnPolaryzation)
                 .addGap(18, 18, 18)
                 .addGroup(wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel29)
@@ -1427,7 +1439,7 @@ public boolean savingStats;
                 .addGroup(wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel33)
                     .addComponent(spnObstacleRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(424, Short.MAX_VALUE))
+                .addContainerGap(356, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Wygląd", wygladPanel);
@@ -1512,12 +1524,20 @@ public boolean savingStats;
      if (this.btnWpływLeader.isSelected()){return true;}
      return false;
     }
+    public  boolean czySeparacja(){
+     if (this.btnSeparacWygl.isSelected()){return true;}
+     return false;
+    }
     public  boolean czyVelWart(){
      if (this.btnVelWart.isSelected()){return true;}
      return false;
     }
     public  boolean czyAccelWart(){
      if (this.btnAccelWart.isSelected()){return true;}
+     return false;
+    }
+    public  boolean czyPolarizationWyglad(){
+     if (this.btnPolaryzation.isSelected()){return true;}
      return false;
     }
     public  int getNumNeight(){
@@ -2074,6 +2094,8 @@ public boolean savingStats;
     private javax.swing.JButton btnGenStado;
     private javax.swing.JButton btnGlobAim;
     private javax.swing.JButton btnLoadSettings;
+    private javax.swing.JToggleButton btnPolaryzation;
+    private javax.swing.JToggleButton btnSeparacWygl;
     private javax.swing.JButton btnStart;
     private javax.swing.JToggleButton btnSterMysza;
     private javax.swing.JToggleButton btnSterMysza1;

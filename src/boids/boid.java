@@ -29,6 +29,8 @@ public class boid {
     double minimalDistance;
     double separateRadius;
     float colorLeadB,colorSeparB,colorVelB,colorAccelB;
+    float colorSepH,colorCohH,colorAliH;
+    float colorOdstVelH;
     boolean zderzony,bum;
     boolean hungry;
     int eats;
@@ -47,6 +49,8 @@ public class boid {
         colorSeparB=0.0f;
         colorVelB=0.0f;
         colorAccelB=0.0f;
+        colorSepH=0;colorCohH=0;colorAliH=0;
+        colorOdstVelH=0;
         masa=0.08;
         //omijam=false;
         zderzony=false;
@@ -64,7 +68,7 @@ public class boid {
     public vector2d separate(ArrayList<boid> boids) {
         vector2d value = new vector2d(0,0);
         vector2d pos,bestPos;
-        colorSeparB=0;
+        colorSepH=0;
         int k = 0;
         double dist;
         double acumDist=0;
@@ -78,6 +82,7 @@ public class boid {
                 mainBoids.stat.incCollisonNumber();
                 velocity.multi(0.90);
                 pos=this.getPosition().getVec().minus(bestPos);
+                colorSepH=0;
                 return pos.div(dist);
             }
                 pos=this.getPosition().getVec().minus(bestPos);
@@ -90,10 +95,13 @@ public class boid {
         
         if (k > 0) {
             mainBoids.stat.addAverageDist(acumDist/k);
+            value.divNonZero(k);
 //            if(acumDist/k<30){this.maxSpeed*=0.9;if (maxSpeed<50){maxSpeed=50;}}
 //            if(acumDist/k>30){this.maxSpeed=150;}
-            return  value.divNonZero(k);
-            //colorSeparB=1-(float)(pos.getLength()/(minimalDistance * minimalDistance));
+           this.seColorSepH((float)value.getLength());
+           // this.seColorSepH((float)((acumDist/k)/separateRadius));
+            return  value;
+           
         } else {
             return value;
         }
@@ -568,6 +576,24 @@ public class boid {
     }
     public float getColorAccelB(){
     return colorAccelB;
+    }
+    public float getColorSepH(){
+    return colorSepH;
+    }
+    public float getColorAliH(){
+    return colorAliH;
+    }
+    public float getColorCohH(){
+    return colorCohH;
+    }
+    public float getColorOdstVelH(){
+    return colorOdstVelH;
+    }
+    public void setColorOdstVelH(float H){
+    colorOdstVelH=(H*240f/360)*(-1)+240f/360;
+    }
+    public void seColorSepH(float H){
+    colorSepH=(H*240f/360)*(-1)+240f/360;
     }
     public boolean czyBum(){
         return bum;

@@ -95,6 +95,10 @@ public class panel extends JPanel {
                     g2d.setColor(Color.getHSBColor(0, 0, boids.get(i).getColorAccelB()));
                     }else if(mainBoids.mainWin.czyVelWart()){
                     g2d.setColor(Color.getHSBColor(0, 0, boids.get(i).getColorVelB()));
+                    }else if(mainBoids.mainWin.czySeparacja()){
+                    g2d.setColor(Color.getHSBColor(boids.get(i).getColorSepH(), 1, 1));
+                    }else if(mainBoids.mainWin.czyPolarizationWyglad()){
+                    g2d.setColor(Color.getHSBColor(boids.get(i).getColorOdstVelH(), 1, 1));
                     }else{ g2d.setColor(Color.black);}
                 }else if(boids.get(i).getType()==0){//leader
                     g2d.setColor(Color.blue);

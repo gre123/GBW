@@ -285,12 +285,16 @@ public class symulacja {
             mainBoids.predators.get(i).setAcceleration(Sep.add(predH).add(avoid).multi(skala));
        }
              mainBoids.stat.prevAverageSpeed.normalize();
+             float tmpColor;
        for(int i=0;i<boids.size();i++){
+           tmpColor=(float)((mainBoids.stat.prevAverageSpeed.skalarny(boids.get(i).getVelocity().getVec().normalize()))-1)/(-2);
+            boids.get(i).setColorOdstVelH(tmpColor);
+            mainBoids.stat.odstAverageSpeed+=tmpColor;
             boids.get(i).applyForce(timeStep);
             if (boids.get(i).czyBum()) {mainBoids.stat.incNumOfColision();}
             mainBoids.stat.averageSpeed.add(boids.get(i).getVelocity());   
             //mainBoids.stat.odstAverageSpeed+=mainBoids.stat.prevAverageSpeed.getVec().minus(boids.get(i).getVelocity().getVec().normalize()).getLength()/(2);
-            mainBoids.stat.odstAverageSpeed+=((mainBoids.stat.prevAverageSpeed.skalarny(boids.get(i).getVelocity().getVec().normalize()))-1)/(-2);
+            
             boids.get(i).move(timeStep);
             siatkaKoszykow.updateGrid(boids.get(i));
        }

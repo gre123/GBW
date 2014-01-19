@@ -1824,6 +1824,8 @@
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="spnObstacleRadius" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="btnSeparacWygl" alignment="0" pref="186" max="32767" attributes="0"/>
+                          <Component id="btnPolaryzation" alignment="0" pref="186" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                   </Group>
@@ -1838,6 +1840,10 @@
                       <Component id="btnVelWart" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnAccelWart" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnSeparacWygl" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnPolaryzation" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1858,7 +1864,7 @@
                           <Component id="jLabel33" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="spnObstacleRadius" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="424" max="32767" attributes="0"/>
+                      <EmptySpace pref="356" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1929,6 +1935,16 @@
             <Component class="javax.swing.JLabel" name="jLabel33">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Wielko&#x15b;&#x107; przeszkody:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JToggleButton" name="btnSeparacWygl">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Separacja"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JToggleButton" name="btnPolaryzation">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Polaryzacja predko&#x15b;ci"/>
               </Properties>
             </Component>
           </SubComponents>
