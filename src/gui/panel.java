@@ -9,7 +9,6 @@ import java.io.File;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import math.vector2d;
 import trunk.src.boids.Obstacle;
  
 /**

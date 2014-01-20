@@ -56,10 +56,10 @@ public class boidsFabric {
             boids.add(new boid(x*wsp,y*wsp));x++;
             if(x*wsp>mainBoids.panelSizeX){x=0;y++;}
             }else if(rozklad==2){
-                x=(int)(randGen.nextGaussian()*150+540);
-                while (x<0|| x>mainBoids.panelSizeX){x=(int)(randGen.nextGaussian()*150+540);}
-                y=(int)(randGen.nextGaussian()*94+330);
-                while (y<0|| y>mainBoids.panelSizeY){y=(int)(randGen.nextGaussian()*90+330);}
+                x=(int)(randGen.nextGaussian()*mainBoids.panelSizeX/7+mainBoids.panelSizeX/2);
+                while (x<0|| x>mainBoids.panelSizeX){x=(int)(randGen.nextGaussian()*mainBoids.panelSizeX/7+mainBoids.panelSizeX/2);}
+                y=(int)(randGen.nextGaussian()*mainBoids.panelSizeY/7+mainBoids.panelSizeY/2);
+                while (y<0|| y>mainBoids.panelSizeY){y=(int)(randGen.nextGaussian()*mainBoids.panelSizeY/7+mainBoids.panelSizeY/2);}
             boids.add(new boid(x,y));
             }
             boids.get(i).radius=boidRadius;
