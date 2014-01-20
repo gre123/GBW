@@ -10,7 +10,7 @@ import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.Random;
 import math.vector2d;
-import trunk.src.boids.Obstacle;
+import boids.Obstacle;
 
 /**
  *

@@ -9,7 +9,7 @@ import math.NDistance;
 import math.trigonometric;
 import math.vector2d;
 import simulation.bucket;
-import trunk.src.boids.Obstacle;
+import boids.Obstacle;
 
 /**
  * @author Tomek

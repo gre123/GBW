@@ -1,4 +1,4 @@
-package trunk.src.boids;
+package boids;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -23,7 +23,7 @@ public class obstaclesFabric {
         int x=0,y=0;
         for(int i=0;i<n;i++){
             
-            obs.add(new Obstacle(randGen.nextInt(1095-100)+20,randGen.nextInt(680-100)+50, rad));
+            obs.add(new Obstacle(randGen.nextInt(mainBoids.panelSizeX-120)+60,randGen.nextInt(mainBoids.panelSizeY-120)+60, rad));
             //obs.get(i).radius=40;
         }
         return obs;

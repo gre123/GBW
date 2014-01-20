@@ -15,8 +15,8 @@ import math.vector2d;
 import simulation.statistic;
 import simulation.symulacja;
 import simulation.threadSym;
-import trunk.src.boids.Obstacle;
-import trunk.src.boids.obstaclesFabric;
+import boids.Obstacle;
+import boids.obstaclesFabric;
 
 /**
  *@author Bylina, Gajda, Wszołek

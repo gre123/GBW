@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javax.swing.UIManager;
 import math.trigonometric;
 import simulation.statistic;
-import trunk.src.boids.Obstacle;
+import boids.Obstacle;
 
 /**
  * @author Bylina, Gajda, Wszołek

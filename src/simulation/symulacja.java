@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Random;
 import math.vector2d;
-import trunk.src.boids.Obstacle;
+import boids.Obstacle;
 
 /**
  * @author Tomek
