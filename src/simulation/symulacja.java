@@ -63,7 +63,9 @@ public class symulacja {
   for(int i=0;i<gridBoids.size();i++){
       
       d=osobnik.getPosition().getSDistance(gridBoids.get(i).getPosition());     
-      
+      //ta linijka powinna być chyba zmieniona żeby sąsiedztwo zwracane było przez ściany, i potem w pętli for też powinny być zmiany
+      //d=osobnik.getPosition().getSDistance(osobnik.getBestPosition(gridBoids.get(i), mainBoids.panelSizeX, mainBoids.panelSizeY));     
+
       if (d<(radiusNeigh*radiusNeigh) && !osobnik.equals(gridBoids.get(i))){ 
          alfa=osobnik.calcAngle(gridBoids.get(i).getPosition());
           if((3.1415-alfa)<katWidzenia){

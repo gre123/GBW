@@ -153,7 +153,6 @@ public class PBehaviour {
         
         if(tmp.isEmpty())
         {
-          //pom=new vector2d(randGen.nextDouble()-2,randGen.nextDouble()+4);
             pom=new vector2d(0,0);
         }
         else 
@@ -173,24 +172,27 @@ public class PBehaviour {
      * Biegnie za najbliższym osobnikiem jeśli takowego ma w sąsiedztwie
      * @param ten
      * @param boids
-     * @return 
+     * @return siłę w stronę ofiary
      */
     public static vector2d huntStrategy2(boid ten,ArrayList<boid> boids)//tu dodac pozniej trzeba oblsuge krawedzi - zulov
+    //obsługa krawędzi chyba działałaby, gdyby w liście boidów z argumentu były podawane też te poza krawędzią, a to wymaga zmian aż w getNeighborhoodOptm, więc nie warto
     {
        // Random randGen = new Random();
         boid mD=null;
         vector2d pom=new vector2d(0,0);
         
-        mD=NDistance.minDist(ten, boids);
+        mD=NDistance.minDist(ten, boids);//zwraca najbliższego przez ściany z podanej listy
         if(mD!=null)
         { 
-                pom.add(mD.getPosition());
+                pom.add(ten.getBestPosition(mD, mainBoids.panelSizeX, mainBoids.panelSizeY));
                 pom.minus(ten.getPosition());  
                 pom.normalize();
-                  //  System.out.println("["+pom.getX()+" ; "+pom.getY()+"]");
             return pom;
         }
-        else return pom;
+        
+        else {
+            return pom;
+        }
     }
     /**
      * Biegnie za grupą wyznaczoną za pomocą sąsiedztwa jednego z sąsiadów drapieżnika
@@ -225,18 +227,18 @@ public class PBehaviour {
      * @param boids
      * @return 
      */
-    public static vector2d huntStrategy2_3(boid ten,ArrayList<boid> boids)//dodac obsluge krawedzi
+    public static vector2d huntStrategy2_3(boid ten,ArrayList<boid> boids)//dodana obsługa krawędzi, gdyby arraylista zawierała też te poza krawędzią
     {
         Random randGen = new Random();
         double chStrategy=30;
         boid mD=null;
         vector2d pom=new vector2d(0,0);
-        mD=NDistance.minDist(ten, boids);
+        mD=NDistance.minDist(ten, boids);//mindist zwraca też przez ściany
         if(mD!=null)
         {
-            if(ten.getPosition().getDistance(mD)<chStrategy)
+            if(ten.getPosition().getDistance(ten.getBestPosition(mD,mainBoids.panelSizeX, mainBoids.panelSizeY))<chStrategy)
             {
-                pom.add(mD.getPosition());
+                pom.add(ten.getBestPosition(mD,mainBoids.panelSizeX, mainBoids.panelSizeY));
                 pom.minus(ten.getPosition());  
                 pom.normalize();
                 return pom;
@@ -254,9 +256,6 @@ public class PBehaviour {
         boid potPrey;
         Random randGen = new Random();
         int str;
-
-       // if(ten.type==2)
-        //   {
         /**
          * Atakowanie najbliższej potencjalnej zdobyczy, jeśli jest w zasięgu
          * drapieżnika

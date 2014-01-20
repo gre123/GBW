@@ -508,6 +508,13 @@ public class boid {
         this.acceleration = _accel;
     colorAccelB=1-(float)(_accel.getSLength()/(maxForce*maxForce));
     }
+    /**
+     * Funkcja realizująca "widzenie przez ściany", zamiast getPosition()
+     * @param osobnik
+     * @param sizeX rozmiar pola symulacji
+     * @param sizeY rozmiar pola symulacji
+     * @return zwraca pozycję, w której boid wywołujący funkcję powinien widzieć boida podanego w argumencie
+     */
     public vector2d getBestPosition(boid osobnik,int sizeX,int sizeY){
      vector2d tempPosition;
      int difx=osobnik.getBucketX()-this.getBucketX();

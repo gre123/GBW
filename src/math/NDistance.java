@@ -8,6 +8,7 @@ package math;
 
 import boids.Food;
 import boids.boid;
+import boids.mainBoids;
 import java.util.ArrayList;
 
 /**
@@ -59,18 +60,15 @@ public class NDistance {
      * @param boids
      * @return Wydaje się, że zwraca boida z listy najbliższego do boida ten
      */
-    public static boid minDist(boid ten,ArrayList<boid> boids)
-    {
-        double pom=0;
-        boid k=null;
-        double d=Double.MAX_VALUE; //to zmienić?
-        for(int j=0;j<boids.size();j++)
-        {
-            pom=ten.getPosition().getSDistance(boids.get(j));
-            if(d>pom && boids.get(j).getType()!=2) 
-            {
-                d=pom; 
-                k=boids.get(j);
+    public static boid minDist(boid ten, ArrayList<boid> boids) {
+        double pom = 0;
+        boid k = null;
+        double d = Double.MAX_VALUE; //to zmienić?
+        for (int j = 0; j < boids.size(); j++) {
+            pom = ten.getPosition().getSDistance(ten.getBestPosition(boids.get(j), mainBoids.panelSizeX, mainBoids.panelSizeY));
+            if (d > pom && boids.get(j).getType() != 2) {
+                d = pom;
+                k = boids.get(j);
             }
         }
         return k;
