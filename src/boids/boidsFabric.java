@@ -51,15 +51,15 @@ public class boidsFabric {
         int predatorRadius=mainBoids.mainWin.getPredatorSize();
         double minimalDistSeparate=mainBoids.mainWin.getMinmalSeparate();
         for(int i=0;i<n;i++){           
-            if(rozklad==0){ boids.add(new boid(randGen.nextInt(1080),randGen.nextInt(680)));
+            if(rozklad==0){ boids.add(new boid(randGen.nextInt(mainBoids.panelSizeX),randGen.nextInt(mainBoids.panelSizeY)));
             }else if(rozklad==1){
             boids.add(new boid(x*wsp,y*wsp));x++;
-            if(x*wsp>1080){x=0;y++;}
+            if(x*wsp>mainBoids.panelSizeX){x=0;y++;}
             }else if(rozklad==2){
                 x=(int)(randGen.nextGaussian()*150+540);
-                while (x<0|| x>1080){x=(int)(randGen.nextGaussian()*150+540);}
+                while (x<0|| x>mainBoids.panelSizeX){x=(int)(randGen.nextGaussian()*150+540);}
                 y=(int)(randGen.nextGaussian()*94+330);
-                while (y<0|| y>680){y=(int)(randGen.nextGaussian()*90+330);}
+                while (y<0|| y>mainBoids.panelSizeY){y=(int)(randGen.nextGaussian()*90+330);}
             boids.add(new boid(x,y));
             }
             boids.get(i).radius=boidRadius;

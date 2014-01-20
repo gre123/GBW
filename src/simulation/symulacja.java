@@ -44,7 +44,7 @@ public class symulacja {
   food=_food;
   animSpeed=10;
   reactionTime=50;
-  siatkaKoszykow =new gridBucket(19,12,mainBoids.panelSizeX+8,mainBoids.panelSizeY+5);
+  siatkaKoszykow =new gridBucket(19,12,mainBoids.panelSizeX,mainBoids.panelSizeY);
   pom=new ArrayList<>();
   }
   public void addBoid(boid agt){
@@ -216,11 +216,13 @@ public class symulacja {
       pom.addAll(food);
       start=System.nanoTime();
       while(continueSimulation){
+        
       end=start;
       start=System.nanoTime();  
       //System.out.println(System.nanoTime());
       time=(start-end)/1000000d;
       mainBoids.stat.addPerformance(time);
+      if (mainBoids.mainWin.czyConstCzas()!=true){
       timeMin+=time;
   // System.out.println("t"+time);
       while(time<reactionTime-1){
@@ -233,8 +235,10 @@ public class symulacja {
           Thread.currentThread().interrupt();
           }
       }
-      timeStep=((double)time)/(55-animSpeed)/1000;
-//System.out.println(timeStep);
+      }else{time=reactionTime;}
+     // timeStep=((double)time)/(55-animSpeed)/1000;
+      timeStep=((double)time)/1000;
+
        for(int i=0;i<boids.size();i++){ 
           if (boids.get(i).getType()==2){continue;}
           tempBoids=getNeighbourhoodOptmTopological(boids.get(i),mainBoids.mainWin.getNumNeight());
@@ -292,18 +296,16 @@ public class symulacja {
             mainBoids.stat.odstAverageSpeed+=tmpColor;
             boids.get(i).applyForce(timeStep);
             if (boids.get(i).czyBum()) {mainBoids.stat.incNumOfColision();}
-            mainBoids.stat.averageSpeed.add(boids.get(i).getVelocity());   
-            //mainBoids.stat.odstAverageSpeed+=mainBoids.stat.prevAverageSpeed.getVec().minus(boids.get(i).getVelocity().getVec().normalize()).getLength()/(2);
-            
+            mainBoids.stat.averageSpeed.add(boids.get(i).getVelocity());     
             boids.get(i).move(timeStep);
             siatkaKoszykow.updateGrid(boids.get(i));
        }
        
-       fps=100000/time;    
-       if (timeMin>333){
-           timeMin=0;
-           mainBoids.mainWin.setFPS((int)fps);
-       }
+//       fps=100000/time;    
+//       if (timeMin>333){
+//           timeMin=0;
+//           mainBoids.mainWin.setFPS((int)fps);
+//       }
      mainBoids.stat.updateStats();
        mainBoids.mainWin.ptr.repaint( );
       }

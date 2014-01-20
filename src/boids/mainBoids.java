@@ -29,8 +29,8 @@ public class mainBoids {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        panelSizeX=1072;
-        panelSizeY=677;
+        panelSizeX=1130;
+        panelSizeY=710;
         mainWin = new mainWindow();
         mainWin.setVisible(true);
         tryg = new trigonometric(20, 4000);

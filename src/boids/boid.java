@@ -15,7 +15,6 @@ import trunk.src.boids.Obstacle;
  * @author Tomek
  */
 public class boid {
-
     vector2d position, velocity, acceleration, aim;
     ArrayList<vector2d> aims = null;
     int indexAims;
@@ -30,7 +29,7 @@ public class boid {
     double separateRadius;
     float colorLeadB,colorSeparB,colorVelB,colorAccelB;
     float colorSepH,colorCohH,colorAliH;
-    float colorOdstVelH;
+    float colorOdstVelH,colorOdstVelLokalH;
     boolean zderzony,bum;
     boolean hungry;
     int eats;
@@ -51,6 +50,7 @@ public class boid {
         colorAccelB=0.0f;
         colorSepH=0;colorCohH=0;colorAliH=0;
         colorOdstVelH=0;
+        colorOdstVelLokalH=0;
         masa=0.08;
         //omijam=false;
         zderzony=false;
@@ -105,8 +105,7 @@ public class boid {
         } else {
             return value;
         }
-    }
-    
+    }   
     public vector2d separatePredator(ArrayList<boid> boids){
      vector2d value = new vector2d(0, 0);
      vector2d pos;
@@ -135,7 +134,11 @@ public class boid {
             if (boids.get(i).type<2){pos.add(boids.get(i).velocity);k++;}
         }      
             if (k>0){
-            pos.divNonZero(k).minus(this.velocity);
+            pos.divNonZero(k);
+            float tempVar=(float)(((pos.getVec().normalize().skalarny(this.velocity.getVec().normalize()))-1)/(-2));
+            this.setColorOdstVelLokalH(tempVar);
+            mainBoids.stat.addOdstAverageSpeed(tempVar);
+            pos.minus(this.velocity);
             return pos.normalize();
             }else{return pos;}
     }
@@ -589,8 +592,14 @@ public class boid {
     public float getColorOdstVelH(){
     return colorOdstVelH;
     }
+    public float getColorOdstVelLokalH(){
+    return colorOdstVelLokalH;
+    }
     public void setColorOdstVelH(float H){
     colorOdstVelH=(H*240f/360)*(-1)+240f/360;
+    }
+    public void setColorOdstVelLokalH(float H){
+    colorOdstVelLokalH=(H*240f/360)*(-1)+240f/360;
     }
     public void seColorSepH(float H){
     colorSepH=(H*240f/360)*(-1)+240f/360;

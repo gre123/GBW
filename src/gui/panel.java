@@ -41,8 +41,8 @@ public class panel extends JPanel {
     }
     
     public panel(ArrayList<boid> _boids, ArrayList<Obstacle> _obs, ArrayList<Food> _food) {
-        x=1080;
-        y=685;
+        x=mainBoids.panelSizeX;
+        y=mainBoids.panelSizeY;
         setPreferredSize(new Dimension(x, y));
         boids=_boids;
         obs = _obs;
@@ -99,6 +99,8 @@ public class panel extends JPanel {
                     g2d.setColor(Color.getHSBColor(boids.get(i).getColorSepH(), 1, 1));
                     }else if(mainBoids.mainWin.czyPolarizationWyglad()){
                     g2d.setColor(Color.getHSBColor(boids.get(i).getColorOdstVelH(), 1, 1));
+                    }else if(mainBoids.mainWin.czyPolarizationLokalWyglad()){
+                    g2d.setColor(Color.getHSBColor(boids.get(i).getColorOdstVelLokalH(), 1, 1));
                     }else{ g2d.setColor(Color.black);}
                 }else if(boids.get(i).getType()==0){//leader
                     g2d.setColor(Color.blue);
