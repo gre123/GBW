@@ -447,7 +447,8 @@ public class boid {
         velocity.add(acceleration.multi(1));
         if (velocity.getSLength() > maxSpeed*maxSpeed) {    
             velocity.normalize();
-            velocity.multi(maxSpeed);
+            if(this.getType()==2) velocity.multi(maxSpeed*0.8); //wolniejszy drapieżnik
+            else velocity.multi(maxSpeed);
             colorVelB=0;
         }else{
             colorVelB=1-(float)(velocity.getSLength()/(maxSpeed*maxSpeed));

@@ -23,7 +23,7 @@ public class PBehaviour {
         vector2d poz,pom=new vector2d(0,0);
         if(!ten.getHavePredator()) {return pom;}
         vector2d bestPos,w=new vector2d(0,0);
-        double criticaldist=25;
+        double criticaldist=15;
         double d;
         Random randGen;// = new Random();
         int k=0;
@@ -47,24 +47,10 @@ public class PBehaviour {
                         if(mainBoids.mainWin.getEscapeStrategy()==1)
                         {
                             mainBoids.simul.critical_sit=true;
-                            randGen = new Random();
-                         if(randGen.nextInt(10)==5)
-                         {
-                           // System.out.println("Sytuacja niezależniej");
-                            if(pom.getX()>pom.getY())
-                            {
-                                pom.setY(pom.getY()*5);
-                                pom.multi(10);
-                            }   
-                            else
-                            {
-                                pom.setX(pom.getX()*5);
-                                pom.multi(10);
-                            }
-
+                            pom.rotate(30);
+                            pom.normalize();
                             w.add(pom);k++;
                          }  
-                        }
                         
                     } 
                     else

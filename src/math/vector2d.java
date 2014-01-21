@@ -150,4 +150,15 @@ public class vector2d {
         return new vector2d(-y,x);
     }
     
+    /**
+     * rotuje wektor 
+     * @param n 
+     */
+    public void rotate(double n)
+    {
+        double rx = (this.x * Math.cos(n)) - (this.y * Math.sin(n));
+        double ry = (this.x * Math.sin(n)) + (this.y * Math.cos(n));
+        x = rx;
+        y = ry;
+    }
 }
