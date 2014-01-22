@@ -44,7 +44,7 @@ public class symulacja {
   food=_food;
   animSpeed=10;
   reactionTime=50;
-  siatkaKoszykow =new gridBucket(19,12,mainBoids.panelSizeX,mainBoids.panelSizeY);
+  siatkaKoszykow =new gridBucket(21,13,mainBoids.panelSizeX,mainBoids.panelSizeY);
   pom=new ArrayList<>();
   }
   public void addBoid(boid agt){

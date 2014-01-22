@@ -26,6 +26,7 @@ public panel ptr=null;
 public boidsFabric fabric=null;
 public obstaclesFabric obsfabric = null;
 public foodFabric ffabric = null;
+public int probki=0;
 //---------------------
 private final MouseListener mlcount =new java.awt.event.MouseAdapter() {
     @Override
@@ -142,6 +143,8 @@ public boolean savingStats;
         jLabel53 = new javax.swing.JLabel();
         lblOdstAvgSpeedLokal = new javax.swing.JLabel();
         radConstTime = new javax.swing.JRadioButton();
+        jLabel54 = new javax.swing.JLabel();
+        lblProbki = new javax.swing.JLabel();
         Symulacja = new javax.swing.JTabbedPane();
         setPanelPod = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -616,6 +619,10 @@ public boolean savingStats;
 
         radConstTime.setText("stały czas");
 
+        jLabel54.setText("Zapisane próbki:");
+
+        lblProbki.setText("0");
+
         javax.swing.GroupLayout statPanelLayout = new javax.swing.GroupLayout(statPanel);
         statPanel.setLayout(statPanelLayout);
         statPanelLayout.setHorizontalGroup(
@@ -693,20 +700,20 @@ public boolean savingStats;
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(recSizeLbl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(statPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel54)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblProbki))
+                    .addComponent(saveStatsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(statPanelLayout.createSequentialGroup()
                         .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(statPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel52)
                                 .addGap(18, 18, 18)
                                 .addComponent(boidCntLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(boidCount, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(boidCount, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(radConstTime))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(statPanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(radConstTime)
-                    .addComponent(saveStatsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         statPanelLayout.setVerticalGroup(
             statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -785,11 +792,14 @@ public boolean savingStats;
                 .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel50)
                     .addComponent(lblPerformance))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                 .addComponent(radConstTime)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(saveStatsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel54)
+                    .addComponent(lblProbki)))
         );
 
         jTabbedPane1.addTab("Statystyki", statPanel);
@@ -1543,7 +1553,7 @@ public boolean savingStats;
     }
     public boolean areWeSaving()
     {
-        return saveStatsBtn.isSelected()&&savingStats;
+        return saveStatsBtn.isSelected()&&savingStats && fSource!=null;
     }
     public  int getNumOfLeaders(){
      return (int)this.textLeaderNum.getValue();
@@ -1650,6 +1660,9 @@ public boolean savingStats;
     public int getFreqEat(){
     return  sldFreqEat.getValue();
     }
+    public void incAndSetProbki(){
+    lblProbki.setText(Integer.toString(++probki));
+    }
     public void setHeveLeader(double per){
         this.lblHaveLeaderPer.setText(Double.toString(per));
     }
@@ -1731,6 +1744,7 @@ public boolean savingStats;
          lblSkala.setText("1 metr-"+Double.toString(sldSkala.getValue()/2d)+"px");
          lblMinDistSep.setText(Double.toString(sldMinDistSep.getValue()/10d));
          lblFreqEat.setText(Integer.toString(sldFreqEat.getValue())+"%");
+        
     }
     private void btnGenStadoActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnGenStadoActionPerformed
        mainBoids.panelSizeX=(int)spnWidth.getValue();
@@ -1989,7 +2003,8 @@ public boolean savingStats;
 
     private void saveStatsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveStatsBtnActionPerformed
      if(saveStatsBtn.isSelected()){
-        //sS=new savingStats();
+    probki=0;        
+    //sS=new savingStats();
         //sS.setVisible(true);
        //  statsChooser.setVisible(true);
          if(statsChooser.showSaveDialog(this)==JFileChooser.APPROVE_OPTION)
@@ -1997,10 +2012,10 @@ public boolean savingStats;
              mainBoids.mainWin.fSource=statsChooser.getSelectedFile().getAbsolutePath();
              mainBoids.mainWin.savingStats=true;
          }   
-         else mainBoids.mainWin.savingStats=false;
+         else {mainBoids.mainWin.savingStats=false; mainBoids.mainWin.fSource=null;}
 
-     }
-        // TODO add your handling code here:
+     }else{mainBoids.mainWin.fSource=null;}
+
     }//GEN-LAST:event_saveStatsBtnActionPerformed
 
     private void btnSterMysza3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSterMysza3ActionPerformed
@@ -2222,6 +2237,7 @@ public boolean savingStats;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -2263,6 +2279,7 @@ public boolean savingStats;
     public javax.swing.JLabel lblOdstAvgSpeedLokal;
     private javax.swing.JLabel lblPerformance;
     private javax.swing.JLabel lblPred;
+    private javax.swing.JLabel lblProbki;
     private javax.swing.JLabel lblRand;
     private javax.swing.JLabel lblSep;
     private javax.swing.JLabel lblSkala;

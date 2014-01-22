@@ -68,7 +68,7 @@ public class statistic {
         mainBoids.mainWin.setMinPerf(minPerf*1000);
         }
         mainBoids.mainWin.setNumCollisions(collisions);collisions=0;
-        if(mainBoids.mainWin.areWeSaving()) saveStats();
+        if(mainBoids.mainWin.areWeSaving() ){ saveStats();}
     }
     public void incBoidHaveLeader(){
     boidsHaveLeader++;
@@ -120,8 +120,11 @@ public class statistic {
         try{
         fw.write(mainBoids.mainWin.lblAvgNumNeight.getText()+"  "+mainBoids.mainWin.lblHaveLeaderPer.getText()+"    "+mainBoids.mainWin.lblOdstAvgSpeed.getText()+" "+mainBoids.mainWin.lblNumCols.getText()+"  "+mainBoids.mainWin.lblAvgDist.getText()+"  "+mainBoids.mainWin.lblBoidsColide.getText()+"\n");
         fw.close();
+          mainBoids.mainWin.incAndSetProbki();
         }catch(Exception e){
             System.out.println("Problem z zapisem pliku");
         }
+        
+       
     }
 }

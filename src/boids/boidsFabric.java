@@ -122,7 +122,7 @@ public class boidsFabric {
         boids.get(boids.size()-1).skala=skala;
         boids.get(boids.size()-1).separateRadius=separateRadius*skala;
         
-            if (maxSpeed!=0){boids.get(boids.size()-1).maxSpeed=maxSpeed*0.7;}
+            if (maxSpeed!=0){boids.get(boids.size()-1).maxSpeed=maxSpeed*0.85;}
             if (maxAccel!=0){boids.get(boids.size()-1).maxForce=maxAccel;}
         }
         //-------------------------------------------------
@@ -201,7 +201,7 @@ public class boidsFabric {
         zjemcie.type=2;
         zjemcie.radius=mainBoids.mainWin.getPredatorSize();
         
-            if (maxSpeed!=0){zjemcie.maxSpeed=maxSpeed*0.7;}
+            if (maxSpeed!=0){zjemcie.maxSpeed=maxSpeed*0.85;}
             if (maxAccel!=0){zjemcie.maxForce=maxAccel;}
         return zjemcie;
     }
