@@ -62,20 +62,10 @@ public class symulacja {
   
   for(int i=0;i<gridBoids.size();i++){
       
-      d=osobnik.getPosition().getSDistance(gridBoids.get(i).getPosition());     
-      //ta linijka powinna być chyba zmieniona żeby sąsiedztwo zwracane było przez ściany, i potem w pętli for też powinny być zmiany
-      //d=osobnik.getPosition().getSDistance(osobnik.getBestPosition(gridBoids.get(i), mainBoids.panelSizeX, mainBoids.panelSizeY));     
-
-      if (d<(radiusNeigh*radiusNeigh) && !osobnik.equals(gridBoids.get(i))){ 
-         alfa=osobnik.calcAngle(gridBoids.get(i).getPosition());
-          if((3.1415-alfa)<katWidzenia){
-              neigh.add(gridBoids.get(i));continue;
-            }
+    d=osobnik.getPosition().getSDistance(osobnik.getBestPosition(gridBoids.get(i), mainBoids.panelSizeX, mainBoids.panelSizeY));     
+      if (d<radiusNeigh*radiusNeigh){ 
+              neigh.add(gridBoids.get(i));
       }   
-      if  (d<(15*15) && !osobnik.equals(gridBoids.get(i))){
-       neigh.add(gridBoids.get(i));continue;//jezeli jest bardzo blisko to widzi go nawet za plecami
-      }
-      //if(osobnik.getVelocity().getLength()<osobnik.getMaxSpeed()/10 && !osobnik.equals(gridBoids.get(i))){  neigh.add(gridBoids.get(i)); continue;}
   } 
   return neigh;
   }
@@ -146,28 +136,8 @@ public class symulacja {
                   distannces.add(d);
               }
       }
-//      if(osobnik.getVelocity().getSLength()<osobnik.getMaxSpeed()/(100*skala) && !osobnik.equals(gridBoids.get(i))){ 
-//              if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
-//              else if (maxDist<d && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
-//              //else if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
-//              neigh.add(gridBoids.get(i));
-//              distannces.add(td);
-//              distannces1.add(td);
-//              continue;
-//      }
   } 
-//System.out.println(a+"-"+b+"-"+c);
-//  if (distannces.size()>maxNeigh){
-//       
-// Collections.sort(distannces);
-// maxDist=distannces.get(maxNeigh-1);
-//  for(int i=0;i<neigh.size();){
-//  if (distannces1.get(i)>maxDist && neigh.get(i).getType()<2){
-//  distannces1.remove(i);
-//  neigh.remove(i);
-//  }else{i++;}
-//  }
-//  }
+
   mainBoids.stat.averageNumOfNeight+=neigh.size();
   return neigh;
   }
