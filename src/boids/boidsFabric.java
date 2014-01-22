@@ -64,7 +64,6 @@ public class boidsFabric {
             }
             boids.get(i).radius=boidRadius;
             boids.get(i).minimalDistance=minimalDistSeparate*skala;
-            boids.get(i).minimalSDistance=minimalDistSeparate*skala*minimalDistSeparate*skala;
             boids.get(i).masa=mass;
             boids.get(i).skala=skala;
             boids.get(i).separateRadius=separateRadius*skala;
@@ -76,7 +75,6 @@ public class boidsFabric {
         boids.add(new boid(randGen.nextInt(1095),randGen.nextInt(680)));
         leaders.add(boids.get(boids.size()-1));
         boids.get(boids.size()-1).minimalDistance=minimalDistSeparate*skala;
-        boids.get(boids.size()-1).minimalSDistance=minimalDistSeparate*skala*minimalDistSeparate*skala;
         boids.get(boids.size()-1).type=0;
        // boids.get(boids.size()-1).velocity=new vector2d(randGen.nextInt(6)-3,randGen.nextInt(6)-3);
         boids.get(boids.size()-1).radius=leaderRadius;
@@ -120,12 +118,11 @@ public class boidsFabric {
         boids.get(boids.size()-1).type=2;
         boids.get(boids.size()-1).radius=predatorRadius;
         boids.get(boids.size()-1).minimalDistance=(predatorRadius+minimalDistSeparate)*skala;
-        boids.get(boids.size()-1).minimalSDistance=(predatorRadius+minimalDistSeparate)*skala;
         boids.get(boids.size()-1).masa=mass;
         boids.get(boids.size()-1).skala=skala;
         boids.get(boids.size()-1).separateRadius=separateRadius*skala;
         
-            if (maxSpeed!=0){boids.get(boids.size()-1).maxSpeed=maxSpeed*0.8;}
+            if (maxSpeed!=0){boids.get(boids.size()-1).maxSpeed=maxSpeed*0.9;}
             if (maxAccel!=0){boids.get(boids.size()-1).maxForce=maxAccel;}
         }
         //-------------------------------------------------
@@ -156,8 +153,7 @@ public class boidsFabric {
         boid lider = new boid(_x, _y);
         boids.add(lider);
         leaders.add(lider);
-        lider.minimalDistance=mainBoids.mainWin.getMinmalSeparate()*skala;
-        lider.minimalSDistance=mainBoids.mainWin.getMinmalSeparate()*mainBoids.mainWin.getMinmalSeparate()*skala*skala;
+        lider.minimalDistance=mainBoids.mainWin.getMinmalSeparate();
         lider.type=0;
        // boids.get(boids.size()-1).velocity=new vector2d(randGen.nextInt(6)-3,randGen.nextInt(6)-3);
         lider.radius=mainBoids.mainWin.getLeaderSize();
@@ -205,7 +201,7 @@ public class boidsFabric {
         zjemcie.type=2;
         zjemcie.radius=mainBoids.mainWin.getPredatorSize();
         
-            if (maxSpeed!=0){zjemcie.maxSpeed=maxSpeed*0.8;}
+            if (maxSpeed!=0){zjemcie.maxSpeed=maxSpeed;}
             if (maxAccel!=0){zjemcie.maxForce=maxAccel;}
         return zjemcie;
     }

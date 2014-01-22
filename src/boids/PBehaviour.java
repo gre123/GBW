@@ -23,9 +23,9 @@ public class PBehaviour {
         vector2d poz,pom=new vector2d(0,0);
         if(!ten.getHavePredator()) {return pom;}
         vector2d bestPos,w=new vector2d(0,0);
-        double criticaldist=15;
+        double criticaldist=35;
         double d;
-        Random randGen;// = new Random();
+        Random randGen= new Random();
         int k=0;
        
         for(int i=0;i<boids.size();i++)
@@ -36,26 +36,30 @@ public class PBehaviour {
                     d=ten.getPosition().getDistance(bestPos);             
                     poz=bestPos;
                     pom=poz.minus(ten.position);
-                    pom=pom.multi(-1);
+                    pom=pom.multi(-2);
                     
                    /**
                     *  Zachowanie ucieczki w sytuacji krytycznej , ucieczka w jakimś kierunku
                     */
-                    if(d<ten.minimalDistance)
+                    if(d<criticaldist)
                     {
                         
                         if(mainBoids.mainWin.getEscapeStrategy()==1)
                         {
                             mainBoids.simul.critical_sit=true;
-                            pom.rotate(30);
+                            pom=ten.velocity.getVec();
+                            pom.rotate(Math.toRadians(30));
+                           
                             pom.normalize();
+                            pom.div(mainBoids.mainWin.getEscapePred()/(double)1000);
+                            pom.multi(6);
                             w.add(pom);k++;
                          }  
                         
                     } 
                     else
                          {
-                            if(d>ten.minimalDistance){ w.add(pom.divNonZero(d));k++;}
+                            if(d>criticaldist){ w.add(pom);k++;}
                              else 
                              {
                                  w.add(pom);k++;
@@ -170,6 +174,7 @@ public class PBehaviour {
         mD=NDistance.minDist(ten, boids);//zwraca najbliższego przez ściany z podanej listy
         if(mD!=null)
         { 
+                if(mD.getPosition().getDistance(ten)<1) ten.velocity=new vector2d(0,0);
                 pom.add(ten.getBestPosition(mD, mainBoids.panelSizeX, mainBoids.panelSizeY));
                 pom.minus(ten.getPosition());  
                 pom.normalize();
@@ -216,7 +221,7 @@ public class PBehaviour {
     public static vector2d huntStrategy2_3(boid ten,ArrayList<boid> boids)//dodana obsługa krawędzi, gdyby arraylista zawierała też te poza krawędzią
     {
         Random randGen = new Random();
-        double chStrategy=30;
+        double chStrategy=mainBoids.mainWin.getChangeStrategy();
         boid mD=null;
         vector2d pom=new vector2d(0,0);
         mD=NDistance.minDist(ten, boids);//mindist zwraca też przez ściany
@@ -224,6 +229,7 @@ public class PBehaviour {
         {
             if(ten.getPosition().getDistance(ten.getBestPosition(mD,mainBoids.panelSizeX, mainBoids.panelSizeY))<chStrategy)
             {
+              //  if(mD.getPosition().getDistance(ten)<1) ten.velocity=new vector2d(0,0); 
                 pom.add(ten.getBestPosition(mD,mainBoids.panelSizeX, mainBoids.panelSizeY));
                 pom.minus(ten.getPosition());  
                 pom.normalize();

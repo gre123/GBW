@@ -151,6 +151,8 @@ public class vector2d {
     }
     
     /**
+     * ze strony
+     * źródło : http://stackoverflow.com/questions/5207708/rotation-in-a-vector2d-class-in-java
      * rotuje wektor 
      * @param n 
      */

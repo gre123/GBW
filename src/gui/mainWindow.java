@@ -67,21 +67,6 @@ public boolean savingStats;
 
         statsChooser = new javax.swing.JFileChooser();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        sterLead = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        combLeadMove = new javax.swing.JComboBox();
-        btnGlobAim = new javax.swing.JButton();
-        jLabel18 = new javax.swing.JLabel();
-        btnSterMysza = new javax.swing.JToggleButton();
-        jLabel21 = new javax.swing.JLabel();
-        combpredMove = new javax.swing.JComboBox();
-        jLabel22 = new javax.swing.JLabel();
-        combpredEscape = new javax.swing.JComboBox();
-        btnSterMysza1 = new javax.swing.JToggleButton();
-        btnSterMysza3 = new javax.swing.JToggleButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jLabel44 = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
         editFlock = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         textNumPred = new javax.swing.JSpinner();
@@ -225,6 +210,24 @@ public boolean savingStats;
         jLabel9 = new javax.swing.JLabel();
         spnHeight = new javax.swing.JSpinner();
         spnWidth = new javax.swing.JSpinner();
+        sterLead = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        combLeadMove = new javax.swing.JComboBox();
+        btnGlobAim = new javax.swing.JButton();
+        jLabel18 = new javax.swing.JLabel();
+        btnSterMysza = new javax.swing.JToggleButton();
+        jLabel21 = new javax.swing.JLabel();
+        combpredMove = new javax.swing.JComboBox();
+        jLabel22 = new javax.swing.JLabel();
+        combpredEscape = new javax.swing.JComboBox();
+        btnSterMysza1 = new javax.swing.JToggleButton();
+        btnSterMysza3 = new javax.swing.JToggleButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel44 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel55 = new javax.swing.JLabel();
+        chStrategyCof = new javax.swing.JSlider();
+        chStrLabel = new javax.swing.JLabel();
         btnStart = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -244,144 +247,6 @@ public boolean savingStats;
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jTabbedPane1.setName(""); // NOI18N
         jTabbedPane1.setPreferredSize(new java.awt.Dimension(199, 512));
-
-        jLabel17.setText("Liderzy:");
-
-        combLeadMove.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Koło", "Ósemka", "Kwadrat" }));
-        combLeadMove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                combLeadMoveActionPerformed(evt);
-            }
-        });
-
-        btnGlobAim.setText("reset");
-        btnGlobAim.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGlobAimActionPerformed(evt);
-            }
-        });
-
-        jLabel18.setText("Global aim:");
-
-        btnSterMysza.setText("Steruj myszą\n");
-        btnSterMysza.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                btnSterMyszaItemStateChanged(evt);
-            }
-        });
-
-        jLabel21.setText("Drapieżnik:");
-
-        combpredMove.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "gonic_koszyki", "gonic_najblizszego", "gonic_grupe", "mix_grupa_najblizszy" }));
-        combpredMove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                combpredMoveActionPerformed(evt);
-            }
-        });
-
-        jLabel22.setText("Zwykłe - ucieczka :");
-
-        combpredEscape.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "stada_bez kryt", "stada+sam_niezależ" }));
-        combpredEscape.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                combpredEscapeActionPerformed(evt);
-            }
-        });
-
-        btnSterMysza1.setText("Przeszkoda");
-        btnSterMysza1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                btnSterMysza1ItemStateChanged(evt);
-            }
-        });
-        btnSterMysza1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSterMysza1ActionPerformed(evt);
-            }
-        });
-
-        btnSterMysza3.setText("Lider/Drapieżnik");
-        btnSterMysza3.setToolTipText("Lewym i prawym klawiszem myszy");
-        btnSterMysza3.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                btnSterMysza3ItemStateChanged(evt);
-            }
-        });
-        btnSterMysza3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSterMysza3ActionPerformed(evt);
-            }
-        });
-
-        jLabel44.setText("Dodawanie elementów:");
-
-        javax.swing.GroupLayout sterLeadLayout = new javax.swing.GroupLayout(sterLead);
-        sterLead.setLayout(sterLeadLayout);
-        sterLeadLayout.setHorizontalGroup(
-            sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sterLeadLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(sterLeadLayout.createSequentialGroup()
-                        .addGroup(sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(combLeadMove, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sterLeadLayout.createSequentialGroup()
-                                .addComponent(jLabel18)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                                .addComponent(btnGlobAim))
-                            .addComponent(btnSterMysza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSterMysza1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(combpredMove, 0, 170, Short.MAX_VALUE)
-                            .addComponent(combpredEscape, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSterMysza3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(sterLeadLayout.createSequentialGroup()
-                                .addGroup(sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel17)
-                                    .addComponent(jLabel21)
-                                    .addComponent(jLabel22))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(sterLeadLayout.createSequentialGroup()
-                        .addComponent(jLabel44)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jSeparator2)
-        );
-        sterLeadLayout.setVerticalGroup(
-            sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sterLeadLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel17)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(combLeadMove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGlobAim)
-                    .addComponent(jLabel18))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSterMysza)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel21)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(combpredMove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel22)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(combpredEscape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel44)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSterMysza1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSterMysza3)
-                .addContainerGap(337, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Sterowanie", sterLead);
 
         jLabel16.setText("Ilość drapieżników:");
 
@@ -643,7 +508,7 @@ public boolean savingStats;
                     .addComponent(lblSkala))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sldSkala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnGenStado, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -920,7 +785,7 @@ public boolean savingStats;
                 .addGroup(statPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel50)
                     .addComponent(lblPerformance))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(radConstTime)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(saveStatsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1152,7 +1017,7 @@ public boolean savingStats;
                     .addComponent(lblTimeReaction))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sldReactionTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
                 .addComponent(btnLoadSettings)
                 .addContainerGap())
         );
@@ -1281,6 +1146,11 @@ public boolean savingStats;
                         .addComponent(e)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblForagingDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(setPanelAdvLayout.createSequentialGroup()
+                        .addComponent(jLabel47)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblFreqEat))
+                    .addComponent(sldFreqEat, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, setPanelAdvLayout.createSequentialGroup()
                         .addGap(0, 35, Short.MAX_VALUE)
                         .addGroup(setPanelAdvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1295,12 +1165,7 @@ public boolean savingStats;
                                     .addComponent(jLabel24)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblAvoidRec))
-                                .addComponent(sldAvoidRec, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(setPanelAdvLayout.createSequentialGroup()
-                        .addComponent(jLabel47)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblFreqEat))
-                    .addComponent(sldFreqEat, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addComponent(sldAvoidRec, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         setPanelAdvLayout.setVerticalGroup(
@@ -1348,7 +1213,7 @@ public boolean savingStats;
                     .addComponent(lblForagingDistance))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sldForDist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addContainerGap(215, Short.MAX_VALUE))
         );
 
         Symulacja.addTab("Zaawansowane", setPanelAdv);
@@ -1465,7 +1330,7 @@ public boolean savingStats;
                 .addGroup(wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel33)
                     .addComponent(spnObstacleRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 265, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 214, Short.MAX_VALUE)
                 .addGroup(wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spnWidth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
@@ -1477,6 +1342,167 @@ public boolean savingStats;
         );
 
         jTabbedPane1.addTab("Wygląd", wygladPanel);
+
+        jLabel17.setText("Liderzy:");
+
+        combLeadMove.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Koło", "Ósemka", "Kwadrat" }));
+        combLeadMove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combLeadMoveActionPerformed(evt);
+            }
+        });
+
+        btnGlobAim.setText("reset");
+        btnGlobAim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGlobAimActionPerformed(evt);
+            }
+        });
+
+        jLabel18.setText("Global aim:");
+
+        btnSterMysza.setText("Steruj myszą\n");
+        btnSterMysza.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                btnSterMyszaItemStateChanged(evt);
+            }
+        });
+
+        jLabel21.setText("Drapieżnik:");
+
+        combpredMove.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "gonic_koszyki", "gonic_najblizszego", "gonic_grupe", "mix_grupa_najblizszy" }));
+        combpredMove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combpredMoveActionPerformed(evt);
+            }
+        });
+
+        jLabel22.setText("Zwykłe - ucieczka :");
+
+        combpredEscape.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "stada_bez kryt", "stada+sam_niezależ" }));
+        combpredEscape.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combpredEscapeActionPerformed(evt);
+            }
+        });
+
+        btnSterMysza1.setText("Przeszkoda");
+        btnSterMysza1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                btnSterMysza1ItemStateChanged(evt);
+            }
+        });
+        btnSterMysza1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSterMysza1ActionPerformed(evt);
+            }
+        });
+
+        btnSterMysza3.setText("Lider/Drapieżnik");
+        btnSterMysza3.setToolTipText("Lewym i prawym klawiszem myszy");
+        btnSterMysza3.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                btnSterMysza3ItemStateChanged(evt);
+            }
+        });
+        btnSterMysza3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSterMysza3ActionPerformed(evt);
+            }
+        });
+
+        jLabel44.setText("Dodawanie elementów:");
+
+        jLabel55.setText("Zmiana strategii w odl :");
+
+        chStrategyCof.setMaximum(50);
+        chStrategyCof.setToolTipText("");
+        chStrategyCof.setValue(30);
+        chStrategyCof.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                chStrategyCofStateChanged(evt);
+            }
+        });
+
+        chStrLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        chStrLabel.setText("30");
+
+        javax.swing.GroupLayout sterLeadLayout = new javax.swing.GroupLayout(sterLead);
+        sterLead.setLayout(sterLeadLayout);
+        sterLeadLayout.setHorizontalGroup(
+            sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jSeparator2)
+            .addGroup(sterLeadLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(combpredEscape, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(sterLeadLayout.createSequentialGroup()
+                        .addGroup(sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chStrategyCof, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(combLeadMove, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sterLeadLayout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnGlobAim))
+                            .addComponent(btnSterMysza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSterMysza1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(combpredMove, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSterMysza3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(sterLeadLayout.createSequentialGroup()
+                                .addComponent(jLabel55)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(chStrLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(sterLeadLayout.createSequentialGroup()
+                                .addGroup(sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel17)
+                                    .addComponent(jLabel21)
+                                    .addComponent(jLabel44)
+                                    .addComponent(jLabel22))
+                                .addGap(0, 58, Short.MAX_VALUE)))
+                        .addContainerGap())))
+        );
+        sterLeadLayout.setVerticalGroup(
+            sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sterLeadLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(combLeadMove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGlobAim)
+                    .addComponent(jLabel18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSterMysza)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(combpredMove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addGroup(sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chStrLabel)
+                    .addComponent(jLabel55))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chStrategyCof, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(combpredEscape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel44)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSterMysza1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSterMysza3)
+                .addContainerGap(231, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Sterowanie", sterLead);
 
         btnStart.setText("Rozpocznij symulację");
         btnStart.setEnabled(false);
@@ -1491,23 +1517,18 @@ public boolean savingStats;
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(1098, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(5, 5, 5))))
+                .addContainerGap(1134, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -1578,6 +1599,10 @@ public boolean savingStats;
     {
         return combpredMove.getSelectedIndex();
     }
+    public int getChangeStrategy()
+    {
+        return chStrategyCof.getValue();
+    }
     public int getBoidSize()
     {
         return (int )this.spnBoidRadius.getValue();
@@ -1593,6 +1618,10 @@ public boolean savingStats;
     public int getRectSizeY()
     {
         return rectSize1.getValue();
+    }
+    public int getEscapePred()
+    {
+        return sldPredCof.getValue();
     }
     public int getPredatorSize()
     {
@@ -1850,13 +1879,6 @@ public boolean savingStats;
         }
     }//GEN-LAST:event_btnStartActionPerformed
 
-    private void btnGlobAimActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnGlobAimActionPerformed
-      ptr.aimX=-1;
-      ptr.aimY=-1;
-      mainBoids.simul.globalAim=new vector2d(-1,-1);
-      
-    }//GEN-LAST:event_btnGlobAimActionPerformed
-
     private void sldAvoidCofStateChanged(ChangeEvent evt) {//GEN-FIRST:event_sldAvoidCofStateChanged
         lblAvoid.setText(Double.toString(sldAvoidCof.getValue()/(double)1000));
         if (mainBoids.simul!=null){
@@ -1869,18 +1891,6 @@ public boolean savingStats;
     private void formKeyTyped(KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
 
     }//GEN-LAST:event_formKeyTyped
-
-    private void combpredMoveActionPerformed(ActionEvent evt) {//GEN-FIRST:event_combpredMoveActionPerformed
-
-    }//GEN-LAST:event_combpredMoveActionPerformed
-
-    private void combLeadMoveActionPerformed(ActionEvent evt) {//GEN-FIRST:event_combLeadMoveActionPerformed
-
-    }//GEN-LAST:event_combLeadMoveActionPerformed
-
-    private void combpredEscapeActionPerformed(ActionEvent evt) {//GEN-FIRST:event_combpredEscapeActionPerformed
-
-    }//GEN-LAST:event_combpredEscapeActionPerformed
 
     private void sldAvoidModeStateChanged(ChangeEvent evt) {//GEN-FIRST:event_sldAvoidModeStateChanged
         lblAvoidMode.setText(Double.toString(sldAvoidMode.getValue()/(double)1000));
@@ -1924,54 +1934,6 @@ public boolean savingStats;
         this.lblTimeReaction.setText(Integer.toString(sldReactionTime.getValue())+"ms");
        }else{this.lblTimeReaction.setText("MAX");}
     }//GEN-LAST:event_sldReactionTimeStateChanged
-
-    private void btnSterMyszaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnSterMyszaItemStateChanged
-        if (ptr != null) {
-            if (btnSterMysza.isSelected()) {
-                ptr.addMouseListener(mlster);
-                ptr.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-                    public void mouseMoved(java.awt.event.MouseEvent evt) {
-                        panelMouseMoved(evt);
-                    }
-                });
-
-            } else {
-                ptr.aimX = -1;    //w tych 3 linijkach się coś dubluje chyba, te funkcje są pomieszane jakieś
-                ptr.aimY = -1;
-                if (mainBoids.simul!=null)mainBoids.simul.globalAim = new vector2d(-1, -1);
-                ptr.removeMouseListener(mlster);
-                ptr.removeMouseMotionListener(ptr.getMouseMotionListeners()[0]);
-            }
-        }
-    }//GEN-LAST:event_btnSterMyszaItemStateChanged
-
-    private void btnSterMysza1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnSterMysza1ItemStateChanged
-            if (btnSterMysza1.isSelected()) {
-                btnSterMysza3.setSelected(false);
-                if (ptr != null)ptr.addMouseListener(mlobs);
-            }
-            else{
-                if (ptr != null)ptr.removeMouseListener(mlobs);
-            }
-    }//GEN-LAST:event_btnSterMysza1ItemStateChanged
-
-    private void btnSterMysza1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSterMysza1ActionPerformed
-     
-    }//GEN-LAST:event_btnSterMysza1ActionPerformed
-
-    private void btnSterMysza3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnSterMysza3ItemStateChanged
-            if (btnSterMysza3.isSelected()) {
-                btnSterMysza1.setSelected(false); //może jeszcze trzeba wywołać linijki ze zmiany stanu
-                if (ptr != null)ptr.addMouseListener(mlld);
-            }
-            else{
-                if (ptr != null)ptr.removeMouseListener(mlld);
-            }
-    }//GEN-LAST:event_btnSterMysza3ItemStateChanged
-
-    private void btnSterMysza3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSterMysza3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSterMysza3ActionPerformed
 
     private void sldMassStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldMassStateChanged
         this.lblMass.setText(Double.toString(sldMass.getValue()/50d)+"kg");
@@ -2040,6 +2002,78 @@ public boolean savingStats;
      }
         // TODO add your handling code here:
     }//GEN-LAST:event_saveStatsBtnActionPerformed
+
+    private void btnSterMysza3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSterMysza3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSterMysza3ActionPerformed
+
+    private void btnSterMysza3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnSterMysza3ItemStateChanged
+        if (btnSterMysza3.isSelected()) {
+            btnSterMysza1.setSelected(false); //może jeszcze trzeba wywołać linijki ze zmiany stanu
+            if (ptr != null)ptr.addMouseListener(mlld);
+        }
+        else{
+            if (ptr != null)ptr.removeMouseListener(mlld);
+        }
+    }//GEN-LAST:event_btnSterMysza3ItemStateChanged
+
+    private void btnSterMysza1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSterMysza1ActionPerformed
+
+    }//GEN-LAST:event_btnSterMysza1ActionPerformed
+
+    private void btnSterMysza1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnSterMysza1ItemStateChanged
+        if (btnSterMysza1.isSelected()) {
+            btnSterMysza3.setSelected(false);
+            if (ptr != null)ptr.addMouseListener(mlobs);
+        }
+        else{
+            if (ptr != null)ptr.removeMouseListener(mlobs);
+        }
+    }//GEN-LAST:event_btnSterMysza1ItemStateChanged
+
+    private void combpredEscapeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combpredEscapeActionPerformed
+
+    }//GEN-LAST:event_combpredEscapeActionPerformed
+
+    private void combpredMoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combpredMoveActionPerformed
+
+    }//GEN-LAST:event_combpredMoveActionPerformed
+
+    private void btnSterMyszaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnSterMyszaItemStateChanged
+        if (ptr != null) {
+            if (btnSterMysza.isSelected()) {
+                ptr.addMouseListener(mlster);
+                ptr.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+                    public void mouseMoved(java.awt.event.MouseEvent evt) {
+                        panelMouseMoved(evt);
+                    }
+                });
+
+            } else {
+                ptr.aimX = -1;    //w tych 3 linijkach się coś dubluje chyba, te funkcje są pomieszane jakieś
+                ptr.aimY = -1;
+                if (mainBoids.simul!=null)mainBoids.simul.globalAim = new vector2d(-1, -1);
+                ptr.removeMouseListener(mlster);
+                ptr.removeMouseMotionListener(ptr.getMouseMotionListeners()[0]);
+            }
+        }
+    }//GEN-LAST:event_btnSterMyszaItemStateChanged
+
+    private void btnGlobAimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGlobAimActionPerformed
+        ptr.aimX=-1;
+        ptr.aimY=-1;
+        mainBoids.simul.globalAim=new vector2d(-1,-1);
+
+    }//GEN-LAST:event_btnGlobAimActionPerformed
+
+    private void combLeadMoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combLeadMoveActionPerformed
+
+    }//GEN-LAST:event_combLeadMoveActionPerformed
+
+    private void chStrategyCofStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_chStrategyCofStateChanged
+        chStrLabel.setText(Double.toString(chStrategyCof.getValue()));
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chStrategyCofStateChanged
 
     private void panelMouseClickedOBS(java.awt.event.MouseEvent evt) {
       Obstacle przeszkoda=new Obstacle(evt.getX(),evt.getY(),getObstacleSize());
@@ -2131,6 +2165,8 @@ public boolean savingStats;
     private javax.swing.JToggleButton btnSterMysza3;
     private javax.swing.JToggleButton btnVelWart;
     private javax.swing.JToggleButton btnWpływLeader;
+    private javax.swing.JLabel chStrLabel;
+    private javax.swing.JSlider chStrategyCof;
     private javax.swing.JComboBox cobRozklad;
     private javax.swing.JComboBox combLeadMove;
     private javax.swing.JComboBox combpredEscape;
@@ -2186,6 +2222,7 @@ public boolean savingStats;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

@@ -61,10 +61,21 @@ public class symulacja {
   ArrayList<boid> gridBoids=siatkaKoszykow.getArrayNeightCombinate(osobnik);
   
   for(int i=0;i<gridBoids.size();i++){
-    d=osobnik.getPosition().getSDistance(osobnik.getBestPosition(gridBoids.get(i), mainBoids.panelSizeX, mainBoids.panelSizeY));     
-      if (d<radiusNeigh*radiusNeigh){ 
-              neigh.add(gridBoids.get(i));    
+      
+      d=osobnik.getPosition().getSDistance(gridBoids.get(i).getPosition());     
+      //ta linijka powinna być chyba zmieniona żeby sąsiedztwo zwracane było przez ściany, i potem w pętli for też powinny być zmiany
+      //d=osobnik.getPosition().getSDistance(osobnik.getBestPosition(gridBoids.get(i), mainBoids.panelSizeX, mainBoids.panelSizeY));     
+
+      if (d<(radiusNeigh*radiusNeigh) && !osobnik.equals(gridBoids.get(i))){ 
+         alfa=osobnik.calcAngle(gridBoids.get(i).getPosition());
+          if((3.1415-alfa)<katWidzenia){
+              neigh.add(gridBoids.get(i));continue;
+            }
       }   
+      if  (d<(15*15) && !osobnik.equals(gridBoids.get(i))){
+       neigh.add(gridBoids.get(i));continue;//jezeli jest bardzo blisko to widzi go nawet za plecami
+      }
+      //if(osobnik.getVelocity().getLength()<osobnik.getMaxSpeed()/10 && !osobnik.equals(gridBoids.get(i))){  neigh.add(gridBoids.get(i)); continue;}
   } 
   return neigh;
   }
@@ -73,9 +84,10 @@ public class symulacja {
   ArrayList<boid> neigh=new ArrayList<>();
   LinkedList<Double> distannces=new LinkedList<>();
   neigh.ensureCapacity(10);
+ //distannces.ensureCapacity(10);
   double alfa,d,td;
   int inxMax=0;
-  double maxDist=0;
+  double maxDist=0;//Double.MAX_VALUE;
   ArrayList<boid> gridBoids=siatkaKoszykow.getArrayNeightCombinate(osobnik);
   osobnik.setHavePredator(false);
  // ArrayList<Double> distannces1=new ArrayList<>();
@@ -83,6 +95,7 @@ public class symulacja {
   int bucY=osobnik.getBucketY();
   int sizeX=mainBoids.panelSizeX;
   int sizeY=mainBoids.panelSizeY;
+  int a=0,b=0,c=0;
   vector2d tempPosition;
   double difx,dify;
   for(int i=0;i<gridBoids.size();i++){
@@ -100,6 +113,7 @@ public class symulacja {
       td=d;
       if (d<(radiusNeigh*radiusNeigh) && !osobnik.equals(gridBoids.get(i))){ 
          alfa=3.1415-osobnik.calcAngle(tempPosition);
+         //System.out.println((3.1415-alfa)+"+"+katWidzenia);
          if (gridBoids.get(i).getType()==2){d=0; osobnik.setHavePredator(true);}
           if((alfa)<katWidzenia){
               d=d*((((alfa)/3.1415)+0.1)/1.1);
@@ -120,7 +134,7 @@ public class symulacja {
       }else{continue;}   
       if  (td<(osobnik.getMinimalDist()*osobnik.getMinimalDist())){
         //  d=d/10;
-              if (maxDist<d && neigh.size()>=maxNeigh){}
+      if (maxDist<d && neigh.size()>=maxNeigh){}
               else if (maxDist>d && neigh.size()>=maxNeigh){
                   neigh.remove(inxMax);distannces.remove(inxMax); 
                   neigh.add(gridBoids.get(i));distannces.add(d);
@@ -132,8 +146,28 @@ public class symulacja {
                   distannces.add(d);
               }
       }
+//      if(osobnik.getVelocity().getSLength()<osobnik.getMaxSpeed()/(100*skala) && !osobnik.equals(gridBoids.get(i))){ 
+//              if (maxDist<d && neigh.size()<maxNeigh){maxDist=d;}
+//              else if (maxDist<d && neigh.size()>=maxNeigh){if (gridBoids.get(i).getType()==1){continue;}}
+//              //else if (maxDist>d && neigh.size()>=maxNeigh){maxDist=d;}
+//              neigh.add(gridBoids.get(i));
+//              distannces.add(td);
+//              distannces1.add(td);
+//              continue;
+//      }
   } 
-
+//System.out.println(a+"-"+b+"-"+c);
+//  if (distannces.size()>maxNeigh){
+//       
+// Collections.sort(distannces);
+// maxDist=distannces.get(maxNeigh-1);
+//  for(int i=0;i<neigh.size();){
+//  if (distannces1.get(i)>maxDist && neigh.get(i).getType()<2){
+//  distannces1.remove(i);
+//  neigh.remove(i);
+//  }else{i++;}
+//  }
+//  }
   mainBoids.stat.averageNumOfNeight+=neigh.size();
   return neigh;
   }
@@ -152,6 +186,9 @@ public class symulacja {
   public void setSkala(double _skala){
   skala=_skala;
   }
+  public void setMass(double m){
+ // masa=
+  }
   public void setRandCof(double rCof){
       randCof=rCof;
   }
@@ -165,10 +202,6 @@ public class symulacja {
   public void setAnimSpeed(int speed){
       animSpeed=speed;
   }
-  /**
-     * Główna funkcja symulacji
-     * 
-     */
   public void simulate(){
       continueSimulation=true;
       Random randGen = new Random();
@@ -251,7 +284,7 @@ public class symulacja {
        }
        
        for(int i=0;i<mainBoids.predators.size();i++){
-            tempBoids=getNeighbourhoodOptmTopological(mainBoids.predators.get(i),30);
+            tempBoids=getNeighbourhoodOptm(mainBoids.predators.get(i));
             predH=mainBoids.predators.get(i).predHunt(tempBoids,siatkaKoszykow.getArrayNeightB(mainBoids.predators.get(i)));
             vector2d Sep=mainBoids.predators.get(i).separatePredator(tempBoids);
             avoid=mainBoids.predators.get(i).better_avoid(pom,AvoidMode, AvoidRec);
