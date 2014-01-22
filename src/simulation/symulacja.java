@@ -254,7 +254,7 @@ public class symulacja {
        }
        
        for(int i=0;i<mainBoids.predators.size();i++){
-            tempBoids=getNeighbourhoodOptm(mainBoids.predators.get(i));
+            tempBoids=getNeighbourhoodOptmTopological(mainBoids.predators.get(i),30);
             predH=mainBoids.predators.get(i).predHunt(tempBoids,siatkaKoszykow.getArrayNeightB(mainBoids.predators.get(i)));
             vector2d Sep=mainBoids.predators.get(i).separatePredator(tempBoids);
             avoid=mainBoids.predators.get(i).better_avoid(pom,AvoidMode, AvoidRec);

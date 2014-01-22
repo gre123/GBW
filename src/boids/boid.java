@@ -172,7 +172,6 @@ public class boid {
     public vector2d followLeader(ArrayList<boid> boids) {
         vector2d value = new vector2d(0, 0);
         
-        if (type ==0 && boids.size()<5){velocity.multi(0.5);return value;} 
         if (type == 0) {return value; }
         vector2d bestPos;
         boid leader = null;
@@ -443,12 +442,11 @@ public class boid {
     }
     //---------------------------------------------------------------
     public void applyForce(double step) {
-     //   System.out.println("a"+velocity.getLength());
-        velocity.add(acceleration.multi(1));
+        velocity.add(acceleration);
         if (velocity.getSLength() > maxSpeed*maxSpeed) {    
             velocity.normalize();
-            if(this.getType()==2) velocity.multi(maxSpeed*0.77); //wolniejszy drapieżnik
-            else velocity.multi(maxSpeed);
+       //     if(this.getType()==2) velocity.multi(maxSpeed*0.77); //wolniejszy drapieżnik
+            velocity.multi(maxSpeed);
             colorVelB=0;
         }else{
             colorVelB=1-(float)(velocity.getSLength()/(maxSpeed*maxSpeed));
@@ -466,13 +464,13 @@ public class boid {
         if (position.getX() < 0) {
             position.setX(maxX + position.getX());
         }
-        if (position.getX() > maxX) {
+        else if (position.getX() > maxX) {
             position.setX(position.getX() - maxX);
         }
         if (position.getY() < 0) {
             position.setY(maxY + position.getY());
         }
-        if (position.getY() > maxY) {
+        else if (position.getY() > maxY) {
             position.setY(position.getY() - maxY);
         }
     }
@@ -499,8 +497,7 @@ public class boid {
         return this.acceleration;
     }
     public void setAcceleration(vector2d _accel) {
-        
-        //System.out.println(_accel.getLength());
+
         if (_accel.getSLength() > maxForce*maxForce) {
             _accel.normalize();
             _accel.multi(maxForce);
