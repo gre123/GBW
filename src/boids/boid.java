@@ -28,6 +28,7 @@ public class boid {
     double minimalDistance;
     double separateRadius;
     float colorLeadB,colorSeparB,colorVelB,colorAccelB;
+    float colorVelH,colorLeadH;
     float colorSepH,colorCohH,colorAliH;
     float colorOdstVelH,colorOdstVelLokalH;
     boolean zderzony,bum;
@@ -171,11 +172,10 @@ public class boid {
 
     public vector2d followLeader(ArrayList<boid> boids) {
         vector2d value = new vector2d(0, 0);
-        
         if (type == 0) {return value; }
         vector2d bestPos;
         boid leader = null;
-        this.colorLeadB=0;
+        this.colorLeadH=0;
         double dist;
         double minDist = Double.MAX_VALUE;
         for (int i = 0; i < boids.size(); i++) {
@@ -192,7 +192,7 @@ public class boid {
         if (leader != null) {
             mainBoids.stat.incBoidHaveLeader();
             dist=minDist;
-            this.colorLeadB=1-(float)(dist/mainBoids.simul.radiusNeigh);
+            this.colorLeadH=(1-(float)(dist/mainBoids.simul.radiusNeigh))*0.75f;
             //pos.minus(leader.getVelocity().getVec().normalize().multi(15));
            // bestPos=this.position.getCloserPosition(leader.position, mainBoids.panelSizeX, mainBoids.panelSizeY);
             bestPos=this.getBestPosition(leader, mainBoids.panelSizeX, mainBoids.panelSizeY);
@@ -385,7 +385,7 @@ public class boid {
         Random randGen;
         double kat;
         Food target;
-        ArrayList<Food> seeFood=null;
+        ArrayList<Food> seeFood;
         if(this.hungry) {
             seeFood=new ArrayList<>();
             randGen=new Random();
@@ -447,9 +447,9 @@ public class boid {
             velocity.normalize();
        //     if(this.getType()==2) velocity.multi(maxSpeed*0.77); //wolniejszy drapieżnik
             velocity.multi(maxSpeed);
-            colorVelB=0;
+            colorVelH=0;
         }else{
-            colorVelB=1-(float)(velocity.getSLength()/(maxSpeed*maxSpeed));
+            colorVelH=(1-(float)(velocity.getSLength()/(maxSpeed*maxSpeed)))*0.75f;
         }
     }
 
@@ -593,6 +593,12 @@ public class boid {
     }
     public float getColorCohH(){
     return colorCohH;
+    }
+    public float getColorLeadH(){
+    return colorLeadH;
+    }
+    public float getColorVelH(){
+    return colorVelH;
     }
     public float getColorOdstVelH(){
     return colorOdstVelH;

@@ -89,11 +89,11 @@ public class panel extends JPanel {
                     //    g2d.setColor(Color.ORANGE);
                     //}else 
                     if (mainBoids.mainWin.czyWplywLeader()){
-                    g2d.setColor(Color.getHSBColor(0, 0, boids.get(i).getColorLeadB()));
+                    g2d.setColor(Color.getHSBColor(boids.get(i).getColorLeadH(), 1, 1));
                     }else if(mainBoids.mainWin.czyAccelWart()){
                     g2d.setColor(Color.getHSBColor(0, 0, boids.get(i).getColorAccelB()));
                     }else if(mainBoids.mainWin.czyVelWart()){
-                    g2d.setColor(Color.getHSBColor(0, 0, boids.get(i).getColorVelB()));
+                    g2d.setColor(Color.getHSBColor(boids.get(i).getColorVelH(), 1, 1));
                     }else if(mainBoids.mainWin.czySeparacja()){
                     g2d.setColor(Color.getHSBColor(boids.get(i).getColorSepH(), 1, 1));
                     }else if(mainBoids.mainWin.czyPolarizationWyglad()){

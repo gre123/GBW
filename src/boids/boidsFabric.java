@@ -67,7 +67,7 @@ public class boidsFabric {
             boids.get(i).masa=mass;
             boids.get(i).skala=skala;
             boids.get(i).separateRadius=separateRadius*skala;
-            if (maxSpeed!=0){boids.get(i).maxSpeed=maxSpeed/1.2;}
+            if (maxSpeed!=0){boids.get(i).maxSpeed=maxSpeed;}
             if (maxAccel!=0){ boids.get(i).maxForce=maxAccel; }
         }
         
@@ -107,7 +107,7 @@ public class boidsFabric {
          
         }
         
-            if (maxSpeed!=0){boids.get(boids.size()-1).maxSpeed=maxSpeed;}
+            if (maxSpeed!=0){boids.get(boids.size()-1).maxSpeed=maxSpeed*0.9;}
             if (maxAccel!=0){boids.get(boids.size()-1).maxForce=maxAccel;}
         }
         
@@ -184,7 +184,7 @@ public class boidsFabric {
          
         }
         
-            if (maxSpeed!=0){lider.maxSpeed=maxSpeed/1.2;}
+            if (maxSpeed!=0){lider.maxSpeed=maxSpeed*0.9;}
             if (maxAccel!=0){lider.maxForce=maxAccel;}
         return lider;
         }
