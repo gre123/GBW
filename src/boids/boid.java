@@ -9,7 +9,6 @@ import math.NDistance;
 import math.trigonometric;
 import math.vector2d;
 import simulation.bucket;
-import boids.Obstacle;
 
 /**
  * @author Tomek
@@ -28,7 +27,7 @@ public class boid {
     double minimalDistance;
     double separateRadius;
     float colorLeadB,colorSeparB,colorVelB,colorAccelB;
-    float colorVelH,colorLeadH;
+    float colorVelH,colorLeadH,colorPredH;
     float colorSepH,colorCohH,colorAliH;
     float colorOdstVelH,colorOdstVelLokalH;
     boolean zderzony,bum;
@@ -46,6 +45,7 @@ public class boid {
         maxSpeed = 3;
         maxForce = 2.5;
         colorLeadB=0.0f;
+        colorPredH=0.75f;
         colorSeparB=0.0f;
         colorVelB=0.0f;
         colorAccelB=0.0f;
@@ -605,6 +605,9 @@ public class boid {
     }
     public float getColorOdstVelLokalH(){
     return colorOdstVelLokalH;
+    }
+    public float getColorPredH(){
+    return colorPredH;
     }
     public void setColorOdstVelH(float H){
     colorOdstVelH=(H*240f/360)*(-1)+240f/360;

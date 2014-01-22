@@ -36,12 +36,13 @@ public class PBehaviour {
                     poz=bestPos;
                     pom=poz.minus(ten.position);
                     pom=pom.multi(-1);
-                    
+                    ten.colorPredH=0.75f;
                    /**
                     *  Zachowanie ucieczki w sytuacji krytycznej , ucieczka w jakimś kierunku
                     */
                     if(d<criticaldist)
                     {
+                        ten.colorPredH=((float)(d/criticaldist))*0.75f;
                         if(mainBoids.mainWin.getEscapeStrategy()==1)
                         {
                             mainBoids.simul.critical_sit=true;
@@ -59,7 +60,7 @@ public class PBehaviour {
                             if(d>criticaldist){ w.add(pom);k++;}
                              else 
                              {
-                                 pom.normalize().multi(d/criticaldist);
+                                 pom.normalize().div(d/criticaldist);
                                  w.add(pom);
                                  k++;
                              }

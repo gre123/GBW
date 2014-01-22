@@ -1595,7 +1595,7 @@
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="spnWidth" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="btnAccelWart" alignment="0" pref="186" max="32767" attributes="0"/>
+                          <Component id="btnPred" alignment="0" pref="186" max="32767" attributes="0"/>
                           <Component id="btnVelWart" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnWpływLeader" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
@@ -1634,7 +1634,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnVelWart" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnAccelWart" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnPred" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnSeparacWygl" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -1687,9 +1687,9 @@
                 <Property name="text" type="java.lang.String" value="warto&#x15b;&#x107; pr&#x119;dko&#x15b;ci"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="btnAccelWart">
+            <Component class="javax.swing.JToggleButton" name="btnPred">
               <Properties>
-                <Property name="text" type="java.lang.String" value="warto&#x15b;&#x107; przyspieszenia"/>
+                <Property name="text" type="java.lang.String" value="Przeciwnik"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel29">

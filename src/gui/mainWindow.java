@@ -194,7 +194,7 @@ public boolean savingStats;
         wygladPanel = new javax.swing.JPanel();
         btnWpływLeader = new javax.swing.JToggleButton();
         btnVelWart = new javax.swing.JToggleButton();
-        btnAccelWart = new javax.swing.JToggleButton();
+        btnPred = new javax.swing.JToggleButton();
         jLabel29 = new javax.swing.JLabel();
         spnBoidRadius = new javax.swing.JSpinner();
         jLabel30 = new javax.swing.JLabel();
@@ -1224,7 +1224,7 @@ public boolean savingStats;
 
         btnVelWart.setText("wartość prędkości");
 
-        btnAccelWart.setText("wartość przyspieszenia");
+        btnPred.setText("Przeciwnik");
 
         jLabel29.setText("Wielkość boida:");
 
@@ -1275,7 +1275,7 @@ public boolean savingStats;
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(spnWidth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnAccelWart, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                    .addComponent(btnPred, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                     .addComponent(btnVelWart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnWpływLeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(wygladPanelLayout.createSequentialGroup()
@@ -1307,7 +1307,7 @@ public boolean savingStats;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnVelWart)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAccelWart)
+                .addComponent(btnPred)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSeparacWygl)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1579,8 +1579,8 @@ public boolean savingStats;
      if (this.btnVelWart.isSelected()){return true;}
      return false;
     }
-    public  boolean czyAccelWart(){
-     if (this.btnAccelWart.isSelected()){return true;}
+    public  boolean czyPred(){
+     if (this.btnPred.isSelected()){return true;}
      return false;
     }
     public  boolean czyPolarizationWyglad(){
@@ -2152,12 +2152,12 @@ public boolean savingStats;
     private javax.swing.JTabbedPane Symulacja;
     private javax.swing.JLabel boidCntLbl;
     private javax.swing.JToggleButton boidCount;
-    private javax.swing.JToggleButton btnAccelWart;
     private javax.swing.JButton btnGenStado;
     private javax.swing.JButton btnGlobAim;
     private javax.swing.JButton btnLoadSettings;
     private javax.swing.JToggleButton btnPolaryzation;
     private javax.swing.JToggleButton btnPolaryzationLokal;
+    private javax.swing.JToggleButton btnPred;
     private javax.swing.JToggleButton btnSeparacWygl;
     private javax.swing.JButton btnStart;
     private javax.swing.JToggleButton btnSterMysza;

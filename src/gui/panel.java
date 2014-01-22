@@ -90,8 +90,8 @@ public class panel extends JPanel {
                     //}else 
                     if (mainBoids.mainWin.czyWplywLeader()){
                     g2d.setColor(Color.getHSBColor(boids.get(i).getColorLeadH(), 1, 1));
-                    }else if(mainBoids.mainWin.czyAccelWart()){
-                    g2d.setColor(Color.getHSBColor(0, 0, boids.get(i).getColorAccelB()));
+                    }else if(mainBoids.mainWin.czyPred()){
+                    g2d.setColor(Color.getHSBColor(boids.get(i).getColorPredH(), 1,1));
                     }else if(mainBoids.mainWin.czyVelWart()){
                     g2d.setColor(Color.getHSBColor(boids.get(i).getColorVelH(), 1, 1));
                     }else if(mainBoids.mainWin.czySeparacja()){
