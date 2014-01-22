@@ -25,7 +25,7 @@ public class boid {
     double skala;
     int type;
     double katWidzenia;
-    double minimalDistance;
+    double minimalDistance,minimalSDistance;
     double separateRadius;
     float colorLeadB,colorSeparB,colorVelB,colorAccelB;
     float colorSepH,colorCohH,colorAliH;
@@ -35,7 +35,7 @@ public class boid {
     int eats;
     boolean havePredator;
     public boid(double x, double y) {
-        Random randGen = new Random();
+      //  Random randGen = new Random();
         acceleration = new vector2d(0, 0);
         velocity = new vector2d(0, 0);
         position = new vector2d(x, y);
@@ -58,6 +58,7 @@ public class boid {
         hungry=false;
         // angle=randGen.nextDouble()*360;
         minimalDistance = 0.2;
+        minimalSDistance=0.04;
         type = 1;
         katWidzenia = 2.6;
         eats=0;
@@ -115,10 +116,10 @@ public class boid {
         for (int i = 0; i < boids.size(); i++) {
             if(boids.get(i).getType()!=2){continue;}
             sDist = this.position.getSDistance(boids.get(i));
-            if (sDist < minimalDistance * minimalDistance*5) {
+            if (sDist < minimalSDistance*5) {
              //   if (sDist == 0) {sDist = 0.000000001;}
                 pos=this.getPosition().getVec().minus(boids.get(i).position);
-                pos.div(sDist);
+              //  pos.div(sDist);
                 value.add(pos);k++;
             }
         }
@@ -148,9 +149,8 @@ public class boid {
         int k=0;
         for (int i = 0; i < boids.size(); i++) {
             if (boids.get(i).type<2){
-            //bestPos=this.position.getCloserPosition(boids.get(i).position, mainBoids.panelSizeX, mainBoids.panelSizeY); 
             bestPos=this.getBestPosition(boids.get(i), mainBoids.panelSizeX, mainBoids.panelSizeY);
-             if( this.position.getSDistance(bestPos)>minimalDistance*minimalDistance ){//pominiecie najblizszych
+             if( this.position.getSDistance(bestPos)>minimalSDistance ){//pominiecie najblizszych
             pos.add(bestPos);
             k++;
              }
@@ -160,10 +160,6 @@ public class boid {
         if (k>0){
         pos.divNonZero(k);
         pos.minus(this.position);
-//        if(pos.getLength()<minimalDistance){
-//          //  System.out.println(pos.getLength());
-//        return pos.normalize().;
-//        }
         return pos.normalize();
         }else{return pos;}
         
@@ -171,8 +167,7 @@ public class boid {
 
     public vector2d followLeader(ArrayList<boid> boids) {
         vector2d value = new vector2d(0, 0);
-        
-        if (type ==0 && boids.size()<5){velocity.multi(0.5);return value;} 
+
         if (type == 0) {return value; }
         vector2d bestPos;
         boid leader = null;
@@ -181,8 +176,7 @@ public class boid {
         double minDist = Double.MAX_VALUE;
         for (int i = 0; i < boids.size(); i++) {
             if (boids.get(i).type == 0) {
-                //bestPos=this.position.getCloserPosition(boids.get(i).position, mainBoids.panelSizeX, mainBoids.panelSizeY);
-                  bestPos=this.getBestPosition(boids.get(i), mainBoids.panelSizeX, mainBoids.panelSizeY);
+                bestPos=this.getBestPosition(boids.get(i), mainBoids.panelSizeX, mainBoids.panelSizeY);
                 dist = this.getPosition().getDistance(bestPos);
                 if (dist < minDist) {
                     leader = boids.get(i);
@@ -194,8 +188,6 @@ public class boid {
             mainBoids.stat.incBoidHaveLeader();
             dist=minDist;
             this.colorLeadB=1-(float)(dist/mainBoids.simul.radiusNeigh);
-            //pos.minus(leader.getVelocity().getVec().normalize().multi(15));
-           // bestPos=this.position.getCloserPosition(leader.position, mainBoids.panelSizeX, mainBoids.panelSizeY);
             bestPos=this.getBestPosition(leader, mainBoids.panelSizeX, mainBoids.panelSizeY);
             value = bestPos.minus(this.position);
             if (dist > skala*5) {
@@ -337,10 +329,10 @@ public class boid {
 
         }
 
-        if (d >10*skala*10*skala) {
+        if (d >100*skala*skala) {
             value.normalize();
         } else {
-            value.normalize().multi(d / (10*skala*10*skala));
+            value.normalize().multi(d / (100*skala*skala));
         }
 
         return value;
@@ -355,7 +347,6 @@ public class boid {
     public vector2d predator(ArrayList<boid> boids) {
         vector2d wynik;
         wynik = PBehaviour.escapeP(this, boids);
-
         return wynik;
     }
 
@@ -443,12 +434,11 @@ public class boid {
     }
     //---------------------------------------------------------------
     public void applyForce(double step) {
-     //   System.out.println("a"+velocity.getLength());
-        velocity.add(acceleration.multi(1));
+        velocity.add(acceleration);
         if (velocity.getSLength() > maxSpeed*maxSpeed) {    
             velocity.normalize();
-            if(this.getType()==2) velocity.multi(maxSpeed*0.8); //wolniejszy drapieżnik
-            else velocity.multi(maxSpeed);
+          //  if(this.getType()==2) velocity.multi(maxSpeed*0.8); //wolniejszy drapieżnik
+            velocity.multi(maxSpeed);
             colorVelB=0;
         }else{
             colorVelB=1-(float)(velocity.getSLength()/(maxSpeed*maxSpeed));
@@ -458,21 +448,21 @@ public class boid {
     public void move(double step) {
         vector2d temp = velocity.getVec();
         position.add(temp.multi(step));
-        //velocity.multi(0.9);
-        //System.out.println(velocity.getLength());
+        velocity.multi(0.97);
+
         double maxX = mainBoids.panelSizeX;
         double maxY = mainBoids.panelSizeY;
         // velocity.multi(0.1);
         if (position.getX() < 0) {
             position.setX(maxX + position.getX());
         }
-        if (position.getX() > maxX) {
+        else if (position.getX() > maxX) {
             position.setX(position.getX() - maxX);
         }
         if (position.getY() < 0) {
             position.setY(maxY + position.getY());
         }
-        if (position.getY() > maxY) {
+        else if (position.getY() > maxY) {
             position.setY(position.getY() - maxY);
         }
     }
@@ -499,8 +489,6 @@ public class boid {
         return this.acceleration;
     }
     public void setAcceleration(vector2d _accel) {
-        
-        //System.out.println(_accel.getLength());
         if (_accel.getSLength() > maxForce*maxForce) {
             _accel.normalize();
             _accel.multi(maxForce);
@@ -617,6 +605,13 @@ public class boid {
     }
     public double getMinimalDist(){
         return minimalDistance;
+    }
+    /***
+     * 
+     * @return zwraca kwadrat odleglosci minimalnego ddystansu 
+     */
+    public double getSMinimalDist(){
+        return minimalSDistance;
     }
     //public boolean czyOmijam(){
     //return omijam;
