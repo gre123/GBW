@@ -106,7 +106,7 @@ public class symulacja {
          //System.out.println((3.1415-alfa)+"+"+katWidzenia);
          if (gridBoids.get(i).getType()==2){d=0; osobnik.setHavePredator(true);}
           if((alfa)<katWidzenia){
-              d=d*((((alfa)/3.1415)+0.1)/1.1);
+              d=d*((((alfa)/3.1415)+0.35)/1.35);
               if (maxDist<d && neigh.size()>=maxNeigh){}
               else if (maxDist>d && neigh.size()>=maxNeigh){
                   neigh.remove(inxMax);distannces.remove(inxMax); 
