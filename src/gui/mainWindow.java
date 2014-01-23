@@ -1425,9 +1425,9 @@ public boolean savingStats;
 
         jLabel55.setText("Zmiana strategii w odl :");
 
-        chStrategyCof.setMaximum(50);
+        chStrategyCof.setMaximum(40);
         chStrategyCof.setToolTipText("");
-        chStrategyCof.setValue(30);
+        chStrategyCof.setValue(6);
         chStrategyCof.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 chStrategyCofStateChanged(evt);
@@ -1435,7 +1435,7 @@ public boolean savingStats;
         });
 
         chStrLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        chStrLabel.setText("30");
+        chStrLabel.setText("6");
 
         javax.swing.GroupLayout sterLeadLayout = new javax.swing.GroupLayout(sterLead);
         sterLead.setLayout(sterLeadLayout);
@@ -1457,19 +1457,19 @@ public boolean savingStats;
                                 .addComponent(btnGlobAim))
                             .addComponent(btnSterMysza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnSterMysza1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(combpredMove, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(combpredMove, 0, 170, Short.MAX_VALUE)
                             .addComponent(btnSterMysza3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(sterLeadLayout.createSequentialGroup()
-                                .addComponent(jLabel55)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(chStrLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(sterLeadLayout.createSequentialGroup()
                                 .addGroup(sterLeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel17)
                                     .addComponent(jLabel21)
                                     .addComponent(jLabel44)
                                     .addComponent(jLabel22))
-                                .addGap(0, 58, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(sterLeadLayout.createSequentialGroup()
+                                .addComponent(jLabel55)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(chStrLabel)))
                         .addContainerGap())))
         );
         sterLeadLayout.setVerticalGroup(

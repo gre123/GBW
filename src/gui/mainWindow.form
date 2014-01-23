@@ -1827,13 +1827,8 @@
                                   </Group>
                                   <Component id="btnSterMysza" max="32767" attributes="0"/>
                                   <Component id="btnSterMysza1" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="combpredMove" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="combpredMove" alignment="0" pref="170" max="32767" attributes="0"/>
                                   <Component id="btnSterMysza3" alignment="1" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel55" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="chStrLabel" min="-2" pref="28" max="-2" attributes="0"/>
-                                  </Group>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
@@ -1841,7 +1836,12 @@
                                           <Component id="jLabel44" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel22" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="0" pref="58" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel55" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="chStrLabel" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -2008,9 +2008,9 @@
             </Component>
             <Component class="javax.swing.JSlider" name="chStrategyCof">
               <Properties>
-                <Property name="maximum" type="int" value="50"/>
+                <Property name="maximum" type="int" value="40"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
-                <Property name="value" type="int" value="30"/>
+                <Property name="value" type="int" value="6"/>
               </Properties>
               <Events>
                 <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="chStrategyCofStateChanged"/>
@@ -2019,7 +2019,7 @@
             <Component class="javax.swing.JLabel" name="chStrLabel">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="4"/>
-                <Property name="text" type="java.lang.String" value="30"/>
+                <Property name="text" type="java.lang.String" value="6"/>
               </Properties>
             </Component>
           </SubComponents>

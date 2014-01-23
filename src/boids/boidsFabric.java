@@ -201,7 +201,7 @@ public class boidsFabric {
         zjemcie.type=2;
         zjemcie.radius=mainBoids.mainWin.getPredatorSize();
         
-            if (maxSpeed!=0){zjemcie.maxSpeed=maxSpeed*0.85;}
+            if (maxSpeed!=0){zjemcie.maxSpeed=maxSpeed*0.99;}
             if (maxAccel!=0){zjemcie.maxForce=maxAccel;}
         return zjemcie;
     }
