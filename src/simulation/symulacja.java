@@ -221,7 +221,7 @@ public class symulacja {
           coh= boids.get(i).cohesion(tempBoids).multi(cofCoh);
           }else{ali=new vector2d(0,0);coh=new vector2d(0,0);}
           lead= boids.get(i).followLeader(tempBoids);
-          toAim=boids.get(i).goToAim(globalAim).multi(0.4);
+          toAim=boids.get(i).goToAim(globalAim).multi((cofAli+cofCoh)/1.5);
           rand=new vector2d(randGen.nextDouble()*2-1,randGen.nextDouble()*2-1);
           avoid=boids.get(i).better_avoid(pom,AvoidMode, AvoidRec);
           
