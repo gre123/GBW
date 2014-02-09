@@ -18,6 +18,9 @@ public class symulacja {
   public ArrayList<boid> boids;
   ArrayList<Obstacle> obs;
   ArrayList<Food> food;
+  ArrayList<Runnable> runableTab;
+  ArrayList<Thread> threadTab;
+
   public ArrayList<Obstacle> pom;
   public boolean continueSimulation;
   double cofSep,cofAli,cofCoh,leadCof,randCof,cofPred,cofAvoid,AvoidMode;
@@ -44,8 +47,10 @@ public class symulacja {
   food=_food;
   animSpeed=10;
   reactionTime=50;
-  siatkaKoszykow =new gridBucket(21,13,mainBoids.panelSizeX,mainBoids.panelSizeY);
+  siatkaKoszykow =new gridBucket(mainBoids.mainWin.getBucketX(),mainBoids.mainWin.getBucketY(),mainBoids.panelSizeX,mainBoids.panelSizeY);
   pom=new ArrayList<>();
+  runableTab=new ArrayList<>();
+  threadTab=new ArrayList<>();
   }
   public void addBoid(boid agt){
       boids.add(agt);
@@ -123,7 +128,6 @@ public class symulacja {
             }
       }else{continue;}   
       if  (td<(osobnik.getMinimalDist()*osobnik.getMinimalDist())){
-        //  d=d/10;
       if (maxDist<d && neigh.size()>=maxNeigh){}
               else if (maxDist>d && neigh.size()>=maxNeigh){
                   neigh.remove(inxMax);distannces.remove(inxMax); 
@@ -174,6 +178,11 @@ public class symulacja {
   }
   public void simulate(){
       continueSimulation=true;
+       if (mainBoids.mainWin.ileWatkow()>1){
+      for(int j=0;j<mainBoids.mainWin.ileWatkow();j++){
+           runableTab.add(new threadPart(this,j+1,mainBoids.mainWin.ileWatkow()));
+      }
+       }
       Random randGen = new Random();
       siatkaKoszykow.writeToGrid(boids);
       long start;
@@ -187,6 +196,7 @@ public class symulacja {
       pom.addAll(obs);
       pom.addAll(food);
       start=System.nanoTime();
+      
       while(continueSimulation){
         
       end=start;
@@ -196,7 +206,8 @@ public class symulacja {
       mainBoids.stat.addPerformance(time);
       if (mainBoids.mainWin.czyConstCzas()!=true){
       timeMin+=time;
-  // System.out.println("t"+time);
+  //System.out.println("t"+time);
+
       while(time<reactionTime-1){
           try{
             Thread.sleep((int)(reactionTime-time));
@@ -211,7 +222,66 @@ public class symulacja {
      // timeStep=((double)time)/(55-animSpeed)/1000;
       timeStep=((double)time)/1000;
 
-       for(int i=0;i<boids.size();i++){ 
+      threadTab.clear();
+      if (mainBoids.mainWin.ileWatkow()>1){
+      for(int j=0;j<mainBoids.mainWin.ileWatkow();j++){
+          // runableTab.add(new threadPart(this,j+1,mainBoids.mainWin.ileWatkow()));
+           threadTab.add(new Thread(runableTab.get(j)));
+      }
+      }
+
+       if (mainBoids.mainWin.ileWatkow()==1){
+           this.simulatePart(0, boids.size());
+       }else{
+            for(int j=0;j<threadTab.size();j++){
+                 threadTab.get(j).start();
+            }
+       }
+
+       for(int i=0;i<mainBoids.predators.size();i++){
+            tempBoids=getNeighbourhoodOptmTopological(mainBoids.predators.get(i),30);
+            predH=mainBoids.predators.get(i).predHunt(tempBoids,siatkaKoszykow.getArrayNeightB(mainBoids.predators.get(i)));
+            vector2d Sep=mainBoids.predators.get(i).separatePredator(tempBoids);
+            avoid=mainBoids.predators.get(i).better_avoid(pom,AvoidMode, AvoidRec);
+            mainBoids.predators.get(i).setAcceleration(Sep.add(predH).add(avoid).multi(skala));
+       }
+      mainBoids.mainWin.ptr.repaint();
+          
+       if (mainBoids.mainWin.ileWatkow()>1){
+            for(int j=0;j<threadTab.size();j++){
+              try { threadTab.get(j).join(); }
+              catch(InterruptedException ie) { }
+            }
+       }
+       
+       if (mainBoids.mainWin.ileWatkow()>1){
+            for(int j=0;j<threadTab.size();j++){
+               threadTab.get(j).resume();
+             
+            }
+       }
+       
+       mainBoids.stat.prevAverageSpeed.normalize();
+             float tmpColor;
+       for(int i=0;i<boids.size();i++){
+           tmpColor=(float)((mainBoids.stat.prevAverageSpeed.skalarny(boids.get(i).getVelocity().getVec().normalize()))-1)/(-2);
+            boids.get(i).setColorOdstVelH(tmpColor);
+            mainBoids.stat.odstAverageSpeed+=tmpColor;
+            boids.get(i).applyForce(timeStep);
+            if (boids.get(i).czyBum()) {mainBoids.stat.incNumOfColision();}
+            mainBoids.stat.averageSpeed.add(boids.get(i).getVelocity());     
+            boids.get(i).move(timeStep);
+            siatkaKoszykow.updateGrid(boids.get(i));
+       }
+      mainBoids.stat.updateStats();
+      }
+  }
+  
+public void simulatePart(int from,int to){
+ vector2d sep,ali,coh,lead,rand,pred, avoid, predH,toAim,forag;
+ ArrayList<boid> tempBoids;
+ Random randGen = new Random();     
+for(int i=from;i<to;i++){ 
           if (boids.get(i).getType()==2){continue;}
           tempBoids=getNeighbourhoodOptmTopological(boids.get(i),mainBoids.mainWin.getNumNeight());
           
@@ -232,54 +302,20 @@ public class symulacja {
           rand.multi(randCof);
           pred.multi(cofPred);
           avoid.multi(cofAvoid);
-          
-           /**
-            * rozbudowałem o sytuację wyjątkową jak flaga critical_sit jest ustawiona ma olewać wszystko oprócz wybranego wektora,
-            * jest też flaga od żerowania, czyli olewka wszystkiego oprocz wybranych wektorów, chyba ze krytyczna sytuacja
-            */
+
            if(!critical_sit && !foraging_situation){ boids.get(i).setAcceleration(((sep.add(ali)).add(coh)).add(lead).add(rand).add(pred).add(avoid).add(toAim).add(forag).multi(skala));}
-           else
-           {
-               if(foraging_situation && !critical_sit)
-               {
+           else{
+               if(foraging_situation && !critical_sit){
                    boids.get(i).setAcceleration(forag.add(sep).multi(skala));
                    foraging_situation=false;
                }
-               else {
+               else{
                     boids.get(i).setAcceleration(pred.multi(skala));
-                    critical_sit=false;
-                    foraging_situation=false;
+                    critical_sit=false; foraging_situation=false;
                }
            }
        }
-       
-       for(int i=0;i<mainBoids.predators.size();i++){
-            tempBoids=getNeighbourhoodOptmTopological(mainBoids.predators.get(i),30);
-            predH=mainBoids.predators.get(i).predHunt(tempBoids,siatkaKoszykow.getArrayNeightB(mainBoids.predators.get(i)));
-            vector2d Sep=mainBoids.predators.get(i).separatePredator(tempBoids);
-            avoid=mainBoids.predators.get(i).better_avoid(pom,AvoidMode, AvoidRec);
-            mainBoids.predators.get(i).setAcceleration(Sep.add(predH).add(avoid).multi(skala));
-       }
-             mainBoids.stat.prevAverageSpeed.normalize();
-             float tmpColor;
-       for(int i=0;i<boids.size();i++){
-           tmpColor=(float)((mainBoids.stat.prevAverageSpeed.skalarny(boids.get(i).getVelocity().getVec().normalize()))-1)/(-2);
-            boids.get(i).setColorOdstVelH(tmpColor);
-            mainBoids.stat.odstAverageSpeed+=tmpColor;
-            boids.get(i).applyForce(timeStep);
-            if (boids.get(i).czyBum()) {mainBoids.stat.incNumOfColision();}
-            mainBoids.stat.averageSpeed.add(boids.get(i).getVelocity());     
-            boids.get(i).move(timeStep);
-            siatkaKoszykow.updateGrid(boids.get(i));
-       }
-       
-//       fps=100000/time;    
-//       if (timeMin>333){
-//           timeMin=0;
-//           mainBoids.mainWin.setFPS((int)fps);
-//       }
-     mainBoids.stat.updateStats();
-       mainBoids.mainWin.ptr.repaint( );
-      }
-  }
+}  
+  
+  
 }

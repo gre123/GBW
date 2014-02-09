@@ -172,6 +172,12 @@ public boolean savingStats;
         sldReactionTime = new javax.swing.JSlider();
         lblTimeReaction = new javax.swing.JLabel();
         btnLoadSettings = new javax.swing.JButton();
+        jLabel56 = new javax.swing.JLabel();
+        cmbThreads = new javax.swing.JComboBox();
+        jLabel57 = new javax.swing.JLabel();
+        jLabel58 = new javax.swing.JLabel();
+        spnBucketX = new javax.swing.JSpinner();
+        spnBucketY = new javax.swing.JSpinner();
         setPanelAdv = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         lblLead = new javax.swing.JLabel();
@@ -924,6 +930,18 @@ public boolean savingStats;
             }
         });
 
+        jLabel56.setText("Liczba wątków:");
+
+        cmbThreads.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+
+        jLabel57.setText("Koszyki w poziomie:");
+
+        jLabel58.setText("Koszyki w pionie:");
+
+        spnBucketX.setValue(21);
+
+        spnBucketY.setValue(12);
+
         javax.swing.GroupLayout setPanelPodLayout = new javax.swing.GroupLayout(setPanelPod);
         setPanelPod.setLayout(setPanelPodLayout);
         setPanelPodLayout.setHorizontalGroup(
@@ -955,7 +973,7 @@ public boolean savingStats;
                                 .addComponent(lblCoh))
                             .addGroup(setPanelPodLayout.createSequentialGroup()
                                 .addComponent(jLabel26)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblMaxNeight, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(setPanelPodLayout.createSequentialGroup()
                                 .addComponent(jLabel14)
@@ -973,7 +991,17 @@ public boolean savingStats;
                                 .addComponent(jLabel34)
                                 .addGap(18, 18, 18)
                                 .addComponent(lblTimeReaction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(btnLoadSettings, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnLoadSettings, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, setPanelPodLayout.createSequentialGroup()
+                                .addGroup(setPanelPodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel56)
+                                    .addComponent(jLabel58)
+                                    .addComponent(jLabel57))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(setPanelPodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(spnBucketX)
+                                    .addComponent(spnBucketY)
+                                    .addComponent(cmbThreads, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addContainerGap())))
         );
         setPanelPodLayout.setVerticalGroup(
@@ -1027,7 +1055,19 @@ public boolean savingStats;
                     .addComponent(lblTimeReaction))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sldReactionTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                .addGroup(setPanelPodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel57)
+                    .addComponent(spnBucketX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(setPanelPodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel58)
+                    .addComponent(spnBucketY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(setPanelPodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel56)
+                    .addComponent(cmbThreads, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnLoadSettings)
                 .addContainerGap())
         );
@@ -1554,6 +1594,19 @@ public boolean savingStats;
     public boolean areWeSaving()
     {
         return saveStatsBtn.isSelected()&&savingStats && fSource!=null;
+    }
+    
+    public int getBucketX()
+    {
+        return (int)spnBucketX.getValue();
+    }
+    public int getBucketY()
+    {
+        return (int)spnBucketY.getValue();
+    }
+    public int ileWatkow()
+    {
+        return cmbThreads.getSelectedIndex()+1;
     }
     public  int getNumOfLeaders(){
      return (int)this.textLeaderNum.getValue();
@@ -2182,6 +2235,7 @@ public boolean savingStats;
     private javax.swing.JToggleButton btnWpływLeader;
     private javax.swing.JLabel chStrLabel;
     private javax.swing.JSlider chStrategyCof;
+    private javax.swing.JComboBox cmbThreads;
     private javax.swing.JComboBox cobRozklad;
     private javax.swing.JComboBox combLeadMove;
     private javax.swing.JComboBox combpredEscape;
@@ -2239,6 +2293,9 @@ public boolean savingStats;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -2316,6 +2373,8 @@ public boolean savingStats;
     private javax.swing.JSlider sldSkala;
     private javax.swing.JSlider sldTimeFood;
     private javax.swing.JSpinner spnBoidRadius;
+    private javax.swing.JSpinner spnBucketX;
+    private javax.swing.JSpinner spnBucketY;
     private javax.swing.JSpinner spnHeight;
     private javax.swing.JSpinner spnLeaderRadius;
     private javax.swing.JSpinner spnObstacleRadius;

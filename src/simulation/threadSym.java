@@ -1,7 +1,5 @@
 package simulation;
 
-import static org.omg.IOP.CodecPackage.InvalidTypeForEncodingHelper.id;
-
 /**
  * @author Tomek
  */

@@ -166,6 +166,8 @@ public class boid {
 //        return pos.normalize().;
 //        }
         return pos.normalize();
+       // System.out.println(velocity.getLength()/this.maxSpeed);
+         // return pos.normalize().multi((((velocity.getLength())/(this.maxSpeed))+3)/4);
         }else{return pos;}
         
     }
