@@ -5,9 +5,7 @@ import boids.mainBoids;
 import java.awt.*;
 import java.awt.geom.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import boids.Obstacle;
  
@@ -71,13 +69,13 @@ public class panel extends JPanel {
         super.paintComponent(gContext);
         Graphics2D g2d = (Graphics2D) gContext;
         
-        try{
-            wrobel=ImageIO.read(new File("D:\\wrobel.gif"));
-            isImage=true;
-        }catch(Exception e)
-        {  
-            isImage=false;
-        }
+//        try{
+//            wrobel=ImageIO.read(new File("D:\\wrobel.gif"));
+//            isImage=true;
+//        }catch(Exception e)
+//        {  
+//            isImage=false;
+//        }
         
         if (boids!=null){
           //System.out.println(boids.size());
@@ -111,22 +109,20 @@ public class panel extends JPanel {
                  /**
                   * Tu jakaś próba wstawienia obrazku ptaka
                   */
-               if(isImage) 
-               {
-                  g2d.drawImage(wrobel,(int)(boids.get(i).getX()-r/2), (int)boids.get(i).getY(),null);
-               }
-               else {
+//               if(isImage) 
+//               {
+//                  g2d.drawImage(wrobel,(int)(boids.get(i).getX()-r/2), (int)boids.get(i).getY(),null);
+//               }
+//               else {
                 Ellipse2D circle = new Ellipse2D.Double( boids.get(i).getX()-r/2, boids.get(i).getY()-r/2, r,r);
                 g2d.fill(circle);
                 g2d.draw(circle);
-               }
+              // }
                //-----------------------------------------------------------------
-            } 
-            
-        }
-       
+            }  
+        } 
         
-        if (obs!=null || !obs.isEmpty()){
+        if (obs!=null && !obs.isEmpty()){
             for(int i=0;i<obs.size();i++){
                g2d.setColor(Color.GRAY); 
                Ellipse2D circle = new Ellipse2D.Double(obs.get(i).getX()-obs.get(i).getR(), obs.get(i).getY()-obs.get(i).getR(), obs.get(i).getR()*2,obs.get(i).getR()*2);

@@ -14,16 +14,10 @@
     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
       <Color id="Default Cursor"/>
     </Property>
-    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1300, 760]"/>
-    </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[1140, 640]"/>
     </Property>
     <Property name="name" type="java.lang.String" value="mainWin" noResource="true"/>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1366, 768]"/>
-    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -1711,6 +1705,7 @@
                           <Component id="btnSeparacWygl" alignment="0" pref="186" max="32767" attributes="0"/>
                           <Component id="btnPolaryzation" alignment="0" pref="186" max="32767" attributes="0"/>
                           <Component id="btnPolaryzationLokal" alignment="0" pref="186" max="32767" attributes="0"/>
+                          <Component id="btnSrodkuj" alignment="0" pref="186" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                   </Group>
@@ -1731,6 +1726,8 @@
                       <Component id="btnPolaryzation" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnPolaryzationLokal" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnSrodkuj" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1751,7 +1748,7 @@
                           <Component id="jLabel33" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="spnObstacleRadius" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="282" max="32767" attributes="0"/>
+                      <EmptySpace pref="248" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="spnWidth" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1871,6 +1868,11 @@
                 <Property name="value" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="1130" type="code"/>
                 </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JToggleButton" name="btnSrodkuj">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x15a;rodkuj widok"/>
               </Properties>
             </Component>
           </SubComponents>

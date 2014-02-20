@@ -112,6 +112,11 @@ public class vector2d {
         this.y=this.y-vec.y;
         return this;
     }
+    public vector2d minus(double _x,double _y){
+        this.x=this.x-_x;
+        this.y=this.y-_y;
+        return this;
+    }
     public vector2d multi(double a){
         this.x=this.x*a;
         this.y=this.y*a;

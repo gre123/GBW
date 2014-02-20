@@ -15,6 +15,7 @@ public class statistic {
     int numOfColision;
     vector2d averageSpeed,prevAverageSpeed;
     vector2d averageAcceleration;
+    vector2d averagePosition,sumPosition;
     double averageNumOfNeight;
     double odstAverageSpeed;
     double odstAverageSpeedLokal;
@@ -28,7 +29,8 @@ public class statistic {
     FileWriter fw;
     File f;
     public statistic(int nBoids,int nPredators,int nLeaders){
-    
+    averagePosition=new vector2d(mainBoids.panelSizeX/2,mainBoids.panelSizeY/2);
+    sumPosition=new vector2d(0,0);
     numberOfBoids=nBoids;
     numberOfPredators=nPredators;
     numberOfLeaders=nLeaders;
@@ -69,6 +71,9 @@ public class statistic {
         }
         mainBoids.mainWin.setNumCollisions(collisions);collisions=0;
         if(mainBoids.mainWin.areWeSaving() ){ saveStats();}
+        averagePosition=sumPosition.div(numberOfBoids);
+        averagePosition.minus(mainBoids.panelSizeX/2,mainBoids.panelSizeY/2);
+        sumPosition=new vector2d(0,0);
     }
     public void incBoidHaveLeader(){
     boidsHaveLeader++;
@@ -79,11 +84,17 @@ public class statistic {
     public void addAverageDist(double d){
     averageDist+=d;
     }
+    public void addAveragePositon(vector2d _pos){
+    sumPosition.add(_pos);
+    }
     public void addOdstAverageSpeed(double d){
     odstAverageSpeedLokal+=d;
     }
     public void incCollisonNumber(){
     collisions++;
+    }
+    public vector2d getAveragePosition(){
+    return averagePosition;
     }
     public void addPerformance(double d){
      if(d>0.01){

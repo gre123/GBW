@@ -219,6 +219,7 @@ public boolean savingStats;
         jLabel9 = new javax.swing.JLabel();
         spnHeight = new javax.swing.JSpinner();
         spnWidth = new javax.swing.JSpinner();
+        btnSrodkuj = new javax.swing.JToggleButton();
         sterLead = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         combLeadMove = new javax.swing.JComboBox();
@@ -243,10 +244,8 @@ public boolean savingStats;
         setTitle("Symulacja stada - Bylina,Gajda,Wszołek 2013");
         setBackground(new java.awt.Color(204, 204, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMaximumSize(new java.awt.Dimension(1300, 760));
         setMinimumSize(new java.awt.Dimension(1140, 640));
         setName("mainWin"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1366, 768));
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 formKeyTyped(evt);
@@ -1310,6 +1309,8 @@ public boolean savingStats;
 
         spnWidth.setValue(1130);
 
+        btnSrodkuj.setText("Środkuj widok");
+
         javax.swing.GroupLayout wygladPanelLayout = new javax.swing.GroupLayout(wygladPanel);
         wygladPanel.setLayout(wygladPanelLayout);
         wygladPanelLayout.setHorizontalGroup(
@@ -1346,7 +1347,8 @@ public boolean savingStats;
                         .addComponent(spnObstacleRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnSeparacWygl, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                     .addComponent(btnPolaryzation, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-                    .addComponent(btnPolaryzationLokal, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
+                    .addComponent(btnPolaryzationLokal, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                    .addComponent(btnSrodkuj, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
                 .addGap(2, 2, 2))
         );
         wygladPanelLayout.setVerticalGroup(
@@ -1364,6 +1366,8 @@ public boolean savingStats;
                 .addComponent(btnPolaryzation)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnPolaryzationLokal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSrodkuj)
                 .addGap(18, 18, 18)
                 .addGroup(wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel29)
@@ -1380,7 +1384,7 @@ public boolean savingStats;
                 .addGroup(wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel33)
                     .addComponent(spnObstacleRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 282, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 248, Short.MAX_VALUE)
                 .addGroup(wygladPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spnWidth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
@@ -1674,6 +1678,10 @@ public boolean savingStats;
     {
         return (int )this.spnLeaderRadius.getValue();
     }
+     public boolean czySrodkuj()
+    {
+        return btnSrodkuj.isSelected();
+    }
     public int getRectSizeX()
     {
         return rectSize.getValue();
@@ -1889,18 +1897,13 @@ public boolean savingStats;
     private void sldLeadCofStateChanged(ChangeEvent evt) {//GEN-FIRST:event_sldLeadCofStateChanged
         lblLead.setText(Double.toString(sldLeadCof.getValue()/(double)1000));
         if (mainBoids.simul!=null){
-            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
-            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000);
-            mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000,sldAvoidMode.getValue()/(double)1000);
-
+              mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000,sldAvoidMode.getValue()/(double)1000);
         }
     }//GEN-LAST:event_sldLeadCofStateChanged
 
     private void sldCohCofStateChanged(ChangeEvent evt) {//GEN-FIRST:event_sldCohCofStateChanged
         lblCoh.setText(Double.toString(sldCohCof.getValue()/(double)1000));
         if (mainBoids.simul!=null){
-            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
-            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000);
             mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000,sldAvoidMode.getValue()/(double)1000);
         }
     }//GEN-LAST:event_sldCohCofStateChanged
@@ -1909,8 +1912,6 @@ public boolean savingStats;
         lblSep.setText(Double.toString(sldSepCof.getValue()/(double)1000));
         if (mainBoids.simul!=null){
             mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000,sldAvoidMode.getValue()/(double)1000);
-            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000);
-            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
         }
     }//GEN-LAST:event_sldSepCofStateChanged
 
@@ -1918,28 +1919,22 @@ public boolean savingStats;
         lblAli.setText(Double.toString(sldAliCof.getValue()/(double)1000));
         if (mainBoids.simul!=null){
             mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000,sldAvoidMode.getValue()/(double)1000);
-            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000);
-            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
         }
     }//GEN-LAST:event_sldAliCofStateChanged
 
     private void btnStartActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
         if(mainBoids.simul==null || mainBoids.simul.continueSimulation==false){
-
             this.btnStart.setText("Zatrzymaj symulację");
-            //mainBoids.simul= new symulacja(mainBoids.boids,mainBoids.prey);
             mainBoids.simul= new symulacja(mainBoids.boids,mainBoids.obs,mainBoids.food);
+             mainBoids.simul.setSkala(sldSkala.getValue()/2d);
             mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000,sldAvoidMode.getValue()/(double)1000);
             mainBoids.simul.setNeightParametrs(sldAngle.getValue()/(double)1000,sldNeigh.getValue()/(double)10);
-//            mainBoids.simul.setAnimSpeed(sldAnimSpeed.getValue());
             mainBoids.simul.setRandCof(sldRandCof.getValue()/(double)1000);
             mainBoids.simul.setAvoidRec(sldAvoidRec.getValue());
-            mainBoids.simul.setSkala(sldSkala.getValue()/2d);
-
+            
             Runnable runner = new threadSym(mainBoids.simul);
             Thread thread = new Thread(runner);
             thread.start();
-
         }else{
             this.btnStart.setText("Rozpocznij symulację");
             mainBoids.simul.continueSimulation=false;
@@ -1950,8 +1945,6 @@ public boolean savingStats;
         lblAvoid.setText(Double.toString(sldAvoidCof.getValue()/(double)1000));
         if (mainBoids.simul!=null){
             mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000,sldAvoidMode.getValue()/(double)1000);
-            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000);
-            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
         }
     }//GEN-LAST:event_sldAvoidCofStateChanged
 
@@ -1963,36 +1956,30 @@ public boolean savingStats;
         lblAvoidMode.setText(Double.toString(sldAvoidMode.getValue()/(double)1000));
         if (mainBoids.simul!=null){
             mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000,sldAvoidMode.getValue()/(double)1000);
-            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000);
-            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000);
         }
     }//GEN-LAST:event_sldAvoidModeStateChanged
 
     private void sldAvoidRecStateChanged(ChangeEvent evt) {//GEN-FIRST:event_sldAvoidRecStateChanged
         lblAvoidRec.setText(Integer.toString(sldAvoidRec.getValue()));
         if (mainBoids.simul!=null){
-            //mainBoids.simul.setParametrs(sldAliCof.getValue()/(double)1000,sldSepCof.getValue()/(double)1000, sldCohCof.getValue()/(double)1000, sldLeadCof.getValue()/(double)1000,sldPredCof.getValue()/(double)1000, sldAvoidCof.getValue()/(double)1000,sldAvoidMode.getValue()/(double)1000);
             mainBoids.simul.setAvoidRec(sldAvoidRec.getValue());
         }
     }//GEN-LAST:event_sldAvoidRecStateChanged
 
     private void sldForDistStateChanged(ChangeEvent evt) {//GEN-FIRST:event_sldForDistStateChanged
         lblForagingDistance.setText(Integer.toString(sldForDist.getValue()));
-        // TODO add your handling code here:
     }//GEN-LAST:event_sldForDistStateChanged
 
     private void sldNumNeightStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldNumNeightStateChanged
-            this.lblMaxNeight.setText(Integer.toString(sldNumNeight.getValue()));
+        this.lblMaxNeight.setText(Integer.toString(sldNumNeight.getValue()));
     }//GEN-LAST:event_sldNumNeightStateChanged
 
     private void sldPerHungerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldPerHungerStateChanged
-            this.lblHunger.setText(Integer.toString(sldPerHunger.getValue())+"%");
-        // TODO add your handling code here:
+        this.lblHunger.setText(Integer.toString(sldPerHunger.getValue())+"%");
     }//GEN-LAST:event_sldPerHungerStateChanged
 
     private void sldTimeFoodStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldTimeFoodStateChanged
          this.lblTimeFood.setText(Integer.toString(sldTimeFood.getValue()));
-        // TODO add your handling code here:
     }//GEN-LAST:event_sldTimeFoodStateChanged
 
     private void sldReactionTimeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldReactionTimeStateChanged
@@ -2007,9 +1994,9 @@ public boolean savingStats;
     }//GEN-LAST:event_sldMassStateChanged
 
     private void sldSkalaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldSkalaStateChanged
-         if ( mainBoids.simul!=null){
-        mainBoids.simul.setSkala(sldSkala.getValue()/2d);
-       }
+        if ( mainBoids.simul!=null){
+         mainBoids.simul.setSkala(sldSkala.getValue()/2d);
+        }
         this.lblSkala.setText("1 metr-"+Double.toString(sldSkala.getValue()/2d)+"px");
     }//GEN-LAST:event_sldSkalaStateChanged
 
@@ -2023,35 +2010,28 @@ public boolean savingStats;
 
     private void rectSizeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rectSizeStateChanged
         recSizeLbl.setText(Double.toString(rectSize.getValue()));
-        
-// TODO add your handling code here:
     }//GEN-LAST:event_rectSizeStateChanged
 
     private void boidCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boidCountActionPerformed
-
-         if (boidCount.isSelected()) {
+       if (boidCount.isSelected()) {
                 //boidCount.setSelected(false); 
                 if (ptr != null)ptr.addMouseListener(mlcount);
             }
             else{
                 if (ptr != null)ptr.removeMouseListener(mlcount);
             }
-// TODO add your handling code here:
     }//GEN-LAST:event_boidCountActionPerformed
 
     private void rectSize1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rectSize1StateChanged
          recSizeLbl1.setText(Double.toString(rectSize1.getValue()));
-        // TODO add your handling code here:
     }//GEN-LAST:event_rectSize1StateChanged
 
     private void boidCountItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_boidCountItemStateChanged
-       
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_boidCountItemStateChanged
 
     private void btnLoadSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadSettingsActionPerformed
         loadSettings();
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnLoadSettingsActionPerformed
 
     private void saveStatsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveStatsBtnActionPerformed
@@ -2072,7 +2052,7 @@ public boolean savingStats;
     }//GEN-LAST:event_saveStatsBtnActionPerformed
 
     private void btnSterMysza3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSterMysza3ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btnSterMysza3ActionPerformed
 
     private void btnSterMysza3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnSterMysza3ItemStateChanged
@@ -2140,7 +2120,6 @@ public boolean savingStats;
 
     private void chStrategyCofStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_chStrategyCofStateChanged
         chStrLabel.setText(Double.toString(chStrategyCof.getValue()));
-        // TODO add your handling code here:
     }//GEN-LAST:event_chStrategyCofStateChanged
 
     private void panelMouseClickedOBS(java.awt.event.MouseEvent evt) {
@@ -2158,7 +2137,6 @@ public boolean savingStats;
             ptr.drRec(e.getX(),e.getY(),getRectSizeX()*10,getRectSizeY()*10);
             repaint();
         }
-        
     }
     private void panelMouseClickedLD(java.awt.event.MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1) {
@@ -2227,6 +2205,7 @@ public boolean savingStats;
     private javax.swing.JToggleButton btnPolaryzationLokal;
     private javax.swing.JToggleButton btnPred;
     private javax.swing.JToggleButton btnSeparacWygl;
+    private javax.swing.JToggleButton btnSrodkuj;
     private javax.swing.JButton btnStart;
     private javax.swing.JToggleButton btnSterMysza;
     private javax.swing.JToggleButton btnSterMysza1;

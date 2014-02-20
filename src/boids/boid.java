@@ -165,9 +165,9 @@ public class boid {
 //          //  System.out.println(pos.getLength());
 //        return pos.normalize().;
 //        }
-        return pos.normalize();
+       // return pos.normalize();
        // System.out.println(velocity.getLength()/this.maxSpeed);
-         // return pos.normalize().multi((((velocity.getLength())/(this.maxSpeed))+3)/4);
+         return pos.normalize().multi((1-((velocity.getLength())/(this.maxSpeed))));
         }else{return pos;}
         
     }
@@ -456,8 +456,13 @@ public class boid {
     }
 
     public void move(double step) {
+        
         vector2d temp = velocity.getVec();
+       
         position.add(temp.multi(step));
+        if (mainBoids.mainWin.czySrodkuj()){
+        position.minus(mainBoids.stat.getAveragePosition().getVec().multi(step));
+        }
         //velocity.multi(0.9);
         //System.out.println(velocity.getLength());
         double maxX = mainBoids.panelSizeX;
@@ -475,6 +480,7 @@ public class boid {
         else if (position.getY() > maxY) {
             position.setY(position.getY() - maxY);
         }
+        mainBoids.stat.addAveragePositon(position);
     }
 
     public double calcAngle() {
