@@ -76,22 +76,34 @@ public class statistic {
         sumPosition=new vector2d(0,0);
     }
     public void incBoidHaveLeader(){
+        synchronized(this){
     boidsHaveLeader++;
+        }
     }
     public void incNumOfColision(){
-    numOfColision++;
+        synchronized(this){
+        numOfColision++;
+        }
     }
     public void addAverageDist(double d){
+        synchronized(this){
     averageDist+=d;
+        }
     }
     public void addAveragePositon(vector2d _pos){
+        synchronized(this){
     sumPosition.add(_pos);
+        }
     }
     public void addOdstAverageSpeed(double d){
+        synchronized(this){
     odstAverageSpeedLokal+=d;
+        }
     }
     public void incCollisonNumber(){
+        synchronized(this){
     collisions++;
+        }
     }
     public vector2d getAveragePosition(){
     return averagePosition;

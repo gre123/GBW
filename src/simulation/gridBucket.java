@@ -42,11 +42,16 @@ public class gridBucket {
           vector2d pos=osobnik.getPosition();
           posX=(int)(pos.getX()/maxX*(x));
           posY=(int)(pos.getY()/maxY*(y));
+          
           if (osobnik.checkBucketXY(posX,posY)==true){
+              synchronized(this){
               bucketList.get(osobnik.getBucketX()).get(osobnik.getBucketY()).koszyk.remove(osobnik);  
-              osobnik.setBucket(posX, posY);
               bucketList.get(posX).get(posY).koszyk.add(osobnik);
+              }
+              osobnik.setBucket(posX, posY);
+              
           }
+          
       }
       public ArrayList <boid> getArrayNeight(boid osobnik){
       ArrayList <boid> temp=new ArrayList <>();

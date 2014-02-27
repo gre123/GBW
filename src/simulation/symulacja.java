@@ -20,7 +20,8 @@ public class symulacja {
   ArrayList<Food> food;
   ArrayList<Runnable> runableTab;
   ArrayList<Thread> threadTab;
-
+  ArrayList<Runnable> runableTab2;
+  
   public ArrayList<Obstacle> pom;
   public boolean continueSimulation;
   double cofSep,cofAli,cofCoh,leadCof,randCof,cofPred,cofAvoid,AvoidMode;
@@ -50,6 +51,7 @@ public class symulacja {
   siatkaKoszykow =new gridBucket(mainBoids.mainWin.getBucketX(),mainBoids.mainWin.getBucketY(),mainBoids.panelSizeX,mainBoids.panelSizeY);
   pom=new ArrayList<>();
   runableTab=new ArrayList<>();
+  runableTab2=new ArrayList<>();
   threadTab=new ArrayList<>();
   }
   public void addBoid(boid agt){
@@ -82,6 +84,7 @@ public class symulacja {
  //distannces.ensureCapacity(10);
   double alfa,d,td;
   int inxMax=0;
+  double ratio=0.35;
   double maxDist=0;//Double.MAX_VALUE;
   ArrayList<boid> gridBoids=siatkaKoszykow.getArrayNeightCombinate(osobnik);
   osobnik.setHavePredator(false);
@@ -111,7 +114,15 @@ public class symulacja {
          //System.out.println((3.1415-alfa)+"+"+katWidzenia);
          if (gridBoids.get(i).getType()==2){d=0; osobnik.setHavePredator(true);}
           if((alfa)<katWidzenia){
-              d=d*((((alfa)/3.1415)+0.35)/1.35);
+             // ratio=gridBoids.get(i).getVelocity().getSLength()/(gridBoids.get(i).getMaxSpeed()*gridBoids.get(i).getMaxSpeed());
+             // System.out.println(ratio);
+              if(mainBoids.mainWin.czyDynamicRatio()){
+                  ratio=mainBoids.mainWin.getRatio();
+              }else{
+                  ratio=gridBoids.get(i).getVelocity().getSLength()/(gridBoids.get(i).getMaxSpeed()*gridBoids.get(i).getMaxSpeed());
+              }
+              //System.out.println(ratio);
+              d=d*((((alfa)/3.1415)+ratio)/(1+ratio));
               if (maxDist<d && neigh.size()>=maxNeigh){}
               else if (maxDist>d && neigh.size()>=maxNeigh){
                   neigh.remove(inxMax);distannces.remove(inxMax); 
@@ -179,9 +190,11 @@ public class symulacja {
   public void simulate(){
       continueSimulation=true;
        if (mainBoids.mainWin.ileWatkow()>1){
-      for(int j=0;j<mainBoids.mainWin.ileWatkow();j++){
+         for(int j=0;j<mainBoids.mainWin.ileWatkow();j++){
            runableTab.add(new threadPart(this,j+1,mainBoids.mainWin.ileWatkow()));
-      }
+           runableTab2.add(new threadMove(this,j+1,mainBoids.mainWin.ileWatkow()));
+           
+         }
        }
       Random randGen = new Random();
       siatkaKoszykow.writeToGrid(boids);
@@ -224,19 +237,13 @@ public class symulacja {
 
       threadTab.clear();
       if (mainBoids.mainWin.ileWatkow()>1){
-      for(int j=0;j<mainBoids.mainWin.ileWatkow();j++){
-          // runableTab.add(new threadPart(this,j+1,mainBoids.mainWin.ileWatkow()));
+        for(int j=0;j<mainBoids.mainWin.ileWatkow();j++){
            threadTab.add(new Thread(runableTab.get(j)));
+           threadTab.get(j).start();
+        }
+      }else {
+      this.simulatePart(0, boids.size());
       }
-      }
-
-       if (mainBoids.mainWin.ileWatkow()==1){
-           this.simulatePart(0, boids.size());
-       }else{
-            for(int j=0;j<threadTab.size();j++){
-                 threadTab.get(j).start();
-            }
-       }
 
        for(int i=0;i<mainBoids.predators.size();i++){
             tempBoids=getNeighbourhoodOptmTopological(mainBoids.predators.get(i),30);
@@ -254,24 +261,23 @@ public class symulacja {
             }
        }
        
+       mainBoids.stat.prevAverageSpeed.normalize();
+
+       threadTab.clear();
+      if (mainBoids.mainWin.ileWatkow()>1){
+        for(int j=0;j<mainBoids.mainWin.ileWatkow();j++){
+           threadTab.add(new Thread(runableTab2.get(j)));
+           threadTab.get(j).start();
+        }
+      }else {
+      this.simulateMove(0, boids.size());
+      }
+      
        if (mainBoids.mainWin.ileWatkow()>1){
             for(int j=0;j<threadTab.size();j++){
-               threadTab.get(j).resume();
-             
+              try { threadTab.get(j).join(); }
+              catch(InterruptedException ie) { }
             }
-       }
-       
-       mainBoids.stat.prevAverageSpeed.normalize();
-             float tmpColor;
-       for(int i=0;i<boids.size();i++){
-           tmpColor=(float)((mainBoids.stat.prevAverageSpeed.skalarny(boids.get(i).getVelocity().getVec().normalize()))-1)/(-2);
-            boids.get(i).setColorOdstVelH(tmpColor);
-            mainBoids.stat.odstAverageSpeed+=tmpColor;
-            boids.get(i).applyForce(timeStep);
-            if (boids.get(i).czyBum()) {mainBoids.stat.incNumOfColision();}
-            mainBoids.stat.averageSpeed.add(boids.get(i).getVelocity());     
-            boids.get(i).move(timeStep);
-            siatkaKoszykow.updateGrid(boids.get(i));
        }
       mainBoids.stat.updateStats();
       }
@@ -286,7 +292,7 @@ for(int i=from;i<to;i++){
           tempBoids=getNeighbourhoodOptmTopological(boids.get(i),mainBoids.mainWin.getNumNeight());
           
           sep= boids.get(i).separate(tempBoids).multi(cofSep);
-          if(sep.getSLength()<cofSep*cofSep){
+          if(sep.getSLength()<cofSep*cofSep || cofSep==0){
           ali= boids.get(i).alignment(tempBoids).multi(cofAli);
           coh= boids.get(i).cohesion(tempBoids).multi(cofCoh);
           }else{ali=new vector2d(0,0);coh=new vector2d(0,0);}
@@ -317,5 +323,25 @@ for(int i=from;i<to;i++){
        }
 }  
   
-  
+public void simulateMove(int from,int to){  
+             float tmpColor;
+       for(int i=from;i<to;i++){
+           tmpColor=(float)((mainBoids.stat.prevAverageSpeed.skalarny(boids.get(i).getVelocity().getVec().normalize()))-1)/(-2);
+            boids.get(i).setColorOdstVelH(tmpColor);
+            boids.get(i).applyForce(timeStep);
+            synchronized(mainBoids.stat){
+                mainBoids.stat.odstAverageSpeed+=tmpColor;
+            }
+                if (boids.get(i).czyBum()) {mainBoids.stat.incNumOfColision();}
+            synchronized(mainBoids.stat){    
+                mainBoids.stat.averageSpeed.add(boids.get(i).getVelocity());
+          } 
+            boids.get(i).move(timeStep);
+            ///synchronized(siatkaKoszykow){
+                siatkaKoszykow.updateGrid(boids.get(i));
+            //}
+       }
+}
+
+
 }

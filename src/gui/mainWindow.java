@@ -200,6 +200,9 @@ public boolean savingStats;
         jLabel47 = new javax.swing.JLabel();
         sldFreqEat = new javax.swing.JSlider();
         lblFreqEat = new javax.swing.JLabel();
+        sldRatio = new javax.swing.JSlider();
+        lblRatio = new javax.swing.JLabel();
+        ratRatio = new javax.swing.JRadioButton();
         wygladPanel = new javax.swing.JPanel();
         btnWpływLeader = new javax.swing.JToggleButton();
         btnVelWart = new javax.swing.JToggleButton();
@@ -1168,6 +1171,24 @@ public boolean savingStats;
         lblFreqEat.setText("0");
         lblPred.setText(Double.toString(sldPredCof.getValue()/(double)100));
 
+        sldRatio.setValue(35);
+        sldRatio.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sldRatioStateChanged(evt);
+            }
+        });
+
+        lblRatio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblRatio.setText("0");
+
+        ratRatio.setSelected(true);
+        ratRatio.setText("Ocena sąsiedztwa:");
+        ratRatio.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                ratRatioStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout setPanelAdvLayout = new javax.swing.GroupLayout(setPanelAdv);
         setPanelAdv.setLayout(setPanelAdvLayout);
         setPanelAdvLayout.setHorizontalGroup(
@@ -1175,6 +1196,7 @@ public boolean savingStats;
             .addGroup(setPanelAdvLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(setPanelAdvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sldRatio, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(sldLeadCof, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(setPanelAdvLayout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -1201,7 +1223,7 @@ public boolean savingStats;
                         .addComponent(lblFreqEat))
                     .addComponent(sldFreqEat, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, setPanelAdvLayout.createSequentialGroup()
-                        .addGap(0, 35, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(setPanelAdvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, setPanelAdvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, setPanelAdvLayout.createSequentialGroup()
@@ -1214,7 +1236,11 @@ public boolean savingStats;
                                     .addComponent(jLabel24)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblAvoidRec))
-                                .addComponent(sldAvoidRec, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(sldAvoidRec, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, setPanelAdvLayout.createSequentialGroup()
+                        .addComponent(ratRatio)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblRatio, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         setPanelAdvLayout.setVerticalGroup(
@@ -1262,7 +1288,13 @@ public boolean savingStats;
                     .addComponent(lblForagingDistance))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sldForDist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(283, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(setPanelAdvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRatio)
+                    .addComponent(ratRatio))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sldRatio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(233, Short.MAX_VALUE))
         );
 
         Symulacja.addTab("Zaawansowane", setPanelAdv);
@@ -1706,6 +1738,14 @@ public boolean savingStats;
     {
         return this.sldMinDistSep.getValue()/10d;
     }
+    public double getRatio()
+    {
+        return this.sldRatio.getValue()/(double)100;
+    }
+    public boolean czyDynamicRatio()
+    {
+        return ratRatio.isSelected();
+    }
    /** public String getFSource()
     {
         return FSource;
@@ -1805,6 +1845,7 @@ public boolean savingStats;
          lblSkala.setText("1 metr-"+Double.toString(sldSkala.getValue()/2d)+"px");
          lblMinDistSep.setText(Double.toString(sldMinDistSep.getValue()/10d));
          lblFreqEat.setText(Integer.toString(sldFreqEat.getValue())+"%");
+         lblRatio.setText(Double.toString(sldRatio.getValue()/(double)100));
         
     }
     private void btnGenStadoActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnGenStadoActionPerformed
@@ -2122,6 +2163,18 @@ public boolean savingStats;
         chStrLabel.setText(Double.toString(chStrategyCof.getValue()));
     }//GEN-LAST:event_chStrategyCofStateChanged
 
+    private void sldRatioStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldRatioStateChanged
+        lblRatio.setText(Double.toString(sldRatio.getValue()/(double)100));
+    }//GEN-LAST:event_sldRatioStateChanged
+
+    private void ratRatioStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ratRatioStateChanged
+        if (this.ratRatio.isSelected()){
+            sldRatio.setEnabled(true);
+        }else{
+            sldRatio.setEnabled(false);
+        }
+    }//GEN-LAST:event_ratRatioStateChanged
+
     private void panelMouseClickedOBS(java.awt.event.MouseEvent evt) {
       Obstacle przeszkoda=new Obstacle(evt.getX(),evt.getY(),getObstacleSize());
       ptr.obs.add(przeszkoda);
@@ -2317,11 +2370,13 @@ public boolean savingStats;
     private javax.swing.JLabel lblPred;
     private javax.swing.JLabel lblProbki;
     private javax.swing.JLabel lblRand;
+    private javax.swing.JLabel lblRatio;
     private javax.swing.JLabel lblSep;
     private javax.swing.JLabel lblSkala;
     private javax.swing.JLabel lblTimeFood;
     private javax.swing.JLabel lblTimeReaction;
     private javax.swing.JRadioButton radConstTime;
+    private javax.swing.JRadioButton ratRatio;
     private javax.swing.JLabel recSizeLbl;
     private javax.swing.JLabel recSizeLbl1;
     private javax.swing.JSlider rectSize;
@@ -2347,6 +2402,7 @@ public boolean savingStats;
     private javax.swing.JSlider sldPerHunger;
     private javax.swing.JSlider sldPredCof;
     private javax.swing.JSlider sldRandCof;
+    private javax.swing.JSlider sldRatio;
     private javax.swing.JSlider sldReactionTime;
     private javax.swing.JSlider sldSepCof;
     private javax.swing.JSlider sldSkala;
